@@ -1,0 +1,7 @@
+--- get the framework inside...
+--- mostly it gots to include
+    1. the basic folders
+    2. Network request stuff
+    3. Image downloader stuff
+    4. the api for saving in the database.
+    5. Log and toasting stuff.
