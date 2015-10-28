@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
-
-
         updateTotal(0, PIC_LINKS.length);
     }
 

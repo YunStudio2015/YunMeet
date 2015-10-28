@@ -2,7 +2,6 @@ package yunstudio2015.android.yunmeet.utilz;
 
 import android.content.Context;
 
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -12,6 +11,8 @@ import org.json.JSONObject;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.app.MyApplication;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
+
+import static com.android.volley.Request.Method;
 
 /**
  * Created by Ultima on 2015/10/28.
@@ -23,7 +24,7 @@ public class VolleyRequest {
 
     public static void GetStringRequest (Context context, String url, String params, final VolleyOnResultListener callback) {
         if(NetWorkUtil.isNetworkConnected(context)){
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest( Request.Method.GET, url, null,
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Method.GET, url,
                     new Response.Listener<JSONObject>() {
 
                         @Override
