@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       //
+       // here we all are.
         ButterKnife.bind(this);
         getSupportActionBar().hide();
         final ViewPagerAdapter adap = new ViewPagerAdapter(getSupportFragmentManager());
