@@ -12,7 +12,6 @@ import yunstudio2015.android.yunmeet.R;
  */
 public class ImageLoadOptions {
 
-
     public static DisplayImageOptions getDisplayImageOptions (Context mContext) {
 
 

@@ -3,4 +3,8 @@
     <color name="blue">#294fd1</color>
     <color name="red">#ae0c0c</color>
     <color name="green">#3fb136</color>
+    <color name="little_red">#b1062d</color>
+    <color name="transparent">#00000000</color>
+    <color name="actionbar_color">#1f191e</color>
+    <color name="maintab_textcolor">#ffffff</color>
 </resources>

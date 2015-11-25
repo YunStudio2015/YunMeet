@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="yunstudio2015.android.yunmeet.activityz.ShowActivity">
+
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewpager_container"
+        android:layout_below="@+id/toolbar_show"/>
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:background="@color/actionbar_color"
+        android:id="@+id/toolbar_show">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:layout_weight="2">
+                <yunstudio2015.android.yunmeet.customviewz.SlidingTabLayout
+                    android:id="@+id/stl_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:layout_weight="3"
+                />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+
+
+    <!-- adding the horizontal scrollview that will
+        hold the categoriz -->
+    <RelativeLayout
+        android:layout_below="@id/toolbar_show"
+        android:layout_width="match_parent"
+        android:background="@color/green"
+        android:layout_height="@dimen/categoriz_horizontal_scrollview">
+        <!-- 1'the right holds  a + button
+             2' the left holds the horizontal scrollview. -->
+        <HorizontalScrollView
+            android:id="@+id/hsc_categories"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+
+
+    <!--
+
+        <include layout="@layout/showactivity_topbar"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:id="@+id/topbar_add"
+            />
+    -->
+
+
+</RelativeLayout>

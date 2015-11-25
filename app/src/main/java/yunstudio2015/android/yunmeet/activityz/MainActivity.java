@@ -25,7 +25,7 @@ import yunstudio2015.android.yunmeet.utilz.ImageLoadOptions;
 public class MainActivity extends AppCompatActivity {
 
 
-    private static final String[] PIC_LINKS = {
+    public static final String[] PIC_LINKS = {
             "http://www.sfs-cn.com/images/thumbnailimg/month_1412/201412251027386278.jpg",
             "http://attach.bbs.miui.com/forum/201308/28/195800loquaugdcud5dhwa.png",
             "http://img5q.duitang.com/uploads/item/201501/04/20150104112918_NwRrz.png",
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         return (int) (System.currentTimeMillis() % PIC_LINKS.length);
     }
 
-    private class ViewPagerAdapter extends FragmentStatePagerAdapter {
+    public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         public ViewPagerAdapter(FragmentManager fm) {
             super(fm);
