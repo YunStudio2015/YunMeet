@@ -19,7 +19,6 @@
         <activity
             android:name=".activityz.RestingActivity"
             android:label="@string/title_activity_resting" >
-
         </activity>
         <activity
             android:name=".activityz.ShowActivity"
@@ -29,6 +28,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activityz.TestingShowActivity"
+            android:label="@string/title_activity_testing_show" >
         </activity>
     </application>
 

@@ -1,7 +1,7 @@
 package yunstudio2015.android.yunmeet.utilz;
 
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
@@ -16,12 +16,10 @@ public class ImageLoadOptions {
     public static DisplayImageOptions getDisplayImageOptions (Context mContext) {
 
 
-        AnimationDrawable frameAnimation = (AnimationDrawable) mContext.getResources().getDrawable(R.drawable.onloading_drawable);
-        // Start the animation (looped playback by default).
-        frameAnimation.start();
+        Drawable drawable = mContext.getResources().getDrawable(R.drawable.onloading);
+
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-//                .showImageOnLoading(R.drawable.onloading_drawable)
-                .showImageOnLoading(frameAnimation)
+                .showImageOnLoading(drawable)
                 .showImageForEmptyUri(R.drawable.no_image)
                 .showImageOnFail(R.drawable.no_image)
                 .cacheInMemory(true)
@@ -35,13 +33,11 @@ public class ImageLoadOptions {
     public static DisplayImageOptions getDisplaySlightlyRoundedImageOptions(Context context) {
 
 
-      /*  AnimationDrawable frameAnimation = (AnimationDrawable) context.getResources().getDrawable(R.drawable.onloading_drawable);
-        // Start the animation (looped playback by default).
-        frameAnimation.start();*/
+        Drawable drawable = context
+                .getResources().getDrawable(R.drawable.onloading);
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-//                .showImageOnLoading(R.drawable.onloading_drawable)
                 .displayer(new RoundedBitmapDisplayer(context.getResources().getDimensionPixelSize(R.dimen.image_dimen_menu)))
-//                .showImageOnLoading(frameAnimation)
+                .showImageOnLoading(drawable)
                 .showImageForEmptyUri(R.drawable.no_image)
                 .showImageOnFail(R.drawable.no_image)
                 .cacheInMemory(true)

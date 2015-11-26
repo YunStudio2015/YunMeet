@@ -30,5 +30,6 @@
     <string name="female_symbol">♀</string>
 
     <string name="test_female_symbol">♀    19</string>
+    <string name="title_activity_testing_show">TestingShowActivity</string>
 
 </resources>
