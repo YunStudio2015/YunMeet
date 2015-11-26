@@ -31,6 +31,7 @@ public class VpAdap  extends FragmentStatePagerAdapter {
 
         @Override
         public Fragment getItem(int position) {
+
             return ImageViewFragment.getInstance(PIC_LINKS[position]);
         }
 

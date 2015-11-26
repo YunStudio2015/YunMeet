@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import yunstudio2015.android.yunmeet.R;
 
@@ -21,6 +22,26 @@ public class ImageLoadOptions {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
 //                .showImageOnLoading(R.drawable.onloading_drawable)
                 .showImageOnLoading(frameAnimation)
+                .showImageForEmptyUri(R.drawable.no_image)
+                .showImageOnFail(R.drawable.no_image)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+//                .displayer(new RoundedBitmapDisplayer(Color.WHITE, 5))
+                .build();
+        return options;
+    }
+
+    public static DisplayImageOptions getDisplaySlightlyRoundedImageOptions(Context context) {
+
+
+      /*  AnimationDrawable frameAnimation = (AnimationDrawable) context.getResources().getDrawable(R.drawable.onloading_drawable);
+        // Start the animation (looped playback by default).
+        frameAnimation.start();*/
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+//                .showImageOnLoading(R.drawable.onloading_drawable)
+                .displayer(new RoundedBitmapDisplayer(context.getResources().getDimensionPixelSize(R.dimen.image_dimen_menu)))
+//                .showImageOnLoading(frameAnimation)
                 .showImageForEmptyUri(R.drawable.no_image)
                 .showImageOnFail(R.drawable.no_image)
                 .cacheInMemory(true)
