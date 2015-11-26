@@ -6,4 +6,20 @@
     <string name="noconnection">no connection</string>
     <string name="title_activity_resting">RestingActivity</string>
     <string name="title_activity_show">ShowActivity</string>
+
+    <string name="publish_activity_title">活 动 主 题</string>
+    <string name="publish_activity_type">活 动 类 型</string>
+    <string name="publish_activity_person_number">人 数 / 范 围</string>
+    <string name="publish_activity_whopays">费 用</string>
+    <string name="publish_activity_time">时 间</string>
+    <string name="publish_activity_time_description">2015-10-31 19:00 PM</string>
+    <string name="publish_activity_location">地 点</string>
+    <string name="publish_activity_location_discription">请选择或描述活动地点</string>
+    <string name="publish_activity_pic">活 动 图 片</string>
+    <string name="publish_activity_hint">请详细描述活动的主题、活动内容，填写越详细越会吸引报名者</string>
+    <string name="publish_activity_whopays_rbtn1">我请客</string>
+    <string name="publish_activity_whopays_rbtn2">求请客</string>
+    <string name="publish_activity_whopays_rbtn3">AA制</string>
+    <string name="publish_activity">发布活动</string>
+    <string name="title_activity_show_layout_test">ShowLayoutTestActivity</string>
 </resources>
