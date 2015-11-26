@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
             "http://img5.duitang.com/uploads/item/201412/24/20141224101049_vXcr4.png",
             "http://h.hiphotos.baidu.com/zhidao/pic/item/d0c8a786c9177f3e883c02dc72cf3bc79e3d56d3.jpg",
             "http://cdn.duitang.com/uploads/item/201409/17/20140917231320_UBWuJ.thumb.700_0.jpeg",
+
             "http://img5q.duitang.com/uploads/item/201501/04/20150104112918_NwRrz.png"
     };
 
