@@ -114,16 +114,18 @@
                     android:layout_marginLeft="5dp"/>
 
                 <TextView
-                    android:layout_width="90dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:layout_gravity="center_vertical"
                     android:text="@string/publish_activity_title"
                     android:textSize="16sp"/>
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:id="@+id/et_title"
                     android:layout_gravity="center_vertical"/>
 
             </LinearLayout>
@@ -158,6 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:id="@+id/sp_type"
                     android:spinnerMode="dropdown"/>
 
             </LinearLayout>
@@ -192,6 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:id="@+id/sp_person_number"
                     android:spinnerMode="dropdown"/>
 
             </LinearLayout>
@@ -226,6 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:id="@+id/rg_whopays"
                     android:orientation="horizontal"
                     android:layout_gravity="center_vertical">
 
@@ -233,6 +238,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:id="@+id/rb_I"
                         android:text="@string/publish_activity_whopays_rbtn1"
                         android:textColor="#484848" />
 
@@ -240,6 +246,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:id="@+id/rb_U"
                         android:text="@string/publish_activity_whopays_rbtn2"
                         android:textColor="#484848" />
 
@@ -247,6 +254,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:id="@+id/rb_AA"
                         android:text="@string/publish_activity_whopays_rbtn3"
                         android:textColor="#484848" />
 
@@ -286,6 +294,7 @@
                     android:layout_gravity="center_vertical"
                     android:textSize="16sp"
                     android:layout_weight="3"
+                    android:id="@+id/tv_time"
                     android:text="@string/publish_activity_time_description"/>
 
                 <TextView
@@ -330,6 +339,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="3"
+                    android:id="@+id/tv_location"
                     android:textSize="16sp"
                     android:text="@string/publish_activity_location_discription"/>
 
@@ -372,6 +382,7 @@
                 <ImageButton
                     android:layout_width="80dp"
                     android:layout_height="80dp"
+                    android:id="@+id/ibtn_addpics"
                     android:src="@mipmap/ic_activity_add_pics"
                     android:layout_marginRight="5dp"
                     android:scaleType="center"/>
@@ -383,14 +394,16 @@
                 android:layout_height="wrap_content"
                 android:background="#f8f8f8"
                 android:paddingTop="20dp"
-                android:paddingBottom="20dp"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:paddingRight="10dp"
+                android:layout_marginBottom="40dp">
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="40dp"
                     android:background="@null"
+                    android:id="@+id/et_discription"
                     android:hint="@string/publish_activity_hint"
                     android:textSize="16sp"/>
 
@@ -402,7 +415,8 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/btn_publish_activity"
         android:background="#f35853"
         android:textSize="20sp"
         android:textColor="#ffffff"
