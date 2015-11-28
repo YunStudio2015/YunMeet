@@ -25,6 +25,8 @@ import yunstudio2015.android.yunmeet.customviewz.SlidingTabLayout;
 public class ShowActivity extends AppCompatActivity {
 
 
+
+    /* first type   */
     @Nullable @Bind(R.id.toolbar_show)
     Toolbar toolbar;
 
@@ -38,6 +40,10 @@ public class ShowActivity extends AppCompatActivity {
 
     @Bind(R.id.hsc_lny)
     LinearLayout hsc_lny;
+
+
+    // second type with the recyclerview
+
 
 
     // varz

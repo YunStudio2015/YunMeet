@@ -5,29 +5,34 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.utilz.ImageLoadOptions;
+import yunstudio2015.android.yunmeet.adapterz.MyActivitizAdapter;
+import yunstudio2015.android.yunmeet.entityz.ActivityEntity;
 
 
 public class FreeListFragment extends Fragment {
 
+
     @Bind(R.id.swipecontainer)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    @Bind(R.id.lny_container)
-    LinearLayout lny_container;
+  /*  @Bind(R.id.lny_container)
+    LinearLayout lny_container;*/
+
+    @Bind(R.id.my_recycler_view)
+    RecyclerView mRecyclerView;
 
 
     private OnFragmentInteractionListener mListener;
@@ -68,7 +73,7 @@ public class FreeListFragment extends Fragment {
 
         // add one element.
         for (int i = 0; i < 3; i++)
-        addFakeElement(inflater, lny_container);
+            addFakeElement(mRecyclerView);
         return rootview;
     }
 
@@ -83,20 +88,18 @@ public class FreeListFragment extends Fragment {
 
 
 
-    private void addFakeElement(LayoutInflater inflater, LinearLayout lny_container) {
+    private void addFakeElement(RecyclerView mRecyclerView) {
 
-        View view = inflater.inflate(R.layout.activity_item_xml, lny_container, false);
-        RelativeLayout relative = ButterKnife.findById(view, R.id.relative);
-        lny_container.addView(view);
-        ImageView iv = (ImageView) view.findViewById(R.id.iv_activity_bg);
-//        Bitmap bm = ((BitmapDrawable) iv.getDrawable()).getBitmap();
-//        iv.setImageDrawable(new RoundedDrawable(bm, bm.getScaledWidth(metrics)));
-        // set up the width of the iv
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) iv.getLayoutParams();
-//        layoutParams.height = layoutParams.width;
-        iv.setLayoutParams(layoutParams);
-        String link = "http://img3.imgtn.bdimg.com/it/u=1476034350,3402018343&fm=21&gp=0.jpg";//"http://p5.img.cctvpic.com/nettv/newgame/2011/1118/20111118105936548.jpg";
-        ImageLoader.getInstance().displayImage(link, iv, ImageLoadOptions.getDisplaySlightlyRoundedImageOptions(getContext()));
+        mRecyclerView.setHasFixedSize(true);
+        // use a linear layout manager
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        // specify an adapter (see also next example)
+        List<ActivityEntity> myDataset = new ArrayList<>();
+        for (int i = 0; i < 7; i++)
+            myDataset.add(new ActivityEntity());
+        MyActivitizAdapter mAdapter = new MyActivitizAdapter(myDataset);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
