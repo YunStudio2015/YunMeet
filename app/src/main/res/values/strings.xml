@@ -22,4 +22,10 @@
     <string name="publish_activity_whopays_rbtn3">AA制</string>
     <string name="publish_activity">发布活动</string>
     <string name="title_activity_publish_new_activtity">YunMeet</string>
+    <string name="publish_activity_type_listitem0">2人约会</string>
+    <string name="publish_activity_type_listitem1">多人聚会</string>
+    <string name="publish_activity_person_number_listitem0">2人</string>
+    <string name="publish_activity_person_number_listitem1">3人</string>
+    <string name="publish_activity_person_number_listitem2">4人</string>
+    <string name="publish_activity_person_number_listitem3">5人以上</string>
 </resources>
