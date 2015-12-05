@@ -1,21 +1,33 @@
 package yunstudio2015.android.yunmeet.activityz;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import yunstudio2015.android.yunmeet.R;
@@ -23,16 +35,17 @@ import yunstudio2015.android.yunmeet.R;
 
 //用于测试布局效果
 
-public class PublishNewActivity extends AppCompatActivity implements View.OnClickListener{
+public class PublishNewActivity extends AppCompatActivity{
 
 
     private EditText etTitle,etDiscription;
     private Spinner spType,spPersonNumber;
     private RadioGroup rgWhopays;
     private RadioButton rbI,rbU,rbAA;
-    private TextView rbTime,rbLocation;
+    private TextView tvTime,tvLocation;
     private ImageButton ibtnAddpics;
     private Button btnPublishActivity;
+    private String time;//活动发生的时间 12-01-15 20:58:32 月-日-年 时：分：秒
 
     private List<String> listType = new ArrayList<String>();
     private List<String> listPersonNumber = new ArrayList<String>();
@@ -100,6 +113,125 @@ public class PublishNewActivity extends AppCompatActivity implements View.OnClic
         rgWhopays.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_AA:
+                        Toast.makeText(PublishNewActivity.this, "AA", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.rb_I:
+                        Toast.makeText(PublishNewActivity.this, "I", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.rb_U:
+                        Toast.makeText(PublishNewActivity.this, "U", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        tvTime.setOnClickListener(new View.OnClickListener() {
+
+            Calendar calendar = Calendar.getInstance();
+            int mYear, mMonth, mDate, mMinute, mSecond;
+            int mHour = 0;
+
+            @Override
+            public void onClick(View v) {
+
+                //初始化
+                mYear = calendar.get(Calendar.YEAR);
+                mMonth = calendar.get(Calendar.MONTH);
+                mDate = calendar.get(Calendar.DAY_OF_MONTH);
+                mMinute = calendar.get(Calendar.MINUTE);
+                mSecond = calendar.get(Calendar.SECOND);
+
+                if (time12or24() == 12){
+                    mHour = calendar.get(Calendar.HOUR)+12;
+                }else {
+                    mHour = calendar.get(Calendar.HOUR_OF_DAY);
+                }
+
+                setTime();
+
+            }
+
+            void setDate(){
+
+                final DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        PublishNewActivity.this,
+                        new android.app.DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                            }
+                        },
+                        mYear,
+                        mMonth,
+                        mDate
+                );
+                datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                datePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "CANCLE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        datePickerDialog.dismiss();
+                    }
+                });
+
+                datePickerDialog.show();
+            }
+
+            void setTime(){
+                final TimePickerDialog timePickerDialog = new TimePickerDialog(
+                        PublishNewActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                            }
+                        },
+                        mHour,
+                        mMinute,
+                        true
+                );
+                timePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        setDate();
+                    }
+                });
+                timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "CANCLE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        timePickerDialog.dismiss();
+                    }
+                });
+                timePickerDialog.show();
+
+            }
+        });
+
+        tvLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PublishNewActivity.this,"You clicked the location",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ibtnAddpics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PublishNewActivity.this,"You clicked the button addpics",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnPublishActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });
@@ -114,37 +246,20 @@ public class PublishNewActivity extends AppCompatActivity implements View.OnClic
         rgWhopays = (RadioGroup) findViewById(R.id.rg_whopays);
         rbI = (RadioButton) findViewById(R.id.rb_I);
         rbU = (RadioButton) findViewById(R.id.rb_U);
-        rbTime = (TextView) findViewById(R.id.tv_time);
-        rbLocation = (TextView) findViewById(R.id.tv_location);
+        tvTime = (TextView) findViewById(R.id.tv_time);
+        tvLocation = (TextView) findViewById(R.id.tv_location);
         ibtnAddpics = (ImageButton) findViewById(R.id.ibtn_addpics);
         btnPublishActivity = (Button) findViewById(R.id.btn_publish_activity);
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.et_title){
-
+    int time12or24(){
+        //获取当前系统为12小时制还是24小时制
+        ContentResolver cr = getContentResolver();
+        String strTimeFormat = android.provider.Settings.System.getString(cr, Settings.System.TIME_12_24);
+        if (strTimeFormat != null && strTimeFormat.equals("24")) {
+            return 24;
         }
-        if (v.getId() == R.id.et_discription){
-
-        }
-        if (v.getId() == R.id.sp_type){
-
-        }
-        if (v.getId() == R.id.sp_person_number){
-
-        }
-        if (v.getId() == R.id.tv_time){
-
-        }
-        if (v.getId() == R.id.tv_location){
-
-        }
-        if (v.getId() == R.id.ibtn_addpics){
-
-        }
-        if (v.getId() == R.id.btn_publish_activity){
-
-        }
+        return 12;
     }
+
 }
