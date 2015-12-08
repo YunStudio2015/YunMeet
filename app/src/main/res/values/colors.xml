@@ -8,5 +8,8 @@
     <color name="actionbar_color">#343434</color>
     <color name="maintab_textcolor">#ffffff</color>
     <color name="inner_gray">#ededed</color>
+    <color name="inner_grayerzz">#a9a9a9</color>
     <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="yellow">#fffb5e</color>
 </resources>

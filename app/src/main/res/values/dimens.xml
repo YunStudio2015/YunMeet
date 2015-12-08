@@ -10,5 +10,6 @@
     <dimen name="fragment_content_margintop_belowline">8dp</dimen>
     <dimen name="hsc_left_margin">20dp</dimen>
     <dimen name="hsc_right_margin">33px</dimen>
+    <dimen name="activity_details_tv_fontsize">12sp</dimen>
 
 </resources>

@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:yun="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="30dp"
+    android:layout_marginTop="@dimen/fragment_content_margintop_belowline"
     android:background="@color/white">
 
 
@@ -160,6 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:textSize="12sp"
                 android:text="2人月"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
@@ -181,7 +183,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:text="2人月"
+                android:textSize="12sp"
+                android:text="19点半"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -202,7 +205,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:text="2人月"
+                android:textSize="12sp"
+                android:text="理工大学丁香园"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -223,21 +227,58 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:text="2人月"
+                android:textSize="12sp"
+                android:text="想吃啥就吃啥"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/linez"
-            android:layout_below="@id/rel_category"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/linez"
+        android:layout_below="@id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:background="@color/inner_grayerzz" />
+
+
+    <RelativeLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/linez"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="12sp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/tv_viewed_count"
+            android:text="阅读 555"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="12sp"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:background="@color/actionbar_color" />
+            android:id="@+id/tv_takepart_count"
+            android:text="参加人数 41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="@dimen/activity_details_tv_fontsize"
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_comment_count"
+            android:text="评论 75"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 

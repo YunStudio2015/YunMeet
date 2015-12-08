@@ -30,5 +30,8 @@
     <string name="female_symbol">♀</string>
 
     <string name="test_female_symbol">♀    19</string>
+    <string name="title_activity_testing_show">TestingShowActivity</string>
+    <string name="caonima">草泥马</string>
+    <string name="refresh">刷新</string>
 
 </resources>
