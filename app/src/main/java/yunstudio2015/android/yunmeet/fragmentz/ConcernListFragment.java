@@ -69,7 +69,6 @@ public class ConcernListFragment extends Fragment {
         rootview = inflater.inflate(R.layout.frg_controller_c, container, false);
         context = rootview.getContext();
         ButterKnife.bind(this, rootview);
-
         // get transaction manager and make the change.
         fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
