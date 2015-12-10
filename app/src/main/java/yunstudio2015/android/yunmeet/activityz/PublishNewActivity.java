@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -159,7 +158,7 @@ public class PublishNewActivity extends AppCompatActivity{
                             //onDateSet中的参数就是选择后的日期
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                Log.d("date", String.valueOf(year));
+
                             }
                         },
                         mYear,
