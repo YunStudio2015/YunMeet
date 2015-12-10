@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/green"
+    >
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/toolbar_show"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#25eae7"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="#dfaaaa"
+                android:layout_weight="1">
+
+                <yunstudio2015.android.yunmeet.customviewz.SlidingTabLayout
+                    android:id="@+id/stl_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="#dfa00a"
+                android:layout_weight="2"
+                />
+
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar></RelativeLayout>

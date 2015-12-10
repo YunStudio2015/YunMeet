@@ -1,0 +1,29 @@
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/swipecontainer"
+    tools:context="yunstudio2015.android.yunmeet.fragmentz.ConcernListFragment">
+    <!-- <ScrollView
+         android:scrollbars="none"
+         android:overScrollMode="always"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
+         <LinearLayout
+             android:layout_marginTop="@dimen/fragment_content_margintop_belowline"
+             android:id="@+id/lny_container"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+         </LinearLayout>
+     </ScrollView>-->
+    <!-- A RecyclerView with some commonly used attributes -->
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+</android.support.v4.widget.SwipeRefreshLayout>

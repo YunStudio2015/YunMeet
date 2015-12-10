@@ -5,3 +5,16 @@
     3. Image downloader stuff
     4. the api for saving in the database.
     5. Log and toasting stuff.
+
+
+-- 关注，广场两个分类
+    - 关注就是本用户关注过的用户，或者其他账号。
+    - 广场是所有在平台上发布的活动。
+
+
+- 一个customViewpager，然后在添加一个查找的功能。
+
+
+
+
+

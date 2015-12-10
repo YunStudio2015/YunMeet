@@ -1,0 +1,124 @@
+-----------------------------
+|							|
+|	   数据库字段说明		|
+|							|
+-----------------------------
+
+表			字段		值			表示
+
+activity 	status		0 default	可申请
+						1			已结束
+--------------------------------------------
+user 		isvip		0			普通用户
+						1			认证用户
+--------------------------------------------
+
+-----------------
+|				|
+|	   接口		|
+|				|
+-----------------
+
+用途		：	获取活动分类信息
+url			：	http://121.42.160.23/Yunmeet/index.php/Api/Atys/cates
+http请求	：	post/get
+参数		： 	无
+返回数据格式：	
+	{
+	    "error": 0,
+	    "message": "获取活动分类成功",
+	    "data": [
+	        {
+	            "id": "1",
+	            "name": "学习"
+	        }
+	    ]
+	}	
+
+----------------------------------------------------------------------------
+
+用途		：	获取活动列表
+url			：	http://121.42.160.23/Yunmeet/index.php/Api/Atys/atys
+http请求	：	get
+参数		： 	name	|	value		|	meaning
+				--------------------------------------------
+				type	|	1 default	|	普通活动
+						|	2 or 其他 	|	推荐活动
+				page	|	1 default	|	第一页
+						|	2,3,4...	|	其他页
+				num		|	10 default	|	每页10条记录
+						|	other		|	其他数目	
+				status	|	0 default	|	可申请的活动
+						|	1			|	已完成的活动
+				cate 	|	活动分类id 	|	默认为所有的活动，如果传递了分类id，则该类活动
+返回数据格式： 
+	{
+	    "error": 0,
+	    "message": "获取活动信息成功",
+	    "data": [
+	        {
+	            "id": "10",
+	            "pepnum": "1",
+	            "theme": "activity10",
+	            "detail": "detail10",
+	            "time": "11-08-15 16:26:45",
+	            "pubtime": "01-01-70 08:00:00",
+	            "cost": "0",
+	            "status": "0",
+	            "image_id": [
+	                "http://121.42.160.23/Yunmeet/Public/upload/2.jpg",
+	                "http://121.42.160.23/Yunmeet/Public/upload/4.jpg"
+	            ],
+	            "user_id": "10",
+	            "category": "健康",
+	            "username": "nick9",
+	            "face": "http://121.42.160.23/Yunmeet/Public/upload/4.jpg",
+	            "sex": "1",
+	            "birth": "01-01-70 08:00:00",
+	            "isvip": "0"
+	        },
+	        {
+	        	// ...
+	        }
+	    ]
+	}
+
+--------------------------------------------
+
+用途		：	获取某一活动信息
+url			：	http://121.42.160.23/Yunmeet/index.php/Api/Atys/atys
+http请求	：	get
+参数		： 	name	|	必须	|	value		|	meaning
+				--------------------------------------------
+				type	|			|	1 default	|	普通活动
+						|			|	2 or 其他 	|	推荐活动
+				id		|	是		|	活动分类id	|	活动id
+返回数据格式： 
+	{
+	    "error": 0,
+	    "message": "获取活动信息成功",
+	    "data": [
+	        {
+	            "id": "1",
+	            "pepnum": "2",
+	            "theme": "activity1",
+	            "detail": "detail1",
+	            "time": "11-08-15 16:26:45",
+	            "pubtime": "01-01-70 08:00:00",
+	            "cost": "0",
+	            "status": "0",
+	            "image_id": [
+	                "http://121.42.160.23/Yunmeet/Public/upload/1.jpg",
+	                "http://121.42.160.23/Yunmeet/Public/upload/3.jpg",
+	                "http://121.42.160.23/Yunmeet/Public/upload/4.jpg"
+	            ],
+	            "user_id": "1",
+	            "category": "生活",
+	            "username": "nick0",
+	            "face": "http://121.42.160.23/Yunmeet/Public/upload/1.jpg",
+	            "sex": "0",
+	            "birth": "01-01-70 08:00:00",
+	            "isvip": "0"
+	        }
+	    ]
+	}
