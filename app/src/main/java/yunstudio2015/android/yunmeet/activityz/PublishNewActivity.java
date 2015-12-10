@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -40,6 +41,7 @@ public class PublishNewActivity extends AppCompatActivity{
     private ImageButton ibtnAddpics;
     private Button btnPublishActivity;
     private String time;//活动发生的时间 12-01-15 20:58:32 月-日-年 时：分：秒
+
 
     private List<String> listType = new ArrayList<String>();
     private List<String> listPersonNumber = new ArrayList<String>();
@@ -154,9 +156,10 @@ public class PublishNewActivity extends AppCompatActivity{
                 final DatePickerDialog datePickerDialog = new DatePickerDialog(
                         PublishNewActivity.this,
                         new android.app.DatePickerDialog.OnDateSetListener() {
+                            //onDateSet中的参数就是选择后的日期
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
+                                Log.d("date", String.valueOf(year));
                             }
                         },
                         mYear,
@@ -172,7 +175,7 @@ public class PublishNewActivity extends AppCompatActivity{
                 datePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "CANCLE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        datePickerDialog.dismiss();
+                        dialog.dismiss();
                     }
                 });
 
@@ -183,6 +186,7 @@ public class PublishNewActivity extends AppCompatActivity{
                 final TimePickerDialog timePickerDialog = new TimePickerDialog(
                         PublishNewActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
+                            //onTimeSet中的参数就是选择之后的时间
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
@@ -192,6 +196,7 @@ public class PublishNewActivity extends AppCompatActivity{
                         mMinute,
                         true
                 );
+                timePickerDialog.setCancelable(false);
                 timePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -201,7 +206,7 @@ public class PublishNewActivity extends AppCompatActivity{
                 timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "CANCLE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        timePickerDialog.dismiss();
+                        dialog.dismiss();
                     }
                 });
                 timePickerDialog.show();
