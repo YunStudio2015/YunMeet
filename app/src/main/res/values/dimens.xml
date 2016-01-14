@@ -7,4 +7,8 @@
     <dimen name="categoriz_horizontal_scrollview">30dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="YUNMEET_height">160dp</dimen><!--登录或注册界面顶部YUNMEET标题栏的高度-->
+    <dimen name="signin_tv_height">40dp</dimen><!--登录或者注册界面的textview edittext button的高度-->
+    <dimen name="YUNMEET_textsize">24sp</dimen><!--登录或注册界面顶部YUNMEET标题栏的字体大小-->
+    <dimen name="signin_tv_textsize">20sp</dimen><!--登录或注册界面的textview的字体大小-->
 </resources>

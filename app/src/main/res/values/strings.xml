@@ -7,25 +7,23 @@
     <string name="title_activity_resting">RestingActivity</string>
     <string name="title_activity_show">ShowActivity</string>
 
-    <string name="publish_activity_title">活 动 主 题</string>
-    <string name="publish_activity_type">活 动 类 型</string>
-    <string name="publish_activity_person_number">人 数 / 范 围</string>
-    <string name="publish_activity_whopays">费 用</string>
-    <string name="publish_activity_time">时 间</string>
-    <string name="publish_activity_time_description">2015-10-31 19:00 PM</string>
-    <string name="publish_activity_location">地 点</string>
-    <string name="publish_activity_location_discription">请选择或描述活动地点</string>
-    <string name="publish_activity_pic">活 动 图 片</string>
-    <string name="publish_activity_hint">请详细描述活动的主题、活动内容，填写越详细越会吸引报名者</string>
-    <string name="publish_activity_whopays_rbtn1">我请客</string>
-    <string name="publish_activity_whopays_rbtn2">求请客</string>
-    <string name="publish_activity_whopays_rbtn3">AA制</string>
-    <string name="publish_activity">发布活动</string>
-    <string name="title_activity_publish_new_activtity">YunMeet</string>
-    <string name="publish_activity_type_listitem0">2人约会</string>
-    <string name="publish_activity_type_listitem1">多人聚会</string>
-    <string name="publish_activity_person_number_listitem0">2人</string>
-    <string name="publish_activity_person_number_listitem1">3人</string>
-    <string name="publish_activity_person_number_listitem2">4人</string>
-    <string name="publish_activity_person_number_listitem3">5人以上</string>
+    <!--group of sign up and log in-->
+    <string name="YUNMEET">YUNMEET</string>
+    <string name="phone_number">手机号</string>
+    <string name="password">密码</string>
+    <string name="verification_code">请输入验证码</string>
+    <string name="send_verification_code">验证</string>
+    <string name="to_login"><u>已有Yunmeet账号？现在登录！</u></string>
+    <string name="to_signup"><u>没有Yunmeet账号？现在注册</u></string>
+    <string name="forgot_password"><u>忘记密码</u></string>
+    <string name="using_social_account">使用社交账号登录</string>
+    <string name="signup">注 册</string>
+    <string name="login">登 录</string>
+
+    <string name="wrong_phone_number">请正确输入11位电话号码</string>
+    <string name="wrong_password">密码由6到20位数字下划线或英语字母组成</string>
+    <string name="wrong_verification_code">请正确输入收到的短信中的验证码</string>
+    <string name="send_code_again">重新发送</string>
+    <!--end group of sign up and log in-->
+
 </resources>
