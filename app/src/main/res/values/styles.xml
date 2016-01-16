@@ -12,7 +12,7 @@
     </style>
 
 
-    <color name="white">#dddddd</color>
+    <color name="white1">#dddddd</color>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

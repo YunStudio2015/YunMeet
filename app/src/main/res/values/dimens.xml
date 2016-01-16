@@ -11,7 +11,6 @@
     <dimen name="hsc_left_margin">20dp</dimen>
     <dimen name="hsc_right_margin">33px</dimen>
     <dimen name="activity_details_tv_fontsize">12sp</dimen>
-    <dimen name="categoriz_horizontal_scrollview">30dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="YUNMEET_height">160dp</dimen><!--登录或注册界面顶部YUNMEET标题栏的高度-->
