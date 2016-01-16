@@ -1,8 +1,8 @@
 package yunstudio2015.android.yunmeet.activityz;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,12 +10,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.entityz.ActivityEntity;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 
@@ -79,19 +84,29 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
 
                     //这里写用户登录的请求
+                    Map<String, String> map = new HashMap<>();
+                    map.put("type", "phone");
+                    map.put("phone", phoneNumber);
+                    map.put("password", password);
 
-
-                    /*VolleyRequest.PostStringRequest(LoginActivity.this, url, , new VolleyOnResultListener() {
+                    VolleyRequest.PostStringRequest(LoginActivity.this, url, map, new VolleyOnResultListener() {
                         @Override
-                        public void onSuccess(JSONObject response) {
-                            Toast.makeText(LoginActivity.this,response.toString(),Toast.LENGTH_SHORT).show();
+                        public void onSuccess(String response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                response =  jsonObject.getString("message");
+                                Toast.makeText(LoginActivity.this, response,Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(LoginActivity.this, "过程中出错了。",Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
                         public void onFailure(String error) {
                             Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                         }
-                    });*/
+                    });
 
 
                     tvPhoneTip.setText(null);

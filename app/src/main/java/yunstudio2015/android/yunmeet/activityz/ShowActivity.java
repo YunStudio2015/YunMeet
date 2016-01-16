@@ -26,19 +26,16 @@ public class ShowActivity extends AppCompatActivity {
 
 
 
-    /* first type   */
-    @Nullable @Bind(R.id.toolbar_show)
+
     Toolbar toolbar;
 
-    // 包括 、广场  、关注的那个菜单
-    @Bind(R.id.stl_menu)
+
     SlidingTabLayout slidingMenu;
 
-    @Bind(R.id.viewpager_container)
+
     ViewPager vp_container;
 
 
-    @Bind(R.id.hsc_lny)
     LinearLayout hsc_lny;
 
 
@@ -54,8 +51,10 @@ public class ShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
-        ButterKnife.bind(this);
-
+         toolbar = (Toolbar) findViewById(R.id.toolbar_show);
+        vp_container = (ViewPager) findViewById(R.id.viewpager_container);
+        hsc_lny = (LinearLayout) findViewById(R.id.hsc_lny);
+        slidingMenu = (SlidingTabLayout) findViewById(R.id.stl_menu);
         /**
          * 1、 把xml文件里的toolbar设计成当前activity的默认actionbar
          * 2、 把菜单添加上去
@@ -195,7 +194,7 @@ public class ShowActivity extends AppCompatActivity {
             // change the fragment in the current viewpager page.
             // deselect the previous clicked
             // and select the clicked one.
-            if (view.getTag(R.id.category_position_id) != previous_selected) {
+            if (((int)view.getTag(R.id.category_position_id)) != previous_selected) {
                 ((TextView)hsc_lny.getChildAt(previous_selected)).setTextColor(getResources().getColor(R.color.actionbar_color));
                 ((TextView) view).setTextColor(getResources().getColor(R.color.little_red));
                 previous_selected = (int) view.getTag(R.id.category_position_id);

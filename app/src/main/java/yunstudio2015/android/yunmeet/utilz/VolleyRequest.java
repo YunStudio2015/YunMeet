@@ -6,6 +6,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONObject;
 
@@ -14,6 +15,7 @@ import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.app.MyApplication;
+import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 
 import static com.android.volley.Request.Method;
@@ -28,11 +30,11 @@ public class VolleyRequest {
 
     public static void GetStringRequest (Context context, String url, String params, final VolleyOnResultListener callback) {
         if(NetWorkUtil.isNetworkConnected(context)){
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Method.GET, url,
-                    new Response.Listener<JSONObject>() {
+            StringRequest  jsonObjectRequest = new StringRequest (Method.GET, url,
+                    new Response.Listener<String>() {
 
                         @Override
-                        public void onResponse(JSONObject response) {
+                        public void onResponse(String  response) {
                             // TODO Auto-generated method stub
                             if(callback!=null)
                                 callback.onSuccess(response);
@@ -56,13 +58,13 @@ public class VolleyRequest {
         }
     }
 
-    public static void PostStringRequest (Context context, String url, String param, final VolleyOnResultListener callback) {
+    public static void PostStringRequest (Context context, String url, final Map<String, String> param, final VolleyOnResultListener callback) {
 
         //if(NetWorkUtil.isNetworkConnected(context)){
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Method.POST, url,
-                new Response.Listener<JSONObject>() {
+        StringRequest  jsonObjectRequest = new StringRequest(Method.POST, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(String response) {
                         if (callback != null)
                             callback.onSuccess(response);
                     }
@@ -75,35 +77,15 @@ public class VolleyRequest {
             }
         }){
 
-            /*    @Override
-                public Map<String, String> getHeaders() {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Accept", "application/json");
-                    headers.put("Content-Type", "application/json; charset=UTF-8");
-
-                    return headers;
-                }*/
-
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 // TODO Auto-generated method stub
-                Map<String, String> map=new HashMap<String, String>();
-                for (Map.Entry<String, String> entry : map.entrySet())
-                {
-//                        System.out.println(entry.getKey() + "/" + entry.getValue());
-                    map.put(entry.getKey(), entry.getValue());
-                }
-                return map;
+                L.d(param.toString());
+                return param;
             }
+
         };
         MyApplication.requestQueue.add(jsonObjectRequest);
-        /*} else {
-            // no internet connection
-            if (callback != null) {
-                callback.onFailure(context.getString(R.string.noconnection));
-            }
-        }*/
-
     }
 
 }

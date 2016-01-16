@@ -200,7 +200,7 @@ public class ConcernListFragment extends Fragment {
             L.d(YunApi.ACTIVITYZ_LIST);
             VolleyRequest.GetStringRequest(context, YunApi.ACTIVITYZ_LIST, "", new VolleyOnResultListener() {
                 @Override
-                public void onSuccess(JSONObject response) {
+                public void onSuccess(String  response) {
 
                     // it easier to get a boolean who tells whether there is a change inside
                     // the db than to retrieve all the elements and then compare with the actual one.
@@ -219,7 +219,8 @@ public class ConcernListFragment extends Fragment {
                         // new data
 //                    if (response.get("error") == 0) {
                     /*List<ActivityEntity>*/
-                        lActivity = (List<ActivityEntity>) response.get("data");
+                        JSONObject jsonObject = new JSONObject(response);
+                        lActivity = (List<ActivityEntity>) jsonObject.get("data");
                         modUpView(lActivity);
                     } catch (Exception e) {
                         throwError(-2);
