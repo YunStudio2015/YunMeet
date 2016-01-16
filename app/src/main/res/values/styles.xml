@@ -7,12 +7,12 @@
 
     <style name="whitetext" parent="@android:style/TextAppearance">
         <!-- Customize your theme here. -->
-        <item name="android:textColor">@color/thiswhite</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">14sp</item>
     </style>
 
 
-    <color name="thiswhite">#dddddd</color>
+    <color name="white1">#dddddd</color>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
