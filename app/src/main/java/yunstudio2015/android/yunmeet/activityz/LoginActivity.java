@@ -10,10 +10,20 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
+import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
+
+/**
+ * author：黎赵太郎
+ * time:20160114
+ * funtion:用于用户登录
+ */
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,9 +31,13 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private TextView tvSignup;
-    private ImageButton ibtnQQ,ibtnWechat;
+    private TextView tvPhoneTip;
+    private TextView tvPasswordTip;
+    private ImageButton ibtnQQ,ibtnWeibo;
     private String phoneNumber = null;
     private String password = null;
+
+    private String url = "http://www.yunstudio-ym.cn/Yunmeet/index.php/Api/User/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +73,28 @@ public class LoginActivity extends AppCompatActivity {
                 Matcher m2 = p2.matcher(password);
 
                 if ( phoneNumber == null || !m1.matches() ) { //电话号码输入错误
-                    Toast.makeText(LoginActivity.this,R.string.wrong_phone_number,Toast.LENGTH_SHORT).show();
+                    tvPhoneTip.setText(R.string.wrong_phone_number);
                 } else if ( password == null || !m2.matches()){ //密码输入为空
-                    Toast.makeText(LoginActivity.this,R.string.wrong_password,Toast.LENGTH_SHORT).show();
+                    tvPasswordTip.setText(R.string.wrong_password);
                 } else {
-                    String s = "phone:"+phoneNumber+"\n"+"password:"+password;
-                    Toast.makeText(LoginActivity.this,s,Toast.LENGTH_SHORT).show();
+
+                    //这里写用户登录的请求
+
+
+                    /*VolleyRequest.PostStringRequest(LoginActivity.this, url, , new VolleyOnResultListener() {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            Toast.makeText(LoginActivity.this,response.toString(),Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(String error) {
+                            Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                        }
+                    });*/
+
+                    tvPhoneTip.setText(null);
+                    tvPasswordTip.setText(null);
                 }
 
             }
@@ -78,8 +108,10 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.et_password);
         btnLogin = (Button) findViewById(R.id.btn_login);
         tvSignup = (TextView) findViewById(R.id.tv_signup);
+        tvPhoneTip = (TextView) findViewById(R.id.tv_phone_tip);
+        tvPasswordTip = (TextView) findViewById(R.id.tv_password_tip);
         ibtnQQ = (ImageButton) findViewById(R.id.ibtn_QQ);
-        ibtnWechat = (ImageButton) findViewById(R.id.ibtn_wechat);
+        ibtnWeibo = (ImageButton) findViewById(R.id.ibtn_weibo);
 
     }
 }

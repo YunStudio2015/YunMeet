@@ -36,7 +36,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/et_height"
                 android:inputType="phone"
                 android:background="@null"
                 android:hint="@string/phone_number"
@@ -52,6 +52,14 @@
             android:layout_height="1dp"
             android:background="@android:color/white"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tv_tips"
+            android:id="@+id/tv_phone_tip"
+            android:textColor="@color/little_red"
+            android:paddingLeft="@dimen/tips_padding_left"
+            android:textSize="10sp"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +73,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/et_height"
                 android:background="@null"
                 android:inputType="textPassword"
                 android:hint="@string/password"
@@ -80,6 +88,14 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tv_tips"
+            android:id="@+id/tv_password_tip"
+            android:textColor="@color/little_red"
+            android:paddingLeft="@dimen/tips_padding_left"
+            android:textSize="10sp"/>
 
         <Button
             android:layout_width="match_parent"
@@ -170,9 +186,9 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:layout_marginLeft="16dp"
-                android:id="@+id/ibtn_wechat"
+                android:id="@+id/ibtn_weibo"
                 android:background="@android:color/transparent"
-                android:src="@drawable/wechat"/>
+                android:src="@drawable/weibo"/>
 
             <Button
                 android:layout_width="wrap_content"
