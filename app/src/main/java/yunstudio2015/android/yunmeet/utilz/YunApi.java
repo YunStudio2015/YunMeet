@@ -13,5 +13,13 @@ public class YunApi {
     // 获取活动列表，包括最新活动~
     public static final String ACTIVITYZ_LIST =IP+"Yunmeet/index.php/Api/Atys/atys";
 
+    //测试阶段url
+    public static final String URL = " http://www.yunstudio-ym.cn/Yunmeet/index.php/Api/";
+    //登录
+    public static final String URL_LOGIN = URL+"User/login";
+    //注册
+    public static final String URL_SIGNUP = URL + "User/regist";
+    //获取验证码
+    public static final String URL_GET_CHECK_CODE = URL + "User/getChkCode";
 
 }

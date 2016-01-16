@@ -14,15 +14,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.entityz.ActivityEntity;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
+import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
  * author：黎赵太郎
@@ -41,8 +40,6 @@ public class LoginActivity extends AppCompatActivity {
     private ImageButton ibtnQQ,ibtnWeibo;
     private String phoneNumber = null;
     private String password = null;
-
-    private String url = "http://www.yunstudio-ym.cn/Yunmeet/index.php/Api/User/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,35 +74,35 @@ public class LoginActivity extends AppCompatActivity {
                 Matcher m1 = p1.matcher(phoneNumber);
                 Matcher m2 = p2.matcher(password);
 
-                if ( phoneNumber == null || !m1.matches() ) { //电话号码输入错误
+                if (phoneNumber == null || !m1.matches()) { //电话号码输入错误
                     tvPhoneTip.setText(R.string.wrong_phone_number);
-                } else if ( password == null || !m2.matches()){ //密码输入为空
+                } else if (password == null || !m2.matches()) { //密码输入为空
                     tvPasswordTip.setText(R.string.wrong_password);
                 } else {
 
-                    //这里写用户登录的请求
+                    //向服务器发起用户登录的请求
                     //每个参数都写成一个字段
                     Map<String, String> map = new HashMap<>();
                     map.put("type", "phone");
                     map.put("phone", phoneNumber);
                     map.put("password", password);
 
-                    VolleyRequest.PostStringRequest(LoginActivity.this, url, map, new VolleyOnResultListener() {
+                    VolleyRequest.PostStringRequest(LoginActivity.this, YunApi.URL_LOGIN, map, new VolleyOnResultListener() {
                         @Override
                         public void onSuccess(String response) {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
-                                response =  jsonObject.getString("message");
-                                Toast.makeText(LoginActivity.this, response,Toast.LENGTH_SHORT).show();
+                                response = jsonObject.getString("message");
+                                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(LoginActivity.this, "过程中出错了。",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "过程中出错了。", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void onFailure(String error) {
-                            Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -131,4 +128,6 @@ public class LoginActivity extends AppCompatActivity {
         ibtnWeibo = (ImageButton) findViewById(R.id.ibtn_weibo);
 
     }
+
+
 }

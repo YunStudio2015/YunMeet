@@ -14,10 +14,18 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
+import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
+import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
  * author:黎赵太郎
@@ -123,7 +131,29 @@ public class SignupActivity extends AppCompatActivity {
                 } else if (password == null || !isInputRight(1,password)) {
                     tvPasswordTip.setText(R.string.wrong_password);
                 } else {
-                    //这里写向服务器请求发送验证码到该手机号码的逻辑
+                    //向服务器请求发送验证码到该手机号码
+                    Map<String,String> map = new HashMap<String,String>();
+                    map.put("type","regist");
+                    map.put("phone",phoneNumber);
+
+                    VolleyRequest.PostStringRequest(SignupActivity.this, YunApi.URL_GET_CHECK_CODE, map, new VolleyOnResultListener() {
+                        @Override
+                        public void onSuccess(String response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                response = jsonObject.getString("message");
+                                Toast.makeText(SignupActivity.this,response,Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(SignupActivity.this,"过程中出错了",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(String error) {
+                            Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
                     //提示部分不设置文字
                     tvPhoneTip.setText(null);
@@ -157,13 +187,38 @@ public class SignupActivity extends AppCompatActivity {
                 } else if (verificationCode == null || verificationCode.length() != 6) {
                     tvCodeTip.setText(R.string.wrong_verification_code);
                 } else {
-                    //这里写请求服务器注册新账号的逻辑
+
+                    //请求服务器注册新账号
+                    Map<String,String> map = new HashMap<String, String>();
+
+                    map.put("type","phone");
+                    map.put("phone",phoneNumber);
+                    map.put("password",password);
+                    map.put("code", verificationCode);
+
+                    VolleyRequest.PostStringRequest(SignupActivity.this, YunApi.URL_SIGNUP, map, new VolleyOnResultListener() {
+                        @Override
+                        public void onSuccess(String response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                response = jsonObject.getString("message");
+                                Toast.makeText(SignupActivity.this, response, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(SignupActivity.this,"过程出错",Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(String error) {
+                            Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
                     tvPhoneTip.setText(null);
                     tvPasswordTip.setText(null);
                     tvCodeTip.setText(null);
-                    String s = "电话：" + phoneNumber + "\n" + "密码：" + password + "\n" + "验证码：" + verificationCode;
-                    Toast.makeText(SignupActivity.this, s, Toast.LENGTH_SHORT).show();
                 }
 
             }
