@@ -84,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
 
                     //这里写用户登录的请求
+                    //每个参数都写成一个字段
                     Map<String, String> map = new HashMap<>();
                     map.put("type", "phone");
                     map.put("phone", phoneNumber);
