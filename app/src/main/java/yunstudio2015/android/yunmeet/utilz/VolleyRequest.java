@@ -58,32 +58,44 @@ public class VolleyRequest {
     public static void PostStringRequest (Context context, String url, String param, final VolleyOnResultListener callback) {
 
         //if(NetWorkUtil.isNetworkConnected(context)){
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Method.POST, url,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            if (callback != null)
-                                callback.onSuccess(response);
-                        }
-                    },new Response.ErrorListener(){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Method.POST, url,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if (callback != null)
+                            callback.onSuccess(response);
+                    }
+                },new Response.ErrorListener(){
 
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    if (callback != null)
-                        callback.onFailure(error.toString());
-                }
-            }){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (callback != null)
+                    callback.onFailure(error.toString());
+            }
+        }){
 
-                @Override
+            /*    @Override
                 public Map<String, String> getHeaders() {
                     HashMap<String, String> headers = new HashMap<String, String>();
                     headers.put("Accept", "application/json");
                     headers.put("Content-Type", "application/json; charset=UTF-8");
 
                     return headers;
+                }*/
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // TODO Auto-generated method stub
+                Map<String, String> map=new HashMap<String, String>();
+                for (Map.Entry<String, String> entry : map.entrySet())
+                {
+//                        System.out.println(entry.getKey() + "/" + entry.getValue());
+                    map.put(entry.getKey(), entry.getValue());
                 }
-            };
-            MyApplication.requestQueue.add(jsonObjectRequest);
+                return map;
+            }
+        };
+        MyApplication.requestQueue.add(jsonObjectRequest);
         /*} else {
             // no internet connection
             if (callback != null) {
