@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });*/
 
+
                     tvPhoneTip.setText(null);
                     tvPasswordTip.setText(null);
                 }
