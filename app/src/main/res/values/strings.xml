@@ -33,5 +33,23 @@
     <string name="title_activity_testing_show">TestingShowActivity</string>
     <string name="caonima">草泥马</string>
     <string name="refresh">刷新</string>
+    <!--group of sign up and log in-->
+    <string name="YUNMEET">YUNMEET</string>
+    <string name="phone_number">手机号</string>
+    <string name="password">密码</string>
+    <string name="verification_code">请输入验证码</string>
+    <string name="send_verification_code">验证</string>
+    <string name="to_login"><u>已有Yunmeet账号？现在登录！</u></string>
+    <string name="to_signup"><u>没有Yunmeet账号？现在注册</u></string>
+    <string name="forgot_password"><u>忘记密码</u></string>
+    <string name="using_social_account">使用社交账号登录</string>
+    <string name="signup">注 册</string>
+    <string name="login">登 录</string>
+
+    <string name="wrong_phone_number">请正确输入11位电话号码</string>
+    <string name="wrong_password">密码由6到20位数字下划线或英语字母组成</string>
+    <string name="wrong_verification_code">请正确输入收到的短信中的验证码</string>
+    <string name="send_code_again">重新发送</string>
+    <!--end group of sign up and log in-->
 
 </resources>
