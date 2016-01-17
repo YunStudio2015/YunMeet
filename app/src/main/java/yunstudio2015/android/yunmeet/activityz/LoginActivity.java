@@ -1,6 +1,7 @@
 package yunstudio2015.android.yunmeet.activityz;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -27,6 +28,7 @@ import yunstudio2015.android.yunmeet.utilz.YunApi;
  * author：黎赵太郎
  * time:20160114
  * funtion:用于用户登录
+ * 请求返回的token将保存在SharedPreferences中
  */
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,22 +39,30 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvSignup;
     private TextView tvPhoneTip;
     private TextView tvPasswordTip;
+    private TextView tvForgotPassword;
     private ImageButton ibtnQQ,ibtnWeibo;
     private String phoneNumber = null;
     private String password = null;
 
-    @Override
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         initViews();
 
+        //初始化sharedPreferences
+        sharedPreferences = getSharedPreferences("UserData",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
         tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -90,14 +100,24 @@ public class LoginActivity extends AppCompatActivity {
                     VolleyRequest.PostStringRequest(LoginActivity.this, YunApi.URL_LOGIN, map, new VolleyOnResultListener() {
                         @Override
                         public void onSuccess(String response) {
+
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
-                                response = jsonObject.getString("message");
-                                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                //解析原jsonobject中嵌套的jsonobject
+                                JSONObject token = new JSONObject(jsonObject.getString("data"));
+                                Toast.makeText(LoginActivity.this,token.getString("token"),Toast.LENGTH_SHORT).show();
+
+                                //保存token到sharedpreferences中
+                                editor.putString("token",token.toString());
+                                editor.apply();
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Toast.makeText(LoginActivity.this, "过程中出错了。", Toast.LENGTH_SHORT).show();
                             }
+
                         }
 
                         @Override
@@ -114,6 +134,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,ForgetPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void initViews() {
@@ -124,6 +152,7 @@ public class LoginActivity extends AppCompatActivity {
         tvSignup = (TextView) findViewById(R.id.tv_signup);
         tvPhoneTip = (TextView) findViewById(R.id.tv_phone_tip);
         tvPasswordTip = (TextView) findViewById(R.id.tv_password_tip);
+        tvForgotPassword = (TextView) findViewById(R.id.tv_forgot_password);
         ibtnQQ = (ImageButton) findViewById(R.id.ibtn_QQ);
         ibtnWeibo = (ImageButton) findViewById(R.id.ibtn_weibo);
 

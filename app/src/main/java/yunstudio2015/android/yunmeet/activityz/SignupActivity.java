@@ -70,6 +70,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(SignupActivity.this, LoginActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -254,16 +255,17 @@ public class SignupActivity extends AppCompatActivity {
             //编译正则表达式
             Pattern p1 = Pattern.compile(regExPhone);
             //匹配电话号码
-            Matcher m1 = p1.matcher(phoneNumber);
+            Matcher m1 = p1.matcher(input);
 
             return m1.matches();
+
         } else if (type == 1) {
             //密码验证规则
             String regExPassword = "^[0-_a-zA-Z]{6,20}$";
 
             Pattern p2 = Pattern.compile(regExPassword);
 
-            Matcher m2 = p2.matcher(password);
+            Matcher m2 = p2.matcher(input);
 
             return m2.matches();
         }

@@ -12,11 +12,21 @@
     <dimen name="activity_details_tv_fontsize">12sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="YUNMEET_height">160dp</dimen><!--登录或注册界面顶部YUNMEET标题栏的高度-->
-    <dimen name="signin_tv_height">40dp</dimen><!--登录或者注册界面的textview edittext button的高度-->
-    <dimen name="YUNMEET_textsize">24sp</dimen><!--登录或注册界面顶部YUNMEET标题栏的字体大小-->
-    <dimen name="signin_tv_textsize">20sp</dimen><!--登录或注册界面的textview的字体大小-->
-    <dimen name="et_height">45dp</dimen><!--输入框的高度-->
-    <dimen name="tv_tips">15dp</dimen><!--输入框下的提示区域高度-->
-    <dimen name="tips_padding_left">24dp</dimen><!--文字与左边框的距离-->
+    <dimen name="YUNMEET_height">160dp</dimen>
+    <!--登录或注册界面顶部YUNMEET标题栏的高度-->
+    <dimen name="signin_tv_height">40dp</dimen>
+    <!--登录或者注册界面的textview edittext button的高度-->
+    <dimen name="YUNMEET_textsize">24sp</dimen>
+    <!--登录或注册界面顶部YUNMEET标题栏的字体大小-->
+    <dimen name="signin_tv_textsize">20sp</dimen>
+    <!--登录或注册界面的textview的字体大小-->
+    <dimen name="et_height">45dp</dimen>
+    <!--输入框的高度-->
+    <dimen name="tv_tips">15dp</dimen>
+    <!--输入框下的提示区域高度-->
+    <dimen name="tips_padding_left">24dp</dimen>
+    <!--文字与左边框的距离-->
+
+    <dimen name="toolbar_backbtn_back_width">16dp</dimen>
+    <dimen name="toolbar_backbtn_back_height">16dp</dimen>
 </resources>

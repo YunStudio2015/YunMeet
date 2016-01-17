@@ -33,6 +33,7 @@
     <string name="title_activity_testing_show">TestingShowActivity</string>
     <string name="caonima">草泥马</string>
     <string name="refresh">刷新</string>
+
     <!--group of sign up and log in-->
     <string name="YUNMEET">YUNMEET</string>
     <string name="phone_number">手机号</string>
@@ -50,6 +51,21 @@
     <string name="wrong_password">密码由6到20位数字下划线或英语字母组成</string>
     <string name="wrong_verification_code">请正确输入收到的短信中的验证码</string>
     <string name="send_code_again">重新发送</string>
+    <string name="next_step">下一步</string>
+    <string name="reset_password">重置密码</string>
+    <string name="verify">验证</string>
+    <string name="verify_hint">请输入验证码</string>
+    <string name="phone_number_hint">请输入手机号码</string>
+    <string name="set_nick_name">设置昵称及性别</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="set_nick">请输入你的昵称</string>
+    <string name="nick_name_tip">昵称应该大于0个字符并且小于20个字符</string>
+    <string name="set_face">设置头像</string>
+    <string name="finish">完成</string>
+    <string name="using_qq_face">使用QQ头像</string>
+    <string name="take_photo">拍一张照片</string>
+    <string name="select_from_album">从手机相册上传一张</string>
     <!--end group of sign up and log in-->
 
 </resources>

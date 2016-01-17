@@ -21,5 +21,13 @@ public class YunApi {
     public static final String URL_SIGNUP = URL + "User/regist";
     //获取验证码
     public static final String URL_GET_CHECK_CODE = URL + "User/getChkCode";
+    //设置昵称
+    public static final String URL_SET_NICK_NAME = URL + "User/setNick";
+    //设置性别
+    public static final String URL_SET_SEX = URL + "User/setSex";
+    //设置头像
+    public static final String URL_SET_FACE = URL + "User/setFace";
+    //设置个人主页背景
+    public static final String URL_SET_BACKGROUND = URL + "Uer/setBackground";
 
 }
