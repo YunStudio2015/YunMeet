@@ -1,5 +1,7 @@
 package yunstudio2015.android.yunmeet.activityz;
 
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,7 @@ public class SetFaceActivity extends AppCompatActivity {
     private TextView tvSelectFromAlbum;
     private TextView tvTakePhoto;
     private TextView tvUseQQFace;
+    private int requestCodeCemera = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,43 @@ public class SetFaceActivity extends AppCompatActivity {
             }
         });
 
+        ibtnSetFace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+
+        btnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        tvSelectFromAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        tvTakePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent takePhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePhoto,requestCodeCemera);
+
+            }
+        });
+
+        tvUseQQFace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
