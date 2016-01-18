@@ -4,12 +4,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tencent.connect.UserInfo;
+import com.tencent.connect.auth.QQAuth;
+import com.tencent.connect.auth.QQToken;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +54,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+
+    private Tencent tencent;// Tencent类是SDK的主要实现类，开发者可通过Tencent类访问腾讯开放的OpenAPI。
+    private UserInfo userInfo;
+    private QQAuth qqAuth;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +154,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        ibtnQQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qqLogin();
+            }
+        });
+
     }
 
     public void initViews() {
@@ -158,5 +177,49 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public void qqLogin(){
+
+        //初始化tencent对象
+        tencent = Tencent.createInstance(YunApi.TENCENT_APP_ID,getApplicationContext());
+        //初始化QQAuth对象
+        qqAuth = QQAuth.createInstance(YunApi.TENCENT_APP_ID,getApplicationContext());
+
+        tencent.login(LoginActivity.this,"all",new BaseUiListener());
+
+    }
+
+    /**当自定义的监听器实现IUiListener接口后，必须要实现接口的三个方法，
+     * onComplete  onCancel onError
+     *分别表示第三方登录成功，取消 ，错误。
+     **/
+    private class BaseUiListener implements IUiListener{
+
+        @Override
+        public void onComplete(Object o) {
+
+            //Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_SHORT).show();
+
+            //获取的object是JSON格式，可以获取相应的内容
+
+            Toast.makeText(LoginActivity.this,o.toString(),Toast.LENGTH_SHORT).show();
+
+            Log.d("success",o.toString());
+
+        }
+
+        @Override
+        public void onError(UiError uiError) {
+
+            Toast.makeText(LoginActivity.this,"something wrong",Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onCancel() {
+
+            Toast.makeText(LoginActivity.this,"操作取消！",Toast.LENGTH_SHORT).show();
+
+        }
+    }
 
 }

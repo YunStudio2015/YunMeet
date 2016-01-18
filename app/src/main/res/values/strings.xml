@@ -66,6 +66,7 @@
     <string name="using_qq_face">使用QQ头像</string>
     <string name="take_photo">拍一张照片</string>
     <string name="select_from_album">从手机相册上传一张</string>
+    <string name="right_arrow"><![CDATA[>]]></string>
     <!--end group of sign up and log in-->
 
 </resources>

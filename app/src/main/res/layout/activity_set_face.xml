@@ -67,12 +67,13 @@
             android:layout_width="match_parent"
             android:layout_height="160dp">
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_centerInParent="true"
+                android:background="@android:color/transparent"
                 android:src="@drawable/setface"
-                android:id="@+id/ibtn_set_face"/>
+                android:id="@+id/iv_set_face"/>
 
         </RelativeLayout>
 
@@ -82,8 +83,9 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/album"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -91,13 +93,14 @@
                 android:layout_weight="1"
                 android:id="@+id/tv_select_from_album"
                 android:text="@string/select_from_album"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
-                android:text=">"
+                android:text="@string/right_arrow"
                 android:textSize="30sp"
                 android:gravity="center_vertical"/>
 
@@ -114,22 +117,24 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/camera" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
+                android:paddingLeft="10dp"
                 android:id="@+id/tv_take_photo"
                 android:text="@string/take_photo"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
-                android:text=">"
+                android:text="@string/right_arrow"
                 android:textSize="30sp"
                 android:gravity="center_vertical"/>
 
@@ -146,13 +151,15 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/qq_mini"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
+                android:paddingLeft="10dp"
                 android:id="@+id/tv_using_qq_face"
                 android:text="@string/using_qq_face"
                 android:gravity="center_vertical"/>
@@ -161,7 +168,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
-                android:text=">"
+                android:text="@string/right_arrow"
                 android:textSize="30sp"
                 android:gravity="center_vertical"/>
 

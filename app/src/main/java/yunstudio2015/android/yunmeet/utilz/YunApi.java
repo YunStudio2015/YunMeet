@@ -13,6 +13,11 @@ public class YunApi {
     // 获取活动列表，包括最新活动~
     public static final String ACTIVITYZ_LIST =IP+"Yunmeet/index.php/Api/Atys/atys";
 
+    //腾讯APP_ID
+    public static final String TENCENT_APP_ID = "1105049205";
+    //腾讯APP_KEY
+    public static final String TENCENT_APP_KEY = "uyZZDP5JwGHuLvK4";
+
     //测试阶段url
     public static final String URL = " http://www.yunstudio-ym.cn/Yunmeet/index.php/Api/";
     //登录

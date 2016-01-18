@@ -92,11 +92,13 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 code = etCode.getText().toString();
+                phoneNumber = String.valueOf(etPhoneNumber.getText());
 
                 if (code == null || code.length() != 6){
                     tvCodeTip.setText(R.string.wrong_verification_code);
+                } else if(phoneNumber == null || etPhoneNumber.getText().length() != 11) {
+                    tvPhoneTip.setText(R.string.wrong_phone_number);
                 } else {
-
                     //向服务器请求更改密码
 
                     tvPhoneTip.setText(null);
