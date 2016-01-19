@@ -1,6 +1,7 @@
 package yunstudio2015.android.yunmeet.activityz;
 
 import android.content.Intent;
+import android.content.Loader;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tencent.connect.UserInfo;
-import com.tencent.connect.auth.QQAuth;
-import com.tencent.connect.auth.QQToken;
+import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
@@ -56,8 +56,10 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
 
     private Tencent tencent;// Tencent类是SDK的主要实现类，开发者可通过Tencent类访问腾讯开放的OpenAPI。
-    private UserInfo userInfo;
-    private QQAuth qqAuth;
+    private UserInfo userInfo;//QQ用户信息
+    private IUiListener loginListener;//登录监听
+    private IUiListener userInfoListener;//获取用户信息监听
+    private String scope = "all";//获取用户信息的范围
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +70,9 @@ public class LoginActivity extends AppCompatActivity {
         //初始化sharedPreferences
         sharedPreferences = getSharedPreferences("UserData",MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        //初始化QQ登录所需要的数据
+        initTencentData();
 
         tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,10 +162,32 @@ public class LoginActivity extends AppCompatActivity {
         ibtnQQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                qqLogin();
+
+                if(!tencent.isSessionValid())
+                    tencent.login(LoginActivity.this,scope,loginListener);
+
             }
         });
 
+        ibtnWeibo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                userInfo = new UserInfo(LoginActivity.this,tencent.getQQToken());
+                userInfo.getUserInfo(userInfoListener);
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        //注销登录
+        if (tencent != null){
+            tencent.logout(LoginActivity.this);
+        }
+        super.onDestroy();
     }
 
     public void initViews() {
@@ -177,49 +204,137 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void qqLogin(){
+    public void initTencentData(){
 
         //初始化tencent对象
         tencent = Tencent.createInstance(YunApi.TENCENT_APP_ID,getApplicationContext());
-        //初始化QQAuth对象
-        qqAuth = QQAuth.createInstance(YunApi.TENCENT_APP_ID,getApplicationContext());
 
-        tencent.login(LoginActivity.this,"all",new BaseUiListener());
+        loginListener = new IUiListener() {
+
+            /**
+             * 返回json数据样例
+             *
+             * {"ret":0,
+             * "pay_token":"D3D678728DC580FBCDE15722B72E7365",
+             * pf":"desktop_m_qq-10000144-android-2002-",
+             * "query_authority_cost":448,
+             * "authority_cost":-136792089,
+             * "openid":"015A22DED93BD15E0E6B0DDB3E59DE2D",
+             * "expires_in":7776000,
+             * "pfkey":"6068ea1c4a716d4141bca0ddb3df1bb9",
+             * "msg":"",
+             * "access_token":"A2455F491478233529D0106D2CE6EB45",
+             * "login_cost":499}
+             */
+            @Override
+            public void onComplete(Object o) {
+
+                if (o == null){
+                    Log.d("loginobj",String.valueOf(o));
+                    return;
+                }
+
+                try {
+                    int ret = ((JSONObject) o).getInt("ret");
+
+                    Log.d("AAAAloginret",String.valueOf(ret));
+
+                    if (ret == 0){
+                        String openID = ((JSONObject) o).getString("openid");
+                        String accessToken = ((JSONObject) o).getString("access_token");
+
+                        Log.d("AAAAAAAAAA",openID);
+                        System.out.println(accessToken);
+                        String expires = ((JSONObject) o).getString("expires_in");
+
+                        tencent.setOpenId(openID);
+                        tencent.setAccessToken(accessToken, expires);
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(UiError uiError) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        };
+
+        userInfoListener = new IUiListener() {
+
+            /**
+             * 返回用户信息样例
+             *
+             * {
+             * "is_yellow_year_vip": "0",
+             * "ret": 0,
+             * "figureurl_qq_1":"http://q.qlogo.cn/qqapp/222222/8C75BBE3DC6B0E9A64BD31449A3C8CB0/40",
+             * "figureurl_qq_2":"http://q.qlogo.cn/qqapp/222222/8C75BBE3DC6B0E9A64BD31449A3C8CB0/100",
+             * "nickname": "小罗",
+             * "yellow_vip_level": "0",
+             * "msg": "",
+             * "figureurl_1":"http://qzapp.qlogo.cn/qzapp/222222/8C75BBE3DC6B0E9A64BD31449A3C8CB0/50",
+             * "vip": "0",
+             * "level": "0",
+             * "figureurl_2":"http://qzapp.qlogo.cn/qzapp/222222/8C75BBE3DC6B0E9A64BD31449A3C8CB0/100",
+             * "is_yellow_vip": "0",
+             * "gender": "男",
+             * "figureurl":"http://qzapp.qlogo.cn/qzapp/222222/8C75BBE3DC6B0E9A64BD31449A3C8CB0/30"
+             * }
+             */
+
+            @Override
+            public void onComplete(Object o) {
+
+                if (o == null){
+                    return;
+                }
+
+                try {
+                    int ret = ((JSONObject) o).getInt("ret");
+                    Log.d("AAAAAAAA",String.valueOf(ret));
+                    int vip = ((JSONObject) o).getInt("vip");
+                    int level = ((JSONObject) o).getInt("level");
+                    String nickName = ((JSONObject) o).getString("nickname");
+                    String gender = ((JSONObject) o).getString("gender");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(UiError uiError) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        };
 
     }
 
-    /**当自定义的监听器实现IUiListener接口后，必须要实现接口的三个方法，
-     * onComplete  onCancel onError
-     *分别表示第三方登录成功，取消 ，错误。
-     **/
-    private class BaseUiListener implements IUiListener{
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        @Override
-        public void onComplete(Object o) {
-
-            //Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_SHORT).show();
-
-            //获取的object是JSON格式，可以获取相应的内容
-
-            Toast.makeText(LoginActivity.this,o.toString(),Toast.LENGTH_SHORT).show();
-
-            Log.d("success",o.toString());
-
+        if (requestCode == Constants.REQUEST_API){
+            if (resultCode == Constants.REQUEST_LOGIN){
+                tencent.handleLoginData(data,loginListener);
+            }
         }
 
-        @Override
-        public void onError(UiError uiError) {
-
-            Toast.makeText(LoginActivity.this,"something wrong",Toast.LENGTH_SHORT).show();
-
-        }
-
-        @Override
-        public void onCancel() {
-
-            Toast.makeText(LoginActivity.this,"操作取消！",Toast.LENGTH_SHORT).show();
-
-        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
-
 }
