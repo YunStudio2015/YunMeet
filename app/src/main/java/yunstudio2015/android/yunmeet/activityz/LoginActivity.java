@@ -52,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
     private String phoneNumber = null;
     private String password = null;
 
+    private String qqNickName = null;
+
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -175,6 +177,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 userInfo = new UserInfo(LoginActivity.this,tencent.getQQToken());
                 userInfo.getUserInfo(userInfoListener);
+
+                Toast.makeText(LoginActivity.this,qqNickName,Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -304,7 +308,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("AAAAAAAA",String.valueOf(ret));
                     int vip = ((JSONObject) o).getInt("vip");
                     int level = ((JSONObject) o).getInt("level");
-                    String nickName = ((JSONObject) o).getString("nickname");
+                    qqNickName = ((JSONObject) o).getString("nickname");
                     String gender = ((JSONObject) o).getString("gender");
 
                 } catch (JSONException e) {
@@ -328,6 +332,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        //非常重要！！！官方文档中并没有指出这里的回调！！！
+        Tencent.onActivityResultData(requestCode,resultCode,data,loginListener);
 
         if (requestCode == Constants.REQUEST_API){
             if (resultCode == Constants.REQUEST_LOGIN){
