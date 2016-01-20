@@ -52,8 +52,6 @@ public class LoginActivity extends AppCompatActivity {
     private String phoneNumber = null;
     private String password = null;
 
-    private String qqNickName = null;
-
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -177,9 +175,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 userInfo = new UserInfo(LoginActivity.this,tencent.getQQToken());
                 userInfo.getUserInfo(userInfoListener);
-
-                Toast.makeText(LoginActivity.this,qqNickName,Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -246,8 +241,6 @@ public class LoginActivity extends AppCompatActivity {
                     if (ret == 0){
                         String openID = ((JSONObject) o).getString("openid");
                         String accessToken = ((JSONObject) o).getString("access_token");
-
-                        Log.d("AAAAAAAAAA",openID);
                         System.out.println(accessToken);
                         String expires = ((JSONObject) o).getString("expires_in");
 
@@ -305,11 +298,15 @@ public class LoginActivity extends AppCompatActivity {
 
                 try {
                     int ret = ((JSONObject) o).getInt("ret");
-                    Log.d("AAAAAAAA",String.valueOf(ret));
+                    Log.d("QQLoginRet",String.valueOf(ret));
                     int vip = ((JSONObject) o).getInt("vip");
+                    Log.d("QQLoginVIP",String.valueOf(vip));
                     int level = ((JSONObject) o).getInt("level");
-                    qqNickName = ((JSONObject) o).getString("nickname");
+                    Log.d("QQLoginLevel",String.valueOf(level));
+                    String nickname = ((JSONObject) o).getString("nickname");
+                    Log.d("QQLoginNickName",nickname);
                     String gender = ((JSONObject) o).getString("gender");
+                    Log.d("QQLoginGender",gender);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
