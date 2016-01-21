@@ -5,6 +5,7 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WeiboAuthListener;
+import com.sina.weibo.sdk.auth.sso.SsoHandler;
+import com.sina.weibo.sdk.exception.WeiboException;
+import com.sina.weibo.sdk.net.RequestListener;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
@@ -30,6 +37,7 @@ import java.util.regex.Pattern;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
+import yunstudio2015.android.yunmeet.utilz.WeiboAccessKeeper;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -61,6 +69,13 @@ public class LoginActivity extends AppCompatActivity {
     private IUiListener userInfoListener;//获取用户信息监听
     private String scope = "all";//获取用户信息的范围
 
+
+    private AuthInfo authInfo;
+    /** 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能  */
+    private Oauth2AccessToken weiboAccessToken;
+    /** 注意：SsoHandler 仅当 SDK 支持 SSO 时有效 */
+    private SsoHandler ssoHandler;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -73,6 +88,9 @@ public class LoginActivity extends AppCompatActivity {
 
         //初始化QQ登录所需要的数据
         initTencentData();
+
+        //初始化微博登录所需要的数据
+        initWeiboData();
 
         tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,10 +191,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                userInfo = new UserInfo(LoginActivity.this,tencent.getQQToken());
-                userInfo.getUserInfo(userInfoListener);
+                // SSO 授权, ALL IN ONE   如果手机安装了微博客户端则使用客户端授权,没有则进行网页授权
+                ssoHandler.authorize(new AuthListener());
             }
         });
+
+    }
+
+    private void initWeiboData() {
+
+        authInfo = new AuthInfo(LoginActivity.this,YunApi.WEIBO_APP_KEY,YunApi.WEIBO_REDIRECT_URL,YunApi.WEIBO_SCOPE);
+        ssoHandler = new SsoHandler(LoginActivity.this,authInfo);
 
     }
 
@@ -229,14 +254,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(Object o) {
 
                 if (o == null){
-                    Log.d("loginobj",String.valueOf(o));
                     return;
                 }
 
                 try {
                     int ret = ((JSONObject) o).getInt("ret");
-
-                    Log.d("AAAAloginret",String.valueOf(ret));
 
                     if (ret == 0){
                         String openID = ((JSONObject) o).getString("openid");
@@ -246,6 +268,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         tencent.setOpenId(openID);
                         tencent.setAccessToken(accessToken, expires);
+
+
 
                     }
 
@@ -340,5 +364,81 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+
+        /**
+         * 微博
+         * 当 SSO 授权 Activity 退出时，该函数被调用。
+         *
+         * @see {@link Activity#onActivityResult}
+         */
+        if (ssoHandler != null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
     }
+
+    /**
+     * 微博认证授权回调类。
+     * 1. SSO 授权时，需要在 {@link #onActivityResult} 中调用 {@link SsoHandler#authorizeCallBack} 后，
+     *    该回调才会被执行。
+     * 2. 非 SSO 授权时，当授权结束后，该回调就会被执行。
+     * 当授权成功后，请保存该 access_token、expires_in、uid 等信息到 SharedPreferences 中。
+     */
+    class AuthListener implements WeiboAuthListener {
+
+        @Override
+        public void onComplete(Bundle values) {
+            // 从 Bundle 中解析 Token
+            weiboAccessToken = Oauth2AccessToken.parseAccessToken(values);
+            //从这里获取用户输入的 电话号码信息
+            String  phoneNum =  weiboAccessToken.getPhoneNum();
+            if (weiboAccessToken.isSessionValid()) {
+
+                // 保存 Token 到 SharedPreferences
+                WeiboAccessKeeper.writeAccessToken(LoginActivity.this, weiboAccessToken);
+                Toast.makeText(LoginActivity.this,
+                        "授权成功", Toast.LENGTH_SHORT).show();
+
+                //开始获取用户信息
+
+
+            } else {
+                // 以下几种情况，您会收到 Code：
+                // 1. 当您未在平台上注册的应用程序的包名与签名时；
+                // 2. 当您注册的应用程序包名与签名不正确时；
+                // 3. 当您在平台上注册的包名和签名与您当前测试的应用的包名和签名不匹配时。
+                String code = values.getString("code");
+                String message = "授权失败";
+                if (!TextUtils.isEmpty(code)) {
+                    message = message + "\nObtained the code: " + code;
+                }
+                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        public void onCancel() {
+            Toast.makeText(LoginActivity.this,
+                    "你取消了授权", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onWeiboException(WeiboException e) {
+            Toast.makeText(LoginActivity.this,
+                    "Auth exception : " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    //获取用户信息监听器
+    RequestListener requestListener = new RequestListener() {
+        @Override
+        public void onComplete(String s) {
+            //获取用户信息json
+
+        }
+
+        @Override
+        public void onWeiboException(WeiboException e) {
+
+        }
+    };
 }
