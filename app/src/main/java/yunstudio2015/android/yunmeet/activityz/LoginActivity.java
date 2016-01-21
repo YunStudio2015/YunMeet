@@ -1,8 +1,8 @@
 package yunstudio2015.android.yunmeet.activityz;
 
 import android.content.Intent;
-import android.content.Loader;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -36,6 +36,8 @@ import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
+import yunstudio2015.android.yunmeet.utilz.User;
+import yunstudio2015.android.yunmeet.utilz.UsersAPI;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.WeiboAccessKeeper;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
@@ -68,8 +70,17 @@ public class LoginActivity extends AppCompatActivity {
     private IUiListener loginListener;//登录监听
     private IUiListener userInfoListener;//获取用户信息监听
     private String scope = "all";//获取用户信息的范围
+    private String qqOpenID;//qq用户的唯一识别码，用作网络请求的参数
+    private String qqNickName;//qq用户的昵称，用作网络请求的参数
+    private String qqGender;//qq用户的性别，用作网络请求的参数
+    private Image qqFace;//qq用户头像
 
-    private UserInfo weiboUserInfo;
+    //用户信息接口
+    private UsersAPI weiboUserAPI;
+    private String wbUID;//微博用户的唯一识别码
+    private String wbNickName;//微博用户的昵称
+    private String wbGender;//微博用户性别
+    private Image wbFace;//微博用户头像
 
     private AuthInfo authInfo;
     /** 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能  */
@@ -254,23 +265,25 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(Object o) {
 
+                Log.d("qqlogin",o.toString());
                 if (o == null){
                     return;
                 }
 
                 try {
                     int ret = ((JSONObject) o).getInt("ret");
-
                     if (ret == 0){
                         String openID = ((JSONObject) o).getString("openid");
                         String accessToken = ((JSONObject) o).getString("access_token");
-                        System.out.println(accessToken);
                         String expires = ((JSONObject) o).getString("expires_in");
 
                         tencent.setOpenId(openID);
                         tencent.setAccessToken(accessToken, expires);
 
+                        qqOpenID = openID;
 
+                        qqUserInfo = new UserInfo(LoginActivity.this,tencent.getQQToken());
+                        qqUserInfo.getUserInfo(userInfoListener);
 
                     }
 
@@ -322,16 +335,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 try {
-                    int ret = ((JSONObject) o).getInt("ret");
-                    Log.d("QQLoginRet",String.valueOf(ret));
-                    int vip = ((JSONObject) o).getInt("vip");
-                    Log.d("QQLoginVIP",String.valueOf(vip));
-                    int level = ((JSONObject) o).getInt("level");
-                    Log.d("QQLoginLevel",String.valueOf(level));
-                    String nickname = ((JSONObject) o).getString("nickname");
-                    Log.d("QQLoginNickName",nickname);
-                    String gender = ((JSONObject) o).getString("gender");
-                    Log.d("QQLoginGender",gender);
+                    qqNickName = ((JSONObject) o).getString("nickname");
+                    qqGender = ((JSONObject) o).getString("gender");
+                    //这里还有获取头像的代码
+
+                    //发起网络请求，上传用户信息，并且跳转界面
+                    Log.d("qqINFO",qqOpenID);
+                    Log.d("qqINFO",qqNickName);
+                    Log.d("qqINFO",qqGender);//获取的性别信息为String类型，在做网络请求时要转换为int类型
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -400,7 +411,13 @@ public class LoginActivity extends AppCompatActivity {
                         "授权成功", Toast.LENGTH_SHORT).show();
 
                 //开始获取用户信息
-
+                weiboUserAPI  = new UsersAPI(LoginActivity.this,YunApi.WEIBO_APP_KEY,weiboAccessToken);
+                if (weiboAccessToken != null && weiboAccessToken.isSessionValid()){
+                    //微博用户的唯一识别码
+                    wbUID = weiboAccessToken.getUid();
+                    long[] uids = { Long.parseLong(weiboAccessToken.getUid()) };
+                    weiboUserAPI.counts(uids,requestListener);
+                }
 
             } else {
                 // 以下几种情况，您会收到 Code：
@@ -429,17 +446,34 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    //获取用户信息监听器
-    RequestListener requestListener = new RequestListener() {
+    /**
+     * 微博 OpenAPI 回调接口。
+     */
+    private RequestListener requestListener = new RequestListener() {
         @Override
-        public void onComplete(String s) {
-            //获取用户信息json
-
+        public void onComplete(String response) {
+            if (!TextUtils.isEmpty(response)) {
+                // 调用 User#parse 将JSON串解析成User对象
+                User user = User.parse(response);
+                if (user != null) {
+                    Toast.makeText(LoginActivity.this,
+                            "获取User信息成功，用户昵称：" + user.screen_name,
+                            Toast.LENGTH_LONG).show();
+                    //微博的昵称和性别
+                    wbNickName = user.screen_name;
+                    Log.d("weiboINFO",wbNickName);
+                    wbGender = user.gender;
+                    Log.d("weiboINFO",wbGender);
+                } else {
+                    Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
+                }
+            }
         }
 
         @Override
         public void onWeiboException(WeiboException e) {
-
+            String info = e.getMessage();
+            Toast.makeText(LoginActivity.this, info.toString(), Toast.LENGTH_LONG).show();
         }
     };
 }
