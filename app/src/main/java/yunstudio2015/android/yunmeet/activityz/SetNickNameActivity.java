@@ -1,8 +1,10 @@
 package yunstudio2015.android.yunmeet.activityz;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +37,6 @@ public class SetNickNameActivity extends AppCompatActivity {
     private String name = null;
 
     private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +46,7 @@ public class SetNickNameActivity extends AppCompatActivity {
 
         initData();
 
-        sharedPreferences = getSharedPreferences("UserData",MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+        sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
 
         ibtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,10 +85,10 @@ public class SetNickNameActivity extends AppCompatActivity {
                 } else {
 
                     //设置提示语
-                    tvNameTip.setText(null);
+                    tvNameTip.setText(" ");
 
                     //请求服务器设置昵称，如果请求失败，则不再请求设置性别
-                    final Map<String,String> map = new HashMap<String, String>();
+                    Map<String,String> map = new HashMap<String, String>();
                     map.put("token",sharedPreferences.getString("token", null));
                     map.put("nickname",name);
 
@@ -97,34 +97,45 @@ public class SetNickNameActivity extends AppCompatActivity {
                         public void onSuccess(String response) {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
-                                response = jsonObject.getString("error");
-                                Toast.makeText(SetNickNameActivity.this,response,Toast.LENGTH_SHORT).show();
-                                response = jsonObject.getString("message");
-                                Toast.makeText(SetNickNameActivity.this,response,Toast.LENGTH_SHORT).show();
 
-                                //向服务器发起设置性别的请求
-                                Map<String,String> map_sex = new HashMap<String, String>();
-                                map_sex.put("token",sharedPreferences.getString("token",null));
-                                map_sex.put("sex",String.valueOf(selected));
+                                Toast.makeText(SetNickNameActivity.this,jsonObject.getString("error"),Toast.LENGTH_SHORT).show();
 
-                                VolleyRequest.PostStringRequest(SetNickNameActivity.this, YunApi.URL_SET_SEX, map_sex, new VolleyOnResultListener() {
-                                    @Override
-                                    public void onSuccess(String response) {
-                                        try {
-                                            JSONObject object = new JSONObject(response);
-                                            response = object.getString("error") + "\n" + object.getString("message");
-                                            Toast.makeText(SetNickNameActivity.this,response,Toast.LENGTH_SHORT).show();
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                            Toast.makeText(SetNickNameActivity.this,"something wrong",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SetNickNameActivity.this,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+
+                                if (jsonObject.getString("error").equals("0")){
+
+                                    //向服务器发起设置性别的请求
+                                    Map<String,String> map_sex = new HashMap<String,String>();
+                                    map_sex.put("token", sharedPreferences.getString("token", null));
+                                    Log.d("nick_token", sharedPreferences.getString("token", "空"));
+                                    map_sex.put("sex", String.valueOf(selected));
+                                    Log.d("nick_sex",String.valueOf(selected));
+
+
+                                    VolleyRequest.PostStringRequest(SetNickNameActivity.this, YunApi.URL_SET_SEX, map_sex, new VolleyOnResultListener() {
+                                        @Override
+                                        public void onSuccess(String response) {
+                                            try {
+                                                JSONObject object = new JSONObject(response);
+                                                response = object.getString("error") + "\n" + object.getString("message");
+                                                Toast.makeText(SetNickNameActivity.this,response,Toast.LENGTH_SHORT).show();
+
+                                                Intent intent = new Intent(SetNickNameActivity.this,SetFaceActivity.class);
+                                                startActivity(intent);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(SetNickNameActivity.this,"something wrong",Toast.LENGTH_SHORT).show();
+                                            }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onFailure(String error) {
-                                        Toast.makeText(SetNickNameActivity.this,error,Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                        @Override
+                                        public void onFailure(String error) {
+                                            Toast.makeText(SetNickNameActivity.this,error,Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                }
+
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -137,6 +148,8 @@ public class SetNickNameActivity extends AppCompatActivity {
                             Toast.makeText(SetNickNameActivity.this,error,Toast.LENGTH_SHORT).show();
                         }
                     });
+
+
 
                 }
             }
@@ -151,6 +164,7 @@ public class SetNickNameActivity extends AppCompatActivity {
         ivMale = (ImageView) findViewById(R.id.iv_male);
         ivFemale = (ImageView) findViewById(R.id.iv_female);
         btnNextStep = (Button) findViewById(R.id.btn_next_step);
+        tvNameTip = (TextView) findViewById(R.id.tv_nickname_tip);
 
     }
 

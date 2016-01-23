@@ -1,12 +1,14 @@
 package yunstudio2015.android.yunmeet.activityz;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +53,9 @@ public class SignupActivity extends AppCompatActivity {
     private String phoneNumber = null;
     private String verificationCode = null;
 
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+
     /**
      * 内部类，用于btnSendCode上的倒计时
      * 构造函数参数对应为1000*6为倒计时开始时间，1000表示计时的间隔
@@ -64,6 +69,10 @@ public class SignupActivity extends AppCompatActivity {
 
         //init the views
         initViews();
+
+        //初始化sharedPreferences
+        sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,6 +213,46 @@ public class SignupActivity extends AppCompatActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 response = jsonObject.getString("message");
                                 Toast.makeText(SignupActivity.this, response, Toast.LENGTH_SHORT).show();
+
+                                //向服务器发起用户登录的请求
+                                //每个参数都写成一个字段
+                                Map<String, String> map1 = new HashMap<>();
+                                map1.put("type", "phone");
+                                map1.put("phone", phoneNumber);
+                                map1.put("password", password);
+
+                                VolleyRequest.PostStringRequest(SignupActivity.this, YunApi.URL_LOGIN, map1, new VolleyOnResultListener() {
+                                    @Override
+                                    public void onSuccess(String response) {
+
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(response);
+                                            Toast.makeText(SignupActivity.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SignupActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                            //解析原jsonobject中嵌套的jsonobject
+                                            JSONObject token = new JSONObject(jsonObject.getString("data"));
+                                            Toast.makeText(SignupActivity.this, token.getString("token"), Toast.LENGTH_SHORT).show();
+
+                                            //保存token到sharedpreferences中
+                                            editor.putString("token", token.getString("token"));
+                                            editor.apply();
+
+                                            Intent intent = new Intent(SignupActivity.this,SetNickNameActivity.class);
+                                            startActivity(intent);
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(SignupActivity.this, "过程中出错了。", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(String error) {
+                                        Toast.makeText(SignupActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Toast.makeText(SignupActivity.this,"过程出错",Toast.LENGTH_SHORT).show();

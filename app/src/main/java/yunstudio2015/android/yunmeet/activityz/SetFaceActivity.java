@@ -1,6 +1,7 @@
 package yunstudio2015.android.yunmeet.activityz;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -39,6 +40,8 @@ public class SetFaceActivity extends AppCompatActivity {
     private TextView tvTakePhoto;
     private TextView tvUseQQFace;
 
+    private SharedPreferences sharedPreferences;
+
     public static final int TAKE_PHOTO = 1;//用于拍摄照片的requestCode
     public static final int CROP_PHOTO = 2;//用于裁剪照片的requestCode
 
@@ -48,7 +51,10 @@ public class SetFaceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_face);
+
         initViews();
+
+        sharedPreferences = getSharedPreferences("UserData",MODE_PRIVATE);
 
         ibtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,7 +198,7 @@ public class SetFaceActivity extends AppCompatActivity {
     public String setFileName(){
         //将当前时间转换为20160117201011的格式
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-        Date date = new Date(String.valueOf(Calendar.getInstance()));
+        Date date = new Date();
         String name =  format.format(date) + ".jpg";
         return name;
     }
