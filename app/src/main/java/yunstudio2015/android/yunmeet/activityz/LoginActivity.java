@@ -36,6 +36,7 @@ import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
+import yunstudio2015.android.yunmeet.utilz.NetWorkUtil;
 import yunstudio2015.android.yunmeet.utilz.User;
 import yunstudio2015.android.yunmeet.utilz.UsersAPI;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
@@ -74,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
     private String qqNickName;//qq用户的昵称，用作网络请求的参数
     private String qqGender;//qq用户的性别，用作网络请求的参数
     private Image qqFace;//qq用户头像
+    private String qqAccessToken;
 
     //用户信息接口
     private UsersAPI weiboUserAPI;
@@ -252,7 +254,7 @@ public class LoginActivity extends AppCompatActivity {
              *
              * {"ret":0,
              * "pay_token":"D3D678728DC580FBCDE15722B72E7365",
-             * pf":"desktop_m_qq-10000144-android-2002-",
+             * "pf":"desktop_m_qq-10000144-android-2002-",
              * "query_authority_cost":448,
              * "authority_cost":-136792089,
              * "openid":"015A22DED93BD15E0E6B0DDB3E59DE2D",
@@ -274,11 +276,11 @@ public class LoginActivity extends AppCompatActivity {
                     int ret = ((JSONObject) o).getInt("ret");
                     if (ret == 0){
                         String openID = ((JSONObject) o).getString("openid");
-                        String accessToken = ((JSONObject) o).getString("access_token");
+                        qqAccessToken = ((JSONObject) o).getString("access_token");
                         String expires = ((JSONObject) o).getString("expires_in");
 
                         tencent.setOpenId(openID);
-                        tencent.setAccessToken(accessToken, expires);
+                        tencent.setAccessToken(qqAccessToken, expires);
 
                         qqOpenID = openID;
 
@@ -328,21 +330,44 @@ public class LoginActivity extends AppCompatActivity {
              */
 
             @Override
-            public void onComplete(Object o) {
+            public void onComplete(final Object o) {
 
                 if (o == null){
                     return;
                 }
 
                 try {
+
                     qqNickName = ((JSONObject) o).getString("nickname");
                     qqGender = ((JSONObject) o).getString("gender");
                     //这里还有获取头像的代码
 
                     //发起网络请求，上传用户信息，并且跳转界面
-                    Log.d("qqINFO",qqOpenID);
-                    Log.d("qqINFO",qqNickName);
-                    Log.d("qqINFO",qqGender);//获取的性别信息为String类型，在做网络请求时要转换为int类型
+                    //Log.d("qqINFO",qqOpenID);
+                    //Log.d("qqINFO",qqNickName);
+                    //Log.d("qqINFO",qqGender);//获取的性别信息为String类型，在做网络请求时要转换为int类型
+                    Map<String,String> map = new HashMap<>();
+                    map.put("type","qq");
+                    map.put("access_token",qqAccessToken);
+                    map.put("app_id",YunApi.TENCENT_APP_ID);
+                    map.put("openid",qqOpenID);
+                    VolleyRequest.PostStringRequest(LoginActivity.this, YunApi.URL_LOGIN, map, new VolleyOnResultListener() {
+                        @Override
+                        public void onSuccess(String response) {
+                            Toast.makeText(LoginActivity.this,"success",Toast.LENGTH_LONG).show();
+                            try {
+                                JSONObject object = new JSONObject(response);
+                                Log.d("AAAAAAAA",object.getString("error")+object.getString("message"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(String error) {
+                            Toast.makeText(LoginActivity.this,error,Toast.LENGTH_LONG).show();
+                        }
+                    });
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -401,6 +426,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onComplete(Bundle values) {
             // 从 Bundle 中解析 Token
             weiboAccessToken = Oauth2AccessToken.parseAccessToken(values);
+            Log.d("weibotoken",weiboAccessToken.toString());
             //从这里获取用户输入的 电话号码信息
             String  phoneNum =  weiboAccessToken.getPhoneNum();
             if (weiboAccessToken.isSessionValid()) {
@@ -415,6 +441,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (weiboAccessToken != null && weiboAccessToken.isSessionValid()){
                     //微博用户的唯一识别码
                     wbUID = weiboAccessToken.getUid();
+                    Log.d("weibouid",wbUID);
                     long[] uids = { Long.parseLong(weiboAccessToken.getUid()) };
                     weiboUserAPI.counts(uids,requestListener);
                 }
