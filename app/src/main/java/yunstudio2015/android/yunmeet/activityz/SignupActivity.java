@@ -1,9 +1,13 @@
 package yunstudio2015.android.yunmeet.activityz;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -56,6 +60,18 @@ public class SignupActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
+    private ProgressDialog progressDialog;
+    private static int FINISH = 1;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == FINISH){
+                progressDialog.dismiss();
+            }
+        }
+    };
+
     /**
      * 内部类，用于btnSendCode上的倒计时
      * 构造函数参数对应为1000*6为倒计时开始时间，1000表示计时的间隔
@@ -69,6 +85,11 @@ public class SignupActivity extends AppCompatActivity {
 
         //init the views
         initViews();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("提示");
+        progressDialog.setMessage("正在注册，请稍候...");
+        progressDialog.setCancelable(false);
 
         //初始化sharedPreferences
         sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
@@ -146,7 +167,7 @@ public class SignupActivity extends AppCompatActivity {
                     map.put("type","regist");
                     map.put("phone",phoneNumber);
 
-                    VolleyRequest.PostStringRequest(SignupActivity.this, YunApi.URL_GET_CHECK_CODE, map, new VolleyOnResultListener() {
+                    VolleyRequest.PostStringRequest(getApplicationContext(), YunApi.URL_GET_CHECK_CODE, map, new VolleyOnResultListener() {
                         @Override
                         public void onSuccess(String response) {
                             try {
@@ -198,6 +219,8 @@ public class SignupActivity extends AppCompatActivity {
                     tvCodeTip.setText(R.string.wrong_verification_code);
                 } else {
 
+                    progressDialog.show();
+
                     //请求服务器注册新账号
                     Map<String,String> map = new HashMap<String, String>();
 
@@ -206,7 +229,7 @@ public class SignupActivity extends AppCompatActivity {
                     map.put("password",password);
                     map.put("code", verificationCode);
 
-                    VolleyRequest.PostStringRequest(SignupActivity.this, YunApi.URL_SIGNUP, map, new VolleyOnResultListener() {
+                    VolleyRequest.PostStringRequest(getApplicationContext(), YunApi.URL_SIGNUP, map, new VolleyOnResultListener() {
                         @Override
                         public void onSuccess(String response) {
                             try {
@@ -221,9 +244,13 @@ public class SignupActivity extends AppCompatActivity {
                                 map1.put("phone", phoneNumber);
                                 map1.put("password", password);
 
-                                VolleyRequest.PostStringRequest(SignupActivity.this, YunApi.URL_LOGIN, map1, new VolleyOnResultListener() {
+                                VolleyRequest.PostStringRequest(getApplicationContext(), YunApi.URL_LOGIN, map1, new VolleyOnResultListener() {
                                     @Override
                                     public void onSuccess(String response) {
+
+                                        Message message = Message.obtain();
+                                        message.what = FINISH;
+                                        handler.sendMessage(message);
 
                                         try {
                                             JSONObject jsonObject = new JSONObject(response);
@@ -250,7 +277,10 @@ public class SignupActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onFailure(String error) {
-                                        Toast.makeText(SignupActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                                        Message message = Message.obtain();
+                                        message.what = FINISH;
+                                        handler.sendMessage(message);
+                                        Toast.makeText(SignupActivity.this, error, Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -263,7 +293,11 @@ public class SignupActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(String error) {
-                            Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                            //发送消息，取消dialog的显示
+                            Message message = Message.obtain();
+                            message.what = FINISH;
+                            handler.sendMessage(message);
+                            Toast.makeText(SignupActivity.this,error,Toast.LENGTH_SHORT).show();
                         }
                     });
 
