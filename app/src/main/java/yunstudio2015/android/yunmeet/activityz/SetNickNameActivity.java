@@ -121,6 +121,7 @@ public class SetNickNameActivity extends AppCompatActivity {
                                                 Toast.makeText(SetNickNameActivity.this,response,Toast.LENGTH_SHORT).show();
 
                                                 Intent intent = new Intent(SetNickNameActivity.this,SetFaceActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                                 startActivity(intent);
                                             } catch (JSONException e) {
                                                 e.printStackTrace();

@@ -238,6 +238,7 @@ public class SignupActivity extends AppCompatActivity {
                                             editor.apply();
 
                                             Intent intent = new Intent(SignupActivity.this,SetNickNameActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                             startActivity(intent);
 
                                         } catch (JSONException e) {
