@@ -241,17 +241,6 @@ public class SetFaceActivity extends AppCompatActivity {
 
     }
 
-    //提取保存后的图片数据，并设置头像部分的view
-    private void setImageToHeadView(Intent intent) {
-
-         Bundle extras = intent.getExtras();
-        if (extras != null){
-            headImg = extras.getParcelable("data");
-            ivFace.setImageBitmap(headImg);
-        }
-
-    }
-
     private Uri saveBitmap(Bitmap bitmap){
         File tmpDir = new File(Environment.getExternalStorageDirectory() + "/yunstudio2015.android.yunmeet");
         if (!tmpDir.exists()){

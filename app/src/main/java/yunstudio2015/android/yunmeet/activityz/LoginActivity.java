@@ -14,6 +14,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
@@ -26,6 +32,7 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -106,6 +113,8 @@ public class LoginActivity extends AppCompatActivity {
         //初始化微博登录所需要的数据
         initWeiboData();
 
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
         tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,6 +154,40 @@ public class LoginActivity extends AppCompatActivity {
                     map.put("type", "phone");
                     map.put("phone", phoneNumber);
                     map.put("password", password);
+
+                    //volley库的改造工程。。。
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, YunApi.URL_LOGIN,new JSONObject(map),
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject jsonObject) {
+
+                                    try {
+
+                                        Toast.makeText(LoginActivity.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                        //解析原jsonobject中嵌套的jsonobject
+                                        JSONObject token = new JSONObject(jsonObject.getString("data"));
+                                        Toast.makeText(LoginActivity.this,token.getString("token"),Toast.LENGTH_SHORT).show();
+
+                                        //保存token到sharedpreferences中
+                                        editor.putString("token",token.toString());
+                                        editor.apply();
+
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+
+                        }
+                    }
+
+                    );
 
                     VolleyRequest.PostStringRequest(LoginActivity.this, YunApi.URL_LOGIN, map, new VolleyOnResultListener() {
                         @Override
