@@ -66,9 +66,7 @@ public class SignupActivity extends AppCompatActivity {
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == FINISH){
-                progressDialog.dismiss();
-            }
+            super.handleMessage(msg);
         }
     };
 

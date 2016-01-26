@@ -16,11 +16,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
@@ -44,6 +52,8 @@ public class SetNickNameActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private static int FINISH = 1;
 
+    private RequestQueue queue;
+
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -60,6 +70,8 @@ public class SetNickNameActivity extends AppCompatActivity {
         initView();
 
         initData();
+
+        queue = Volley.newRequestQueue(getApplicationContext());
 
         sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
 
@@ -111,79 +123,69 @@ public class SetNickNameActivity extends AppCompatActivity {
 
                     //请求服务器设置昵称，如果请求失败，则不再请求设置性别
                     Map<String,String> map = new HashMap<String, String>();
-                    map.put("token",sharedPreferences.getString("token", null));
-                    map.put("nickname",name);
+                    map.put("token", sharedPreferences.getString("token", null));
+                    map.put("nickname", name);
 
-                    VolleyRequest.PostStringRequest(SetNickNameActivity.this, YunApi.URL_SET_NICK_NAME, map, new VolleyOnResultListener() {
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_SET_NICK_NAME, new JSONObject(map), new Response.Listener<JSONObject>() {
                         @Override
-                        public void onSuccess(String response) {
+                        public void onResponse(JSONObject response) {
+
                             try {
-                                JSONObject jsonObject = new JSONObject(response);
-
-                                Toast.makeText(SetNickNameActivity.this,jsonObject.getString("error"),Toast.LENGTH_SHORT).show();
-
-                                Toast.makeText(SetNickNameActivity.this,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
-
-                                if (jsonObject.getString("error").equals("0")){
+                                if (response.getString("error").equals("0")){
 
                                     //向服务器发起设置性别的请求
-                                    Map<String,String> map_sex = new HashMap<String,String>();
+                                    Map<String, String> map_sex = new HashMap<String, String>();
                                     map_sex.put("token", sharedPreferences.getString("token", null));
                                     Log.d("nick_token", sharedPreferences.getString("token", "空"));
                                     map_sex.put("sex", String.valueOf(selected));
-                                    Log.d("nick_sex",String.valueOf(selected));
+                                    Log.d("nick_sex", String.valueOf(selected));
 
-
-                                    VolleyRequest.PostStringRequest(getApplicationContext(), YunApi.URL_SET_SEX, map_sex, new VolleyOnResultListener() {
+                                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, YunApi.URL_SET_SEX, new JSONObject(map_sex), new Response.Listener<JSONObject>() {
                                         @Override
-                                        public void onSuccess(String response) {
+                                        public void onResponse(JSONObject response) {
 
                                             Message message = Message.obtain();
                                             message.what = FINISH;
                                             handler.sendMessage(message);
 
                                             try {
-                                                JSONObject object = new JSONObject(response);
-                                                response = object.getString("error") + "\n" + object.getString("message");
-                                                Toast.makeText(SetNickNameActivity.this,response,Toast.LENGTH_SHORT).show();
-
-                                                Intent intent = new Intent(SetNickNameActivity.this,SetFaceActivity.class);
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                                startActivity(intent);
+                                                if (response.getString("error").equals("0")){
+                                                    Intent intent = new Intent(SetNickNameActivity.this, SetFaceActivity.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                                    startActivity(intent);
+                                                }
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
-                                                Toast.makeText(SetNickNameActivity.this,"something wrong",Toast.LENGTH_SHORT).show();
                                             }
                                         }
-
+                                    }, new Response.ErrorListener() {
                                         @Override
-                                        public void onFailure(String error) {
+                                        public void onErrorResponse(VolleyError error) {
                                             Message message = Message.obtain();
                                             message.what = FINISH;
                                             handler.sendMessage(message);
-                                            Toast.makeText(SetNickNameActivity.this,error,Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SetNickNameActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                                         }
                                     });
 
+                                    queue.add(jsonObjectRequest);
+
                                 }
-
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(SetNickNameActivity.this,"something wrong",Toast.LENGTH_SHORT).show();
                             }
-                        }
 
+                        }
+                    }, new Response.ErrorListener() {
                         @Override
-                        public void onFailure(String error) {
+                        public void onErrorResponse(VolleyError error) {
                             Message message = Message.obtain();
                             message.what = FINISH;
                             handler.sendMessage(message);
-                            Toast.makeText(SetNickNameActivity.this,error,Toast.LENGTH_SHORT).show();
                         }
                     });
 
-
+                    queue.add(request);
 
                 }
             }
