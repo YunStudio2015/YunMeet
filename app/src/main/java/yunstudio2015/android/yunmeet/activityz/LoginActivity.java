@@ -1,9 +1,12 @@
 package yunstudio2015.android.yunmeet.activityz;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,7 +35,6 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,7 +45,6 @@ import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
-import yunstudio2015.android.yunmeet.utilz.NetWorkUtil;
 import yunstudio2015.android.yunmeet.utilz.User;
 import yunstudio2015.android.yunmeet.utilz.UsersAPI;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
@@ -97,6 +98,22 @@ public class LoginActivity extends AppCompatActivity {
     /** 注意：SsoHandler 仅当 SDK 支持 SSO 时有效 */
     private SsoHandler ssoHandler;
 
+    private static int FINISH = 1;
+
+    private RequestQueue queue;
+
+    private ProgressDialog progressDialog;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == FINISH){
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
+            }
+        }
+    };
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -113,7 +130,11 @@ public class LoginActivity extends AppCompatActivity {
         //初始化微博登录所需要的数据
         initWeiboData();
 
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue = Volley.newRequestQueue(getApplicationContext());
+
+        progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setTitle("提示");
+        progressDialog.setMessage("正在登录，请稍候...");
 
         tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +169,8 @@ public class LoginActivity extends AppCompatActivity {
                     tvPasswordTip.setText(R.string.wrong_password);
                 } else {
 
+                    progressDialog.show();
+
                     //向服务器发起用户登录的请求
                     //每个参数都写成一个字段
                     Map<String, String> map = new HashMap<>();
@@ -156,68 +179,56 @@ public class LoginActivity extends AppCompatActivity {
                     map.put("password", password);
 
                     //volley库的改造工程。。。
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, YunApi.URL_LOGIN,new JSONObject(map),
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_LOGIN,new JSONObject(map),
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject jsonObject) {
 
+                                    Message msgFinish = Message.obtain();
+                                    msgFinish.what = FINISH;
+                                    handler.sendMessage(msgFinish);
+
+                                    Log.d("login",jsonObject.toString());
+
                                     try {
+                                        if (jsonObject.getString("error").equals("0")){
 
-                                        Toast.makeText(LoginActivity.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(LoginActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                                        //解析原jsonobject中嵌套的jsonobject
-                                        JSONObject token = new JSONObject(jsonObject.getString("data"));
-                                        Toast.makeText(LoginActivity.this,token.getString("token"),Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                            //解析原jsonobject中嵌套的jsonobject
+                                            JSONObject token = new JSONObject(jsonObject.getString("data"));
+                                            Toast.makeText(LoginActivity.this,token.getString("token"),Toast.LENGTH_SHORT).show();
 
-                                        //保存token到sharedpreferences中
-                                        editor.putString("token",token.toString());
-                                        editor.apply();
+                                            //保存token到sharedpreferences中
+                                            editor.putString("token",token.toString());
+                                            editor.apply();
 
+                                        }
 
+                                        if (jsonObject.getString("error").equals("1")){
+                                            Toast.makeText(LoginActivity.this,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                                        }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
+                                        Toast.makeText(LoginActivity.this,"过程中出错了",Toast.LENGTH_SHORT).show();
                                     }
 
-
                                 }
+
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
 
+                            Message msgFinish = Message.obtain();
+                            msgFinish.what = FINISH;
+                            handler.sendMessage(msgFinish);
+
+                            Toast.makeText(LoginActivity.this,volleyError.toString(),Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     );
 
-                    VolleyRequest.PostStringRequest(LoginActivity.this, YunApi.URL_LOGIN, map, new VolleyOnResultListener() {
-                        @Override
-                        public void onSuccess(String response) {
-
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                Toast.makeText(LoginActivity.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
-                                Toast.makeText(LoginActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                                //解析原jsonobject中嵌套的jsonobject
-                                JSONObject token = new JSONObject(jsonObject.getString("data"));
-                                Toast.makeText(LoginActivity.this,token.getString("token"),Toast.LENGTH_SHORT).show();
-
-                                //保存token到sharedpreferences中
-                                editor.putString("token",token.toString());
-                                editor.apply();
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(LoginActivity.this, "过程中出错了。", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(String error) {
-                            Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
+                    queue.add(request);
 
                     tvPhoneTip.setText(null);
                     tvPasswordTip.setText(null);
@@ -310,7 +321,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(Object o) {
 
-                Log.d("qqlogin",o.toString());
+                Log.d("qqlogin",String.valueOf(o));
                 if (o == null){
                     return;
                 }
@@ -390,30 +401,38 @@ public class LoginActivity extends AppCompatActivity {
                     //Log.d("qqINFO",qqNickName);
                     //Log.d("qqINFO",qqGender);//获取的性别信息为String类型，在做网络请求时要转换为int类型
                     Map<String,String> map = new HashMap<>();
-                    map.put("type","qq");
-                    map.put("access_token",qqAccessToken);
-                    map.put("app_id",YunApi.TENCENT_APP_ID);
-                    map.put("openid",qqOpenID);
-                    VolleyRequest.PostStringRequest(LoginActivity.this, YunApi.URL_LOGIN, map, new VolleyOnResultListener() {
+                    map.put("type", "qq");
+                    map.put("access_token", qqAccessToken);
+                    map.put("app_id", YunApi.TENCENT_APP_ID);
+                    map.put("openid", qqOpenID);
+
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_LOGIN, new JSONObject(map), new Response.Listener<JSONObject>() {
                         @Override
-                        public void onSuccess(String response) {
-                            Toast.makeText(LoginActivity.this,"success",Toast.LENGTH_LONG).show();
+                        public void onResponse(JSONObject response) {
+
                             try {
-                                JSONObject object = new JSONObject(response);
-                                Log.d("AAAAAAAA",object.getString("error")+object.getString("message"));
+                                if (response.getString("error").equals("0")){
+                                    //这里写activity的跳转
+                                    Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_SHORT).show();
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                Toast.makeText(LoginActivity.this,"过程中出错了...",Toast.LENGTH_SHORT).show();
                             }
-                        }
 
+                        }
+                    }, new Response.ErrorListener() {
                         @Override
-                        public void onFailure(String error) {
-                            Toast.makeText(LoginActivity.this,error,Toast.LENGTH_LONG).show();
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                         }
                     });
 
+                    queue.add(request);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(LoginActivity.this,"过程中出错了",Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -421,10 +440,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onError(UiError uiError) {
 
+                Toast.makeText(LoginActivity.this,"过程中发生了错误",Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onCancel() {
+
+                Toast.makeText(LoginActivity.this,"你取消了操作",Toast.LENGTH_SHORT).show();
 
             }
         };
@@ -543,7 +566,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onWeiboException(WeiboException e) {
             String info = e.getMessage();
-            Toast.makeText(LoginActivity.this, info.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, info, Toast.LENGTH_LONG).show();
         }
     };
 }
