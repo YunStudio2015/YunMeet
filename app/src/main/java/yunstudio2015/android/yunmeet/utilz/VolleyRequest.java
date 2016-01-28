@@ -77,13 +77,19 @@ public class VolleyRequest {
             }
         }){
 
-            @Override
+          @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 // TODO Auto-generated method stub
-                L.d(param.toString());
                 return param;
             }
 
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                headers.put("Content-Type", "application/json; charset=UTF-8");
+                return headers;
+            }
         };
         MyApplication.requestQueue.add(jsonObjectRequest);
     }

@@ -17,10 +17,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.sina.weibo.sdk.auth.AuthInfo;
@@ -38,6 +41,7 @@ import com.tencent.tauth.UiError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -221,12 +225,21 @@ public class LoginActivity extends AppCompatActivity {
                             Message msgFinish = Message.obtain();
                             msgFinish.what = FINISH;
                             handler.sendMessage(msgFinish);
-
+Log.d("login", "error "+ volleyError.toString());
                             Toast.makeText(LoginActivity.this,volleyError.toString(),Toast.LENGTH_SHORT).show();
                         }
                     }
 
-                    );
+                    ) {
+                        /* 给后台描述我们请求转发的数据类型为   json */
+                        @Override
+                        public Map<String, String> getHeaders() {
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            headers.put("Accept", "application/json");
+                            headers.put("Content-Type", "application/json; charset=UTF-8");
+                            return headers;
+                        }
+                    };
 
                     queue.add(request);
 
