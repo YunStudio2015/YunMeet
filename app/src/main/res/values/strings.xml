@@ -69,4 +69,9 @@
     <string name="right_arrow"><![CDATA[>]]></string>
     <!--end group of sign up and log in-->
 
+    <string name="new_topic">编织遇见话题</string>
+    <string name="share">分享</string>
+    <string name="edit_topic">#编织话题#</string>
+    <string name="edit_topic_hint">编织你的遇见分享给觅友吧...</string>
+
 </resources>
