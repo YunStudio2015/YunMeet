@@ -24,7 +24,7 @@ public class MyApplication extends Application {
 
     // app constants
     public static final boolean debug = true;
-    public static String appname = "yunmeet";
+    public static String appname = "yunmeetgeek";
 
     // teach something to others doesn't take it from you.
     // but not practising what you already know, clearly
