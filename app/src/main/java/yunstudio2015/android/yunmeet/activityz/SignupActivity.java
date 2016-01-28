@@ -20,6 +20,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,6 +71,8 @@ public class SignupActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private static int FINISH = 1;
 
+    private RequestQueue queue;
+
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -87,7 +97,8 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("提示");
         progressDialog.setMessage("正在注册，请稍候...");
-        progressDialog.setCancelable(false);
+
+        queue = Volley.newRequestQueue(getApplicationContext());
 
         //初始化sharedPreferences
         sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
@@ -163,26 +174,32 @@ public class SignupActivity extends AppCompatActivity {
                     //向服务器请求发送验证码到该手机号码
                     Map<String,String> map = new HashMap<String,String>();
                     map.put("type","regist");
-                    map.put("phone",phoneNumber);
+                    map.put("phone", phoneNumber);
 
-                    VolleyRequest.PostStringRequest(getApplicationContext(), YunApi.URL_GET_CHECK_CODE, map, new VolleyOnResultListener() {
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_CHECK_CODE, new JSONObject(map), new Response.Listener<JSONObject>() {
                         @Override
-                        public void onSuccess(String response) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                response = jsonObject.getString("message");
-                                Toast.makeText(SignupActivity.this,response,Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(SignupActivity.this,"过程中出错了",Toast.LENGTH_SHORT).show();
-                            }
+                        public void onResponse(JSONObject response) {
+
                         }
-
+                    }, new Response.ErrorListener() {
                         @Override
-                        public void onFailure(String error) {
+                        public void onErrorResponse(VolleyError error) {
                             Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    }
+                    )
+                    {
+                        @Override
+                        public Map<String, String> getHeaders(){
+
+                            HashMap<String,String> headers = new HashMap<String, String>();
+                            headers.put("Accept","application/json");
+                            headers.put("Content-Type","application/json;charset=UTF-8");
+                            return headers;
+                        }
+                    };
+
+                    queue.add(request);
 
                     //提示部分不设置文字
                     tvPhoneTip.setText(null);
@@ -224,9 +241,36 @@ public class SignupActivity extends AppCompatActivity {
 
                     map.put("type","phone");
                     map.put("phone",phoneNumber);
-                    map.put("password",password);
+                    map.put("password", password);
                     map.put("code", verificationCode);
 
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_SIGNUP, new JSONObject(map), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                            try {
+                                if (response.getString("error").equals("0")){
+
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    })
+                    {
+
+                    };
+
+                    queue.add(request);
+
+/*
                     VolleyRequest.PostStringRequest(getApplicationContext(), YunApi.URL_SIGNUP, map, new VolleyOnResultListener() {
                         @Override
                         public void onSuccess(String response) {
@@ -262,7 +306,7 @@ public class SignupActivity extends AppCompatActivity {
                                             editor.putString("token", token.getString("token"));
                                             editor.apply();
 
-                                            Intent intent = new Intent(SignupActivity.this,SetNickNameActivity.class);
+                                            Intent intent = new Intent(SignupActivity.this, SetNickNameActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                             startActivity(intent);
 
@@ -284,7 +328,7 @@ public class SignupActivity extends AppCompatActivity {
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(SignupActivity.this,"过程出错",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupActivity.this, "过程出错", Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -295,9 +339,10 @@ public class SignupActivity extends AppCompatActivity {
                             Message message = Message.obtain();
                             message.what = FINISH;
                             handler.sendMessage(message);
-                            Toast.makeText(SignupActivity.this,error,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, error, Toast.LENGTH_SHORT).show();
                         }
                     });
+*/
 
                     tvPhoneTip.setText(null);
                     tvPasswordTip.setText(null);

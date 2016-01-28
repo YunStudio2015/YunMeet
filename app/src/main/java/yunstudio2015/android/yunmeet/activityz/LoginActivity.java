@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -225,7 +226,7 @@ public class LoginActivity extends AppCompatActivity {
                             Message msgFinish = Message.obtain();
                             msgFinish.what = FINISH;
                             handler.sendMessage(msgFinish);
-Log.d("login", "error "+ volleyError.toString());
+                            Log.d("login", "error "+ volleyError.toString());
                             Toast.makeText(LoginActivity.this,volleyError.toString(),Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -439,7 +440,17 @@ Log.d("login", "error "+ volleyError.toString());
                         public void onErrorResponse(VolleyError error) {
                             Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    })
+                    {
+                        @Override
+                        public Map<String, String> getHeaders(){
+
+                            HashMap<String,String> mapHeader = new HashMap<String,String>();
+                            mapHeader.put("Accept","application/json");
+                            mapHeader.put("Content-Type","application/json;charset=UTF-8");
+                            return mapHeader;
+                        }
+                    };
 
                     queue.add(request);
 
