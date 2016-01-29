@@ -1,6 +1,5 @@
 package yunstudio2015.android.yunmeet.activityz;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,7 +19,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,13 +30,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
-import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -76,7 +73,11 @@ public class SignupActivity extends AppCompatActivity {
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+            if (msg.what == FINISH){
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
+            }
         }
     };
 
@@ -186,8 +187,7 @@ public class SignupActivity extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
                             Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                         }
-                    }
-                    )
+                    })
                     {
                         @Override
                         public Map<String, String> getHeaders(){
@@ -234,6 +234,7 @@ public class SignupActivity extends AppCompatActivity {
                     tvCodeTip.setText(R.string.wrong_verification_code);
                 } else {
 
+                    //显示dialog
                     progressDialog.show();
 
                     //请求服务器注册新账号
@@ -248,101 +249,106 @@ public class SignupActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
 
+                            Message msg = Message.obtain();
+                            msg.what = FINISH;
+                            handler.sendMessage(msg);
+
                             try {
                                 if (response.getString("error").equals("0")){
 
+                                    Map<String, String> map1 = new HashMap<>();
+                                    map1.put("type", "phone");
+                                    map1.put("phone", phoneNumber);
+                                    map1.put("password", password);
 
+                                    JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.POST, YunApi.URL_LOGIN, new JSONObject(map1), new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+
+                                            Message msg = Message.obtain();
+                                            msg.what = FINISH;
+                                            handler.sendMessage(msg);
+
+                                            try {
+                                                if (response.getString("error").equals("0")){
+
+                                                    Toast.makeText(SignupActivity.this,response.getString("message"),Toast.LENGTH_SHORT).show();
+
+                                                    //解析respose中嵌套的json object
+                                                    JSONObject token = new JSONObject(response.getString("data"));
+
+                                                    //保存到sharedpreferences中
+                                                    editor.putString("token", token.getString("token"));
+                                                    editor.apply();
+                                                    Toast.makeText(SignupActivity.this, token.getString("token"), Toast.LENGTH_SHORT).show();
+
+                                                    Intent intent = new Intent(SignupActivity.this, SetNickNameActivity.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                                    startActivity(intent);
+
+                                                    finish();
+
+                                                } else {
+                                                    Toast.makeText(SignupActivity.this,response.getString("message"),Toast.LENGTH_SHORT).show();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(SignupActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
+                                            }
+
+                                        }
+                                    }, new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+
+                                            Message msg = Message.obtain();
+                                            msg.what = FINISH;
+                                            handler.sendMessage(msg);
+                                            Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    {
+                                        @Override
+                                        public Map<String, String> getHeaders() {
+
+                                            HashMap<String,String> params = new HashMap<String, String>();
+                                            params.put("Accept","appliction/json");
+                                            params.put("Content-Type","appliction/json,charset=UTF-8");
+                                            return params;
+                                        }
+                                    };
+
+                                    queue.add(request1);
+
+                                } else {
+                                    Toast.makeText(SignupActivity.this,response.getString("message"),Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                Toast.makeText(SignupActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
                             }
 
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
-                        }
-                    })
-                    {
-
-                    };
-
-                    queue.add(request);
-
-/*
-                    VolleyRequest.PostStringRequest(getApplicationContext(), YunApi.URL_SIGNUP, map, new VolleyOnResultListener() {
-                        @Override
-                        public void onSuccess(String response) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                response = jsonObject.getString("message");
-                                Toast.makeText(SignupActivity.this, response, Toast.LENGTH_SHORT).show();
-
-                                //向服务器发起用户登录的请求
-                                //每个参数都写成一个字段
-                                Map<String, String> map1 = new HashMap<>();
-                                map1.put("type", "phone");
-                                map1.put("phone", phoneNumber);
-                                map1.put("password", password);
-
-                                VolleyRequest.PostStringRequest(getApplicationContext(), YunApi.URL_LOGIN, map1, new VolleyOnResultListener() {
-                                    @Override
-                                    public void onSuccess(String response) {
-
-                                        Message message = Message.obtain();
-                                        message.what = FINISH;
-                                        handler.sendMessage(message);
-
-                                        try {
-                                            JSONObject jsonObject = new JSONObject(response);
-                                            Toast.makeText(SignupActivity.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
-                                            Toast.makeText(SignupActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                                            //解析原jsonobject中嵌套的jsonobject
-                                            JSONObject token = new JSONObject(jsonObject.getString("data"));
-                                            Toast.makeText(SignupActivity.this, token.getString("token"), Toast.LENGTH_SHORT).show();
-
-                                            //保存token到sharedpreferences中
-                                            editor.putString("token", token.getString("token"));
-                                            editor.apply();
-
-                                            Intent intent = new Intent(SignupActivity.this, SetNickNameActivity.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                            startActivity(intent);
-
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                            Toast.makeText(SignupActivity.this, "过程中出错了。", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    }
-
-                                    @Override
-                                    public void onFailure(String error) {
-                                        Message message = Message.obtain();
-                                        message.what = FINISH;
-                                        handler.sendMessage(message);
-                                        Toast.makeText(SignupActivity.this, error, Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(SignupActivity.this, "过程出错", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(String error) {
-                            //发送消息，取消dialog的显示
                             Message message = Message.obtain();
                             message.what = FINISH;
                             handler.sendMessage(message);
-                            Toast.makeText(SignupActivity.this, error, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                         }
-                    });
-*/
+                    })
+                    {
+                        @Override
+                        public Map<String, String> getHeaders() {
+                            HashMap<String,String> headers = new HashMap<String, String>();
+                            headers.put("Accept","application/json");
+                            headers.put("Content-Type","application/josn,charset=UTF-8");
+                            return headers;
+                        }
+                    };
+
+                    queue.add(request);
 
                     tvPhoneTip.setText(null);
                     tvPasswordTip.setText(null);
@@ -424,4 +430,11 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+        super.onDestroy();
+    }
 }

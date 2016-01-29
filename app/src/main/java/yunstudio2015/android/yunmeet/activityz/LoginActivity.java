@@ -214,7 +214,7 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
-                                        Toast.makeText(LoginActivity.this,"过程中出错了",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
                                     }
 
                                 }
@@ -232,7 +232,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     ) {
-                        /* 给后台描述我们请求转发的数据类型为   json */
+                        /* 给后台描述我们请求转发的数据类型为json */
                         @Override
                         public Map<String, String> getHeaders() {
                             HashMap<String, String> headers = new HashMap<String, String>();
@@ -293,6 +293,9 @@ public class LoginActivity extends AppCompatActivity {
         if (tencent != null){
             tencent.logout(LoginActivity.this);
         }
+
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
         super.onDestroy();
     }
 
@@ -593,4 +596,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, info, Toast.LENGTH_LONG).show();
         }
     };
+
+
+
 }

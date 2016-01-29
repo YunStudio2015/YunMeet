@@ -21,6 +21,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -70,12 +78,16 @@ public class SetFaceActivity extends AppCompatActivity {
 
     private Bitmap headImg = null;
 
+    private RequestQueue queue;
+
     private ProgressDialog progressDialog;
+
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == UPLOAD_FINISH){
-                progressDialog.dismiss();
+                if (progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         }
     };
@@ -93,6 +105,8 @@ public class SetFaceActivity extends AppCompatActivity {
         progressDialog.setTitle("提示");
         progressDialog.setMessage("正在上传，请稍候...");
 
+        queue = Volley.newRequestQueue(getApplicationContext());
+
         ibtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,46 +118,61 @@ public class SetFaceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                progressDialog.show();
+                //这里首先要验证用户是否选择了图片
+                if (headImg == null){
+                    Toast.makeText(SetFaceActivity.this,"你还没有选择图片",Toast.LENGTH_SHORT).show();
+                } else {
 
-                Map<String,String> map = new HashMap<String, String>();
-                map.put("token",sharedPreferences.getString("token",null));
-                map.put("face",convertIconToString(headImg));
+                    progressDialog.show();
 
-                VolleyRequest.PostStringRequest(getApplicationContext(), YunApi.URL_SET_FACE, map, new VolleyOnResultListener() {
-                    @Override
-                    public void onSuccess(String response) {
-                        Message message = Message.obtain();
-                        message.what = UPLOAD_FINISH;
-                        handler.sendMessage(message);
+                    Map<String,String> map = new HashMap<String, String>();
+                    map.put("token",sharedPreferences.getString("token", null));
+                    map.put("face", convertIconToString(headImg));
 
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            response = jsonObject.getString("message");
-                            Log.d("message",response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_SET_FACE, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                            Message message = Message.obtain();
+                            message.what = UPLOAD_FINISH;
+                            handler.sendMessage(message);
+
+                            try {
+                                if (response.getString("error").equals("0")){
+                                    //这里写activity的跳转，并且结束当前activity
+
+                                } else {
+                                    Toast.makeText(SetFaceActivity.this,response.getString("message"),Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(SetFaceActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
+                            }
+
                         }
-                        Toast.makeText(SetFaceActivity.this,response,Toast.LENGTH_SHORT).show();
-                    }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Message message = Message.obtain();
+                            message.what = UPLOAD_FINISH;
+                            handler.sendMessage(message);
 
-                    @Override
-                    public void onFailure(String error) {
-                        Message message = Message.obtain();
-                        message.what = UPLOAD_FINISH;
-                        handler.sendMessage(message);
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(error);
-                            error = jsonObject.getString("error");
-                            Log.d("message", error);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            Toast.makeText(SetFaceActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(SetFaceActivity.this,error,Toast.LENGTH_LONG).show();
-                    }
-                });
+                    })
+                    {
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            HashMap<String,String> headers = new HashMap<String, String>();
+                            headers.put("Accept","application/json");
+                            headers.put("Content-Type","application/json,charset=UTF-8");
+                            return headers;
+                        }
+                    };
 
+                    queue.add(request);
+
+                }
             }
         });
 
@@ -304,4 +333,11 @@ public class SetFaceActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+        super.onDestroy();
+    }
 }

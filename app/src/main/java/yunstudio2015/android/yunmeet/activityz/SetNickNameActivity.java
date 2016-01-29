@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,11 +29,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
-import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 public class SetNickNameActivity extends AppCompatActivity {
@@ -58,7 +56,8 @@ public class SetNickNameActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == FINISH){
-                progressDialog.dismiss();
+                if (progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         }
     };
@@ -78,7 +77,6 @@ public class SetNickNameActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("提示");
         progressDialog.setMessage("正在上传，请稍候...");
-        progressDialog.setCancelable(false);
 
         ibtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +117,7 @@ public class SetNickNameActivity extends AppCompatActivity {
                     //设置提示语
                     tvNameTip.setText(" ");
 
+                    //显示dialog
                     progressDialog.show();
 
                     //请求服务器设置昵称，如果请求失败，则不再请求设置性别
@@ -149,30 +148,46 @@ public class SetNickNameActivity extends AppCompatActivity {
                                             handler.sendMessage(message);
 
                                             try {
+
                                                 if (response.getString("error").equals("0")){
                                                     Intent intent = new Intent(SetNickNameActivity.this, SetFaceActivity.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                                     startActivity(intent);
+
+                                                    finish();
                                                 }
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
+                                                Toast.makeText(SetNickNameActivity.this, R.string.wrong_process,Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
+
                                             Message message = Message.obtain();
                                             message.what = FINISH;
                                             handler.sendMessage(message);
+
                                             Toast.makeText(SetNickNameActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                                         }
-                                    });
+                                    })
+                                    {
+                                        @Override
+                                        public Map<String, String> getHeaders() throws AuthFailureError {
+                                            HashMap<String,String> headers = new HashMap<String, String>();
+                                            headers.put("Accept","appliction/json");
+                                            headers.put("Content-Type","appliction/json,charset=UTF-8");
+                                            return headers;
+                                        }
+                                    };
 
                                     queue.add(jsonObjectRequest);
 
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                Toast.makeText(SetNickNameActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -182,6 +197,7 @@ public class SetNickNameActivity extends AppCompatActivity {
                             Message message = Message.obtain();
                             message.what = FINISH;
                             handler.sendMessage(message);
+                            Toast.makeText(SetNickNameActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -216,4 +232,11 @@ public class SetNickNameActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+        super.onDestroy();
+    }
 }
