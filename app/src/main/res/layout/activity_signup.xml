@@ -75,12 +75,13 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/et_height"
+                android:id="@+id/et_password"
                 android:background="@null"
                 android:inputType="textPassword"
                 android:hint="@string/password"
+                android:digits="@string/password_limits"
                 android:textColorHint="@android:color/white"
                 android:textColor="@android:color/white"
-                android:id="@+id/et_password"
                 android:maxLength="20" />
 
         </LinearLayout>

@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,8 +94,8 @@ public class SignupActivity extends AppCompatActivity {
         initViews();
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("提示");
-        progressDialog.setMessage("正在注册，请稍候...");
+        progressDialog.setTitle(getString(R.string.tip));
+        progressDialog.setMessage(getString(R.string.uploading));
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -418,7 +416,7 @@ public class SignupActivity extends AppCompatActivity {
         @Override
         public void onTick(long millisUntilFinished) {
             btnSendCode.setClickable(false);
-            btnSendCode.setText(millisUntilFinished/1000+"秒");
+            btnSendCode.setText(millisUntilFinished/1000+getString(R.string.second));
         }
 
         //计时完成时触发

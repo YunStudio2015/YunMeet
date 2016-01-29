@@ -75,8 +75,8 @@ public class SetNickNameActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("提示");
-        progressDialog.setMessage("正在上传，请稍候...");
+        progressDialog.setTitle(getString(R.string.tip));
+        progressDialog.setMessage(getString(R.string.uploading));
 
         ibtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
