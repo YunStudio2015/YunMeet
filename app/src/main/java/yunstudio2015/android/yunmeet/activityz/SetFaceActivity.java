@@ -43,8 +43,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
-import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -69,6 +67,7 @@ public class SetFaceActivity extends AppCompatActivity {
     private static final int CODE_CROP_REQUEST = 2;
 
     private static final int UPLOAD_FINISH = 1;
+    private static final int LOAD_FINISH = 2;
 
     //图片裁剪后的宽和高
     private static int output_x = 480;
@@ -80,14 +79,25 @@ public class SetFaceActivity extends AppCompatActivity {
 
     private RequestQueue queue;
 
-    private ProgressDialog progressDialog;
+    //用于线程之间的传递
+    private Intent data;
+
+    //上传图片时显示的dialog
+    private ProgressDialog upLoadingDialog;
+    //在客户端加载图片时显示的dialog
+    private ProgressDialog loadingDialog;
 
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == UPLOAD_FINISH){
-                if (progressDialog.isShowing())
-                    progressDialog.dismiss();
+                if (upLoadingDialog.isShowing())
+                    upLoadingDialog.dismiss();
+            }
+
+            if (msg.what == LOAD_FINISH){
+                if (loadingDialog.isShowing())
+                    loadingDialog.dismiss();
             }
         }
     };
@@ -101,9 +111,9 @@ public class SetFaceActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("UserData",MODE_PRIVATE);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("提示");
-        progressDialog.setMessage("正在上传，请稍候...");
+        upLoadingDialog = new ProgressDialog(this);
+        upLoadingDialog.setTitle(getString(R.string.tip));
+        upLoadingDialog.setMessage(getString(R.string.uploading));
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -120,13 +130,14 @@ public class SetFaceActivity extends AppCompatActivity {
 
                 //这里首先要验证用户是否选择了图片
                 if (headImg == null){
-                    Toast.makeText(SetFaceActivity.this,"你还没有选择图片",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetFaceActivity.this, R.string.no_head_face_selected,Toast.LENGTH_SHORT).show();
                 } else {
 
-                    progressDialog.show();
+                    upLoadingDialog.show();
 
                     Map<String,String> map = new HashMap<String, String>();
                     map.put("token",sharedPreferences.getString("token", null));
+                    Log.d("token",sharedPreferences.getString("token",null));
                     map.put("face", convertIconToString(headImg));
 
                     JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_SET_FACE, new Response.Listener<JSONObject>() {
@@ -140,7 +151,7 @@ public class SetFaceActivity extends AppCompatActivity {
                             try {
                                 if (response.getString("error").equals("0")){
                                     //这里写activity的跳转，并且结束当前activity
-
+                                    Toast.makeText(SetFaceActivity.this,response.getString("message"),Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(SetFaceActivity.this,response.getString("message"),Toast.LENGTH_SHORT).show();
                                 }
@@ -201,7 +212,7 @@ public class SetFaceActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (resultCode == RESULT_CANCELED){
-            Toast.makeText(getApplicationContext(),"取消",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),R.string.cancle,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -212,9 +223,11 @@ public class SetFaceActivity extends AppCompatActivity {
                 {
                     return;
                 }
-                Uri uri1 = data.getData();
-                Uri fileUri = convertUri(uri1);
-                startImageZoom(fileUri);
+
+                this.data = data;
+
+                new Thread(new MyThread()).start();
+
                 break;
             case CODE_CAMERA_REQUEST:
                 if(data == null)
@@ -277,14 +290,13 @@ public class SetFaceActivity extends AppCompatActivity {
         }
         File img = new File(tmpDir.getAbsolutePath() + IMG_FILE_NAME);
         try {
-            Long start =  System.currentTimeMillis();
+            Log.d("save",String.valueOf(System.currentTimeMillis()));
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(img),1024*100);
-            Long end = System.currentTimeMillis();
-            Log.d("end",String.valueOf(end-start));
             //第一个参数为压缩的格式，第二个参数为压缩的质量，第三个参数为文件流
             bitmap.compress(Bitmap.CompressFormat.PNG, 85, bos);
             bos.flush();
             bos.close();
+            Log.d("save",String.valueOf(System.currentTimeMillis()));
             return Uri.fromFile(img);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -299,11 +311,9 @@ public class SetFaceActivity extends AppCompatActivity {
     private Uri convertUri(Uri uri){
         InputStream is = null;
         try {
-            System.out.println(String.valueOf(System.currentTimeMillis()));
             is = getContentResolver().openInputStream(uri);
             Bitmap bitmap = BitmapFactory.decodeStream(is);
             is.close();
-            System.out.println(String.valueOf(System.currentTimeMillis()));
             return saveBitmap(bitmap);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -326,9 +336,11 @@ public class SetFaceActivity extends AppCompatActivity {
 
     public static String convertIconToString(Bitmap bitmap)
     {
+        Log.d("convert",String.valueOf(System.currentTimeMillis()));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();// outputstream
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] appicon = baos.toByteArray();// 转为byte数组
+        Log.d("convert",String.valueOf(System.currentTimeMillis()));
         return Base64.encodeToString(appicon, Base64.DEFAULT);
 
     }
@@ -336,8 +348,20 @@ public class SetFaceActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
 
-        if (progressDialog.isShowing())
-            progressDialog.dismiss();
+        if (upLoadingDialog.isShowing())
+            upLoadingDialog.dismiss();
         super.onDestroy();
+    }
+
+    private class MyThread implements Runnable{
+
+        @Override
+        public void run() {
+            Uri uri1 = data.getData();
+            Log.d("bfcvt",String.valueOf(System.currentTimeMillis()));
+            Uri fileUri = convertUri(uri1);
+            Log.d("aftcvt",String.valueOf(System.currentTimeMillis()));
+            startImageZoom(fileUri);
+        }
     }
 }

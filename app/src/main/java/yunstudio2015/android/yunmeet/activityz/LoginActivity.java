@@ -17,14 +17,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.sina.weibo.sdk.auth.AuthInfo;
@@ -42,17 +38,14 @@ import com.tencent.tauth.UiError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.User;
 import yunstudio2015.android.yunmeet.utilz.UsersAPI;
-import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.WeiboAccessKeeper;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
@@ -138,8 +131,8 @@ public class LoginActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(getApplicationContext());
 
         progressDialog = new ProgressDialog(LoginActivity.this);
-        progressDialog.setTitle("提示");
-        progressDialog.setMessage("正在登录，请稍候...");
+        progressDialog.setTitle(getString(R.string.tip));
+        progressDialog.setMessage(getString(R.string.logging));
 
         tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -430,11 +423,11 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 if (response.getString("error").equals("0")){
                                     //这里写activity的跳转
-                                    Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(LoginActivity.this,"过程中出错了...",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -459,7 +452,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(LoginActivity.this,"过程中出错了",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -467,14 +460,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onError(UiError uiError) {
 
-                Toast.makeText(LoginActivity.this,"过程中发生了错误",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void onCancel() {
 
-                Toast.makeText(LoginActivity.this,"你取消了操作",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,R.string.cancle,Toast.LENGTH_SHORT).show();
 
             }
         };
@@ -556,7 +549,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onCancel() {
             Toast.makeText(LoginActivity.this,
-                    "你取消了授权", Toast.LENGTH_LONG).show();
+                    R.string.authorize_cancle, Toast.LENGTH_LONG).show();
         }
 
         @Override
