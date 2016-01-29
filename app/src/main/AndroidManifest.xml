@@ -26,6 +26,8 @@
             android:label="@string/title_activity_show" />
         <activity android:name=".activityz.SignupActivity" />
         <activity android:name=".activityz.LoginActivity">
+        </activity>
+        <activity android:name=".activityz.LaunchChatTopicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
