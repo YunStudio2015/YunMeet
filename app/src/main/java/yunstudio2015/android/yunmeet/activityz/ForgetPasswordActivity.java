@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,7 @@ import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
 
-    private ImageButton ibtnBack;
+    private ImageView ivBack;
     private Button btnNextStep;
     private Button btnSendCode;
     private EditText etPhoneNumber;
@@ -55,7 +56,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
         initViews();
 
-        ibtnBack.setOnClickListener(new View.OnClickListener() {
+        ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -156,7 +157,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
     private void initViews(){
 
-        ibtnBack = (ImageButton) findViewById(R.id.ibtn_back);
+        ivBack = (ImageView) findViewById(R.id.iv_back);
         btnNextStep = (Button) findViewById(R.id.btn_next_step);
         btnSendCode = (Button) findViewById(R.id.send_code);
         etPhoneNumber = (EditText) findViewById(R.id.et_phone_number);
@@ -206,7 +207,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         @Override
         public void onTick(long millisUntilFinished) {
             btnSendCode.setClickable(false);
-            btnSendCode.setText(millisUntilFinished/1000+"秒");
+            btnSendCode.setText(millisUntilFinished/1000 + getString(R.string.second));
         }
 
         //计时完成时触发

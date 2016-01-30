@@ -75,7 +75,9 @@
     <string name="uploading">正在上传，请稍候…</string>
     <string name="logging">正在登录，请稍候…</string>
     <string name="login_success">登录成功</string>
+    <string name="authorize_success">授权成功</string>
     <string name="authorize_cancle">你取消了授权</string>
+    <string name="loading">正在加载…</string>
     <string name="tip">提示</string>
     <string name="second">秒</string>
     <!--end group of sign up and log in-->

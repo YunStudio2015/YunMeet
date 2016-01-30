@@ -6,53 +6,51 @@
     android:orientation="vertical"
     tools:context="yunstudio2015.android.yunmeet.activityz.SetFaceActivity">
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/toolbar_dark"
-        android:orientation="horizontal">
+        android:layout_height="@dimen/action_bar_size"
+        android:background="@color/actionbar_color"
+        >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center">
+            android:gravity="center_vertical">
 
-            <ImageButton
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
                 android:layout_width="@dimen/toolbar_backbtn_back_width"
                 android:layout_height="@dimen/toolbar_backbtn_back_height"
-                android:id="@+id/ibtn_back"
+                android:id="@+id/iv_back"
                 android:src="@drawable/btn_back"
                 android:background="@color/toolbar_dark"/>
 
-        </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/set_face"
-            android:textColor="@android:color/white"
-            android:gravity="center"
-            android:textSize="18sp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_face"
+                android:textColor="@android:color/white"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/actionbar_title_size"/>
 
             <Button
-                android:layout_width="60dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="45dp"
                 android:layout_height="30dp"
                 android:id="@+id/btn_finish"
                 android:background="@color/btn_background"
                 android:text="@string/finish"
+                android:gravity="center"
                 android:textColor="@android:color/white"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-    </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
 
     <LinearLayout
         android:layout_width="match_parent"

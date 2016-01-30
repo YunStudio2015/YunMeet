@@ -37,7 +37,7 @@ public class SetNickNameActivity extends AppCompatActivity {
 
 
     private EditText etNickName;
-    private ImageButton ibtnBack;
+    private ImageView ivBack;
     private ImageView ivMale;
     private ImageView ivFemale;
     private TextView tvNameTip;
@@ -78,7 +78,7 @@ public class SetNickNameActivity extends AppCompatActivity {
         progressDialog.setTitle(getString(R.string.tip));
         progressDialog.setMessage(getString(R.string.uploading));
 
-        ibtnBack.setOnClickListener(new View.OnClickListener() {
+        ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -211,7 +211,7 @@ public class SetNickNameActivity extends AppCompatActivity {
 
     private void initView() {
 
-        ibtnBack = (ImageButton) findViewById(R.id.ibtn_back);
+        ivBack = (ImageView) findViewById(R.id.iv_back);
         etNickName = (EditText) findViewById(R.id.et_nickname);
         ivMale = (ImageView) findViewById(R.id.iv_male);
         ivFemale = (ImageView) findViewById(R.id.iv_female);

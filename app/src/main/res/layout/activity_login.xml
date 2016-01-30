@@ -173,21 +173,21 @@
                 android:clickable="false"
                 android:visibility="invisible"/>
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_weight="1"
                 android:layout_marginRight="16dp"
-                android:id="@+id/ibtn_QQ"
+                android:id="@+id/iv_QQ"
                 android:background="@android:color/transparent"
                 android:src="@drawable/qq"/>
 
-            <ImageButton
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_weight="1"
                 android:layout_marginLeft="16dp"
-                android:id="@+id/ibtn_weibo"
+                android:id="@+id/iv_weibo"
                 android:background="@android:color/transparent"
                 android:src="@drawable/weibo"/>
 

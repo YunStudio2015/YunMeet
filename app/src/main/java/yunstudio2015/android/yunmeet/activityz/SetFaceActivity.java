@@ -54,7 +54,7 @@ import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 public class SetFaceActivity extends AppCompatActivity {
 
-    private ImageButton ibtnBack;
+    private ImageView ivBack;
     private ImageView ivFace;
     private Button btnFinish;
     private TextView tvSelectFromAlbum;
@@ -117,7 +117,7 @@ public class SetFaceActivity extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
-        ibtnBack.setOnClickListener(new View.OnClickListener() {
+        ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -224,8 +224,9 @@ public class SetFaceActivity extends AppCompatActivity {
                     return;
                 }
 
+                //显示dialog
+                loadingDialog.show();
                 this.data = data;
-
                 new Thread(new MyThread()).start();
 
                 break;
@@ -326,7 +327,7 @@ public class SetFaceActivity extends AppCompatActivity {
 
     private void initViews() {
 
-        ibtnBack = (ImageButton) findViewById(R.id.ibtn_back);
+        ivBack = (ImageView) findViewById(R.id.iv_back);
         ivFace = (ImageView) findViewById(R.id.iv_face);
         btnFinish = (Button) findViewById(R.id.btn_finish);
         tvSelectFromAlbum = (TextView) findViewById(R.id.tv_select_from_album);

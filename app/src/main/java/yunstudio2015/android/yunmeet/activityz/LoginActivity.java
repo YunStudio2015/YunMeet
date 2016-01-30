@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvPhoneTip;
     private TextView tvPasswordTip;
     private TextView tvForgotPassword;
-    private ImageButton ibtnQQ,ibtnWeibo;
+    private ImageView ivQQ,ivWeibo;
     private String phoneNumber = null;
     private String password = null;
 
@@ -78,9 +79,6 @@ public class LoginActivity extends AppCompatActivity {
     private IUiListener userInfoListener;//获取用户信息监听
     private String scope = "all";//获取用户信息的范围
     private String qqOpenID;//qq用户的唯一识别码，用作网络请求的参数
-    private String qqNickName;//qq用户的昵称，用作网络请求的参数
-    private String qqGender;//qq用户的性别，用作网络请求的参数
-    private Image qqFace;//qq用户头像
     private String qqAccessToken;
 
     //用户信息接口
@@ -252,7 +250,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        ibtnQQ.setOnClickListener(new View.OnClickListener() {
+        ivQQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -262,7 +260,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        ibtnWeibo.setOnClickListener(new View.OnClickListener() {
+        ivWeibo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -301,8 +299,8 @@ public class LoginActivity extends AppCompatActivity {
         tvPhoneTip = (TextView) findViewById(R.id.tv_phone_tip);
         tvPasswordTip = (TextView) findViewById(R.id.tv_password_tip);
         tvForgotPassword = (TextView) findViewById(R.id.tv_forgot_password);
-        ibtnQQ = (ImageButton) findViewById(R.id.ibtn_QQ);
-        ibtnWeibo = (ImageButton) findViewById(R.id.ibtn_weibo);
+        ivQQ = (ImageView) findViewById(R.id.iv_QQ);
+        ivWeibo = (ImageView) findViewById(R.id.iv_weibo);
 
     }
 
@@ -331,7 +329,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(Object o) {
 
-                Log.d("qqlogin",String.valueOf(o));
                 if (o == null){
                     return;
                 }
@@ -400,60 +397,46 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                try {
+                Map<String,String> map = new HashMap<>();
+                map.put("type", "qq");
+                map.put("access_token", qqAccessToken);
+                map.put("app_id", YunApi.TENCENT_APP_ID);
+                map.put("openid", qqOpenID);
 
-                    qqNickName = ((JSONObject) o).getString("nickname");
-                    qqGender = ((JSONObject) o).getString("gender");
-                    //这里还有获取头像的代码
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_LOGIN, new JSONObject(map), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
-                    //发起网络请求，上传用户信息，并且跳转界面
-                    //Log.d("qqINFO",qqOpenID);
-                    //Log.d("qqINFO",qqNickName);
-                    //Log.d("qqINFO",qqGender);//获取的性别信息为String类型，在做网络请求时要转换为int类型
-                    Map<String,String> map = new HashMap<>();
-                    map.put("type", "qq");
-                    map.put("access_token", qqAccessToken);
-                    map.put("app_id", YunApi.TENCENT_APP_ID);
-                    map.put("openid", qqOpenID);
+                        try {
+                            if (response.getString("error").equals("0")){
+                                //这里写activity的跳转
+                                Toast.makeText(LoginActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
 
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_LOGIN, new JSONObject(map), new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-
-                            try {
-                                if (response.getString("error").equals("0")){
-                                    //这里写activity的跳转
-                                    Toast.makeText(LoginActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(LoginActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
                             }
-
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(LoginActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
                         }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    {
-                        @Override
-                        public Map<String, String> getHeaders(){
 
-                            HashMap<String,String> mapHeader = new HashMap<String,String>();
-                            mapHeader.put("Accept","application/json");
-                            mapHeader.put("Content-Type","application/json;charset=UTF-8");
-                            return mapHeader;
-                        }
-                    };
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                    }
+                })
+                {
+                    @Override
+                    public Map<String, String> getHeaders(){
 
-                    queue.add(request);
+                        HashMap<String,String> mapHeader = new HashMap<String,String>();
+                        mapHeader.put("Accept","application/json");
+                        mapHeader.put("Content-Type","application/json;charset=UTF-8");
+                        return mapHeader;
+                    }
+                };
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(LoginActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
-                }
+                queue.add(request);
 
             }
 
@@ -520,7 +503,7 @@ public class LoginActivity extends AppCompatActivity {
                 // 保存 Token 到 SharedPreferences
                 WeiboAccessKeeper.writeAccessToken(LoginActivity.this, weiboAccessToken);
                 Toast.makeText(LoginActivity.this,
-                        "授权成功", Toast.LENGTH_SHORT).show();
+                        R.string.authorize_success, Toast.LENGTH_SHORT).show();
 
                 //开始获取用户信息
                 weiboUserAPI  = new UsersAPI(LoginActivity.this,YunApi.WEIBO_APP_KEY,weiboAccessToken);

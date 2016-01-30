@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.sso.SsoHandler;
+import com.tencent.connect.UserInfo;
+import com.tencent.connect.common.Constants;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +44,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.utilz.UsersAPI;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -55,10 +66,31 @@ public class SignupActivity extends AppCompatActivity {
     private TextView tvPhoneTip;
     private TextView tvPasswordTip;
     private TextView tvCodeTip;
-    private ImageButton ibtnQQ, ibtnWeibo;
+    private ImageView ivQQ, ivWeibo;
     private String password = null;
     private String phoneNumber = null;
     private String verificationCode = null;
+
+    private Tencent tencent;// Tencent类是SDK的主要实现类，开发者可通过Tencent类访问腾讯开放的OpenAPI。
+    private UserInfo qqUserInfo;//QQ用户信息
+    private IUiListener loginListener;//登录监听
+    private IUiListener userInfoListener;//获取用户信息监听
+    private String scope = "all";//获取用户信息的范围
+    private String qqOpenID;//qq用户的唯一识别码，用作网络请求的参数
+    private String qqAccessToken;
+
+    //用户信息接口
+    private UsersAPI weiboUserAPI;
+    private String wbUID;//微博用户的唯一识别码
+    private String wbNickName;//微博用户的昵称
+    private String wbGender;//微博用户性别
+    private Image wbFace;//微博用户头像
+
+    private AuthInfo authInfo;
+    /** 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能  */
+    private Oauth2AccessToken weiboAccessToken;
+    /** 注意：SsoHandler 仅当 SDK 支持 SSO 时有效 */
+    private SsoHandler ssoHandler;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -103,6 +135,8 @@ public class SignupActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        initTencentData();
+
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,7 +162,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 phoneNumber = String.valueOf(etPhoneNumber.getText());
 
-                if (phoneNumber != null && isInputRight(0, phoneNumber) && password != null && isInputRight(1,password)) {
+                if (phoneNumber != null && isInputRight(0, phoneNumber) && password != null && isInputRight(1, password)) {
                     btnSendCode.setBackgroundColor(getResources().getColor(R.color.btn_background));
                 } else {
                     btnSendCode.setBackgroundColor(Color.TRANSPARENT);
@@ -167,12 +201,12 @@ public class SignupActivity extends AppCompatActivity {
 
                 if (phoneNumber == null || !isInputRight(0, phoneNumber)) {
                     tvPhoneTip.setText(R.string.wrong_phone_number);
-                } else if (password == null || !isInputRight(1,password)) {
+                } else if (password == null || !isInputRight(1, password)) {
                     tvPasswordTip.setText(R.string.wrong_password);
                 } else {
                     //向服务器请求发送验证码到该手机号码
-                    Map<String,String> map = new HashMap<String,String>();
-                    map.put("type","regist");
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("type", "regist");
                     map.put("phone", phoneNumber);
 
                     JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_CHECK_CODE, new JSONObject(map), new Response.Listener<JSONObject>() {
@@ -183,16 +217,15 @@ public class SignupActivity extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
                         }
-                    })
-                    {
+                    }) {
                         @Override
-                        public Map<String, String> getHeaders(){
+                        public Map<String, String> getHeaders() {
 
-                            HashMap<String,String> headers = new HashMap<String, String>();
-                            headers.put("Accept","application/json");
-                            headers.put("Content-Type","application/json;charset=UTF-8");
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            headers.put("Accept", "application/json");
+                            headers.put("Content-Type", "application/json;charset=UTF-8");
                             return headers;
                         }
                     };
@@ -356,6 +389,174 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+        ivQQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!tencent.isSessionValid())
+                    tencent.login(SignupActivity.this,scope,loginListener);
+            }
+        });
+
+        ivWeibo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+    }
+
+    private void initTencentData() {
+
+        //初始化tencent对象
+        tencent = Tencent.createInstance(YunApi.TENCENT_APP_ID,getApplicationContext());
+
+        loginListener = new IUiListener() {
+
+            /**
+             * 返回json数据样例
+             *
+             * {"ret":0,
+             * "pay_token":"D3D678728DC580FBCDE15722B72E7365",
+             * "pf":"desktop_m_qq-10000144-android-2002-",
+             * "query_authority_cost":448,
+             * "authority_cost":-136792089,
+             * "openid":"015A22DED93BD15E0E6B0DDB3E59DE2D",
+             * "expires_in":7776000,
+             * "pfkey":"6068ea1c4a716d4141bca0ddb3df1bb9",
+             * "msg":"",
+             * "access_token":"A2455F491478233529D0106D2CE6EB45",
+             * "login_cost":499}
+             */
+            @Override
+            public void onComplete(Object o) {
+
+                if (o == null){
+                    return;
+                }
+
+                try {
+                    int ret = ((JSONObject) o).getInt("ret");
+                    if (ret == 0){
+                        String openID = ((JSONObject) o).getString("openid");
+                        qqAccessToken = ((JSONObject) o).getString("access_token");
+                        String expires = ((JSONObject) o).getString("expires_in");
+
+                        tencent.setOpenId(openID);
+                        tencent.setAccessToken(qqAccessToken, expires);
+
+                        qqOpenID = openID;
+
+                        qqUserInfo = new UserInfo(SignupActivity.this,tencent.getQQToken());
+                        qqUserInfo.getUserInfo(userInfoListener);
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(UiError uiError) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        };
+
+        userInfoListener = new IUiListener() {
+
+            /**
+             * 返回用户信息样例
+             *
+             * {
+             * "is_yellow_year_vip": "0",
+             * "ret": 0,
+             * "figureurl_qq_1":"http://q.qlogo.cn/qqapp/222222/8C75BBE3DC6B0E9A64BD31449A3C8CB0/40",
+             * "figureurl_qq_2":"http://q.qlogo.cn/qqapp/222222/8C75BBE3DC6B0E9A64BD31449A3C8CB0/100",
+             * "nickname": "小罗",
+             * "yellow_vip_level": "0",
+             * "msg": "",
+             * "figureurl_1":"http://qzapp.qlogo.cn/qzapp/222222/8C75BBE3DC6B0E9A64BD31449A3C8CB0/50",
+             * "vip": "0",
+             * "level": "0",
+             * "figureurl_2":"http://qzapp.qlogo.cn/qzapp/222222/8C75BBE3DC6B0E9A64BD31449A3C8CB0/100",
+             * "is_yellow_vip": "0",
+             * "gender": "男",
+             * "figureurl":"http://qzapp.qlogo.cn/qzapp/222222/8C75BBE3DC6B0E9A64BD31449A3C8CB0/30"
+             * }
+             */
+
+            @Override
+            public void onComplete(final Object o) {
+
+                if (o == null){
+                    return;
+                }
+
+                Map<String,String> map = new HashMap<>();
+                map.put("type", "qq");
+                map.put("access_token", qqAccessToken);
+                map.put("app_id", YunApi.TENCENT_APP_ID);
+                map.put("openid", qqOpenID);
+
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_LOGIN, new JSONObject(map), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            if (response.getString("error").equals("0")){
+                                //这里写activity的跳转
+                                Toast.makeText(SignupActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(SignupActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                    }
+                })
+                {
+                    @Override
+                    public Map<String, String> getHeaders(){
+
+                        HashMap<String,String> mapHeader = new HashMap<String,String>();
+                        mapHeader.put("Accept","application/json");
+                        mapHeader.put("Content-Type","application/json;charset=UTF-8");
+                        return mapHeader;
+                    }
+                };
+
+                queue.add(request);
+
+            }
+
+            @Override
+            public void onError(UiError uiError) {
+
+                Toast.makeText(SignupActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onCancel() {
+
+                Toast.makeText(SignupActivity.this,R.string.cancle,Toast.LENGTH_SHORT).show();
+
+            }
+        };
+
     }
 
     public void initViews() {
@@ -369,8 +570,8 @@ public class SignupActivity extends AppCompatActivity {
         tvPhoneTip = (TextView) findViewById(R.id.tv_phone_tip);
         tvPasswordTip = (TextView) findViewById(R.id.tv_password_tip);
         tvCodeTip = (TextView) findViewById(R.id.tv_code_tip);
-        ibtnQQ = (ImageButton) findViewById(R.id.ibtn_QQ);
-        ibtnWeibo = (ImageButton) findViewById(R.id.ibtn_weibo);
+        ivQQ = (ImageView) findViewById(R.id.iv_QQ);
+        ivWeibo = (ImageView) findViewById(R.id.iv_weibo);
 
     }
 
@@ -434,5 +635,20 @@ public class SignupActivity extends AppCompatActivity {
         if (progressDialog.isShowing())
             progressDialog.dismiss();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        //非常重要！！！官方文档中并没有指出这里的回调！！！
+        Tencent.onActivityResultData(requestCode,resultCode,data,loginListener);
+
+        if (requestCode == Constants.REQUEST_API){
+            if (resultCode == Constants.REQUEST_LOGIN){
+                tencent.handleLoginData(data,loginListener);
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
