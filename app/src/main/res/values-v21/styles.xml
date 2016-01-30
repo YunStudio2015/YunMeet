@@ -1,13 +1,13 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/actionbar_color</item>
         <item name="colorPrimaryDark">@color/actionbar_color</item>
+        <item name="colorAccent">@color/actionbar_color</item>
+        <item name="android:statusBarColor">@color/actionbar_color</item>
     </style>
-
-
 
     <style name="whitetext" parent="@android:style/TextAppearance">
         <!-- Customize your theme here. -->
@@ -19,5 +19,6 @@
     <color name="white1">#dddddd</color>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

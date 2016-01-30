@@ -27,14 +27,15 @@
         <activity android:name=".activityz.SignupActivity" />
         <activity android:name=".activityz.LoginActivity">
 
+
+
+        </activity>
+        <activity android:name=".activityz.LaunchChatTopicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-        </activity>
-        <activity android:name=".activityz.LaunchChatTopicActivity">
         </activity>
         <activity
             android:name=".activityz.TestingShowActivity"
@@ -59,7 +60,8 @@
         <activity android:name="com.tencent.connect.common.AssistActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-
+        <activity android:name="me.crosswall.photo.pick.PickPhotosActiviy"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

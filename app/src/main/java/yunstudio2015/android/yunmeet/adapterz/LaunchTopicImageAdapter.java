@@ -1,0 +1,103 @@
+package yunstudio2015.android.yunmeet.adapterz;
+
+import android.content.Context;
+import android.net.Uri;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
+import com.bumptech.glide.Glide;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.io.File;
+import java.util.ArrayList;
+
+import me.crosswall.photo.pick.util.UriUtil;
+import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.activityz.LaunchChatTopicActivity;
+import yunstudio2015.android.yunmeet.commonLogs.L;
+import yunstudio2015.android.yunmeet.utilz.ImageLoadOptions;
+
+/**
+ * Created by Ulrich on 1/31/2016.
+ */
+public class LaunchTopicImageAdapter extends RecyclerView.Adapter<LaunchTopicImageAdapter.ViewHolder>{
+
+
+    private ArrayList<String> data;
+    private int widget;
+
+    public LaunchTopicImageAdapter(Context context, ArrayList<String> data) {
+        this.data = data;
+        widget = context.getResources().getDisplayMetrics().widthPixels/ LaunchChatTopicActivity.spanCount;
+    }
+
+    @Override
+    public LaunchTopicImageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        // inflate imageview.
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_photo_view, null);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(LaunchTopicImageAdapter.ViewHolder holder, int position) {
+
+        holder.setData(data.get(position).toString());
+    }
+
+    @Override
+    public int getItemCount() {
+        return data.size();
+    }
+
+    public void updateData (ArrayList<String> paths) {
+        this.data = paths;
+        notifyDataSetChanged();
+    }
+
+    public void clearAdapter() {
+        if (data != null)
+            data.clear ();
+    }
+
+    public void addData(ArrayList<String> pick) {
+        if (data == null)
+            data = new ArrayList<>();
+        this.data.addAll(pick);
+        notifyDataSetChanged();
+    }
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        private Context context;
+        ImageView iv;
+        public ViewHolder(View itemView) {
+            super(itemView);
+            iv = (ImageView) itemView.findViewById(R.id.photo_thumbview);
+            context = iv.getContext();
+        }
+
+        public void setData(String imgPath){
+
+            Uri uri = UriUtil.generatorUri(imgPath,UriUtil.LOCAL_FILE_SCHEME);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(widget,widget);
+            params.setMargins(5,5,5,5);
+            iv.setLayoutParams(params);
+//            Uri uri = Uri.fromFile(new File(imgPath));
+            Glide.with(context)
+                    .load(uri)
+                    .centerCrop()
+                    .placeholder(iv.getDrawable())
+                    .thumbnail(0.3f)
+                    .error(me.crosswall.photo.pick.R.drawable.default_error)
+                    .into(iv);
+        }
+
+    }
+
+}
