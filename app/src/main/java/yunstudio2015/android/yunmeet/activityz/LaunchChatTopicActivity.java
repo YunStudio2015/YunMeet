@@ -67,17 +67,19 @@ public class LaunchChatTopicActivity extends AppCompatActivity {
         empty_pic_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                /* 这个时候当前空间已经自己设计好他的width 和height ， 可以获取了*/
+              /* 提前获取的话可能会出现一个为0的情况*/
                 empty_pic_container.setMinimumHeight(8*empty_pic_container.getWidth()/9); //height is ready
             }
         });
         pickRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                  /* 这个时候当前空间已经自己设计好他的width 和height ， 可以获取了*/
+                /* 提前获取的话可能会出现一个为0的情况*/
                 pickRecyclerview.setMinimumHeight(4*getResources().getDisplayMetrics().widthPixels/5); //height is ready
             }
         });
-
-
     }
 
     @OnClick(R.id.iv_add_pic)
@@ -93,7 +95,7 @@ public class LaunchChatTopicActivity extends AppCompatActivity {
 
 
     public static void setTranslucentStatusColor(Activity activity, @ColorRes int color) {
-        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.KITKAT)
+        if (Build.VERSION.SDK_INT  != Build.VERSION_CODES.KITKAT)
             return;
         setTranslucentStatus(activity, true);
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
@@ -122,7 +124,6 @@ public class LaunchChatTopicActivity extends AppCompatActivity {
         }
         if(requestCode==PickConfig.PICK_REQUEST_CODE){
             ArrayList<String> pick = data.getStringArrayListExtra(PickConfig.EXTRA_STRING_ARRAYLIST);
-            Toast.makeText(this,"pick size:"+pick.size(),Toast.LENGTH_SHORT).show();
             if (adapter != null) {
                 adapter.clearAdapter();
                 adapter.updateData(pick);
@@ -130,6 +131,9 @@ public class LaunchChatTopicActivity extends AppCompatActivity {
                 pickRecyclerview.setVisibility(View.VISIBLE);
             }
         }
+        /* 如果是从浏览已选的照片返回来，就来看看状态 */
+
+
     }
 
 }

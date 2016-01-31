@@ -16,14 +16,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activityz.MainActivity"
-            android:label="@string/app_name" />
-        <activity
             android:name=".activityz.RestingActivity"
             android:label="@string/title_activity_resting" />
-        <activity
-            android:name=".activityz.ShowActivity"
-            android:label="@string/title_activity_show" />
         <activity android:name=".activityz.SignupActivity" />
         <activity android:name=".activityz.LoginActivity">
 
@@ -37,9 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activityz.TestingShowActivity"
-            android:label="@string/title_activity_testing_show" />
         <activity android:name=".activityz.ForgetPasswordActivity" />
         <activity android:name=".activityz.SetNickNameActivity" />
         <activity android:name=".activityz.SetFaceActivity"></activity>
