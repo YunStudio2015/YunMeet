@@ -115,6 +115,10 @@ public class SetFaceActivity extends AppCompatActivity {
         upLoadingDialog.setTitle(getString(R.string.tip));
         upLoadingDialog.setMessage(getString(R.string.uploading));
 
+        loadingDialog = new ProgressDialog(this);
+        loadingDialog.setTitle(getString(R.string.tip));
+        loadingDialog.setMessage(getString(R.string.loading));
+
         queue = Volley.newRequestQueue(getApplicationContext());
 
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -363,6 +367,10 @@ public class SetFaceActivity extends AppCompatActivity {
             Uri fileUri = convertUri(uri1);
             Log.d("aftcvt",String.valueOf(System.currentTimeMillis()));
             startImageZoom(fileUri);
+
+            Message message = Message.obtain();
+            message.what = LOAD_FINISH;
+            handler.sendMessage(message);
         }
     }
 }
