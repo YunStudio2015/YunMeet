@@ -1,6 +1,7 @@
 package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 import me.crosswall.photo.pick.util.UriUtil;
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.activityz.BrowseSelectedPicturesActivity;
 import yunstudio2015.android.yunmeet.activityz.LaunchChatTopicActivity;
 import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.utilz.ImageLoadOptions;
@@ -29,9 +31,11 @@ public class LaunchTopicImageAdapter extends RecyclerView.Adapter<LaunchTopicIma
 
     private ArrayList<String> data;
     private int widget;
+    private Context context;
 
     public LaunchTopicImageAdapter(Context context, ArrayList<String> data) {
         this.data = data;
+        this.context = context;
         widget = context.getResources().getDisplayMetrics().widthPixels/ LaunchChatTopicActivity.spanCount;
     }
 
@@ -44,9 +48,41 @@ public class LaunchTopicImageAdapter extends RecyclerView.Adapter<LaunchTopicIma
     }
 
     @Override
-    public void onBindViewHolder(LaunchTopicImageAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final LaunchTopicImageAdapter.ViewHolder holder, final int position) {
 
         holder.setData(data.get(position).toString());
+        /* 删掉当前图标、在array里面删掉、并隐藏掉图片 */
+        holder.delete_me_drawable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // delete with position
+                holder.itemView.setVisibility(View.GONE);
+                removeAt (position);
+            }
+        });
+
+        /* 点击摸个图片都会使图片url组打开一个viewpager浏览图片 */
+        holder.iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityFromPosition(position); /* 创建浏览图片的activity并从position开始浏览 */
+            }
+        });
+
+    }
+
+    private void startActivityFromPosition(int position) {
+
+        Intent intent = new Intent(((LaunchChatTopicActivity) this.context), BrowseSelectedPicturesActivity.class);
+        intent.putStringArrayListExtra("data",data);
+        intent.putExtra("position", position);
+        ((LaunchChatTopicActivity) this.context).startActivity(intent);
+    }
+
+    private void removeAt(int position) {
+        this.data.remove(position);
+        notifyItemRemoved(position);
+//        notifyItemRangeChanged(position, data.size());
     }
 
     @Override
@@ -76,9 +112,12 @@ public class LaunchTopicImageAdapter extends RecyclerView.Adapter<LaunchTopicIma
 
         private Context context;
         ImageView iv;
+        View delete_me_drawable;
+
         public ViewHolder(View itemView) {
             super(itemView);
             iv = (ImageView) itemView.findViewById(R.id.photo_thumbview);
+            delete_me_drawable = itemView.findViewById(R.id.delete_me_drawable);
             context = iv.getContext();
         }
 

@@ -1,148 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:id="@+id/container"
     tools:context="yunstudio2015.android.yunmeet.activityz.SetFaceActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/action_bar_size"
-        android:background="@color/actionbar_color"
-        >
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_size"
+            android:background="@color/actionbar_color"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="@dimen/toolbar_backbtn_back_width"
+                    android:layout_height="@dimen/toolbar_backbtn_back_height"
+                    android:id="@+id/iv_back"
+                    android:src="@drawable/btn_back"
+                    android:background="@color/toolbar_dark"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_face"
+                    android:textColor="@android:color/white"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/actionbar_title_size"/>
+
+
+                <Button
+                    android:layout_marginRight="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/btn_finish"
+                    android:background="@drawable/green_button_background"
+                    android:text="@string/finish"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
 
-            <ImageView
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_width="@dimen/toolbar_backbtn_back_width"
-                android:layout_height="@dimen/toolbar_backbtn_back_height"
-                android:id="@+id/iv_back"
-                android:src="@drawable/btn_back"
-                android:background="@color/toolbar_dark"/>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/set_face"
-                android:textColor="@android:color/white"
-                android:layout_centerInParent="true"
-                android:textSize="@dimen/actionbar_title_size"/>
-
-            <Button
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_width="45dp"
-                android:layout_height="30dp"
-                android:id="@+id/btn_finish"
-                android:background="@color/btn_background"
-                android:text="@string/finish"
-                android:gravity="center"
-                android:textColor="@android:color/white"/>
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.Toolbar>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="160dp">
-
-            <yunstudio2015.android.yunmeet.customviewz.CircleImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:id="@+id/iv_face"
-                android:layout_centerInParent="true"
-                android:background="@android:color/transparent"
-                android:src="@drawable/setface" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/album"/>
-
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:id="@+id/tv_select_from_album"
-                android:text="@string/select_from_album"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"/>
+                android:layout_height="160dp">
 
-            <TextView
+                <yunstudio2015.android.yunmeet.customviewz.CircleImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:id="@+id/iv_face"
+                    android:clickable="true"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/setface" />
+
+            </RelativeLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:text="@string/right_arrow"
-                android:textSize="30sp"
-                android:gravity="center_vertical"/>
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/album"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:id="@+id/tv_select_from_album"
+                    android:text="@string/select_from_album"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:text="@string/right_arrow"
+                    android:textSize="30sp"
+                    android:gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/inner_grayerzz" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/camera" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/tv_take_photo"
+                    android:text="@string/take_photo"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:text="@string/right_arrow"
+                    android:textSize="30sp"
+                    android:gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/inner_grayerzz" />
 
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/inner_grayerzz" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/camera" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:id="@+id/tv_take_photo"
-                android:text="@string/take_photo"
-                android:gravity="center_vertical" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:text="@string/right_arrow"
-                android:textSize="30sp"
-                android:gravity="center_vertical"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/inner_grayerzz" />
-
     </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

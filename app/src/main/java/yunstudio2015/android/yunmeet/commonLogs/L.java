@@ -2,6 +2,8 @@ package yunstudio2015.android.yunmeet.commonLogs;
 
 import android.util.Log;
 
+import java.io.IOException;
+
 import yunstudio2015.android.yunmeet.app.MyApplication;
 
 
@@ -40,4 +42,19 @@ public class L {
             Log.e(tag, log);
     }
 
+    public static void i (String log) {
+        if (MyApplication.debug)
+            Log.i(MyApplication.appname, log);
+    }
+
+    public static void i (String tag, String log) {
+        if (MyApplication.debug)
+            Log.i(tag, log);
+    }
+
+
+    public static void e(String tag, String s, IOException ioe) {
+        if (MyApplication.debug)
+            Log.i(tag, s, ioe);
+    }
 }

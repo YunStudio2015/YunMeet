@@ -56,7 +56,7 @@ public class YunApi {
     //设置性别
     public static final String URL_SET_SEX = URL + "User/setSex";
     //设置头像,先使用setFace2接口测试，正式接口为setFace
-    public static final String URL_SET_FACE = URL + "User/setFace2";
+    public static final String URL_SET_FACE = URL + "User/setFace";
     //设置个人主页背景
     public static final String URL_SET_BACKGROUND = URL + "Uer/setBackground";
 

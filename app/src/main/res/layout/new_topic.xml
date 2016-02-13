@@ -102,6 +102,7 @@
                 android:paddingBottom="8dp">
 
                 <ImageView
+                    android:id="@+id/add_emoji"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/emoji"

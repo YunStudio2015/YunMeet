@@ -27,7 +27,6 @@ public class RestingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resting);
         ButterKnife.bind(this);
         ImageLoader.getInstance().displayImage(ulr, ivv, ImageLoadOptions.getDisplayImageOptions(this));
-
         // add a button in the bottom that will get a date.
     }
 

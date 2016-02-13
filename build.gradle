@@ -2,7 +2,7 @@
 
 buildscript {
     repositories {
-        jcenter()
+//        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
@@ -14,6 +14,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "https://jitpack.io" }
+        mavenCentral()
     }
 }
 
@@ -27,4 +30,18 @@ ext{
     imageloader   = 'com.github.bumptech.glide:glide:3.6.1'
     rxJava        = 'io.reactivex:rxjava:1.0.16'
     rxAndroid     = 'io.reactivex:rxandroid:1.0.1'
+
+    /* for scissors */
+    minSdkVersion = 14
+    compileSdkVersion = 23
+    buildToolsVersion = '23.0.1'
+
+    junitVersion = '4.12'
+    mockitoVersion = '1.10.19'
+    robolectricVersion = '3.0'
+    assertjVersion = '1.7.1'
+    supportVersion = '23.0.1'
+
+    ci = 'true'.equals(System.getenv('CI'))
+
 }

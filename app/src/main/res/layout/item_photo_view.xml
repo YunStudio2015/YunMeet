@@ -11,5 +11,14 @@
         android:scaleType="centerCrop"
         android:layout_gravity="center"/>
 
+    <View
+        android:id="@+id/delete_me_drawable"
+        android:clickable="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
+        android:layout_width="@dimen/img_delete_icon_size"
+        android:layout_height="@dimen/img_delete_icon_size"
+        android:background="@drawable/redcirclebgdrawable"/>
 
 </RelativeLayout>

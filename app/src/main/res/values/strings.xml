@@ -88,5 +88,8 @@
     <string name="edit_topic_hint">编织你的遇见分享给觅友吧…</string>
     <string name="addpic_newtopic">添加图</string>
     <string name="setsecret">设为私密</string>
+    <string name="title_activity_browse_selected_pictures">BrowseSelectedPicturesActivity</string>
+    <string name="title_activity_cropping">CroppingActivity</string>
+    <string name="please_wait">稍微等一下...</string>
 
 </resources>

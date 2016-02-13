@@ -15,4 +15,5 @@
     <color name="toolbar_dark">#343434</color>
 
     <color name="btn_background">#9fd500</color>
+    <color name="deadbackgroundcolor">#3a3b3b</color>
 </resources>

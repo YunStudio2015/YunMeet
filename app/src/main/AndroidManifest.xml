@@ -19,40 +19,54 @@
             android:name=".activityz.RestingActivity"
             android:label="@string/title_activity_resting" />
         <activity android:name=".activityz.SignupActivity" />
-        <activity android:name=".activityz.LoginActivity">
-
-
-
-        </activity>
-        <activity android:name=".activityz.LaunchChatTopicActivity">
+        <activity android:name=".activityz.LoginActivity" />
+        <activity android:name=".activityz.LaunchChatTopicActivity"></activity>
+        <activity android:name=".activityz.ForgetPasswordActivity" />
+        <activity android:name=".activityz.SetNickNameActivity" />
+        <activity android:name=".activityz.SetFaceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activityz.ForgetPasswordActivity" />
-        <activity android:name=".activityz.SetNickNameActivity" />
-        <activity android:name=".activityz.SetFaceActivity"></activity>
 
-        <!--QQ登录所需要的-->
+        <!-- QQ登录所需要的 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
-            android:noHistory="true"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-              <!--  <data android:scheme="tencent1105049205" />-->
-           <data android:scheme="222222" />
+                <!-- <data android:scheme="tencent1105049205" /> -->
+                <data android:scheme="222222" />
             </intent-filter>
         </activity>
-        <activity android:name="com.tencent.connect.common.AssistActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name="me.crosswall.photo.pick.PickPhotosActiviy"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="me.crosswall.photo.pick.PickPhotosActiviy"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityz.BrowseSelectedPicturesActivity"
+            android:label="@string/title_activity_browse_selected_pictures">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activityz.LaunchChatTopicActivity" />
+        </activity>
+        <activity
+            android:name=".activityz.CroppingActivity"
+            android:label="@string/title_activity_cropping"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".activityz.CropResultActivity"
+            android:label="testing activity"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

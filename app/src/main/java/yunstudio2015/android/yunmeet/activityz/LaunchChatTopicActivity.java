@@ -57,6 +57,7 @@ public class LaunchChatTopicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_topic);
         ButterKnife.bind(this);
+
         this.setSupportActionBar(toolbar); // 吧xml里面的toolbar设置成当前界面的actionbar
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
 
@@ -80,7 +81,19 @@ public class LaunchChatTopicActivity extends AppCompatActivity {
                 pickRecyclerview.setMinimumHeight(4*getResources().getDisplayMetrics().widthPixels/5); //height is ready
             }
         });
+
+        /* 添加emoticons */
     }
+
+
+    @OnClick(R.id.add_emoji)
+    public void add_emoji() {
+
+        /* 隐藏掉键盘 */
+
+        /* 显示或隐藏带着emoticons的viewpager */
+    }
+
 
     @OnClick(R.id.iv_add_pic)
     public void picPhotoFromEmpty () {

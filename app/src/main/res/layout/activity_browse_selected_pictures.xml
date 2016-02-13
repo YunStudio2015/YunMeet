@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:fitsSystemWindows="true"
+    tools:context="yunstudio2015.android.yunmeet.activityz.BrowseSelectedPicturesActivity">
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_browsepics"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_size"
+        android:background="@color/actionbar_color"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="@dimen/toolbar_backbtn_back_width"
+                android:layout_height="@dimen/toolbar_backbtn_back_height"
+                android:id="@+id/iv_back"
+                android:src="@drawable/btn_back"
+                android:background="@color/toolbar_dark"/>
+
+            <TextView
+                android:layout_toRightOf="@id/iv_back"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:id="@+id/tv_img_index"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+
+</RelativeLayout>

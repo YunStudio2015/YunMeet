@@ -31,4 +31,10 @@
     <dimen name="toolbar_backbtn_back_height">16dp</dimen>
     <dimen name="action_bar_size">50dp</dimen>
     <dimen name="actionbar_title_size">18sp</dimen>
+    <dimen name="img_delete_icon_size">20dp</dimen>
+
+    <!-- cropping activity lil sizes -->
+    <dimen name="crop_fab_margin">0dp</dimen>
+    <dimen name="pick_mini_fab_margin">8dp</dimen>
+
 </resources>
