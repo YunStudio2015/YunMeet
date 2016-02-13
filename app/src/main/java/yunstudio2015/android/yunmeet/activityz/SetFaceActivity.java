@@ -150,6 +150,10 @@ public class SetFaceActivity extends AppCompatActivity {
         upLoadingDialog.setTitle(getString(R.string.tip));
         upLoadingDialog.setMessage(getString(R.string.uploading));
 
+        loadingDialog = new ProgressDialog(this);
+        loadingDialog.setTitle(getString(R.string.tip));
+        loadingDialog.setMessage(getString(R.string.loading));
+
         queue = Volley.newRequestQueue(getApplicationContext());
 
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -206,49 +210,21 @@ public class SetFaceActivity extends AppCompatActivity {
     public void uploadImageToServer () {
 
         String imageLocalPath = (String) tvSelectFromAlbum.getTag();
+        if (imageLocalPath == null || "".equals(imageLocalPath))
+            return;
         // upload the file
-      /*  try {
-        i_showProgressDialog();
-            // Set your file path here
-//            FileInputStream fstrm = new FileInputStream(imageLocalPath);
-
-            // Set your server page url (and the file title/description)
-            HttpFileUpload hfu = new HttpFileUpload(YunApi.URL_SET_FACE, token,"my profile image", imageLocalPath);
-
-            hfu.Send_Now(*//*new HttpFileUpload.UploadFinishCallBack() {
-                @Override
-                public void uploadDone() {
-                    i_dismissProgressDialog();
-                    Toast.makeText(SetFaceActivity.this, "upload success", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void uploadfailed() {
-                    i_dismissProgressDialog();
-                    Toast.makeText(SetFaceActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
-                }
-            }*//*);
-            hfu.run();
-        } catch (Exception e) {
-            // Error: File not found
-            i_dismissProgressDialog();
-            e.printStackTrace();
-            Toast.makeText(SetFaceActivity.this, "upload failed... exc", Toast.LENGTH_SHORT).show();
-        }*/
-//            String filePath = params[0];
-//            String token = params[1];
         UploadImageTask up = new UploadImageTask(new UploadImageTask.UploadFinishCallBack(){
 
             @Override
             public void uploadDone() {
                 Toast.makeText(SetFaceActivity.this, "upload done... exc", Toast.LENGTH_SHORT).show();
-            i_dismissProgressDialog();
+                i_dismissProgressDialog();
             }
 
             @Override
             public void uploadfailed() {
                 Toast.makeText(SetFaceActivity.this, "upload failed... exc", Toast.LENGTH_SHORT).show();
-            i_dismissProgressDialog();
+                i_dismissProgressDialog();
             }
         });
         String token = "Vhi0zGIl7UOmFqWZt8Jz07MQHFRoUcvh";
