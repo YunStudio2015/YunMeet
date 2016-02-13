@@ -85,8 +85,6 @@ public class LoginActivity extends AppCompatActivity {
     private UsersAPI weiboUserAPI;
     private String wbUID;//微博用户的唯一识别码
     private String wbNickName;//微博用户的昵称
-    private String wbGender;//微博用户性别
-    private Image wbFace;//微博用户头像
 
     private AuthInfo authInfo;
     /** 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能  */
@@ -174,7 +172,6 @@ public class LoginActivity extends AppCompatActivity {
                     map.put("phone", phoneNumber);
                     map.put("password", password);
 
-                    //volley库的改造工程。。。
                     JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_LOGIN,new JSONObject(map),
                             new Response.Listener<JSONObject>() {
                                 @Override
@@ -493,6 +490,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onComplete(Bundle values) {
+
             // 从 Bundle 中解析 Token
             weiboAccessToken = Oauth2AccessToken.parseAccessToken(values);
             Log.d("weibotoken",weiboAccessToken.toString());
@@ -513,6 +511,47 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("weibouid",wbUID);
                     long[] uids = { Long.parseLong(weiboAccessToken.getUid()) };
                     weiboUserAPI.counts(uids,requestListener);
+
+                    Map<String,String> map = new HashMap<>();
+                    map.put("type", "weibo");
+                    map.put("access_token", String.valueOf(weiboAccessToken));
+                    map.put("appkey", YunApi.WEIBO_APP_KEY);
+                    map.put("uid", String.valueOf(wbUID));
+
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_LOGIN, new JSONObject(map), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                            try {
+                                if (response.getString("error").equals("0")){
+                                    //这里写activity的跳转
+                                    Toast.makeText(LoginActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(LoginActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    {
+                        @Override
+                        public Map<String, String> getHeaders(){
+
+                            HashMap<String,String> mapHeader = new HashMap<String,String>();
+                            mapHeader.put("Accept","application/json");
+                            mapHeader.put("Content-Type","application/json;charset=UTF-8");
+                            return mapHeader;
+                        }
+                    };
+
+                    queue.add(request);
                 }
 
             } else {
@@ -555,11 +594,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,
                             "获取User信息成功，用户昵称：" + user.screen_name,
                             Toast.LENGTH_LONG).show();
-                    //微博的昵称和性别
-                    wbNickName = user.screen_name;
-                    Log.d("weiboINFO",wbNickName);
-                    wbGender = user.gender;
-                    Log.d("weiboINFO",wbGender);
+
                 } else {
                     Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
                 }
