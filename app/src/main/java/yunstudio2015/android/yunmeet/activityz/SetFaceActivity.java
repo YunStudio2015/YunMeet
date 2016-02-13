@@ -227,7 +227,7 @@ public class SetFaceActivity extends AppCompatActivity {
                 i_dismissProgressDialog();
             }
         });
-        String token = "Vhi0zGIl7UOmFqWZt8Jz07MQHFRoUcvh";
+        String token = "z0ze0gY8rdZlXr5yczgnKCNdn4bolsXf";
         up.execute(imageLocalPath, token);
         i_showProgressDialog(getResources().getString(R.string.uploading));
     }

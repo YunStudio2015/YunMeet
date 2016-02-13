@@ -1,15 +1,24 @@
 package yunstudio2015.android.yunmeet.utilz;
 
 import android.os.AsyncTask;
+import android.os.Debug;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
 import yunstudio2015.android.yunmeet.commonLogs.L;
 
@@ -18,7 +27,9 @@ import yunstudio2015.android.yunmeet.commonLogs.L;
  */
 public class UploadImageTask extends AsyncTask<String, Long, Boolean> {
 
+    private static final java.lang.String TAG = "yunmeet";
     private UploadFinishCallBack callback;
+
     public UploadImageTask(UploadFinishCallBack uploadFinishCallBack) {
         this.callback = uploadFinishCallBack;
     }
@@ -41,103 +52,30 @@ public class UploadImageTask extends AsyncTask<String, Long, Boolean> {
         String filePath = params[0];
         String token = params[1];
         String iFileName = "face";
-        String lineEnd = "\r\n";
-        String twoHyphens = "--";
-        String boundary = "*****";
-        String Tag="fSnd";
+        String responseString = "";
 
-        try
-        {
-            L.e(Tag,"Starting Http File Sending to URL");
+        String charset = "utf-8";
+        MultipartUtility multipart = null;
+        try {
+            multipart = new MultipartUtility(YunApi.URL_SET_FACE, charset);
+            // In your case you are not adding form data so ignore this
+                /*This is to add parameter values */
+            multipart.addFormField("token", token);
 
-            // Open a HTTP connection to the URL
-            URL connectURL = new URL(YunApi.URL_SET_FACE);
-            File file = new File(filePath);
-            FileInputStream fileInputStream = new FileInputStream(file);
+//add your file here.
+                /*This is to add file content*/
+            multipart.addFilePart("face",
+                    new File(filePath));
 
-            HttpURLConnection conn = (HttpURLConnection)connectURL.openConnection();
-
-            // Allow Inputs
-            conn.setDoInput(true);
-
-            // Allow Outputs
-            conn.setDoOutput(true);
-
-            // Don't use a cached copy.
-            conn.setUseCaches(false);
-
-            // Use a post method.
-            conn.setRequestMethod("POST");
-
-            conn.setRequestProperty("Connection", "Keep-Alive");
-
-            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary="+boundary);
-
-            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-
-            dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"token\""+ lineEnd);
-            dos.writeBytes(lineEnd);
-            dos.writeBytes(token);
-            dos.writeBytes(lineEnd);
-            dos.writeBytes(twoHyphens + boundary + lineEnd);
-
-            dos.writeBytes("Content-Disposition: form-data; name=\"face\";filename=\"" + iFileName +"\"" + lineEnd);
-            dos.writeBytes(lineEnd);
-
-            L.e(Tag,"Headers are written");
-
-            // create a buffer of maximum size
-            int bytesAvailable = fileInputStream.available();
-
-            int maxBufferSize = 1024;
-            int bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            byte[ ] buffer = new byte[bufferSize];
-
-            // read file and write it into form...
-            int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-            long totalProgress = 0;
-            long totalSize = file.length();
-
-            while (bytesRead > 0)
-            {
-                dos.write(buffer, 0, bufferSize);
-                bytesAvailable = fileInputStream.available();
-                bufferSize = Math.min(bytesAvailable,maxBufferSize);
-                bytesRead = fileInputStream.read(buffer, 0,bufferSize);
-                publishProgress(totalProgress, totalSize);
-                totalProgress += bytesRead;
+            List<String> response = multipart.finish();
+            L.e(TAG, "SERVER REPLIED:");
+            for (String line : response) {
+// get your server response here.
+                responseString = line;
             }
-            dos.writeBytes(lineEnd);
-            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-            // close streams
-            fileInputStream.close();
-
-            dos.flush();
-
-            L.e(Tag,"File Sent, Response: "+String.valueOf(conn.getResponseCode()));
-
-            InputStream is = conn.getInputStream();
-
-            // retrieve the response from server
-            int ch;
-
-            StringBuffer b =new StringBuffer();
-            while( ( ch = is.read() ) != -1 ){ b.append( (char)ch ); }
-            String s=b.toString();
-            L.i("Response",s);
-            dos.close();
-        }
-        catch (MalformedURLException ex)
-        {
-            L.e(Tag, "URL error: " + ex.getMessage(), ex);
-            return false;
-        }
-
-        catch (IOException ioe)
-        {
-            L.e(Tag, "IO error: " + ioe.getMessage(), ioe);
+            L.e(TAG, "Upload Files Response:::" + responseString);
+        } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -152,4 +90,133 @@ public class UploadImageTask extends AsyncTask<String, Long, Boolean> {
         } else
             callback.uploadfailed();
     }
+
+    private class MultipartUtility {
+        private final String boundary;
+        private static final String LINE_FEED = "\r\n";
+        private HttpURLConnection httpConn;
+        private String charset;
+        private OutputStream outputStream;
+        private PrintWriter writer;
+
+        /**
+         * This constructor initializes a new HTTP POST request with content type
+         * is set to multipart/form-data
+         *
+         * @param requestURL
+         * @param charset
+         * @throws IOException
+         */
+        public MultipartUtility(String requestURL, String charset)
+                throws IOException {
+            this.charset = charset;
+
+            // creates a unique boundary based on time stamp
+            boundary = "===" + System.currentTimeMillis() + "===";
+            URL url = new URL(requestURL);
+            httpConn = (HttpURLConnection) url.openConnection();
+            httpConn.setUseCaches(false);
+            httpConn.setDoOutput(true);    // indicates POST method
+            httpConn.setDoInput(true);
+            httpConn.setRequestProperty("Content-Type",
+                    "multipart/form-data; boundary=" + boundary);
+            outputStream = httpConn.getOutputStream();
+            writer = new PrintWriter(new OutputStreamWriter(outputStream, charset),
+                    true);
+        }
+
+        /**
+         * Adds a form field to the request
+         *
+         * @param name  field name
+         * @param value field value
+         */
+        public void addFormField(String name, String value) {
+            writer.append("--" + boundary).append(LINE_FEED);
+            writer.append("Content-Disposition: form-data; name=\"" + name + "\"")
+                    .append(LINE_FEED);
+            writer.append("Content-Type: text/plain; charset=" + charset).append(
+                    LINE_FEED);
+            writer.append(LINE_FEED);
+            writer.append(value).append(LINE_FEED);
+            writer.flush();
+        }
+
+        /**
+         * Adds a upload file section to the request
+         *
+         * @param fieldName  name attribute in <input type="file" name="..." />
+         * @param uploadFile a File to be uploaded
+         * @throws IOException
+         */
+        public void addFilePart(String fieldName, File uploadFile)
+                throws IOException {
+            String fileName = uploadFile.getName();
+            writer.append("--" + boundary).append(LINE_FEED);
+            writer.append(
+                    "Content-Disposition: form-data; name=\"" + fieldName
+                            + "\"; filename=\"" + fileName + "\"")
+                    .append(LINE_FEED);
+            writer.append(
+                    "Content-Type: "
+                            + URLConnection.guessContentTypeFromName(fileName))
+                    .append(LINE_FEED);
+            writer.append("Content-Transfer-Encoding: binary").append(LINE_FEED);
+            writer.append(LINE_FEED);
+            writer.flush();
+
+            FileInputStream inputStream = new FileInputStream(uploadFile);
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            outputStream.flush();
+            inputStream.close();
+            writer.append(LINE_FEED);
+            writer.flush();
+        }
+
+        /**
+         * Adds a header field to the request.
+         *
+         * @param name  - name of the header field
+         * @param value - value of the header field
+         */
+        public void addHeaderField(String name, String value) {
+            writer.append(name + ": " + value).append(LINE_FEED);
+            writer.flush();
+        }
+
+        /**
+         * Completes the request and receives response from the server.
+         *
+         * @return a list of Strings as response in case the server returned
+         * status OK, otherwise an exception is thrown.
+         * @throws IOException
+         */
+        public List<String> finish() throws IOException {
+            List<String> response = new ArrayList<String>();
+            writer.append(LINE_FEED).flush();
+            writer.append("--" + boundary + "--").append(LINE_FEED);
+            writer.close();
+
+            // checks server's status code first
+            int status = httpConn.getResponseCode();
+            if (status == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        httpConn.getInputStream()));
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    response.add(line);
+                }
+                reader.close();
+                httpConn.disconnect();
+            } else {
+                throw new IOException("Server returned non-OK status: " + status);
+            }
+            return response;
+        }
+    }
+
 }
