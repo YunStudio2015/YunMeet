@@ -2,23 +2,18 @@ package yunstudio2015.android.yunmeet.activityz;
 
 import android.animation.Animator;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.ColorRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,19 +22,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
 import me.crosswall.photo.pick.PickConfig;
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.CircleImageView;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
 import yunstudio2015.android.yunmeet.utilz.UploadImageTask;
@@ -66,27 +57,6 @@ public class SetFaceActivity extends AppCompatActivity {
     private static final int CODE_CAMERA_REQUEST = 1;//用于裁剪照片的requestCode
     private static final int CODE_CROP_REQUEST = 2;
 
-    private static final int UPLOAD_FINISH = 1;
-    private static final int LOAD_FINISH = 2;
-
-    //图片裁剪后的宽和高
-    private static int output_x = 480;
-    private static int output_y = 480;
-
-    private static final String IMG_FILE_NAME = "temp_head_image.png";
-
-    private Bitmap headImg = null;
-
-    private RequestQueue queue;
-
-    //用于线程之间的传递
-    private Intent data;
-
-    //上传图片时显示的dialog
-    private ProgressDialog upLoadingDialog;
-    //在客户端加载图片时显示的dialog
-    private ProgressDialog loadingDialog;
-
     // Hold a reference to the current animator,
     // so that it can be canceled mid-way.
     private Animator mCurrentAnimator;
@@ -95,21 +65,6 @@ public class SetFaceActivity extends AppCompatActivity {
     // duration is ideal for subtle animations or animations that occur
     // very frequently.
     private int mShortAnimationDuration;
-
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == UPLOAD_FINISH){
-                if (upLoadingDialog.isShowing())
-                    upLoadingDialog.dismiss();
-            }
-
-            if (msg.what == LOAD_FINISH){
-                if (loadingDialog.isShowing())
-                    upLoadingDialog.dismiss();
-            }
-        }
-    };
 
     private Toolbar toolbar;
     private String tmpPath;
@@ -145,16 +100,6 @@ public class SetFaceActivity extends AppCompatActivity {
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
 
         sharedPreferences = getSharedPreferences("UserData",MODE_PRIVATE);
-
-        upLoadingDialog = new ProgressDialog(this);
-        upLoadingDialog.setTitle(getString(R.string.tip));
-        upLoadingDialog.setMessage(getString(R.string.uploading));
-
-        loadingDialog = new ProgressDialog(this);
-        loadingDialog.setTitle(getString(R.string.tip));
-        loadingDialog.setMessage(getString(R.string.loading));
-
-        queue = Volley.newRequestQueue(getApplicationContext());
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -322,25 +267,6 @@ public class SetFaceActivity extends AppCompatActivity {
         btnFinish = (Button) findViewById(R.id.btn_finish);
         tvSelectFromAlbum = (TextView) findViewById(R.id.tv_select_from_album);
         tvTakePhoto = (TextView) findViewById(R.id.tv_take_photo);
-    }
-
-    public static String convertIconToString(Bitmap bitmap)
-    {
-        L.d("convert",String.valueOf(System.currentTimeMillis()));
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();// outputstream
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] appicon = baos.toByteArray();// 转为byte数组
-        L.d("convert",String.valueOf(System.currentTimeMillis()));
-        return Base64.encodeToString(appicon, Base64.DEFAULT);
-
-    }
-
-    @Override
-    protected void onDestroy() {
-
-        if (upLoadingDialog.isShowing())
-            upLoadingDialog.dismiss();
-        super.onDestroy();
     }
 
 }

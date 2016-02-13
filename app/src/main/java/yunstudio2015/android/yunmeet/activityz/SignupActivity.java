@@ -11,7 +11,9 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +30,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
+import com.sina.weibo.sdk.exception.WeiboException;
+import com.sina.weibo.sdk.net.RequestListener;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
@@ -44,7 +49,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.utilz.User;
 import yunstudio2015.android.yunmeet.utilz.UsersAPI;
+import yunstudio2015.android.yunmeet.utilz.WeiboAccessKeeper;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -136,6 +143,7 @@ public class SignupActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
 
         initTencentData();
+        initWeiboData();
 
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -401,6 +409,9 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // SSO 授权, ALL IN ONE   如果手机安装了微博客户端则使用客户端授权,没有则进行网页授权
+                ssoHandler.authorize(new AuthListener());
+
             }
         });
 
@@ -559,6 +570,13 @@ public class SignupActivity extends AppCompatActivity {
 
     }
 
+    private void initWeiboData() {
+
+        authInfo = new AuthInfo(SignupActivity.this,YunApi.WEIBO_APP_KEY,YunApi.WEIBO_REDIRECT_URL,YunApi.WEIBO_SCOPE);
+        ssoHandler = new SsoHandler(SignupActivity.this,authInfo);
+
+    }
+
     public void initViews() {
 
         etPhoneNumber = (EditText) findViewById(R.id.et_phone);
@@ -629,6 +647,135 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 微博认证授权回调类。
+     * 1. SSO 授权时，需要在 {@link #onActivityResult} 中调用 {@link SsoHandler#authorizeCallBack} 后，
+     *    该回调才会被执行。
+     * 2. 非 SSO 授权时，当授权结束后，该回调就会被执行。
+     * 当授权成功后，请保存该 access_token、expires_in、uid 等信息到 SharedPreferences 中。
+     */
+    class AuthListener implements WeiboAuthListener {
+
+        @Override
+        public void onComplete(Bundle values) {
+
+            // 从 Bundle 中解析 Token
+            weiboAccessToken = Oauth2AccessToken.parseAccessToken(values);
+            Log.d("weibotoken", weiboAccessToken.toString());
+            //从这里获取用户输入的 电话号码信息
+            String  phoneNum =  weiboAccessToken.getPhoneNum();
+            if (weiboAccessToken.isSessionValid()) {
+
+                // 保存 Token 到 SharedPreferences
+                WeiboAccessKeeper.writeAccessToken(SignupActivity.this, weiboAccessToken);
+                Toast.makeText(SignupActivity.this,
+                        R.string.authorize_success, Toast.LENGTH_SHORT).show();
+
+                //开始获取用户信息
+                weiboUserAPI  = new UsersAPI(SignupActivity.this,YunApi.WEIBO_APP_KEY,weiboAccessToken);
+                if (weiboAccessToken != null && weiboAccessToken.isSessionValid()){
+                    //微博用户的唯一识别码
+                    wbUID = weiboAccessToken.getUid();
+                    Log.d("weibouid",wbUID);
+                    long[] uids = { Long.parseLong(weiboAccessToken.getUid()) };
+                    weiboUserAPI.counts(uids,requestListener);
+
+                    Map<String,String> map = new HashMap<>();
+                    map.put("type", "weibo");
+                    map.put("access_token", String.valueOf(weiboAccessToken));
+                    map.put("appkey", YunApi.WEIBO_APP_KEY);
+                    map.put("uid", String.valueOf(wbUID));
+
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_LOGIN, new JSONObject(map), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                            try {
+                                if (response.getString("error").equals("0")){
+                                    //这里写activity的跳转
+                                    Toast.makeText(SignupActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(SignupActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    {
+                        @Override
+                        public Map<String, String> getHeaders(){
+
+                            HashMap<String,String> mapHeader = new HashMap<String,String>();
+                            mapHeader.put("Accept","application/json");
+                            mapHeader.put("Content-Type","application/json;charset=UTF-8");
+                            return mapHeader;
+                        }
+                    };
+
+                    queue.add(request);
+                }
+
+            } else {
+                // 以下几种情况，您会收到 Code：
+                // 1. 当您未在平台上注册的应用程序的包名与签名时；
+                // 2. 当您注册的应用程序包名与签名不正确时；
+                // 3. 当您在平台上注册的包名和签名与您当前测试的应用的包名和签名不匹配时。
+                String code = values.getString("code");
+                String message = "授权失败";
+                if (!TextUtils.isEmpty(code)) {
+                    message = message + "\nObtained the code: " + code;
+                }
+                Toast.makeText(SignupActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        public void onCancel() {
+            Toast.makeText(SignupActivity.this,
+                    R.string.authorize_cancle, Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onWeiboException(WeiboException e) {
+            Toast.makeText(SignupActivity.this,
+                    "Auth exception : " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * 微博 OpenAPI 回调接口。
+     */
+    private RequestListener requestListener = new RequestListener() {
+        @Override
+        public void onComplete(String response) {
+            if (!TextUtils.isEmpty(response)) {
+                // 调用 User#parse 将JSON串解析成User对象
+                User user = User.parse(response);
+                if (user != null) {
+                    Toast.makeText(SignupActivity.this,
+                            "获取User信息成功，用户昵称：" + user.screen_name,
+                            Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(SignupActivity.this, response, Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+        @Override
+        public void onWeiboException(WeiboException e) {
+            String info = e.getMessage();
+            Toast.makeText(SignupActivity.this, info, Toast.LENGTH_LONG).show();
+        }
+    };
+
     @Override
     protected void onDestroy() {
 
@@ -650,5 +797,15 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+
+        /**
+         * 微博
+         * 当 SSO 授权 Activity 退出时，该函数被调用。
+         *
+         * @see {@link Activity#onActivityResult}
+         */
+        if (ssoHandler != null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
     }
 }
