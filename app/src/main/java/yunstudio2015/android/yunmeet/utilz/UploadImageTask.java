@@ -74,6 +74,7 @@ public class UploadImageTask extends AsyncTask<String, Long, Boolean> {
                 responseString = line;
             }
             L.e(TAG, "Upload Files Response:::" + responseString);
+            (new File(filePath)).deleteOnExit();
         } catch (IOException e) {
             e.printStackTrace();
             return false;
