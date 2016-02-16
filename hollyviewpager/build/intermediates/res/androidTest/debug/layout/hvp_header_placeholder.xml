@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.florent37.hollyviewpager.HollyViewPagerPlaceholder xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/header_height"/><!-- From: file:/C:/Users/Ulrich/Downloads/HollyViewPager-master/HollyViewPager-master/hollyviewpager/src/main/res/layout/hvp_header_placeholder.xml --><!-- From: file:/C:/Users/Ulrich/Downloads/HollyViewPager-master/HollyViewPager-master/hollyviewpager/build/intermediates/bundles/debug/res/layout/hvp_header_placeholder.xml -->

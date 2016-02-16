@@ -1,19 +1,10 @@
 package yunstudio2015.android.yunmeet.app;
 
 import android.app.Application;
-import android.content.Context;
 import android.os.Build;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.utils.StorageUtils;
-
-import java.io.File;
 
 /**
  * Created by Ultima on 2015/10/27.
@@ -46,8 +37,8 @@ public class MyApplication extends Application {
         requestQueue = Volley.newRequestQueue(this);
         mInstance = this;
         // init image loader.
-        initUIL (getApplicationContext());
-    }
+    /*    initUIL (getApplicationContext());
+    */}
 
 
     public MyApplication getInstance () {
@@ -55,7 +46,7 @@ public class MyApplication extends Application {
     }
 
 
-    private void initUIL(Context context) {
+ /*   private void initUIL(Context context) {
 
         File cacheDir = StorageUtils.getCacheDirectory(context);
         ImageLoaderConfiguration  config = new ImageLoaderConfiguration.Builder(context)
@@ -71,7 +62,7 @@ public class MyApplication extends Application {
                 .build();
         // init the config
         ImageLoader.getInstance().init(config);
-    }
+    }*/
 
     @Override
     public void onLowMemory() {

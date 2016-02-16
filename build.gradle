@@ -36,6 +36,16 @@ ext{
     compileSdkVersion = 23
     buildToolsVersion = '23.0.1'
 
+    ANDROID_BUILD_MIN_SDK_VERSION=10
+    ANDROID_BUILD_TARGET_SDK_VERSION=23
+    ANDROID_BUILD_TOOLS_VERSION='23.0.1'
+    ANDROID_BUILD_SDK_VERSION=23
+
+    SUPPORT_VERSION='23.1.1'
+
+    MAVEN_VERSION='1.0.1'
+
+
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
     robolectricVersion = '3.0'
@@ -43,5 +53,8 @@ ext{
     supportVersion = '23.0.1'
 
     ci = 'true'.equals(System.getenv('CI'))
+
+
+
 
 }

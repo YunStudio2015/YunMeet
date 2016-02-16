@@ -91,5 +91,6 @@
     <string name="title_activity_browse_selected_pictures">BrowseSelectedPicturesActivity</string>
     <string name="title_activity_cropping">CroppingActivity</string>
     <string name="please_wait">稍微等一下...</string>
+    <string name="title_activity_hall">HallActivity</string>
 
 </resources>

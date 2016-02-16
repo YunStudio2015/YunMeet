@@ -11,17 +11,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import me.crosswall.photo.pick.util.UriUtil;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.activityz.BrowseSelectedPicturesActivity;
 import yunstudio2015.android.yunmeet.activityz.LaunchChatTopicActivity;
-import yunstudio2015.android.yunmeet.commonLogs.L;
-import yunstudio2015.android.yunmeet.utilz.ImageLoadOptions;
 
 /**
  * Created by Ulrich on 1/31/2016.

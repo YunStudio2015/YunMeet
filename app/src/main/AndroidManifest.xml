@@ -20,15 +20,11 @@
             android:label="@string/title_activity_resting" />
         <activity android:name=".activityz.SignupActivity" />
         <activity android:name=".activityz.LoginActivity" />
-        <activity android:name=".activityz.LaunchChatTopicActivity"></activity>
+        <activity android:name=".activityz.LaunchChatTopicActivity" />
         <activity android:name=".activityz.ForgetPasswordActivity" />
         <activity android:name=".activityz.SetNickNameActivity" />
         <activity android:name=".activityz.SetFaceActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- QQ登录所需要的 -->
@@ -62,11 +58,21 @@
         <activity
             android:name=".activityz.CroppingActivity"
             android:label="@string/title_activity_cropping"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activityz.CropResultActivity"
             android:label="testing activity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activityz.HallActivity"
+            android:label="@string/title_activity_hall"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
