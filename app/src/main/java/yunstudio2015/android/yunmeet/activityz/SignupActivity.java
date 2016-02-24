@@ -520,16 +520,7 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        try {
-                            if (response.getString("error").equals("0")){
-                                //这里写activity的跳转
-                                Toast.makeText(SignupActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
-
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(SignupActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
-                        }
+                        authorizeSuccess(response);
 
                     }
                 }, new Response.ErrorListener() {
@@ -690,16 +681,7 @@ public class SignupActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
 
-                            try {
-                                if (response.getString("error").equals("0")){
-                                    //这里写activity的跳转
-                                    Toast.makeText(SignupActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
-
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(SignupActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
-                            }
+                            authorizeSuccess(response);
 
                         }
                     }, new Response.ErrorListener() {
@@ -808,4 +790,34 @@ public class SignupActivity extends AppCompatActivity {
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
     }
+
+    public void authorizeSuccess(JSONObject response){
+
+        //授权成功后先储存获得的token,然后进行activity的跳转，并且同时结束当前的activity
+        try {
+            if (response.getString("error").equals("0")){
+                //这里写activity的跳转
+                Toast.makeText(SignupActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
+
+                //解析原jsonobject中嵌套的jsonobject
+                JSONObject token = new JSONObject(response.getString("data"));
+
+                Toast.makeText(SignupActivity.this,token.getString("token"),Toast.LENGTH_SHORT).show();
+
+                //保存token到sharedpreferences中
+                editor.putString("token",token.toString());
+                editor.apply();
+
+                Intent i = new Intent(SignupActivity.this,HallActivity.class);
+                startActivity(i);
+
+                finish();
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(SignupActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

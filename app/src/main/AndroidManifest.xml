@@ -19,7 +19,15 @@
             android:name=".activityz.RestingActivity"
             android:label="@string/title_activity_resting" />
         <activity android:name=".activityz.SignupActivity" />
-        <activity android:name=".activityz.LoginActivity" />
+        <activity android:name=".activityz.LoginActivity" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>>
         <activity android:name=".activityz.LaunchChatTopicActivity" />
         <activity android:name=".activityz.ForgetPasswordActivity" />
         <activity android:name=".activityz.SetNickNameActivity" />
@@ -67,11 +75,6 @@
             android:name=".activityz.HallActivity"
             android:label="@string/title_activity_hall"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
