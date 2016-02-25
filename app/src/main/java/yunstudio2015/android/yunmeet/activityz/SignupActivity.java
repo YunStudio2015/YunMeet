@@ -49,6 +49,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
 import yunstudio2015.android.yunmeet.utilz.User;
 import yunstudio2015.android.yunmeet.utilz.UsersAPI;
 import yunstudio2015.android.yunmeet.utilz.WeiboAccessKeeper;
@@ -89,9 +90,6 @@ public class SignupActivity extends AppCompatActivity {
     //用户信息接口
     private UsersAPI weiboUserAPI;
     private String wbUID;//微博用户的唯一识别码
-    private String wbNickName;//微博用户的昵称
-    private String wbGender;//微博用户性别
-    private Image wbFace;//微博用户头像
 
     private AuthInfo authInfo;
     /** 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能  */
@@ -102,21 +100,7 @@ public class SignupActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-    private ProgressDialog progressDialog;
-    private static int FINISH = 1;
-
     private RequestQueue queue;
-
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == FINISH){
-                if (progressDialog.isShowing()){
-                    progressDialog.dismiss();
-                }
-            }
-        }
-    };
 
     /**
      * 内部类，用于btnSendCode上的倒计时
@@ -131,10 +115,6 @@ public class SignupActivity extends AppCompatActivity {
 
         //init the views
         initViews();
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle(getString(R.string.tip));
-        progressDialog.setMessage(getString(R.string.uploading));
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -273,8 +253,7 @@ public class SignupActivity extends AppCompatActivity {
                     tvCodeTip.setText(R.string.wrong_verification_code);
                 } else {
 
-                    //显示dialog
-                    progressDialog.show();
+                    i_showProgressDialog(getString(R.string.loading));
 
                     //请求服务器注册新账号
                     Map<String,String> map = new HashMap<String, String>();
@@ -288,9 +267,7 @@ public class SignupActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
 
-                            Message msg = Message.obtain();
-                            msg.what = FINISH;
-                            handler.sendMessage(msg);
+                            i_dismissProgressDialog();
 
                             try {
                                 if (response.getString("error").equals("0")){
@@ -303,10 +280,6 @@ public class SignupActivity extends AppCompatActivity {
                                     JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.POST, YunApi.URL_LOGIN, new JSONObject(map1), new Response.Listener<JSONObject>() {
                                         @Override
                                         public void onResponse(JSONObject response) {
-
-                                            Message msg = Message.obtain();
-                                            msg.what = FINISH;
-                                            handler.sendMessage(msg);
 
                                             try {
                                                 if (response.getString("error").equals("0")){
@@ -340,9 +313,8 @@ public class SignupActivity extends AppCompatActivity {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
 
-                                            Message msg = Message.obtain();
-                                            msg.what = FINISH;
-                                            handler.sendMessage(msg);
+                                            i_dismissProgressDialog();
+
                                             Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                                         }
                                     })
@@ -371,9 +343,9 @@ public class SignupActivity extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Message message = Message.obtain();
-                            message.what = FINISH;
-                            handler.sendMessage(message);
+
+                            i_dismissProgressDialog();
+
                             Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -759,14 +731,6 @@ public class SignupActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onDestroy() {
-
-        if (progressDialog.isShowing())
-            progressDialog.dismiss();
-        super.onDestroy();
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         //非常重要！！！官方文档中并没有指出这里的回调！！！
@@ -817,6 +781,25 @@ public class SignupActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(SignupActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    LoadingDialog dialog;
+    public void i_showProgressDialog() {
+        dialog = new LoadingDialog(this);
+        dialog.show();
+    }
+
+    public void i_showProgressDialog(String mess) {
+        dialog = new LoadingDialog(this, mess);
+        dialog.show();
+    }
+
+    public void i_dismissProgressDialog () {
+        if (dialog != null) {
+            dialog.cancel();
+            dialog.dismiss();
+            dialog = null;
         }
     }
 
