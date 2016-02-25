@@ -162,17 +162,17 @@ public class SetFaceActivity extends AppCompatActivity {
 
             @Override
             public void uploadDone() {
-                Toast.makeText(SetFaceActivity.this, "upload done... exc", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SetFaceActivity.this, getResources().getString(R.string.upload_success), Toast.LENGTH_SHORT).show();
                 i_dismissProgressDialog();
             }
 
             @Override
             public void uploadfailed() {
-                Toast.makeText(SetFaceActivity.this, "upload failed... exc", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SetFaceActivity.this,  getResources().getString(R.string.upload_failure), Toast.LENGTH_SHORT).show();
                 i_dismissProgressDialog();
             }
         });
-        String token = "z0ze0gY8rdZlXr5yczgnKCNdn4bolsXf";
+        String token = "FUYhFauGwUIUDbQRbZHS4MCHyb7rD4q8";
         up.execute(imageLocalPath, token);
         i_showProgressDialog(getResources().getString(R.string.uploading));
     }

@@ -16,7 +16,6 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +30,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.YunActivitiesListAdapter;
+import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.InnerScrollviewViewPager;
 import yunstudio2015.android.yunmeet.entityz.ActivityEntity;
@@ -39,7 +39,7 @@ import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 
-public class  ActivitiesFragment extends Fragment {
+public class ActivitiesFragment extends Fragment {
 
 
 
@@ -50,9 +50,12 @@ public class  ActivitiesFragment extends Fragment {
     private ErrorFragment error_fragment;
 
 
-    public static Fragment getInstance() {
+    public static Fragment getInstance(String base_api) {
 
         Fragment frg = new  ActivitiesFragment();
+        Bundle args = new Bundle();
+        args.putString("base", base_api);
+        frg.setArguments(args);
         return frg;
     }
 
@@ -78,10 +81,12 @@ public class  ActivitiesFragment extends Fragment {
         context = rootview.getContext();
         ButterKnife.bind(this, rootview);
 
+        String base_api = getArguments().getString("base", AppConstants.DEFAULT_BASE_ACTIVITIES_API);
+
         // set adapter to the viewpager
         viewPager.setPageMargin(getResources().getDimensionPixelOffset(R.dimen.viewpager_margin));
         final int pageCount = 5;
-        viewPager.setOffscreenPageLimit(pageCount);
+        viewPager.setOffscreenPageLimit(pageCount/2 + 1);
 
         viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
@@ -115,9 +120,7 @@ public class  ActivitiesFragment extends Fragment {
 
             }
         });
-
         pullToRefreshHorizontalScrollView.setInnerViewpager(viewPager);
-
         return rootview;
     }
 

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/pulltorefresh_main"
+    android:fillViewport="true">
 
-</LinearLayout>
+    <!-- have another viewpager inside this one -->
+    <yunstudio2015.android.yunmeet.customviewz.InnerScrollviewViewPager
+        android:id="@+id/vp_inner_activities"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView>

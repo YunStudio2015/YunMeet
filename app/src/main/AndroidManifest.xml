@@ -20,11 +20,11 @@
             android:label="@string/title_activity_resting" />
         <activity android:name=".activityz.SignupActivity" />
         <activity android:name=".activityz.LoginActivity" />
-        <activity android:name=".activityz.LaunchChatTopicActivity" />
+        <activity android:name=".activityz.LaunchChatTopicActivity" >
+        </activity>
         <activity android:name=".activityz.ForgetPasswordActivity" />
         <activity android:name=".activityz.SetNickNameActivity" />
         <activity android:name=".activityz.SetFaceActivity">
-
         </activity>
 
         <!-- QQ登录所需要的 -->
@@ -69,7 +69,6 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

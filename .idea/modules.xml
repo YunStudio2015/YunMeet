@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/hollyviewpager/hollyviewpager.iml" filepath="$PROJECT_DIR$/hollyviewpager/hollyviewpager.iml" />
       <module fileurl="file://$PROJECT_DIR$/pickphotos/pickphotos.iml" filepath="$PROJECT_DIR$/pickphotos/pickphotos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pulltorefresh/pulltorefresh.iml" filepath="$PROJECT_DIR$/pulltorefresh/pulltorefresh.iml" />
     </modules>
   </component>
 </project>

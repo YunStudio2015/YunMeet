@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/page_background"
+    android:fillViewport="true"
     tools:context="yunstudio2015.android.yunmeet.activityz.HallActivity"
     tools:showIn="@layout/activity_hall">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/hollyViewPager"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:hvp_headerHeight="150dp" />
+        android:layout_height="match_parent">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/hollyViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             />
+    </LinearLayout>
 
-</RelativeLayout>
+</com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView>-->
+<yunstudio2015.android.yunmeet.customviewz.NoPaggingViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/page_background"
+    android:fillViewport="true"
+    tools:context="yunstudio2015.android.yunmeet.activityz.HallActivity"
+    tools:showIn="@layout/activity_hall" />

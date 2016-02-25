@@ -4,24 +4,23 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.github.florent37.hollyviewpager.HollyViewPager;
-import com.github.florent37.hollyviewpager.HollyViewPagerConfigurator;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.fragments.ScrollViewFragment;
+import yunstudio2015.android.yunmeet.adapterz.MainVpAdapter;
+import yunstudio2015.android.yunmeet.customviewz.NoPaggingViewPager;
+import yunstudio2015.android.yunmeet.customviewz.SlidingTabLayout;
+
 
 public class HallActivity extends AppCompatActivity {
 
@@ -30,8 +29,17 @@ public class HallActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    @Bind(R.id.hollyViewPager)
-    ViewPager viewPager;
+    @Bind(R.id.vp)
+    NoPaggingViewPager viewPager;
+
+    @Bind(R.id.stl_menu)
+    SlidingTabLayout tabs;
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+    moveTaskToBack(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,44 +53,61 @@ public class HallActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
+        viewPager.setOffscreenPageLimit(pageCount);
+        viewPager.setAdapter(new MainVpAdapter(getSupportFragmentManager ()));
 
-        viewPager.setPageMargin(getResources().getDimensionPixelOffset(R.dimen.viewpager_margin));
-    viewPager.setOffscreenPageLimit(pageCount);
-
-        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        // 不允许viewpager拖动
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public Fragment getItem(int position) {
-                //if(position%2==0)
-                //    return new RecyclerViewFragment();
-                //else
-                return ScrollViewFragment.newInstance((String) getPageTitle(position));
-            }
-
-            @Override
-            public int getCount() {
-                return pageCount;
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
             }
         });
 
+        // 不允许拖动animation
+        viewPager.setSwipeLocked(true);
+        viewPager.setScrollDurationFactor(0);
+
+        // <:OPLL{:{P}
+        viewPager.setCurrentItem(1);
+
+        // populate upper tab strip
+        populateUpperTabStrip();
+
+
         // get the actual being dragged items, and progressively change their margin.
-viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
+            @Override
+            public void onPageSelected(int position) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
-    @Override
-    public void onPageSelected(int position) {
+    private void populateUpperTabStrip() {
 
-    }
+        // set up title to null
+        toolbar.setTitle("");
+        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true,
+        // This makes the tabs Space Evenly in Available width
+        // Setting Custom Color for the Scroll bar indicator of the Tab View
+        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.btn_background);
+            }
+        });
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-});
-
-
+        // Setting the ViewPager For the SlidingTabsLayout
+        tabs.setViewPager(viewPager);
     }
 
     public static void setTranslucentStatusColor(Activity activity, @ColorRes int color) {

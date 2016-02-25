@@ -12,6 +12,7 @@
     <string name="letseat">#~ 一起来吃饭吧 ~#</string>
 
     <string-array name="default_categories">
+        <item>关注</item>
         <item>推荐</item>
         <item>约会</item>
         <item>聚餐</item>
@@ -92,5 +93,7 @@
     <string name="title_activity_cropping">CroppingActivity</string>
     <string name="please_wait">稍微等一下...</string>
     <string name="title_activity_hall">HallActivity</string>
+    <string name="upload_success">上传成功</string>
+    <string name="upload_failure">上传失败</string>
 
 </resources>

@@ -5,8 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import yunstudio2015.android.yunmeet.app.AppConstants;
-import yunstudio2015.android.yunmeet.fragmentz.ConcernListFragment;
-import yunstudio2015.android.yunmeet.fragmentz.FreeListFragment;
+import yunstudio2015.android.yunmeet.fragments.ActivitiesMainFragment;
+import yunstudio2015.android.yunmeet.fragments.ConcernListFragment;
+import yunstudio2015.android.yunmeet.fragments.FreeListFragment;
 
 /**
  * Created by Ultima on 2015/11/25.
@@ -20,15 +21,18 @@ public class MainVpAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 1)
-      return ConcernListFragment.getInstance();
+
+        if (position == 0)
+            return ConcernListFragment.getInstance();
+        else if (position == 1)
+            return ActivitiesMainFragment.getInstance();
         else
-            return  FreeListFragment.getInstance();
+            return FreeListFragment.getInstance();
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return AppConstants.topMenu.length;
     }
 
     @Override

@@ -20,16 +20,42 @@
             android:background="@color/actionbar_color"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <!-- top level include a slidingtablayout -->
-
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:layout_weight="2">
+                    <yunstudio2015.android.yunmeet.customviewz.SlidingTabLayout
+                        android:id="@+id/stl_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:layout_weight="1"/>
+                 <ImageView
+                     android:layout_gravity="right|center_vertical"
+                    android:src="@drawable/ic_main_search"
+                    android:background="@null"
+                     android:layout_marginRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_hall" />
-
-
 
 
 </android.support.design.widget.CoordinatorLayout>

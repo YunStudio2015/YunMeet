@@ -36,5 +36,6 @@
     <!-- cropping activity lil sizes -->
     <dimen name="crop_fab_margin">0dp</dimen>
     <dimen name="pick_mini_fab_margin">8dp</dimen>
+    <dimen name="submenu_textsize">14sp</dimen>
 
 </resources>
