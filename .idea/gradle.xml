@@ -5,15 +5,23 @@
       <GradleProjectSettings>
         <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+<<<<<<< HEAD
         <option name="gradleHome" value="C:\Program Files\android-studio\gradle\gradle-2.8" />
         <option name="gradleJvm" value="1.8" />
+=======
+        <option name="gradleHome" value="D:\AndroidStudio\gradle\gradle-2.8" />
+        <option name="gradleJvm" value="1.7" />
+>>>>>>> 1219bef9607d121b98f135a5d6ac50f66c0c7b16
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/hollyviewpager" />
             <option value="$PROJECT_DIR$/pickphotos" />
+<<<<<<< HEAD
             <option value="$PROJECT_DIR$/pulltorefresh" />
+=======
+>>>>>>> 1219bef9607d121b98f135a5d6ac50f66c0c7b16
           </set>
         </option>
       </GradleProjectSettings>

@@ -164,6 +164,11 @@ public class SetFaceActivity extends AppCompatActivity {
             public void uploadDone() {
                 Toast.makeText(SetFaceActivity.this, getResources().getString(R.string.upload_success), Toast.LENGTH_SHORT).show();
                 i_dismissProgressDialog();
+
+                Intent intent = new Intent(SetFaceActivity.this,HallActivity.class);
+                startActivity(intent);
+                finish();
+
             }
 
             @Override

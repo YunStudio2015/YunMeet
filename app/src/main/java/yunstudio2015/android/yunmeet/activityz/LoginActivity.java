@@ -1,19 +1,14 @@
 package yunstudio2015.android.yunmeet.activityz;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +40,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
 import yunstudio2015.android.yunmeet.utilz.User;
 import yunstudio2015.android.yunmeet.utilz.UsersAPI;
 import yunstudio2015.android.yunmeet.utilz.WeiboAccessKeeper;
@@ -96,27 +92,22 @@ public class LoginActivity extends AppCompatActivity {
 
     private RequestQueue queue;
 
-    private ProgressDialog progressDialog;
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == FINISH){
-                if (progressDialog.isShowing()){
-                    progressDialog.dismiss();
-                }
-            }
-        }
-    };
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        initViews();
 
         //初始化sharedPreferences
         sharedPreferences = getSharedPreferences("UserData",MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        if (null != sharedPreferences.getString("token",null) ){
+            Intent i = new Intent(LoginActivity.this,HallActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        setContentView(R.layout.activity_login);
+
+        initViews();
 
         //初始化QQ登录所需要的数据
         initTencentData();
@@ -125,10 +116,6 @@ public class LoginActivity extends AppCompatActivity {
         initWeiboData();
 
         queue = Volley.newRequestQueue(getApplicationContext());
-
-        progressDialog = new ProgressDialog(LoginActivity.this);
-        progressDialog.setTitle(getString(R.string.tip));
-        progressDialog.setMessage(getString(R.string.logging));
 
         tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                     tvPasswordTip.setText(R.string.wrong_password);
                 } else {
 
-                    progressDialog.show();
+                    i_showProgressDialog(getString(R.string.loading));
 
                     //向服务器发起用户登录的请求
                     //每个参数都写成一个字段
@@ -175,35 +162,13 @@ public class LoginActivity extends AppCompatActivity {
                     JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_LOGIN,new JSONObject(map),
                             new Response.Listener<JSONObject>() {
                                 @Override
-                                public void onResponse(JSONObject jsonObject) {
+                                public void onResponse(JSONObject response) {
 
-                                    Message msgFinish = Message.obtain();
-                                    msgFinish.what = FINISH;
-                                    handler.sendMessage(msgFinish);
+                                    i_dismissProgressDialog();
 
-                                    Log.d("login",jsonObject.toString());
+                                    Log.d("login",response.toString());
 
-                                    try {
-                                        if (jsonObject.getString("error").equals("0")){
-
-                                            Toast.makeText(LoginActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                                            //解析原jsonobject中嵌套的jsonobject
-                                            JSONObject token = new JSONObject(jsonObject.getString("data"));
-                                            Toast.makeText(LoginActivity.this,token.getString("token"),Toast.LENGTH_SHORT).show();
-
-                                            //保存token到sharedpreferences中
-                                            editor.putString("token",token.toString());
-                                            editor.apply();
-
-                                        }
-
-                                        if (jsonObject.getString("error").equals("1")){
-                                            Toast.makeText(LoginActivity.this,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                        Toast.makeText(LoginActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
-                                    }
+                                    authorizeSuccess(response);
 
                                 }
 
@@ -211,9 +176,8 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
 
-                            Message msgFinish = Message.obtain();
-                            msgFinish.what = FINISH;
-                            handler.sendMessage(msgFinish);
+                            i_dismissProgressDialog();
+
                             Log.d("login", "error "+ volleyError.toString());
                             Toast.makeText(LoginActivity.this,volleyError.toString(),Toast.LENGTH_SHORT).show();
                         }
@@ -273,18 +237,6 @@ public class LoginActivity extends AppCompatActivity {
         authInfo = new AuthInfo(LoginActivity.this,YunApi.WEIBO_APP_KEY,YunApi.WEIBO_REDIRECT_URL,YunApi.WEIBO_SCOPE);
         ssoHandler = new SsoHandler(LoginActivity.this,authInfo);
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        //注销登录
-        if (tencent != null){
-            tencent.logout(LoginActivity.this);
-        }
-
-        if (progressDialog.isShowing())
-            progressDialog.dismiss();
-        super.onDestroy();
     }
 
     public void initViews() {
@@ -404,16 +356,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        try {
-                            if (response.getString("error").equals("0")){
-                                //这里写activity的跳转
-                                Toast.makeText(LoginActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
-
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(LoginActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
-                        }
+                        authorizeSuccess(response);
 
                     }
                 }, new Response.ErrorListener() {
@@ -522,22 +465,17 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
 
-                            try {
-                                if (response.getString("error").equals("0")){
-                                    //这里写activity的跳转
-                                    Toast.makeText(LoginActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
-
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(LoginActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
-                            }
+                            authorizeSuccess(response);
 
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                            Log.d(">>>","error"+error.networkResponse.statusCode
+                            +">>>"+error.networkResponse.data
+                            +">>>"+error.getCause()
+                            +">>>"+error.getMessage());
                         }
                     })
                     {
@@ -607,5 +545,54 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, info, Toast.LENGTH_LONG).show();
         }
     };
+
+    //授权成功后调用这个函数
+    public void authorizeSuccess(JSONObject response){
+
+        //授权成功后先储存获得的token,然后进行activity的跳转，并且同时结束当前的activity
+        try {
+            if (response.getString("error").equals("0")){
+                //这里写activity的跳转
+                Toast.makeText(LoginActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
+
+                //解析原jsonobject中嵌套的jsonobject
+                JSONObject token = new JSONObject(response.getString("data"));
+
+                Toast.makeText(LoginActivity.this,token.getString("token"),Toast.LENGTH_SHORT).show();
+
+                //保存token到sharedpreferences中
+                editor.putString("token",token.toString());
+                editor.apply();
+
+                Intent i = new Intent(LoginActivity.this,HallActivity.class);
+                startActivity(i);
+
+                finish();
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(LoginActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    LoadingDialog dialog;
+    public void i_showProgressDialog() {
+        dialog = new LoadingDialog(this);
+        dialog.show();
+    }
+
+    public void i_showProgressDialog(String mess) {
+        dialog = new LoadingDialog(this, mess);
+        dialog.show();
+    }
+
+    public void i_dismissProgressDialog () {
+        if (dialog != null) {
+            dialog.cancel();
+            dialog.dismiss();
+            dialog = null;
+        }
+    }
 
 }
