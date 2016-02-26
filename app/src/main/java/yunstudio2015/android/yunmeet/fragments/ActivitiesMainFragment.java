@@ -1,7 +1,9 @@
 package yunstudio2015.android.yunmeet.fragments;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -27,6 +29,8 @@ import yunstudio2015.android.yunmeet.entityz.ActivityCategoryEntity;
 public class ActivitiesMainFragment extends Fragment {
 
 
+    private OnFragmentInteractionListener mListener;
+
     private OnTopCategoryMenuClickListener tab_category_menu_listener;
 
     public ActivitiesMainFragment() {
@@ -39,10 +43,14 @@ public class ActivitiesMainFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+//        setRetainInstance(true);
+    }
+
+
     public Map<String, Fragment> frgz;
-
-
-
 
     @Bind(R.id.fl_activitites_main)
     FrameLayout frameLayout;
@@ -66,7 +74,6 @@ public class ActivitiesMainFragment extends Fragment {
 
         // get the list of activities from the db, and get the first with the id 0
 
-
         // set up a standard fragment.
         setFragment(rootview.getContext(), 0);
         return rootview;
@@ -88,9 +95,10 @@ public class ActivitiesMainFragment extends Fragment {
             transaction.show(activitiesFragment);
         }
         else {
+
             activitiesFragment = (ActivitiesFragment) ActivitiesFragment.getInstance(entity.base_api);
             frgz.put(entity.name, activitiesFragment);
-            transaction.add(R.id.fl_activitites_main, activitiesFragment);
+            transaction.add(R.id.fl_activitites_main, activitiesFragment, entity.name);
         }
         transaction.commit();
     }
@@ -118,10 +126,9 @@ public class ActivitiesMainFragment extends Fragment {
         // 从本低那获取默认的类型
         String[] default_categories = getResources().getStringArray(R.array.default_categories);
 
-
         // we just create items and add them with a predefined width
 
-//        TtDebug("sw " + getScreenWidth(this) + " hscw " + hsc_categories.getWidth());
+        //        TtDebug("sw " + getScreenWidth(this) + " hscw " + hsc_categories.getWidth());
         int usewidth = getScreenWidth(mctx);
 
         hsc_lny.removeAllViews();
@@ -179,5 +186,43 @@ public class ActivitiesMainFragment extends Fragment {
         }
     }
 
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p/>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
 
 }

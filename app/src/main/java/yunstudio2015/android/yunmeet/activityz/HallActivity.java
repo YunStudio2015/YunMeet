@@ -1,9 +1,12 @@
 package yunstudio2015.android.yunmeet.activityz;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,35 +14,61 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.adapterz.HallActMainAdapter;
 import yunstudio2015.android.yunmeet.adapterz.MainVpAdapter;
 import yunstudio2015.android.yunmeet.customviewz.NoPaggingViewPager;
 import yunstudio2015.android.yunmeet.customviewz.SlidingTabLayout;
+import yunstudio2015.android.yunmeet.fragments.ActivitiesMainFragment;
+import yunstudio2015.android.yunmeet.fragments.ChatMainFragment;
+import yunstudio2015.android.yunmeet.fragments.DiscoverMainFragment;
+import yunstudio2015.android.yunmeet.fragments.MyFriendsMainFragment;
+import yunstudio2015.android.yunmeet.fragments.MySpaceMainFragment;
 
 
-public class HallActivity extends AppCompatActivity {
-
-    int pageCount = 10;
+public class HallActivity extends AppCompatActivity implements DiscoverMainFragment.OnFragmentInteractionListener,
+        ActivitiesMainFragment.OnFragmentInteractionListener,
+        ChatMainFragment.OnFragmentInteractionListener,
+        MyFriendsMainFragment.OnFragmentInteractionListener,
+        MySpaceMainFragment.OnFragmentInteractionListener{
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    @Bind(R.id.vp)
-    NoPaggingViewPager viewPager;
-
     @Bind(R.id.stl_menu)
     SlidingTabLayout tabs;
+
+    @Bind({R.id.radiobutton_bottom_menu_1, R.id.radiobutton_bottom_menu_2, R.id.radiobutton_bottom_menu_3, R.id.radiobutton_bottom_menu_4})
+    List<RadioButton> radiobuttonz;
+
+    @Bind(R.id.radiogroup_bottom_menu)
+    RadioGroup radiogroup_bottom_menu;
+
+    @Bind(R.id.hallmain_vp)
+    NoPaggingViewPager hallmain_viewpager;
 
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-    moveTaskToBack(true);
+        moveTaskToBack(true);
     }
+
+
+    /* previously checked button id */
+    int previouslyCheckButtonId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,50 +82,56 @@ public class HallActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        viewPager.setOffscreenPageLimit(pageCount);
-        viewPager.setAdapter(new MainVpAdapter(getSupportFragmentManager ()));
-
-        // 不允许viewpager拖动
-        viewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
+        // setup main viewpager
+        hallmain_viewpager.setOffscreenPageLimit(3);
+        hallmain_viewpager.setAdapter(new HallActMainAdapter(getSupportFragmentManager()));
 
         // 不允许拖动animation
-        viewPager.setSwipeLocked(true);
-        viewPager.setScrollDurationFactor(0);
+        hallmain_viewpager.setSwipeLocked(true);
+        hallmain_viewpager.setScrollDurationFactor(0);
 
-        // <:OPLL{:{P}
-        viewPager.setCurrentItem(1);
+        // setup bottom navigation panel
 
-        // populate upper tab strip
-        populateUpperTabStrip();
+        // previously checked button id
+        previouslyCheckButtonId = R.id.radiobutton_bottom_menu_1;
 
-
-        // get the actual being dragged items, and progressively change their margin.
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        radiogroup_bottom_menu.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-            @Override
-            public void onPageSelected(int position) {
-            }
+                RadioButton radioButton1 = (RadioButton) group.findViewById(previouslyCheckButtonId);
+                RadioButton radioButton2 = (RadioButton) group.findViewById(checkedId);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    radioButton1.setTextColor(getResources().getColor(R.color.bottom_text_black, getTheme()));
+                    radioButton2.setTextColor(getResources().getColor(R.color.btn_background, getTheme()));
+                } else {
+                    radioButton1.setTextColor(getResources().getColor(R.color.bottom_text_black));
+                    radioButton2.setTextColor(getResources().getColor(R.color.btn_background));
+                }
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
+                previouslyCheckButtonId = checkedId;
+//                Snackbar.make(group, ""+ radiobuttonz.indexOf(radioButton2) , Snackbar.LENGTH_SHORT).show();
 
+                 /* changing the fragment. */
+                hallmain_viewpager.setCurrentItem(radiobuttonz.indexOf(radioButton2));
+                if (checkedId == R.id.radiobutton_bottom_menu_1) {
+                    // show the strip inside the action bar
+                    tabs.setVisibility(View.VISIBLE);
+                } else {
+                    // else hide it.
+                    tabs.setVisibility(View.GONE);
+                }
             }
         });
+
+        radiogroup_bottom_menu.check(R.id.radiobutton_bottom_menu_1);
     }
 
     private void populateUpperTabStrip() {
 
         // set up title to null
         toolbar.setTitle("");
-        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true,
+     /*   tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true,
         // This makes the tabs Space Evenly in Available width
         // Setting Custom Color for the Scroll bar indicator of the Tab View
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
@@ -107,11 +142,11 @@ public class HallActivity extends AppCompatActivity {
         });
 
         // Setting the ViewPager For the SlidingTabsLayout
-        tabs.setViewPager(viewPager);
+        tabs.setViewPager(viewPager);*/
     }
 
     public static void setTranslucentStatusColor(Activity activity, @ColorRes int color) {
-        if (Build.VERSION.SDK_INT  != Build.VERSION_CODES.KITKAT)
+        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.KITKAT)
             return;
         setTranslucentStatus(activity, true);
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
@@ -133,4 +168,8 @@ public class HallActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

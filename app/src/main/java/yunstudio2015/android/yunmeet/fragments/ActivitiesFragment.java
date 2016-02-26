@@ -63,7 +63,6 @@ public class ActivitiesFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     View rootview;
 
 
