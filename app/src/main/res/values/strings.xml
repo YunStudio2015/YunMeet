@@ -103,6 +103,10 @@
     <string name="plus_focus">+ 关注</string>
     <string name="fans">粉丝</string>
     <string name="focus">关注</string>
+    <string name="radiobutton_bottom_menu_4">我的</string>
+    <string name="radiobutton_bottom_menu_3">跑友</string>
+    <string name="radiobutton_bottom_menu_2">信息</string>
+    <string name="radiobutton_bottom_menu_1">跑友圈</string>
 
 
 </resources>

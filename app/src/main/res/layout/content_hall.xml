@@ -1,35 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@color/page_background"
-    android:fillViewport="true"
+    android:layout_marginTop="?attr/actionBarSize"
     tools:context="yunstudio2015.android.yunmeet.activityz.HallActivity"
-    tools:showIn="@layout/activity_hall">
-
-    <LinearLayout
-        android:orientation="vertical"
+    tools:showIn="@layout/activity_hall"
+    >
+    <yunstudio2015.android.yunmeet.customviewz.NoPaggingViewPager
+        android:id="@+id/hallmain_vp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v4.view.ViewPager
-            android:id="@+id/hollyViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-             />
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:paddingBottom="@dimen/bottom_navigation_bar"/>
+    <!-- add a radio button inside -->
+    <RadioGroup
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:layout_height="@dimen/bottom_navigation_bar"
+        android:id="@+id/radiogroup_bottom_menu"
+        android:layout_width="match_parent"
+        >
+        <RadioButton
+            android:layout_weight="0.5"
+            android:id="@+id/radiobutton_bottom_menu_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:text="@string/radiobutton_bottom_menu_1"
+            android:gravity="center"
+            android:background="@null"
+            android:textSize="@dimen/bottom_menu_textsize"
+            android:drawableTop="@drawable/ic_bottom_1_bg"/>
+        <RadioButton
+            android:layout_weight="0.5"
+            android:id="@+id/radiobutton_bottom_menu_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@null"
+            android:gravity="center"
+            android:textSize="@dimen/bottom_menu_textsize"
+            android:text="@string/radiobutton_bottom_menu_2"
+            android:drawableTop="@drawable/ic_bottom_2_bg"/>
 
-</com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView>-->
-<yunstudio2015.android.yunmeet.customviewz.NoPaggingViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@color/page_background"
-    android:fillViewport="true"
-    tools:context="yunstudio2015.android.yunmeet.activityz.HallActivity"
-    tools:showIn="@layout/activity_hall" />
+        <ImageView
+            android:layout_weight="1"
+            android:id="@+id/iv_bottom_launcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/ic_bottom_launch"/>
+
+        <RadioButton
+            android:gravity="center"
+            android:layout_weight="0.5"
+            android:id="@+id/radiobutton_bottom_menu_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@null"
+            android:textSize="@dimen/bottom_menu_textsize"
+            android:text="@string/radiobutton_bottom_menu_3"
+            android:drawableTop="@drawable/ic_bottom_3_bg"/>
+        <RadioButton
+            android:layout_weight="0.5"
+            android:id="@+id/radiobutton_bottom_menu_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@null"
+            android:gravity="center"
+            android:textSize="@dimen/bottom_menu_textsize"
+            android:text="@string/radiobutton_bottom_menu_4"
+            android:drawableTop="@drawable/ic_bottom_4_bg"/>
+    </RadioGroup>
+</FrameLayout>
