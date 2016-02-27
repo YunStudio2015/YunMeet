@@ -6,16 +6,21 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.fragments.PersonalInfoFragmentActivity;
+import yunstudio2015.android.yunmeet.fragments.PersonalInfoFragmentTopic;
 
 /**
  * Created by lizhaotailang on 2016/2/26.
@@ -25,6 +30,8 @@ public class PersonInfoActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private Button btnTopic;
     private Button btnActivity;
+    private LinearLayout layoutChat;
+    private FrameLayout layoutFrame;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,11 @@ public class PersonInfoActivity extends AppCompatActivity{
         this.setSupportActionBar(toolbar);
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
 
+        PersonalInfoFragmentActivity fragment = new PersonalInfoFragmentActivity();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.person_framelayout,fragment);
+        transaction.commit();
+
         btnTopic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +59,11 @@ public class PersonInfoActivity extends AppCompatActivity{
                 btnTopic.setTextColor(Color.WHITE);
                 btnActivity.setBackgroundColor(Color.WHITE);
                 btnActivity.setTextColor(getResources().getColor(R.color.btn_background));
+
+                PersonalInfoFragmentActivity fragment = new PersonalInfoFragmentActivity();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.person_framelayout, fragment);
+                transaction.commit();
             }
         });
 
@@ -59,6 +76,19 @@ public class PersonInfoActivity extends AppCompatActivity{
                 btnActivity.setTextColor(Color.WHITE);
                 btnTopic.setBackgroundColor(Color.WHITE);
                 btnTopic.setTextColor(getResources().getColor(R.color.btn_background));
+
+                PersonalInfoFragmentTopic fragment = new PersonalInfoFragmentTopic();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.person_framelayout, fragment);
+                transaction.commit();
+
+            }
+        });
+
+        layoutChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -68,6 +98,8 @@ public class PersonInfoActivity extends AppCompatActivity{
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         btnTopic = (Button) findViewById(R.id.btn_person_info_topic);
         btnActivity = (Button) findViewById(R.id.btn_person_info_activity);
+        layoutChat = (LinearLayout) findViewById(R.id.person_info_chat);
+        layoutFrame = (FrameLayout) findViewById(R.id.person_framelayout);
 
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
@@ -176,32 +177,44 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            >
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/btn_person_info_topic"
-                    android:background="@color/btn_background"
-                    android:text="88 话题"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/white"/>
-                <Button
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/myspace_button_height"
+                        android:layout_weight="1"
+                        android:id="@+id/btn_person_info_topic"
+                        android:background="@color/btn_background"
+                        android:text="88 话题"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/white"/>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/btn_person_info_activity"
+                        android:background="@android:color/white"
+                        android:textSize="16sp"
+                        android:text="88 活动"
+                        android:textColor="@color/btn_background"/>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/person_framelayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/btn_person_info_activity"
-                    android:background="@android:color/white"
-                    android:textSize="16sp"
-                    android:text="88 活动"
-                    android:textColor="@color/btn_background"/>
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
@@ -210,6 +223,7 @@
     </android.support.design.widget.CoordinatorLayout>
 
     <LinearLayout
+        android:id="@+id/person_info_chat"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/btn_background"
