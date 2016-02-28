@@ -59,9 +59,8 @@ public class YunApi {
     public static final String URL_SET_FACE = URL + "User/setFace";
     //设置个人主页背景
     public static final String URL_SET_BACKGROUND = URL + "Uer/setBackground";
-
-
-
+    //获取单个用户发布的所有话题
+    public static final String URL_GET_TOPIC_LIST = URL + "Topic/getBriefList";
 
     // 获取QQ用户信息接口
     public static final String GET_QQ_USER_INFO = "https://graph.qq.com/user/get_simple_userinfo";

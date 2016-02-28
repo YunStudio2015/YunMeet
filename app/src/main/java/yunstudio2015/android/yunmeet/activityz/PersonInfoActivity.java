@@ -1,6 +1,7 @@
 package yunstudio2015.android.yunmeet.activityz;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
@@ -9,18 +10,30 @@ import android.support.annotation.ColorRes;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.fragments.PersonalInfoFragmentActivity;
 import yunstudio2015.android.yunmeet.fragments.PersonalInfoFragmentTopic;
+import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
  * Created by lizhaotailang on 2016/2/26.
@@ -31,13 +44,20 @@ public class PersonInfoActivity extends AppCompatActivity{
     private Button btnTopic;
     private Button btnActivity;
     private LinearLayout layoutChat;
-    private FrameLayout layoutFrame;
+
+    private RequestQueue queue;
+
+    private SharedPreferences sp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        queue = Volley.newRequestQueue(getApplicationContext());
+
         setContentView(R.layout.personal_data);
+
+        sp = getSharedPreferences("UserData",MODE_PRIVATE);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initViews();
@@ -45,10 +65,7 @@ public class PersonInfoActivity extends AppCompatActivity{
         this.setSupportActionBar(toolbar);
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
 
-        PersonalInfoFragmentActivity fragment = new PersonalInfoFragmentActivity();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.person_framelayout,fragment);
-        transaction.commit();
+        initMyTopic();
 
         btnTopic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +77,8 @@ public class PersonInfoActivity extends AppCompatActivity{
                 btnActivity.setBackgroundColor(Color.WHITE);
                 btnActivity.setTextColor(getResources().getColor(R.color.btn_background));
 
-                PersonalInfoFragmentActivity fragment = new PersonalInfoFragmentActivity();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.person_framelayout, fragment);
-                transaction.commit();
+                initMyTopic();
+
             }
         });
 
@@ -77,10 +92,7 @@ public class PersonInfoActivity extends AppCompatActivity{
                 btnTopic.setBackgroundColor(Color.WHITE);
                 btnTopic.setTextColor(getResources().getColor(R.color.btn_background));
 
-                PersonalInfoFragmentTopic fragment = new PersonalInfoFragmentTopic();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.person_framelayout, fragment);
-                transaction.commit();
+                initMyActivity();
 
             }
         });
@@ -99,7 +111,6 @@ public class PersonInfoActivity extends AppCompatActivity{
         btnTopic = (Button) findViewById(R.id.btn_person_info_topic);
         btnActivity = (Button) findViewById(R.id.btn_person_info_activity);
         layoutChat = (LinearLayout) findViewById(R.id.person_info_chat);
-        layoutFrame = (FrameLayout) findViewById(R.id.person_framelayout);
 
     }
 
@@ -123,5 +134,52 @@ public class PersonInfoActivity extends AppCompatActivity{
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
+    }
+
+    private void initMyTopic(){
+
+        PersonalInfoFragmentActivity fragment = new PersonalInfoFragmentActivity();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.person_framelayout, fragment);
+        transaction.commit();
+
+        Map<String,String> map = new HashMap<>();
+        //token仅供测试！！！
+        //ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx
+        //sp.getString("token",null)
+        map.put("token","ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx");
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_TOPIC_LIST, new JSONObject(map),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("mylist",response.toString());
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("mylist",error.toString());
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String,String> headers = new HashMap<>();
+                headers.put("Accept","application/json");
+                headers.put("Content-Type","application/json;charset=UTF-8");
+                return headers;
+            }
+        };
+
+        queue.add(request);
+
+    }
+
+    private void initMyActivity(){
+
+        PersonalInfoFragmentTopic fragment = new PersonalInfoFragmentTopic();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.person_framelayout, fragment);
+        transaction.commit();
+
     }
 }
