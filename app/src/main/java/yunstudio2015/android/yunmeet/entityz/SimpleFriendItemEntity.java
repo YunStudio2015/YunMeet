@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 /**
  * Created by lizhaotailang on 2016/2/19.
  */
-public class FriendEntity {
+public class SimpleFriendItemEntity {
 
     private int ID;
     private Bitmap face;
