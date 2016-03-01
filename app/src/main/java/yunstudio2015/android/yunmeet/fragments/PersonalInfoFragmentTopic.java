@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.adapterz.SimpleTopicAdapter;
+import yunstudio2015.android.yunmeet.entityz.SimpleTopicItem;
+import yunstudio2015.android.yunmeet.utilz.GetSimpleTopicsTask;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -34,6 +41,9 @@ public class PersonalInfoFragmentTopic extends Fragment {
 
     private TextView tvTip;
     private ListView lvTopics;
+
+    private List<SimpleTopicItem> list = new ArrayList<SimpleTopicItem>();
+    private String message = null;
 
     private SharedPreferences sharedPreferences;
     private RequestQueue queue;
@@ -51,43 +61,35 @@ public class PersonalInfoFragmentTopic extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View viewTopic = inflater.inflate(R.layout.person_info_topic,container,false);
 
-        Map<String,String> map = new HashMap<>();
-        //token仅供测试！！！
-        //ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx
-        //sp.getString("token",null)
-        map.put("token","ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx");
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_TOPIC_LIST, new JSONObject(map),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            if (response.getString("error").equals("0")){
+        tvTip = (TextView) viewTopic.findViewById(R.id.tv_person_info_topic);
+        lvTopics = (ListView) viewTopic.findViewById(R.id.lv_simple_topics);
 
-                            } else {
-
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        GetSimpleTopicsTask task = new GetSimpleTopicsTask(getActivity(), queue, new GetSimpleTopicsTask.GetSimpleTopicsFinishCallback() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_SHORT).show();
+            public void GetTopicsDone(List<SimpleTopicItem> data) {
+                if (list.isEmpty()){
+                    lvTopics.setVisibility(View.GONE);
+                    tvTip.setVisibility(View.VISIBLE);
+                    Log.d("调用", "data为空");
+                } else {
+                    tvTip.setVisibility(View.GONE);
+                    SimpleTopicAdapter adapter = new SimpleTopicAdapter(getActivity(),R.layout.simple_topic_item,data);
+                    lvTopics.setAdapter(adapter);
+                    Log.d("调用", "data不为空");
+                }
             }
-        })
-        {
-            @Override
-            public Map<String, String> getHeaders() {
-                HashMap<String,String> headers = new HashMap<>();
-                headers.put("Accept","application/json");
-                headers.put("Content-Type","application/json;charset=UTF-8");
-                return headers;
-            }
-        };
 
-        queue.add(request);
+            @Override
+            public void GetTopicsFailed(String failedMsg) {
+                message = failedMsg;
+                tvTip.setText(message);
+                Log.d("调用", "data为空");
+            }
+        });
+
+        task.execute(sharedPreferences.getString("token",null));
 
         return viewTopic;
     }
+
 }

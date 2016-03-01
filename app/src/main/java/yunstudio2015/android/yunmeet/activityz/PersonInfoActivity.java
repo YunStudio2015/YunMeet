@@ -116,18 +116,18 @@ public class PersonInfoActivity extends AppCompatActivity{
 
     private void initMyTopic(){
 
-        PersonalInfoFragmentActivity fragment = new PersonalInfoFragmentActivity();
+        PersonalInfoFragmentTopic fragment = new PersonalInfoFragmentTopic();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.person_framelayout, fragment);
+        transaction.replace(R.id.person_framelayout, fragment);
         transaction.commit();
 
     }
 
     private void initMyActivity(){
 
-        PersonalInfoFragmentTopic fragment = new PersonalInfoFragmentTopic();
+        PersonalInfoFragmentActivity fragment = new PersonalInfoFragmentActivity();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.person_framelayout, fragment);
+        transaction.add(R.id.person_framelayout, fragment);
         transaction.commit();
 
     }
