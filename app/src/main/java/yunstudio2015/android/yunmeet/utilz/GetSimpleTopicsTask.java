@@ -90,7 +90,7 @@ public class GetSimpleTopicsTask extends AsyncTask<String,Void,List<SimpleTopicI
         };
         queue.add(request);
 
-        return null;
+        return list;
     }
 
     @Override
