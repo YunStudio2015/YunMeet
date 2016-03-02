@@ -22,6 +22,7 @@
 
         <activity android:name=".activityz.LoginActivity" >
 
+
         </activity>>
         <activity android:name=".activityz.LaunchChatTopicActivity" >
             <intent-filter>
@@ -30,6 +31,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
         <activity android:name=".activityz.ForgetPasswordActivity" />
         <activity android:name=".activityz.SetNickNameActivity" />
         <activity android:name=".activityz.SetFaceActivity">
@@ -75,6 +79,12 @@
             android:name=".activityz.HallActivity"
             android:label="@string/title_activity_hall"
             android:hardwareAccelerated="true"
+            android:theme="@style/AppTheme">
+        </activity>
+
+        <activity
+            android:name=".activityz.PersonInfoActivity"
+            android:label="@string/title_activity_person_info"
             android:theme="@style/AppTheme">
         </activity>
 

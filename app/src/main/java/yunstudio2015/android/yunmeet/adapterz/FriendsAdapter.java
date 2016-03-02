@@ -1,7 +1,6 @@
 package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +11,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.entityz.FriendEntity;
+import yunstudio2015.android.yunmeet.entityz.SimpleFriendItemEntity;
 
 /**
  * Created by lizhaotailang on 2016/2/19.
  */
-public class FriendsAdapter extends ArrayAdapter<FriendEntity> {
+public class FriendsAdapter extends ArrayAdapter<SimpleFriendItemEntity> {
 
     private int resourceId;
 
-    public FriendsAdapter(Context context, int resource, List<FriendEntity> objects) {
+    public FriendsAdapter(Context context, int resource, List<SimpleFriendItemEntity> objects) {
         super(context, resource, objects);
         resourceId = resource;
     }
@@ -29,7 +28,7 @@ public class FriendsAdapter extends ArrayAdapter<FriendEntity> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        FriendEntity friend = getItem(position);//获取当前FriendEntity的实例
+        SimpleFriendItemEntity friend = getItem(position);//获取当前FriendEntity的实例
         View view;//使用LayoutInflater来为子项加载传入的布局
 
         ViewHolder viewHolder;

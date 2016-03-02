@@ -7,6 +7,10 @@ import android.os.AsyncTask;
  */
 public class UploadNewTopicTask extends AsyncTask<String, Long, Boolean> {
 
+
+    public UploadNewTopicTask(String token, String content, String[] imgPath) {
+    }
+
     @Override
     protected Boolean doInBackground(String... params) {
         return null;
