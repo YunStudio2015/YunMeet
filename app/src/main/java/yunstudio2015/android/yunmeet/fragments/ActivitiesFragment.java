@@ -21,8 +21,6 @@ import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,19 +28,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.YunActivitiesListAdapter;
-import yunstudio2015.android.yunmeet.app.AppConstants;
-import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.InnerScrollviewViewPager;
 import yunstudio2015.android.yunmeet.entityz.ActivityEntity;
-import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
-import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
-import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 
 public class ActivitiesFragment extends Fragment {
 
 
-
+    private static final String BASE_ACTIVITIES_API = "thisisjustatag";
     private OnFragmentInteractionListener mListener;
     private DisplayMetrics metrics;
     public static Context context;
@@ -80,7 +73,9 @@ public class ActivitiesFragment extends Fragment {
         context = rootview.getContext();
         ButterKnife.bind(this, rootview);
 
-        String base_api = getArguments().getString("base", AppConstants.DEFAULT_BASE_ACTIVITIES_API);
+        String base_api = getArguments().getString("base", BASE_ACTIVITIES_API);
+
+        // id of the categorie, and it will help retrieve activities.
 
         // set adapter to the viewpager
         viewPager.setPageMargin(getResources().getDimensionPixelOffset(R.dimen.viewpager_margin));
@@ -201,7 +196,7 @@ public class ActivitiesFragment extends Fragment {
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    reload();
+//                    reload();
                 }
             });
             // Configure the refreshing colors
@@ -220,7 +215,7 @@ public class ActivitiesFragment extends Fragment {
 
 
 
-        private void reload() {
+       /* private void reload() {
 
 //        swipeRefreshLayout.setRefreshing(true);
             // reload with the link.
@@ -236,7 +231,7 @@ public class ActivitiesFragment extends Fragment {
                     try {
                         // new data
 //                    if (response.get("error") == 0) {
-                    /*List<ActivityEntity>*/
+                    *//*List<ActivityEntity>*//*
                         JSONObject resp = new JSONObject(response);
                         lActivity = (List<ActivityEntity>) resp.get("data");
                         modUpView(lActivity);
@@ -258,7 +253,7 @@ public class ActivitiesFragment extends Fragment {
                 }
             });
         }
-
+*/
 
 
         private void throwError(int errodid) {

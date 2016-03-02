@@ -7,14 +7,23 @@ import android.content.Context;
  */
 public class ActivityCategoryEntity {
 
-    public int id;
+    public String id;
     public String base_api;
     public String name;
 
-    public ActivityCategoryEntity(Context context, int id) {
+    public ActivityCategoryEntity(Context context, String id) {
         this.id = id;
         // get the other informations into the sharedprefs
         this.base_api = "";
         this.name = "";
+    }
+
+    @Override
+    public String toString() {
+        return "ActivityCategoryEntity{" +
+                "id=" + id +
+                ", base_api='" + base_api + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

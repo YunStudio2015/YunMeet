@@ -6,14 +6,19 @@
     android:background="@color/page_background"
     tools:context="yunstudio2015.android.yunmeet.fragments.ActivitiesMainFragment">
 
-    <LinearLayout
-        android:id="@+id/lny_sc"
-        android:orientation="horizontal"
+    <HorizontalScrollView
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/lny_sc"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_height="wrap_content" />
+    </HorizontalScrollView>
 
     <FrameLayout
         android:id="@+id/fl_activitites_main"

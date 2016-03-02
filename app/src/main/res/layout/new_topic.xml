@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
@@ -21,11 +24,10 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_width="@dimen/toolbar_backbtn_back_width"
-                android:layout_height="@dimen/toolbar_backbtn_back_height"
+                android:layout_height="match_parent"
                 android:id="@+id/iv_back"
-                android:src="@drawable/btn_back"
+                android:src="@drawable/ic_arrow_back_white_48dp"
                 android:background="@color/toolbar_dark"/>
-
 
             <TextView
                 android:layout_centerVertical="true"
@@ -44,7 +46,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
-                android:id="@+id/btn_finish"
+                android:id="@+id/btn_finish_launch"
                 android:background="@drawable/green_button_background"
                 android:text="@string/share"
                 android:textColor="@android:color/white"/>
@@ -75,15 +77,17 @@
                 android:text="@string/edit_topic"
                 android:textColor="@android:color/white"/>
 
-            <EditText
+            <com.rockerhieu.emojicon.EmojiconEditText
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:id="@+id/ed_new_topic"
                 android:background="@null"
-                android:textSize="14sp"
+                android:textSize="15sp"
+                android:text=""
                 android:hint="@string/edit_topic_hint"
                 android:gravity="top"
                 android:padding="3dp"
+                app:emojiconSize="20dp"
                 android:textCursorDrawable="@drawable/text_cursor_drawable"
                 android:layout_marginTop="16dp" />
 
@@ -175,4 +179,16 @@
                 />
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:id="@+id/emojicons"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        class="com.rockerhieu.emojicon.EmojiconsFragment"
+        tools:layout="@layout/emojicons" />
+    </LinearLayout>
 </RelativeLayout>

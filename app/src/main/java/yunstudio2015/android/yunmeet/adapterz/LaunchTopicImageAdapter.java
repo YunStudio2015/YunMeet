@@ -70,7 +70,7 @@ public class LaunchTopicImageAdapter extends RecyclerView.Adapter<LaunchTopicIma
     private void startActivityFromPosition(int position) {
 
         Intent intent = new Intent(((LaunchChatTopicActivity) this.context), BrowseSelectedPicturesActivity.class);
-        intent.putStringArrayListExtra("data",data);
+        intent.putStringArrayListExtra("data", data);
         intent.putExtra("position", position);
         ((LaunchChatTopicActivity) this.context).startActivity(intent);
     }
@@ -104,6 +104,10 @@ public class LaunchTopicImageAdapter extends RecyclerView.Adapter<LaunchTopicIma
     }
 
 
+    public ArrayList<String> getData() {
+        return data;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private Context context;
@@ -116,6 +120,8 @@ public class LaunchTopicImageAdapter extends RecyclerView.Adapter<LaunchTopicIma
             delete_me_drawable = itemView.findViewById(R.id.delete_me_drawable);
             context = iv.getContext();
         }
+
+
 
         public void setData(String imgPath){
 

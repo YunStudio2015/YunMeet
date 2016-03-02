@@ -26,6 +26,7 @@ dependencies {
     compile project(":pickphotos")
     compile project(":pulltorefresh")
     compile project(path: ':hollyviewpager')
+    compile project(":emojicon")
     // actionbar tinting
     // photocropper
     // photo viewer that supports zoom

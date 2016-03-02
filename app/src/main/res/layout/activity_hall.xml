@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:animateLayoutChanges="true"
     android:background="@color/page_background"
-    tools:context="yunstudio2015.android.yunmeet.activityz.HallActivity">
+    tools:context="yunstudio2015.android.yunmeet.activityz.HallActivity"
+    android:id="@+id/hall_main_view">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -45,7 +47,7 @@
                     android:layout_weight="1"/>
                  <ImageView
                      android:layout_gravity="right|center_vertical"
-                    android:src="@drawable/ic_main_search"
+                    android:src="@drawable/ic_search_white_24dp"
                     android:background="@null"
                      android:layout_marginRight="5dp"
                     android:layout_width="wrap_content"

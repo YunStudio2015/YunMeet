@@ -22,14 +22,14 @@
 
         <activity android:name=".activityz.LoginActivity" >
 
+        </activity>>
+        <activity android:name=".activityz.LaunchChatTopicActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-        </activity>>
-        <activity android:name=".activityz.LaunchChatTopicActivity" />
+        </activity>
         <activity android:name=".activityz.ForgetPasswordActivity" />
         <activity android:name=".activityz.SetNickNameActivity" />
         <activity android:name=".activityz.SetFaceActivity">
@@ -74,13 +74,10 @@
         <activity
             android:name=".activityz.HallActivity"
             android:label="@string/title_activity_hall"
+            android:hardwareAccelerated="true"
             android:theme="@style/AppTheme">
         </activity>
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

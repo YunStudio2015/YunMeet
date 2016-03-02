@@ -12,9 +12,10 @@
     <string name="letseat">#~ 一起来吃饭吧 ~#</string>
 
     <string-array name="default_categories">
-        <item>关注</item>
         <item>推荐</item>
-        <item>约会</item>
+        <item>关注</item>
+        <item>热门</item>
+   <!-- <item>约会</item>
         <item>聚餐</item>
         <item>多人</item>
         <item>运动</item>
@@ -24,7 +25,12 @@
         <item>聊天</item>
         <item>招聘</item>
         <item>散步</item>
-        <item>结婚</item>
+        <item>结婚</item>-->
+    </string-array>
+    <string-array name="default_categories_idz">
+        <item>re</item>
+        <item>fo</item>
+        <item>ho</item>
     </string-array>
 
     <string name="male_symbol">♂</string>
@@ -108,5 +114,10 @@
     <string name="radiobutton_bottom_menu_2">信息</string>
     <string name="radiobutton_bottom_menu_1">跑友圈</string>
 
+
+    <string name="sample">全球最大的中文搜索引擎、致力于让网民更便捷地获取信息，找到所求。百度超过千亿的中文网页数据库，可以瞬间找到相关的搜索结果。</string>
+    <string name="rightbutton_title">活动</string>
+    <string name="leftbutton_title">话题</string>
+    <string name="canbenull">发布内容不能为空</string>
 
 </resources>

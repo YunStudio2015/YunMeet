@@ -5,13 +5,14 @@ package yunstudio2015.android.yunmeet.utilz;
  */
 public class YunApi {
 
-    public static final String IP = "http://121.42.160.23/";
+    public static final String IP = "http://www.yunstudio-ym.cn/";
 
 
     // 获取活动所有的类型
-    public static final String CATEGORYZ = IP+"Yunmeet/index.php/Api/Atys/cates";
+    public static final String CATEGORYZ = IP+"Yunmeet/index.php/Api/Atys/getCates";
+
     // 获取活动列表，包括最新活动~
-    public static final String ACTIVITYZ_LIST =IP+"Yunmeet/index.php/Api/Atys/atys";
+//    public static final String ACTIVITYZ_LIST =IP+"Yunmeet/index.php/Api/Atys/atys";
 
     //腾讯APP_ID,测试账号为222222，实际申请的账号为1105049205
     public static final String TENCENT_APP_ID = "222222";

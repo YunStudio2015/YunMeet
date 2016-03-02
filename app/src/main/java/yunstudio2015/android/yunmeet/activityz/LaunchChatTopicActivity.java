@@ -1,11 +1,13 @@
 package yunstudio2015.android.yunmeet.activityz;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +16,19 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.rockerhieu.emojicon.EmojiconEditText;
+import com.rockerhieu.emojicon.EmojiconGridFragment;
+import com.rockerhieu.emojicon.EmojiconsFragment;
+import com.rockerhieu.emojicon.emoji.Emojicon;
 
 import java.util.ArrayList;
 
@@ -28,23 +38,33 @@ import butterknife.OnClick;
 import me.crosswall.photo.pick.PickConfig;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.LaunchTopicImageAdapter;
+import yunstudio2015.android.yunmeet.adapterz.TextWatcherAdapter;
 
 /**
  * Created by Ulrich on 1/29/2016.
  */
-public class LaunchChatTopicActivity extends AppCompatActivity {
+public class LaunchChatTopicActivity extends AppCompatActivity implements EmojiconsFragment.OnEmojiconBackspaceClickedListener, EmojiconGridFragment.OnEmojiconClickedListener{
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
     @Bind(R.id.ed_new_topic)
-    EditText ed_text_zone;
+    EmojiconEditText ed_text_zone;
 
     @Bind(R.id.rel_pic_container)
     RelativeLayout empty_pic_container;
 
     @Bind(R.id.gv_img)
     RecyclerView pickRecyclerview;
+
+    @Bind(R.id.add_emoji)
+    ImageView iv_add_emoji;
+
+    @Bind(R.id.emojicons)
+    LinearLayout emoji_fragment;
+
+    @Bind(R.id.btn_finish_launch)
+    Button btn_finish_launch;
 
     /* 展示选出来的照片的adapter */
     LaunchTopicImageAdapter adapter;
@@ -61,6 +81,7 @@ public class LaunchChatTopicActivity extends AppCompatActivity {
         this.setSupportActionBar(toolbar); // 吧xml里面的toolbar设置成当前界面的actionbar
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
 
+
         adapter = new LaunchTopicImageAdapter(this, new ArrayList<String>());
         pickRecyclerview.setLayoutManager(new GridLayoutManager(this, spanCount));
         pickRecyclerview.setAdapter(adapter);
@@ -70,7 +91,7 @@ public class LaunchChatTopicActivity extends AppCompatActivity {
             public void onGlobalLayout() {
                 /* 这个时候当前空间已经自己设计好他的width 和height ， 可以获取了*/
               /* 提前获取的话可能会出现一个为0的情况*/
-                empty_pic_container.setMinimumHeight(8*empty_pic_container.getWidth()/9); //height is ready
+                empty_pic_container.setMinimumHeight(8 * empty_pic_container.getWidth() / 9); //height is ready
             }
         });
         pickRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -78,11 +99,79 @@ public class LaunchChatTopicActivity extends AppCompatActivity {
             public void onGlobalLayout() {
                   /* 这个时候当前空间已经自己设计好他的width 和height ， 可以获取了*/
                 /* 提前获取的话可能会出现一个为0的情况*/
-                pickRecyclerview.setMinimumHeight(4*getResources().getDisplayMetrics().widthPixels/5); //height is ready
+                pickRecyclerview.setMinimumHeight(4 * getResources().getDisplayMetrics().widthPixels / 5); //height is ready
             }
         });
 
-        /* 添加emoticons */
+        /* 添加 emoticons */
+        iv_add_emoji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) LaunchChatTopicActivity.this
+                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                if (emoji_fragment.getVisibility() == View.VISIBLE)
+                    emoji_fragment.setVisibility(View.GONE);
+                else
+                    emoji_fragment.setVisibility(View.VISIBLE);
+                if (imm.isAcceptingText()) {
+                    if (v != null) {
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                }
+            }
+        });
+
+        iv_add_emoji.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus)
+                    emoji_fragment.setVisibility(View.GONE);
+                mT("emojin hasfocus " + hasFocus);
+            }
+        });
+
+        ed_text_zone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (emoji_fragment.getVisibility() == View.VISIBLE)
+                    emoji_fragment.setVisibility(View.GONE);
+            }
+        });
+
+        emoji_fragment.setVisibility(View.GONE);
+
+    }
+
+
+    @OnClick(R.id.btn_finish_launch)
+    public void launchChatTopic () {
+
+        if (ed_text_zone != null && !"".equals(ed_text_zone.getText().toString().trim())) {
+
+
+            String content = ed_text_zone.getText().toString();
+            ArrayList<String> imgPathz = adapter.getData(); // get file paths list
+
+            //
+
+        } else {
+            Snackbar.make(getWindow().getDecorView(), getString(R.string.canbenull), Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (emoji_fragment.getVisibility() == View.VISIBLE) {
+            emoji_fragment.setVisibility(View.GONE);
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    private void mT(String s) {
+        Toast.makeText(LaunchChatTopicActivity.this, s, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -93,6 +182,7 @@ public class LaunchChatTopicActivity extends AppCompatActivity {
 
         /* 显示或隐藏带着emoticons的viewpager */
     }
+
 
 
     @OnClick(R.id.iv_add_pic)
@@ -145,8 +235,25 @@ public class LaunchChatTopicActivity extends AppCompatActivity {
             }
         }
         /* 如果是从浏览已选的照片返回来，就来看看状态 */
-
-
     }
 
+
+    @Override    @OnClick(R.id.iv_back)
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(android.R.anim.slide_in_left, R.anim.noanim);
+    }
+
+
+    @Override
+    public void onEmojiconBackspaceClicked(View v) {
+        EmojiconsFragment.backspace(ed_text_zone);
+    }
+
+
+    @Override
+    public void onEmojiconClicked(Emojicon emojicon) {
+//        ed_text_zone.append(emojicon.getEmoji());
+        EmojiconsFragment.input(ed_text_zone, emojicon);
+    }
 }

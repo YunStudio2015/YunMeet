@@ -15,6 +15,10 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +27,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.activityz.HallActivity;
+import yunstudio2015.android.yunmeet.app.AppConstants;
+import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.entityz.ActivityCategoryEntity;
+import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
+import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
+import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 
 public class ActivitiesMainFragment extends Fragment {
@@ -45,7 +54,7 @@ public class ActivitiesMainFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 //        setRetainInstance(true);
     }
 
@@ -75,17 +84,17 @@ public class ActivitiesMainFragment extends Fragment {
         // get the list of activities from the db, and get the first with the id 0
 
         // set up a standard fragment.
-        setFragment(rootview.getContext(), 0);
+        setFragment(rootview.getContext(), AppConstants.DEFAULT_BASE_ACTIVITIES_API.RECOMMEND);
         return rootview;
     }
 
-    private void setFragment(Context context, int id) {
+    private void setFragment(Context context, String id) {
 
         ActivityCategoryEntity entity = new ActivityCategoryEntity(context, id);
 
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-		transaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
+        transaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
         // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
         hideFragments(transaction);
 
@@ -110,7 +119,9 @@ public class ActivitiesMainFragment extends Fragment {
         }
     }
 
-    private void setUpCategoriesHv(Context mctx) {
+
+    int i = 0;
+    private void setUpCategoriesHv(final Context mctx) {
 
         // standard categories, and other categories could be got the db
         // we doing this so that in case of no connection, there is
@@ -125,22 +136,22 @@ public class ActivitiesMainFragment extends Fragment {
 
         // 从本低那获取默认的类型
         String[] default_categories = getResources().getStringArray(R.array.default_categories);
-
+        String[] default_categories_id = getResources().getStringArray(R.array.default_categories_idz);
         // we just create items and add them with a predefined width
 
-        //        TtDebug("sw " + getScreenWidth(this) + " hscw " + hsc_categories.getWidth());
-        int usewidth = getScreenWidth(mctx);
+        final int usewidth = getScreenWidth(mctx);
 
         hsc_lny.removeAllViews();
 
-        for (int i = 0; i <default_categories.length; i++) {
 
+         /* 添加固定分类 、推荐、关注、热度 */
+        for (i = 0; i < default_categories.length; i++) {
             TextView tv_tmp = new TextView(mctx);
             tv_tmp.setText(default_categories[i]);
             tv_tmp.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.submenu_textsize));
             tv_tmp.setTextColor(getResources().getColor(R.color.actionbar_color));
-            tv_tmp.setTag(R.id.category_id, i);
-            tv_tmp.setTag(R.id.category_position_id, i);
+            tv_tmp.setTag(R.id.category_position, i);
+            tv_tmp.setTag(R.id.category_id, default_categories_id[i]);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.width = usewidth/6;
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -157,6 +168,70 @@ public class ActivitiesMainFragment extends Fragment {
                 tv_tmp.setTextColor(getResources().getColor(R.color.btn_background));
             // each child will keep an id for himself
         }
+
+        /*调用接口去获取*/
+        VolleyRequest.GetStringRequest(getContext(), YunApi.CATEGORYZ, "", new VolleyOnResultListener() {
+
+            @Override
+            public void onSuccess(String response) {
+                L.i(response);
+                try {
+                    Gson gson = new Gson();
+                    JsonElement resp = gson.fromJson(response, JsonElement.class);
+                    int error = resp.getAsJsonObject().get("error").getAsInt();
+                    if (error == 0) {
+                        final ActivityCategoryEntity[] activityCategoryEntities = gson.fromJson(resp.getAsJsonObject().get("data"), ActivityCategoryEntity[].class);
+                        // 获取成功
+                        ((HallActivity) getContext()).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                for (int ii = 0; ii < activityCategoryEntities.length; ii++) {
+                                    ActivityCategoryEntity categoryEntity = activityCategoryEntities[ii];
+                                    L.i("adding " + categoryEntity.name);
+                                    final TextView tv_tmp = new TextView(getContext());
+                                    tv_tmp.setText(categoryEntity.name);
+                                    tv_tmp.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.submenu_textsize));
+                                    tv_tmp.setTextColor(getResources().getColor(R.color.actionbar_color));
+                                    tv_tmp.setTag(R.id.category_id, categoryEntity.id);
+                                    tv_tmp.setTag(R.id.category_position, (i+ii));
+                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    params.width = usewidth/6;
+                                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                                    tv_tmp.setLayoutParams(params);
+                                    tv_tmp.setOnClickListener(tab_category_menu_listener);
+                                    tv_tmp.setVisibility(View.GONE);
+                                    if (ii == activityCategoryEntities.length -1)
+                                        params.rightMargin = getResources().getDimensionPixelSize(R.dimen.hsc_right_margin);
+                                    hsc_lny.addView(tv_tmp);
+                                    tv_tmp.postDelayed(new Runnable() {
+                                                           @Override
+                                                           public void run() {
+                                                               ((HallActivity) getContext()).runOnUiThread(new Runnable() {
+                                                                   @Override
+                                                                   public void run() {
+                                                                       tv_tmp.setVisibility(View.VISIBLE);
+                                                                       // run an apparition activity.
+                                                                   }
+                                                               });
+                                                           }},1000
+                                    );
+
+                                }
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                L.e(error);
+            }
+
+        });
     }
 
     // utils functions
@@ -177,13 +252,19 @@ public class ActivitiesMainFragment extends Fragment {
             // change the fragment in the current viewpager page.
             // deselect the previous clicked
             // and select the clicked one.
-            if (((int)view.getTag(R.id.category_position_id)) != previous_selected) {
+            if (((int)view.getTag(R.id.category_position)) != previous_selected) {
                 ((TextView) hsc_lny.getChildAt(previous_selected)).setTextColor(getResources().getColor(R.color.actionbar_color));
                 ((TextView) view).setTextColor(getResources().getColor(R.color.btn_background));
-                previous_selected = (int) view.getTag(R.id.category_position_id);
-                setFragment(view.getContext(), previous_selected);
+                previous_selected = (int) view.getTag(R.id.category_position);
+                String category_tag = (String) view.getTag(R.id.category_id);
+                setFragment(view.getContext(), category_tag);
+                mToaz("selected id -- " + view.getTag(R.id.category_id));
             }
         }
+    }
+
+    private void mToaz(String s) {
+        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

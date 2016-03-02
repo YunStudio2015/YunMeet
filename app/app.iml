@@ -111,6 +111,7 @@
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.1" level="project" />
     <orderEntry type="module" module-name="pulltorefresh" exported="" />
     <orderEntry type="module" module-name="pickphotos" exported="" />
+    <orderEntry type="module" module-name="emojicon" exported="" />
     <orderEntry type="module" module-name="hollyviewpager" exported="" />
   </component>
 </module>

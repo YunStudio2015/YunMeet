@@ -1,26 +1,29 @@
 package yunstudio2015.android.yunmeet.activityz;
 
 import android.app.Activity;
-import android.content.res.Resources;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.ViewPager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.List;
@@ -29,7 +32,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.HallActMainAdapter;
-import yunstudio2015.android.yunmeet.adapterz.MainVpAdapter;
+import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.NoPaggingViewPager;
 import yunstudio2015.android.yunmeet.customviewz.SlidingTabLayout;
 import yunstudio2015.android.yunmeet.fragments.ActivitiesMainFragment;
@@ -37,6 +40,7 @@ import yunstudio2015.android.yunmeet.fragments.ChatMainFragment;
 import yunstudio2015.android.yunmeet.fragments.DiscoverMainFragment;
 import yunstudio2015.android.yunmeet.fragments.MyFriendsMainFragment;
 import yunstudio2015.android.yunmeet.fragments.MySpaceMainFragment;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
 
 public class HallActivity extends AppCompatActivity implements DiscoverMainFragment.OnFragmentInteractionListener,
@@ -60,12 +64,22 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
     @Bind(R.id.hallmain_vp)
     NoPaggingViewPager hallmain_viewpager;
 
+    @Bind(R.id.fab1)
+    FloatingActionButton floatingActionButton;
+
+    @Bind(R.id.rel_popup_menu)
+    RelativeLayout rel_popup_menu;
+
+
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
         moveTaskToBack(true);
     }
 
+    private PopupWindow mPopupWindow;
+
+    View bottom_launcher;
 
     /* previously checked button id */
     int previouslyCheckButtonId;
@@ -118,14 +132,118 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
                     // show the strip inside the action bar
                     tabs.setVisibility(View.VISIBLE);
                 } else {
-                    // else hide it.
+                    //  hide it.
                     tabs.setVisibility(View.GONE);
                 }
             }
         });
 
         radiogroup_bottom_menu.check(R.id.radiobutton_bottom_menu_1);
+
+
+
+        // manage popup launch menu
+        View popupView = getLayoutInflater().inflate(R.layout.launch_button_poplayout, null);
+
+
+        mPopupWindow = new PopupWindow(popupView, 7*getScreenWidth()/10, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        mPopupWindow.setTouchable(true);
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
+
+        View leftbutton = mPopupWindow.getContentView().findViewById(R.id.leftbutton);
+        View rightbutton = mPopupWindow.getContentView().findViewById(R.id.rightbutton);
+
+        leftbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                Snackbar.make(v, "left button" , Snackbar.LENGTH_SHORT).show();
+                if (mPopupWindow != null)
+                    mPopupWindow.dismiss();
+                Intent intent = new Intent(HallActivity.this, LaunchChatTopicActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.noanim);
+            }
+        });
+
+        rightbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Snackbar.make(v, "right button" , Snackbar.LENGTH_SHORT).show();
+                if (mPopupWindow != null)
+                    mPopupWindow.dismiss();
+            }
+        });
+
+
+        floatingActionButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                floatingActionButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+//                mPopupWindow.showAsDropDown(v, getScreenWidth()/2 - mPopupWindow.getWidth()/2, -40);
+
+                /* get the y equivalent to the position of the center of the floating button*/
+                        int flt_btHeight;
+                        int flt_bt_margin_bottom;
+
+                        if (getScreenWidth() /2 >= 600) {
+                            flt_btHeight = getResources().getDimensionPixelSize(R.dimen.flt_launch_button_7_pouces);
+                            flt_bt_margin_bottom = getResources().getDimensionPixelSize(R.dimen.launch_button_margin_bottom_7_pouces);
+
+                        }else {
+                            flt_btHeight = getResources().getDimensionPixelSize(R.dimen.flt_launch_button);
+                            flt_bt_margin_bottom = getResources().getDimensionPixelSize(R.dimen.launch_button_margin_bottom);
+                        }
+
+
+                        TypedValue tv = new TypedValue();
+                        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+                        {
+                            int actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+                            L.d("computed one "+ (flt_btHeight/2 + flt_bt_margin_bottom));
+                            L.d("gotttt one "+ (getScreenHeight() - actionBarHeight - floatingActionButton.getY()));
+/*
+                            L.d("screen width in px "+getScreenWidth());
+                            L.d("screen width in dp "+ UtilsFunctions.convertPxtoDip(getScreenWidth(), HallActivity.this));
+                      */
+                        }
+
+                        mPopupWindow.showAtLocation(v, Gravity.BOTTOM,
+                                0, /*(int) floatingActionButton.getY()*/ 4*flt_btHeight/3 + flt_bt_margin_bottom);
+                        rel_popup_menu.setVisibility(View.VISIBLE);
+                    }
+                });
+
+                mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        rel_popup_menu.setVisibility(View.INVISIBLE);
+                    }
+                });
+            }
+        });
+
     }
+
+    private int getScreenWidth() {
+        // utils functions
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        return metrics.widthPixels;
+    }
+
+    private int getScreenHeight() {
+        // utils functions
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        return metrics.heightPixels;
+    }
+
 
     private void populateUpperTabStrip() {
 
@@ -171,5 +289,11 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(android.R.anim.slide_in_left,R.anim.noanim);
     }
 }

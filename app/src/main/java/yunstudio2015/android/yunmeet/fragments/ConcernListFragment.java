@@ -174,7 +174,7 @@ public class ConcernListFragment extends Fragment {
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    reload();
+//                    reload();
                 }
             });
             // Configure the refreshing colors
@@ -193,7 +193,7 @@ public class ConcernListFragment extends Fragment {
 
 
 
-        private void reload() {
+       /* private void reload() {
 
 //        swipeRefreshLayout.setRefreshing(true);
             // reload with the link.
@@ -209,7 +209,7 @@ public class ConcernListFragment extends Fragment {
                     try {
                         // new data
 //                    if (response.get("error") == 0) {
-                    /*List<ActivityEntity>*/
+                    *//*List<ActivityEntity>*//*
                         JSONObject resp = new JSONObject(response);
                         lActivity = (List<ActivityEntity>) resp.get("data");
                         modUpView(lActivity);
@@ -231,7 +231,7 @@ public class ConcernListFragment extends Fragment {
                 }
             });
         }
-
+*/
 
 
         private void throwError(int errodid) {

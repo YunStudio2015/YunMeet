@@ -173,7 +173,7 @@ public class FreeListFragment extends Fragment {
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    reload();
+//                    reload();
                 }
             });
             // Configure the refreshing colors
@@ -186,11 +186,11 @@ public class FreeListFragment extends Fragment {
 //                addFakeElement(mRecyclerView);
             mLayoutManager = new LinearLayoutManager(context);
             mRecyclerView.setLayoutManager(mLayoutManager);
-           reload();
+//           reload();
             return rootview2;
         }
 
-        private void reload() {
+   /*     private void reload() {
 
             swipeRefreshLayout.post(new Runnable() {
                 @Override
@@ -219,7 +219,7 @@ public class FreeListFragment extends Fragment {
                         mT(response.toString());
                         // new data
 //                    if (response.get("error") == 0) {
-                    /*List<ActivityEntity>*/
+                    *//*List<ActivityEntity>*//*
                         lActivity = (List<ActivityEntity>) response.get("data");
                         modUpView(lActivity);
                     } catch (Exception e) {
@@ -241,7 +241,7 @@ public class FreeListFragment extends Fragment {
                     swipeRefreshLayout.setRefreshing(false);
                 }
             });
-        }
+        }*/
 
 
         private void mT(String string) {
@@ -351,7 +351,7 @@ public class FreeListFragment extends Fragment {
                     transaction.show(content_fragment);
                 }
                 transaction.commit();
-                content_fragment.reload();
+//                content_fragment.reload();
             }
         }
 
