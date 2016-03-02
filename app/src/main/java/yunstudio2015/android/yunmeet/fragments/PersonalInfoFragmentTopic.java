@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,26 +14,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.SimpleTopicAdapter;
 import yunstudio2015.android.yunmeet.entityz.SimpleTopicItem;
-import yunstudio2015.android.yunmeet.utilz.GetSimpleTopicsTask;
+import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
+import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -40,10 +36,9 @@ import yunstudio2015.android.yunmeet.utilz.YunApi;
 public class PersonalInfoFragmentTopic extends Fragment {
 
     private TextView tvTip;
-    private ListView lvTopics;
+    private RecyclerView recyclerViewTopics;
 
     private List<SimpleTopicItem> list = new ArrayList<SimpleTopicItem>();
-    private String message = null;
 
     private SharedPreferences sharedPreferences;
     private RequestQueue queue;
@@ -62,32 +57,48 @@ public class PersonalInfoFragmentTopic extends Fragment {
         View viewTopic = inflater.inflate(R.layout.person_info_topic,container,false);
 
         tvTip = (TextView) viewTopic.findViewById(R.id.tv_person_info_topic);
-        lvTopics = (ListView) viewTopic.findViewById(R.id.lv_simple_topics);
+        recyclerViewTopics = (RecyclerView) viewTopic.findViewById(R.id.recyclerview_simple_topics);
+        recyclerViewTopics.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        GetSimpleTopicsTask task = new GetSimpleTopicsTask(getActivity(), queue, new GetSimpleTopicsTask.GetSimpleTopicsFinishCallback() {
+
+        VolleyRequest.GetStringRequest(getActivity(), YunApi.URL_GET_TOPIC_LIST, "token=ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx", new VolleyOnResultListener() {
             @Override
-            public void GetTopicsDone(List<SimpleTopicItem> data) {
-                if (list.isEmpty()){
-                    lvTopics.setVisibility(View.GONE);
-                    tvTip.setVisibility(View.VISIBLE);
-                    Log.d("调用", "data为空");
-                } else {
-                    tvTip.setVisibility(View.GONE);
-                    SimpleTopicAdapter adapter = new SimpleTopicAdapter(getActivity(),R.layout.simple_topic_item,data);
-                    lvTopics.setAdapter(adapter);
-                    Log.d("调用", "data不为空");
+            public void onSuccess(String response) {
+                try {
+                    Log.d("res", response);
+                    JSONObject object = new JSONObject(response);
+                    Log.d("respose", object.toString());
+                    if (object.getString("error").equals("0")) {
+                        JSONArray array = object.getJSONArray("data");
+                        for (int i = 0; i < array.length(); i++) {
+                                SimpleTopicItem item = new SimpleTopicItem(array.getJSONObject(i).getString("id"),
+                                        array.getJSONObject(i).getString("content"),
+                                        array.getJSONObject(i).getString("pubtime"));
+                            list.add(item);
+                        }
+                        Log.d("list", String.valueOf(list.size()));
+
+                        tvTip.setVisibility(View.GONE);
+                        SimpleTopicAdapter adapter = new SimpleTopicAdapter(getActivity(),list);
+                        recyclerViewTopics.setAdapter(adapter);
+
+                    } else {
+                        recyclerViewTopics.setVisibility(View.GONE);
+                        tvTip.setVisibility(View.VISIBLE);
+                        Toast.makeText(getActivity(),object.getString("message"),Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
             }
 
             @Override
-            public void GetTopicsFailed(String failedMsg) {
-                message = failedMsg;
-                tvTip.setText(message);
-                Log.d("调用", "data为空");
+            public void onFailure(String error) {
+                Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
             }
         });
-
-        task.execute(sharedPreferences.getString("token",null));
 
         return viewTopic;
     }

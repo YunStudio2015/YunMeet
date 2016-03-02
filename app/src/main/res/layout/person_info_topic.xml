@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
@@ -9,11 +10,11 @@
         android:id="@+id/tv_person_info_topic"
         android:text="fragment_topic"/>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/lv_simple_topics">
-
-    </ListView>
+        android:layout_height="320dp"
+        android:id="@+id/recyclerview_simple_topics"
+        >
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
