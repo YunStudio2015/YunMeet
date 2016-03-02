@@ -33,6 +33,7 @@ import me.crosswall.photo.pick.PickConfig;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.customviewz.CircleImageView;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
+import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
 import yunstudio2015.android.yunmeet.utilz.UploadProfileImageTask;
 
 /**
@@ -158,7 +159,7 @@ public class SetFaceActivity extends AppCompatActivity {
         if (imageLocalPath == null || "".equals(imageLocalPath))
             return;
         // upload the file
-        UploadProfileImageTask up = new UploadProfileImageTask(new UploadProfileImageTask.UploadFinishCallBack(){
+        UploadProfileImageTask up = new UploadProfileImageTask(new UploadFinishCallBack(){
 
             @Override
             public void uploadDone() {

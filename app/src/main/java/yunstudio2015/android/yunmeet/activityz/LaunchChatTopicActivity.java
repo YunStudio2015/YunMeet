@@ -39,6 +39,10 @@ import me.crosswall.photo.pick.PickConfig;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.LaunchTopicImageAdapter;
 import yunstudio2015.android.yunmeet.adapterz.TextWatcherAdapter;
+import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
+import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
+import yunstudio2015.android.yunmeet.utilz.UploadNewTopicTask;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
 /**
  * Created by Ulrich on 1/29/2016.
@@ -151,13 +155,31 @@ public class LaunchChatTopicActivity extends AppCompatActivity implements Emojic
 
 
             String content = ed_text_zone.getText().toString();
-            ArrayList<String> imgPathz = adapter.getData(); // get file paths list
+            String[] imgPathz = (String[]) adapter.getData().toArray(); // get file paths list
 
-            //
+            i_showProgressDialog();
+            // start uploading
+            (new UploadNewTopicTask("", content, imgPathz)).execute(new UploadFinishCallBack() {
+                @Override
+                public void uploadDone() {
+                    i_dismissProgressDialog();
+                    mSnack(getString(R.string.upload_success));
+                }
 
+                @Override
+                public void uploadfailed() {
+                    i_dismissProgressDialog();
+                    mSnack(getString(R.string.upload_failure));
+                }
+            });
         } else {
-            Snackbar.make(getWindow().getDecorView(), getString(R.string.canbenull), Snackbar.LENGTH_SHORT).show();
+
+            mSnack(getString(R.string.canbenull));
         }
+    }
+
+    private void mSnack(String s) {
+        Snackbar.make(getWindow().getDecorView(), s, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -174,6 +196,24 @@ public class LaunchChatTopicActivity extends AppCompatActivity implements Emojic
         Toast.makeText(LaunchChatTopicActivity.this, s, Toast.LENGTH_SHORT).show();
     }
 
+    LoadingDialog dialog;
+    public void i_showProgressDialog() {
+        dialog = new LoadingDialog(this);
+        dialog.show();
+    }
+
+    public void i_showProgressDialog(String mess) {
+        dialog = new LoadingDialog(this, mess);
+        dialog.show();
+    }
+
+    public void i_dismissProgressDialog () {
+        if (dialog != null) {
+            dialog.cancel();
+            dialog.dismiss();
+            dialog = null;
+        }
+    }
 
     @OnClick(R.id.add_emoji)
     public void add_emoji() {
