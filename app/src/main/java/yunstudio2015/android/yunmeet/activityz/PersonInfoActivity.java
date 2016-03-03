@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -48,6 +49,7 @@ public class PersonInfoActivity extends AppCompatActivity{
         btnTopic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //控制获得点击的按钮的背景色为绿色，字体颜色为白色
                 //没有获得点击的按钮的背景色为白色，字体颜色为绿色
                 btnTopic.setBackgroundColor(getResources().getColor(R.color.btn_background));
@@ -116,19 +118,22 @@ public class PersonInfoActivity extends AppCompatActivity{
 
     private void initMyTopic(){
 
-        PersonalInfoFragmentTopic fragment = new PersonalInfoFragmentTopic();
+        PersonalInfoFragmentTopic fragmentTopic = new PersonalInfoFragmentTopic();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.person_framelayout, fragment);
+        transaction.add(R.id.person_framelayout,fragmentTopic);
+
         transaction.commit();
 
     }
 
     private void initMyActivity(){
 
-        PersonalInfoFragmentActivity fragment = new PersonalInfoFragmentActivity();
+        PersonalInfoFragmentActivity fragmentActivity = new PersonalInfoFragmentActivity();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.person_framelayout, fragment);
+        transaction.add(R.id.person_framelayout, fragmentActivity);
+
         transaction.commit();
 
     }
+
 }

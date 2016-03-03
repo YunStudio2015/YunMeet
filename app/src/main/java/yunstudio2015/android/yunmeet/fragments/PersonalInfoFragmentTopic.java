@@ -1,7 +1,5 @@
 package yunstudio2015.android.yunmeet.fragments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,12 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,16 +34,9 @@ public class PersonalInfoFragmentTopic extends Fragment {
 
     private List<SimpleTopicItem> list = new ArrayList<SimpleTopicItem>();
 
-    private SharedPreferences sharedPreferences;
-    private RequestQueue queue;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        sharedPreferences = getActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE);
-        queue = Volley.newRequestQueue(getContext().getApplicationContext());
-
     }
 
     @Override
@@ -71,21 +58,20 @@ public class PersonalInfoFragmentTopic extends Fragment {
                     if (object.getString("error").equals("0")) {
                         JSONArray array = object.getJSONArray("data");
                         for (int i = 0; i < array.length(); i++) {
-                                SimpleTopicItem item = new SimpleTopicItem(array.getJSONObject(i).getString("id"),
-                                        array.getJSONObject(i).getString("content"),
-                                        array.getJSONObject(i).getString("pubtime"));
+                            SimpleTopicItem item = new SimpleTopicItem(array.getJSONObject(i).getString("id"),
+                                    array.getJSONObject(i).getString("content"),
+                                    array.getJSONObject(i).getString("pubtime"));
                             list.add(item);
                         }
                         Log.d("list", String.valueOf(list.size()));
 
                         tvTip.setVisibility(View.GONE);
-                        SimpleTopicAdapter adapter = new SimpleTopicAdapter(getActivity(),list);
-                        recyclerViewTopics.setAdapter(adapter);
+                        recyclerViewTopics.setAdapter(new SimpleTopicAdapter(getActivity(), list));
 
                     } else {
                         recyclerViewTopics.setVisibility(View.GONE);
                         tvTip.setVisibility(View.VISIBLE);
-                        Toast.makeText(getActivity(),object.getString("message"),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), object.getString("message"), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
