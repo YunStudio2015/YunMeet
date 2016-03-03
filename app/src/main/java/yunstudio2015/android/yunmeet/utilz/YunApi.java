@@ -54,6 +54,8 @@ public class YunApi {
     public static final String URL_GET_CHECK_CODE = URL + "User/getChkCode";
     //设置昵称
     public static final String URL_SET_NICK_NAME = URL + "User/setNick";
+    // 发布话题
+    public static String URL_NEW_TOPIC = URL + "Topic/add";
     //设置性别
     public static final String URL_SET_SEX = URL + "User/setSex";
     //设置头像,先使用setFace2接口测试，正式接口为setFace
@@ -65,4 +67,5 @@ public class YunApi {
 
     // 获取QQ用户信息接口
     public static final String GET_QQ_USER_INFO = "https://graph.qq.com/user/get_simple_userinfo";
+
 }

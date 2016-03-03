@@ -173,6 +173,9 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
 //                Snackbar.make(v, "right button" , Snackbar.LENGTH_SHORT).show();
                 if (mPopupWindow != null)
                     mPopupWindow.dismiss();
+                Intent intent = new Intent(HallActivity.this, LaunchActivityActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.noanim);
             }
         });
 

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.app.MyApplication;
 import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
@@ -15,17 +14,17 @@ import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
 /**
  * Created by Ulrich on 3/2/2016.
  */
-public class UploadNewTopicTask extends AsyncTask<UploadFinishCallBack, Long, Boolean> {
+public class UploadNewActivityTask extends AsyncTask<UploadFinishCallBack, Long, Boolean> {
 
 
-    private static final java.lang.String TAG = MyApplication.appname;
+    private static final String TAG = MyApplication.appname;
     private final ArrayList<String> imgPath;
     private final String token;
     private  String content;
 
     UploadFinishCallBack callBack;
 
-    public UploadNewTopicTask(String token, String content, ArrayList<String> imgPath) {
+    public UploadNewActivityTask(String token, String content, ArrayList<String> imgPath) {
 
         this.token = token;
         this.content = content;
@@ -49,11 +48,10 @@ public class UploadNewTopicTask extends AsyncTask<UploadFinishCallBack, Long, Bo
             multipart.addFormField("token", token); // add token
             multipart.addFormField("content", content); // add content
             //add your filez here.
-            if (imgPath != null)
-                for (String ipath: imgPath) {
-                    multipart.addFilePart(iFileName, new File(ipath));
-                    (new File(ipath)).deleteOnExit();
-                }
+            for (String ipath: imgPath) {
+                multipart.addFilePart(iFileName, new File(ipath));
+                (new File(ipath)).deleteOnExit();
+            }
              /*   *//*This is to add file content*//*
             multipart.addFilePart("face",
                     new File(filePath));*/

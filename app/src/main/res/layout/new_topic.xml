@@ -20,13 +20,15 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical">
 
-            <ImageView
+            <ImageButton
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_width="@dimen/toolbar_backbtn_back_width"
                 android:layout_height="match_parent"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:id="@+id/iv_back"
-                android:src="@drawable/ic_arrow_back_white_48dp"
+                android:src="@drawable/ic_arrow_back_white_24dp"
                 android:background="@color/toolbar_dark"/>
 
             <TextView

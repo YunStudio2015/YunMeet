@@ -15,7 +15,7 @@
         <item>推荐</item>
         <item>关注</item>
         <item>热门</item>
-   <!-- <item>约会</item>
+        <!-- <item>约会</item>
         <item>聚餐</item>
         <item>多人</item>
         <item>运动</item>
@@ -120,5 +120,12 @@
     <string name="rightbutton_title">活动</string>
     <string name="leftbutton_title">话题</string>
     <string name="canbenull">发布内容不能为空</string>
+    <string name="title_activity_launch">编辑遇见活动</string>
+    <string name="title_lang">主题</string>
+    <string name="type_lang">类型</string>
+    <string name="partener_lang">对象</string>
+    <string name="address_lang">地点</string>
+    <string name="pay_type_lang">费用</string>
+    <string name="launch_actiity_desc_ed">描述一下活动主题，活动内容越详细越有吸引力哟~</string>
 
 </resources>

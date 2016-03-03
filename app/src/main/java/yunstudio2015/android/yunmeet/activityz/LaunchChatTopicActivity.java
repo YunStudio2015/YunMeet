@@ -153,17 +153,29 @@ public class LaunchChatTopicActivity extends AppCompatActivity implements Emojic
 
         if (ed_text_zone != null && !"".equals(ed_text_zone.getText().toString().trim())) {
 
-
             String content = ed_text_zone.getText().toString();
-            String[] imgPathz = (String[]) adapter.getData().toArray(); // get file paths list
+            ArrayList<String> imgPathz = null;
+            imgPathz = adapter.getData(); // get file paths list
 
             i_showProgressDialog();
             // start uploading
-            (new UploadNewTopicTask("", content, imgPathz)).execute(new UploadFinishCallBack() {
+            (new UploadNewTopicTask(UtilsFunctions.getToken(LaunchChatTopicActivity.this), content, imgPathz)).execute(new UploadFinishCallBack() {
                 @Override
                 public void uploadDone() {
                     i_dismissProgressDialog();
                     mSnack(getString(R.string.upload_success));
+                    btn_finish_launch.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    LaunchChatTopicActivity.this.finish();
+                                }
+                            });
+                        }
+                    }, 300);
+                    finish();
                 }
 
                 @Override

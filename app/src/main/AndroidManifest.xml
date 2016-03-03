@@ -19,25 +19,16 @@
             android:name=".activityz.RestingActivity"
             android:label="@string/title_activity_resting" />
         <activity android:name=".activityz.SignupActivity" />
-
-        <activity android:name=".activityz.LoginActivity" >
-
-
-        </activity>>
-        <activity android:name=".activityz.LaunchChatTopicActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".activityz.LoginActivity"></activity>
+        >
+        <activity android:name=".activityz.LaunchChatTopicActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="yunstudio2015.android.yunmeet.activityz.HallActivity" />
         </activity>
-
-
-
         <activity android:name=".activityz.ForgetPasswordActivity" />
         <activity android:name=".activityz.SetNickNameActivity" />
-        <activity android:name=".activityz.SetFaceActivity">
-        </activity>
+        <activity android:name=".activityz.SetFaceActivity"></activity>
 
         <!-- QQ登录所需要的 -->
         <activity
@@ -77,17 +68,23 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activityz.HallActivity"
-            android:label="@string/title_activity_hall"
             android:hardwareAccelerated="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
+            android:label="@string/title_activity_hall"
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".activityz.PersonInfoActivity"
             android:label="@string/title_activity_person_info"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".activityz.LaunchActivityActivity"
+            android:label="@string/title_activity_launch"
+            android:parentActivityName=".activityz.HallActivity"
             android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
