@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,8 +20,8 @@ import android.widget.LinearLayout;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.fragments.PersonalInfoFragmentActivity;
-import yunstudio2015.android.yunmeet.fragments.PersonalInfoFragmentTopic;
+import yunstudio2015.android.yunmeet.fragments.PersonalInfoActivityFragment;
+import yunstudio2015.android.yunmeet.fragments.PersonalInfoTopicFragment;
 
 /**
  * Created by lizhaotailang on 2016/2/26.
@@ -118,9 +119,11 @@ public class PersonInfoActivity extends AppCompatActivity{
 
     private void initMyTopic(){
 
-        PersonalInfoFragmentTopic fragmentTopic = new PersonalInfoFragmentTopic();
+        PersonalInfoTopicFragment fragmentTopic = new PersonalInfoTopicFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.person_framelayout,fragmentTopic);
+        Log.d("frg",String.valueOf(fragmentTopic.isAdded()));
+
+            transaction.replace(R.id.person_framelayout, fragmentTopic);
 
         transaction.commit();
 
@@ -128,9 +131,11 @@ public class PersonInfoActivity extends AppCompatActivity{
 
     private void initMyActivity(){
 
-        PersonalInfoFragmentActivity fragmentActivity = new PersonalInfoFragmentActivity();
+        PersonalInfoActivityFragment fragmentActivity = new PersonalInfoActivityFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.person_framelayout, fragmentActivity);
+        Log.d("frg",String.valueOf(fragmentActivity.isAdded()));
+
+            transaction.replace(R.id.person_framelayout, fragmentActivity);
 
         transaction.commit();
 
