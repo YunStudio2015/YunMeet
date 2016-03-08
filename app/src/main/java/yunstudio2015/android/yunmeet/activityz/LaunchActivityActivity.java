@@ -333,6 +333,17 @@ public class LaunchActivityActivity extends AppCompatActivity implements View.On
                             public void uploadfailed(String rep) {
                                 i_dismissProgressDialog();
                                 i_showErrorDialog(rep);
+                                bt_launch_activity.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                i_dismissErrorDialog();
+                                            }
+                                        });
+                                    }
+                                }, 2000);
                             }
                         });
 

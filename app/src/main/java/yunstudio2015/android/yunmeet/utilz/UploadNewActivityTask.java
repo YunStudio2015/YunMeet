@@ -79,7 +79,7 @@ public class UploadNewActivityTask extends AsyncTask<UploadFinishCallBack, Long,
             }
             L.e("Upload Files Response:::" + responseString);
             JSONObject obj = new JSONObject(responseString);
-            if ("1".equals(obj.get("error"))) {
+            if ("1".equals(""+obj.get("error"))) {
                 return obj.get("message").toString();
             }
         } catch (Exception e) {
