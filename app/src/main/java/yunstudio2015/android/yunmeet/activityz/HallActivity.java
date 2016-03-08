@@ -40,7 +40,6 @@ import yunstudio2015.android.yunmeet.fragments.ChatMainFragment;
 import yunstudio2015.android.yunmeet.fragments.DiscoverMainFragment;
 import yunstudio2015.android.yunmeet.fragments.MyFriendsMainFragment;
 import yunstudio2015.android.yunmeet.fragments.MySpaceMainFragment;
-import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
 
 public class HallActivity extends AppCompatActivity implements DiscoverMainFragment.OnFragmentInteractionListener,

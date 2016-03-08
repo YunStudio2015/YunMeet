@@ -127,5 +127,11 @@
     <string name="address_lang">地点</string>
     <string name="pay_type_lang">费用</string>
     <string name="launch_actiity_desc_ed">描述一下活动主题，活动内容越详细越有吸引力哟~</string>
+    <string name="pictures_lang">图片</string>
+    <string name="hint_enter_activity_title">请填写活动标题</string>
+    <string name="network_failure">网络异常</string>
+    <string name="data_failure">数据格式异常</string>
+    <string name="launch">发布活动</string>
+    <string name="time_lang">时间</string>
 
 </resources>

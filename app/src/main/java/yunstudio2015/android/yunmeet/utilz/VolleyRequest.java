@@ -3,6 +3,7 @@ package yunstudio2015.android.yunmeet.utilz;
 import android.content.Context;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -24,6 +25,8 @@ import static com.android.volley.Request.Method;
  * Created by Ultima on 2015/10/28.
  */
 public class VolleyRequest {
+
+    private static final int MY_SOCKET_TIMEOUT_MS = 5000;
 
     /** inside a request queue
      */
@@ -49,6 +52,10 @@ public class VolleyRequest {
                 }
 
             });
+            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    MY_SOCKET_TIMEOUT_MS,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             MyApplication.requestQueue.add(jsonObjectRequest);
         }else{
             // no internet connection
@@ -91,6 +98,10 @@ public class VolleyRequest {
                 return headers;
             }
         };
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MyApplication.requestQueue.add(jsonObjectRequest);
     }
 

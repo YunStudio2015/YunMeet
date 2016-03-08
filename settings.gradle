@@ -1,1 +1,1 @@
-include ':app',':pickphotos',':hollyviewpager', ':pulltorefresh',':emojicon'
+include ':app',':pickphotos',':hollyviewpager', ':pulltorefresh',':emojicon',':datetimepicker', ":SwipeNumberPicker"

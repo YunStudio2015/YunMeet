@@ -39,6 +39,7 @@ import me.crosswall.photo.pick.PickConfig;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.LaunchTopicImageAdapter;
 import yunstudio2015.android.yunmeet.adapterz.TextWatcherAdapter;
+import yunstudio2015.android.yunmeet.customviewz.ErrorDialog;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
 import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
 import yunstudio2015.android.yunmeet.utilz.UploadNewTopicTask;
@@ -74,7 +75,7 @@ public class LaunchChatTopicActivity extends AppCompatActivity implements Emojic
     LaunchTopicImageAdapter adapter;
 
     public final static int spanCount = 4;
-
+    private ErrorDialog err_dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -174,24 +175,46 @@ public class LaunchChatTopicActivity extends AppCompatActivity implements Emojic
                                 }
                             });
                         }
-                    }, 300);
+                    }, 2000);
                     finish();
                 }
 
                 @Override
                 public void uploadfailed() {
                     i_dismissProgressDialog();
-                    mSnack(getString(R.string.upload_failure));
+                    i_showErrorDialog(getString(R.string.upload_failure));
                 }
             });
         } else {
 
-            mSnack(getString(R.string.canbenull));
+            i_showErrorDialog(getString(R.string.canbenull));
         }
     }
 
     private void mSnack(String s) {
         Snackbar.make(getWindow().getDecorView(), s, Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void i_showErrorDialog() {
+        i_dismissErrorDialog();
+        i_dismissProgressDialog();
+        err_dialog = new ErrorDialog(this);
+        err_dialog.show();
+    }
+
+    public void i_showErrorDialog(String msg) {
+        i_dismissErrorDialog();
+        i_dismissProgressDialog();
+        err_dialog = new ErrorDialog(this, msg);
+        err_dialog.show();
+    }
+
+    public void i_dismissErrorDialog () {
+        if (err_dialog != null) {
+            err_dialog.cancel();
+            err_dialog.dismiss();
+            err_dialog = null;
+        }
     }
 
     @Override

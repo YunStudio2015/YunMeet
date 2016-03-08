@@ -17,7 +17,7 @@
 
     <color name="btn_background">#9fd500</color>
     <color name="deadbackgroundcolor">#3a3b3b</color>
-    <color name="page_background">#dcdcdc</color>
+    <color name="page_background">#e5e5e5</color>
     <color name="bottom_text_black">#717070</color>
     <color name="light_gray">#eeeeee</color>
 </resources>

@@ -27,6 +27,8 @@ dependencies {
     compile project(":pulltorefresh")
     compile project(path: ':hollyviewpager')
     compile project(":emojicon")
+    compile project(":datetimepicker")
+    compile project(":SwipeNumberPicker")
     // actionbar tinting
     // photocropper
     // photo viewer that supports zoom
@@ -40,5 +42,4 @@ dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     compile 'com.lyft:scissors:1.0.3'
     compile 'com.commit451:PhotoView:1.2.4'
-    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }
