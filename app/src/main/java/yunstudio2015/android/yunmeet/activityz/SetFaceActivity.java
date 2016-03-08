@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.ColorRes;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -35,6 +36,7 @@ import yunstudio2015.android.yunmeet.customviewz.CircleImageView;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
 import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
 import yunstudio2015.android.yunmeet.utilz.UploadProfileImageTask;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
 /**
  * 作者：黎赵太郎
@@ -159,7 +161,7 @@ public class SetFaceActivity extends AppCompatActivity {
         if (imageLocalPath == null || "".equals(imageLocalPath))
             return;
         // upload the file
-        UploadProfileImageTask up = new UploadProfileImageTask(new UploadFinishCallBack(){
+        UploadProfileImageTask up = new UploadProfileImageTask(SetFaceActivity.this,new UploadFinishCallBack(){
 
             @Override
             public void uploadDone() {
@@ -173,13 +175,13 @@ public class SetFaceActivity extends AppCompatActivity {
             }
 
             @Override
-            public void uploadfailed() {
-                Toast.makeText(SetFaceActivity.this,  getResources().getString(R.string.upload_failure), Toast.LENGTH_SHORT).show();
+            public void uploadfailed(String rep) {
+//                Toast.makeText(SetFaceActivity.this,  getResources().getString(R.string.upload_failure), Toast.LENGTH_SHORT).show();
                 i_dismissProgressDialog();
+                SetFaceActivity.this.mSnack(rep);
             }
         });
-        String token = "FUYhFauGwUIUDbQRbZHS4MCHyb7rD4q8";
-        up.execute(imageLocalPath, token);
+        up.execute(imageLocalPath, UtilsFunctions.getToken(SetFaceActivity.this));
         i_showProgressDialog(getResources().getString(R.string.uploading));
     }
 
@@ -205,6 +207,10 @@ public class SetFaceActivity extends AppCompatActivity {
         win.setAttributes(winParams);
     }
 
+
+    private void mSnack(String s) {
+        Snackbar.make(getWindow().getDecorView(), s, Snackbar.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

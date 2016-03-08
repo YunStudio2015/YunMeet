@@ -16,7 +16,7 @@
             android:layout_height="80dp"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:id="@+id/iv_simple_list_logo" />
+            android:id="@+id/iv_simple_activtiy_image" />
 
     </LinearLayout>
 
@@ -30,15 +30,15 @@
             android:text="1"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/tv_simple_topic_item_content"
+            android:id="@+id/tv_simple_activity_item_theme"
             android:gravity="center_vertical"/>
 
         <TextView
             android:text="2"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/tv_simple_topic_item_pubtime"
-            android:layout_gravity="center_vertical"/>
+            android:id="@+id/tv_simple_activity_item_detail"
+            android:gravity="center_vertical"/>
 
     </LinearLayout>
 

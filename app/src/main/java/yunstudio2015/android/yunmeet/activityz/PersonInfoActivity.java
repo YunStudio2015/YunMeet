@@ -6,9 +6,11 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,8 +20,8 @@ import android.widget.LinearLayout;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.fragments.PersonalInfoFragmentActivity;
-import yunstudio2015.android.yunmeet.fragments.PersonalInfoFragmentTopic;
+import yunstudio2015.android.yunmeet.fragments.PersonalInfoActivityFragment;
+import yunstudio2015.android.yunmeet.fragments.PersonalInfoTopicFragment;
 
 /**
  * Created by lizhaotailang on 2016/2/26.
@@ -48,6 +50,7 @@ public class PersonInfoActivity extends AppCompatActivity{
         btnTopic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //控制获得点击的按钮的背景色为绿色，字体颜色为白色
                 //没有获得点击的按钮的背景色为白色，字体颜色为绿色
                 btnTopic.setBackgroundColor(getResources().getColor(R.color.btn_background));
@@ -116,19 +119,26 @@ public class PersonInfoActivity extends AppCompatActivity{
 
     private void initMyTopic(){
 
-        PersonalInfoFragmentTopic fragment = new PersonalInfoFragmentTopic();
+        PersonalInfoTopicFragment fragmentTopic = new PersonalInfoTopicFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.person_framelayout, fragment);
+        Log.d("frg",String.valueOf(fragmentTopic.isAdded()));
+
+            transaction.replace(R.id.person_framelayout, fragmentTopic);
+
         transaction.commit();
 
     }
 
     private void initMyActivity(){
 
-        PersonalInfoFragmentActivity fragment = new PersonalInfoFragmentActivity();
+        PersonalInfoActivityFragment fragmentActivity = new PersonalInfoActivityFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.person_framelayout, fragment);
+        Log.d("frg",String.valueOf(fragmentActivity.isAdded()));
+
+            transaction.replace(R.id.person_framelayout, fragmentActivity);
+
         transaction.commit();
 
     }
+
 }

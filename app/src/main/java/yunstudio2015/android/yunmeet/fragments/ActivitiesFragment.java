@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.YunActivitiesListAdapter;
 import yunstudio2015.android.yunmeet.customviewz.InnerScrollviewViewPager;
-import yunstudio2015.android.yunmeet.entityz.ActivityEntity;
+import yunstudio2015.android.yunmeet.entityz.UploadActivityEntity;
 
 
 public class ActivitiesFragment extends Fragment {
@@ -130,9 +130,9 @@ public class ActivitiesFragment extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
         // specify an adapter (see also next example)
-        List<ActivityEntity> myDataset = new ArrayList<>();
+        List<UploadActivityEntity> myDataset = new ArrayList<>();
         for (int i = 0; i < 8; i++)
-            myDataset.add(new ActivityEntity());
+            myDataset.add(new UploadActivityEntity());
         YunActivitiesListAdapter mAdapter = new YunActivitiesListAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -179,7 +179,7 @@ public class ActivitiesFragment extends Fragment {
 
 
         private LinearLayoutManager mLayoutManager;
-        private List<ActivityEntity> lActivity;
+        private List<UploadActivityEntity> lActivity;
         private YunActivitiesListAdapter mAdapter;
 
         public static Fragment getInstance() {
@@ -282,7 +282,7 @@ public class ActivitiesFragment extends Fragment {
         }
 
 
-        private void modUpView(List<ActivityEntity> lActivity) {
+        private void modUpView(List<UploadActivityEntity> lActivity) {
 
             mRecyclerView.setHasFixedSize(true);
             // use a linear layout manager

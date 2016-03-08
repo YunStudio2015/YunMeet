@@ -19,8 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.YunActivitiesListAdapter;
-import yunstudio2015.android.yunmeet.commonLogs.L;
-import yunstudio2015.android.yunmeet.entityz.ActivityEntity;
-import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
-import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
-import yunstudio2015.android.yunmeet.utilz.YunApi;
+import yunstudio2015.android.yunmeet.entityz.UploadActivityEntity;
 
 
 public class FreeListFragment extends Fragment {
@@ -108,9 +102,9 @@ public class FreeListFragment extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
         // specify an adapter (see also next example)
-        List<ActivityEntity> myDataset = new ArrayList<>();
+        List<UploadActivityEntity> myDataset = new ArrayList<>();
         for (int i = 0; i < 8; i++)
-            myDataset.add(new ActivityEntity());
+            myDataset.add(new UploadActivityEntity());
         YunActivitiesListAdapter mAdapter = new YunActivitiesListAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -156,7 +150,7 @@ public class FreeListFragment extends Fragment {
 
 
         private LinearLayoutManager mLayoutManager;
-        private List<ActivityEntity> lActivity;
+        private List<UploadActivityEntity> lActivity;
         private YunActivitiesListAdapter mAdapter;
 
         public static Fragment getInstance() {
@@ -219,8 +213,8 @@ public class FreeListFragment extends Fragment {
                         mT(response.toString());
                         // new data
 //                    if (response.get("error") == 0) {
-                    *//*List<ActivityEntity>*//*
-                        lActivity = (List<ActivityEntity>) response.get("data");
+                    *//*List<UploadActivityEntity>*//*
+                        lActivity = (List<UploadActivityEntity>) response.get("data");
                         modUpView(lActivity);
                     } catch (Exception e) {
                         throwError(-2);
@@ -250,7 +244,7 @@ public class FreeListFragment extends Fragment {
         }
 
 
-        private void modUpView(List<ActivityEntity> lActivity) {
+        private void modUpView(List<UploadActivityEntity> lActivity) {
 
             mRecyclerView.setHasFixedSize(true);
             if (lActivity != null && lActivity.size() > 0) {

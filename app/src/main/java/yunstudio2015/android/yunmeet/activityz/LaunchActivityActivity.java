@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -38,6 +39,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import butterknife.Bind;
@@ -50,7 +52,12 @@ import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.ErrorDialog;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
 import yunstudio2015.android.yunmeet.entityz.ActivityCategoryEntity;
+import yunstudio2015.android.yunmeet.entityz.UploadActivityEntity;
+import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
+import yunstudio2015.android.yunmeet.utilz.UploadNewActivityTask;
+import yunstudio2015.android.yunmeet.utilz.UploadNewTopicTask;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
@@ -96,15 +103,19 @@ public class LaunchActivityActivity extends AppCompatActivity implements View.On
     @Bind(R.id.tv_date)
     TextView tv_date;
 
+    @Bind(R.id.switch_radiobutton_1_3)
+    SwitchCompat isRecommandedSwicth;
 
     private ArrayAdapter<String> spinner_adapter;
 
     /* date time */
     private static final String TIME_PATTERN = "HH:mm";
 
+
     private Calendar calendar;
     private DateFormat dateFormat;
     private SimpleDateFormat timeFormat;
+    private static final  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     @Bind(R.id.snp_radiobutton_1_2)
     public SwipeNumberPicker swipeNumberPicker; // number picker
@@ -270,14 +281,61 @@ public class LaunchActivityActivity extends AppCompatActivity implements View.On
             public void onClick(View v) {
 
                 L.d("title", ed_title.getText().toString());
-//                L.d("type", "" + (radioGroup1.selected_tag.equals("1") ? categoriez_spinner.getSelectedItemId() + 1 : (radioGroup1.selected_tag.equals("2") ? swipeNumberPicker.getValue() : radioGroup1.selected_tag)));
-
+                L.d("type", spinner_adapter.getItem((int) categoriez_spinner.getSelectedItemId()).toString()+" "+
+                        swipeNumberPicker.getValue()+" "+isRecommandedSwicth.isChecked());
                 L.d("sex", "" + radioGroup2.selected_tag);
                 L.d("payingtype", "" + radioGroup3.selected_tag);
-
                 L.d("place", "" + ed_place.getText().toString());
                 L.d("description", "" + ed_description.getText().toString());
                 L.d("picpaths", "" + adapter.getData().toString());
+                if ("".equals(ed_title.getText().toString().trim())) {
+                    mSnack(getString(R.string.title_empty_failure));
+                    return;
+                }
+                if ("".equals(ed_place.getText().toString().trim())) {
+                    mSnack(getString(R.string.place_empty_failure));
+                    return;
+                }
+                if ("".equals(ed_description.getText().toString().trim())) {
+                    mSnack(getString(R.string.description_empty_failure));
+                    return;
+                }
+                i_showProgressDialog();
+                (new UploadNewActivityTask(LaunchActivityActivity.this, new UploadActivityEntity(
+                        ed_title.getText().toString(),
+                        ed_description.getText().toString(),
+                        ed_place.getText().toString(),
+                        sdf.format(new Date(calendar.getTimeInMillis())), // date
+                        isRecommandedSwicth.isChecked(),
+                        ""+swipeNumberPicker.getValue(),
+                        ""+categoriez_spinner.getSelectedItemId()+1,
+                        ""+radioGroup3.selected_tag,
+                        adapter.getData())))
+                        .execute(new UploadFinishCallBack() {
+                            @Override
+                            public void uploadDone() {
+                                i_dismissProgressDialog();
+                                mSnack(getString(R.string.upload_success), Snackbar.LENGTH_INDEFINITE);
+                                bt_launch_activity.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                LaunchActivityActivity.this.finish();
+                                            }
+                                        });
+                                    }
+                                }, 2000);
+                            }
+
+                            @Override
+                            public void uploadfailed(String rep) {
+                                i_dismissProgressDialog();
+                                i_showErrorDialog(rep);
+                            }
+                        });
+
             }
         });
 
@@ -402,7 +460,7 @@ public class LaunchActivityActivity extends AppCompatActivity implements View.On
     @Override @OnClick (R.id.iv_back)
     public void finish() {
         super.finish();
-        this.overridePendingTransition(R.anim.getout_anim, R.anim.slide_in_left);
+        this.overridePendingTransition(R.anim.noanim, R.anim.noanim);
     }
 
     @Override

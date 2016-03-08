@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.YunActivitiesListAdapter;
 import yunstudio2015.android.yunmeet.commonLogs.L;
-import yunstudio2015.android.yunmeet.entityz.ActivityEntity;
+import yunstudio2015.android.yunmeet.entityz.UploadActivityEntity;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
@@ -105,9 +105,9 @@ public class ConcernListFragment extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
         // specify an adapter (see also next example)
-        List<ActivityEntity> myDataset = new ArrayList<>();
+        List<UploadActivityEntity> myDataset = new ArrayList<>();
         for (int i = 0; i < 8; i++)
-            myDataset.add(new ActivityEntity());
+            myDataset.add(new UploadActivityEntity());
         YunActivitiesListAdapter mAdapter = new YunActivitiesListAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -157,7 +157,7 @@ public class ConcernListFragment extends Fragment {
 
 
         private LinearLayoutManager mLayoutManager;
-        private List<ActivityEntity> lActivity;
+        private List<UploadActivityEntity> lActivity;
         private YunActivitiesListAdapter mAdapter;
 
         public static Fragment getInstance() {
@@ -209,9 +209,9 @@ public class ConcernListFragment extends Fragment {
                     try {
                         // new data
 //                    if (response.get("error") == 0) {
-                    *//*List<ActivityEntity>*//*
+                    *//*List<UploadActivityEntity>*//*
                         JSONObject resp = new JSONObject(response);
-                        lActivity = (List<ActivityEntity>) resp.get("data");
+                        lActivity = (List<UploadActivityEntity>) resp.get("data");
                         modUpView(lActivity);
                     } catch (Exception e) {
                         throwError(-2);
@@ -260,7 +260,7 @@ public class ConcernListFragment extends Fragment {
         }
 
 
-        private void modUpView(List<ActivityEntity> lActivity) {
+        private void modUpView(List<UploadActivityEntity> lActivity) {
 
             mRecyclerView.setHasFixedSize(true);
             // use a linear layout manager

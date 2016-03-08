@@ -49,6 +49,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:hint="@string/hint_enter_activity_title"
+                        android:text="@string/test_title"
                         android:background="@null"
                         style="@style/launch_activity_basic_stylesheet_left"
                         android:layout_width="match_parent"
@@ -149,7 +150,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
                             <android.support.v7.widget.SwitchCompat
-                                android:id="@+id/iv_radiobutton_1_3"
+                                android:id="@+id/switch_radiobutton_1_3"
                                 android:layout_marginLeft="10dp"
                                 android:checked="false"
                                 android:layout_width="wrap_content"
@@ -424,6 +425,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:hint="请填写活动地点"
+                        android:text="@string/test_place"
                         style="@style/launch_activity_basic_stylesheet_left"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -451,6 +453,7 @@
                     android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:minLines="5"
+                    android:text="@string/test_description"
                     android:gravity="left|top"
                     android:padding="10dp"
                     android:layout_height="wrap_content"/>

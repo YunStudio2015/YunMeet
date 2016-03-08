@@ -6,5 +6,5 @@ package yunstudio2015.android.yunmeet.interfacez;
 
 public interface UploadFinishCallBack {
     public void uploadDone();
-    public void uploadfailed();
+    public void uploadfailed(String msg);
 }

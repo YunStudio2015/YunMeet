@@ -8,19 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import java.util.List;
 
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.entityz.ActivityEntity;
-import yunstudio2015.android.yunmeet.utilz.ImageLoadOptions;
+import yunstudio2015.android.yunmeet.entityz.UploadActivityEntity;
 
 /**
  * Created by Ultima on 2015/11/27.
  */
 public class YunActivitiesListAdapter extends RecyclerView.Adapter<YunActivitiesListAdapter.ViewHolder> {
-    private List<ActivityEntity> mDataset;
+    private List<UploadActivityEntity> mDataset;
     private Context mContext;
 
     // Provide a reference to the views for each data item
@@ -42,7 +40,7 @@ public class YunActivitiesListAdapter extends RecyclerView.Adapter<YunActivities
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public YunActivitiesListAdapter(List<ActivityEntity> myDataset) {
+    public YunActivitiesListAdapter(List<UploadActivityEntity> myDataset) {
         mDataset = myDataset;
     }
 
@@ -82,7 +80,7 @@ public class YunActivitiesListAdapter extends RecyclerView.Adapter<YunActivities
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 //            holder.mTextView.setText(mDataset[position]);
-        ActivityEntity tmp = mDataset.get(position);
+        UploadActivityEntity tmp = mDataset.get(position);
 
         if (holder.iv_profile.getTag() == null)
             holder.iv_profile.setTag(random(1));

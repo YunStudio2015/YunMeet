@@ -1,7 +1,10 @@
 package yunstudio2015.android.yunmeet.utilz;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Debug;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -20,19 +23,23 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
 
 /**
  * Created by Ulrich on 2/13/2016.
  */
-public class UploadProfileImageTask extends AsyncTask<String, Long, Boolean> {
+public class UploadProfileImageTask extends AsyncTask<String, Long, String> {
 
     private static final java.lang.String TAG = "yunmeet";
-    private UploadFinishCallBack callback;
+    private final Context context;
+    private UploadFinishCallBack callBack;
 
-    public UploadProfileImageTask(UploadFinishCallBack uploadFinishCallBack) {
-        this.callback = uploadFinishCallBack;
+    public UploadProfileImageTask(Context context, UploadFinishCallBack uploadFinishCallBack) {
+
+        this.context = context;
+        this.callBack = uploadFinishCallBack;
     }
 
 
@@ -43,7 +50,7 @@ public class UploadProfileImageTask extends AsyncTask<String, Long, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(String... params) {
+    protected String doInBackground(String... params) {
         // string path..., token...
         String filePath = params[0];
         String token = params[1];
@@ -69,23 +76,36 @@ public class UploadProfileImageTask extends AsyncTask<String, Long, Boolean> {
 // get your server response here.
                 responseString = line;
             }
-            L.e(TAG, "Upload Files Response:::" + responseString);
-            (new File(filePath)).deleteOnExit();
-        } catch (IOException e) {
+            L.e("Upload Files Response:::" + responseString);
+            JSONObject obj = new JSONObject(responseString);
+            if ("1".equals(obj.get("error"))) {
+                return obj.get("message").toString();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return "1";
         }
-        return true;
+        return "0";
     }
 
-    @Override
-    protected void onPostExecute(Boolean verdict) {
 
-        super.onPostExecute(verdict);
-        if (verdict) {
-            callback.uploadDone();
-        } else
-            callback.uploadfailed();
+    @Override
+    protected void onPostExecute(String res) {
+        super.onPostExecute(res);
+        /*if (aBoolean)
+            callBack.uploadDone();
+        else
+            callBack.uploadfailed();*/
+        switch (res){
+            case "1":
+                callBack.uploadfailed(context.getResources().getString(R.string.data_failure));
+                break;
+            case "0":
+                callBack.uploadDone();
+                break;
+            default:
+                callBack.uploadfailed(res);
+        }
     }
 
 

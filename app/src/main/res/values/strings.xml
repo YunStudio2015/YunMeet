@@ -133,5 +133,11 @@
     <string name="data_failure">数据格式异常</string>
     <string name="launch">发布活动</string>
     <string name="time_lang">时间</string>
+    <string name="title_empty_failure">标题不能为空</string>
+    <string name="place_empty_failure">地点不能为空</string>
+    <string name="description_empty_failure">描述不能为空</string>
+    <string name="test_description">描述没什么含义，就那样干干就好了。。。</string>
+    <string name="test_place">地方值要说是我寝室就好了</string>
+    <string name="test_title">标题还是算了吧</string>
 
 </resources>

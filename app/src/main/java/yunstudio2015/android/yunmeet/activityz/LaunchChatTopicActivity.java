@@ -160,7 +160,7 @@ public class LaunchChatTopicActivity extends AppCompatActivity implements Emojic
 
             i_showProgressDialog();
             // start uploading
-            (new UploadNewTopicTask(UtilsFunctions.getToken(LaunchChatTopicActivity.this), content, imgPathz)).execute(new UploadFinishCallBack() {
+            (new UploadNewTopicTask(LaunchChatTopicActivity.this, content, imgPathz)).execute(new UploadFinishCallBack() {
                 @Override
                 public void uploadDone() {
                     i_dismissProgressDialog();
@@ -180,7 +180,7 @@ public class LaunchChatTopicActivity extends AppCompatActivity implements Emojic
                 }
 
                 @Override
-                public void uploadfailed() {
+                public void uploadfailed(String rep) {
                     i_dismissProgressDialog();
                     i_showErrorDialog(getString(R.string.upload_failure));
                 }

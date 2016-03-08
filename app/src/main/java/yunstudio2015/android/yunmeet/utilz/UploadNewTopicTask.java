@@ -1,12 +1,16 @@
 package yunstudio2015.android.yunmeet.utilz;
 
+import android.content.Context;
 import android.os.AsyncTask;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.app.MyApplication;
 import yunstudio2015.android.yunmeet.commonLogs.L;
@@ -15,25 +19,27 @@ import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
 /**
  * Created by Ulrich on 3/2/2016.
  */
-public class UploadNewTopicTask extends AsyncTask<UploadFinishCallBack, Long, Boolean> {
+public class UploadNewTopicTask extends AsyncTask<UploadFinishCallBack, Long, String> {
 
 
     private static final java.lang.String TAG = MyApplication.appname;
     private final ArrayList<String> imgPath;
     private final String token;
+    private final Context context;
     private  String content;
 
     UploadFinishCallBack callBack;
 
-    public UploadNewTopicTask(String token, String content, ArrayList<String> imgPath) {
+    public UploadNewTopicTask(Context context, String content, ArrayList<String> imgPath) {
 
-        this.token = token;
+        this.context = context;
+        this.token = UtilsFunctions.getToken(context);
         this.content = content;
         this.imgPath = imgPath;
     }
 
     @Override
-    protected Boolean doInBackground(UploadFinishCallBack... params) {
+    protected String doInBackground(UploadFinishCallBack... params) {
 
 
         callBack = params[0];
@@ -64,20 +70,33 @@ public class UploadNewTopicTask extends AsyncTask<UploadFinishCallBack, Long, Bo
                 responseString = line;
             }
             L.e("Upload Files Response:::" + responseString);
-        } catch (IOException e) {
+            JSONObject obj = new JSONObject(responseString);
+            if ("1".equals(obj.get("error"))) {
+                return obj.get("message").toString();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return "1";
         }
-        return true;
+        return "0";
     }
 
-
     @Override
-    protected void onPostExecute(Boolean aBoolean) {
-        super.onPostExecute(aBoolean);
-        if (aBoolean)
+    protected void onPostExecute(String res) {
+        super.onPostExecute(res);
+        /*if (aBoolean)
             callBack.uploadDone();
         else
-            callBack.uploadfailed();
+            callBack.uploadfailed();*/
+        switch (res){
+            case "1":
+                callBack.uploadfailed(context.getResources().getString(R.string.data_failure));
+                break;
+            case "0":
+                callBack.uploadDone();
+                break;
+            default:
+                callBack.uploadfailed(res);
+        }
     }
 }

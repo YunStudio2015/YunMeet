@@ -9,13 +9,11 @@
         android:id="@+id/tv_person_info_activity"
         android:text="fragment_activity"/>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_simple_activities"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/lv_simple_activities">
+        android:layout_height="320dp">
 
-
-
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
