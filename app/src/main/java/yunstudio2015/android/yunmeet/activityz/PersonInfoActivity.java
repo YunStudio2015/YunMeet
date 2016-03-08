@@ -15,13 +15,29 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.fragments.PersonalInfoActivityFragment;
 import yunstudio2015.android.yunmeet.fragments.PersonalInfoTopicFragment;
+import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
+import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
  * Created by lizhaotailang on 2016/2/26.
@@ -32,6 +48,15 @@ public class PersonInfoActivity extends AppCompatActivity{
     private Button btnTopic;
     private Button btnActivity;
     private LinearLayout layoutChat;
+    private Button btnAddFocus;
+    private ImageView ivFace;
+    private TextView tvName;
+    private TextView tvFansAmount;
+    private TextView tvFocusAmount;
+    private RequestQueue queue;
+
+    PersonalInfoActivityFragment fragmentActivity = new PersonalInfoActivityFragment();
+    PersonalInfoTopicFragment fragmentTopic = new PersonalInfoTopicFragment();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,10 +67,43 @@ public class PersonInfoActivity extends AppCompatActivity{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initViews();
 
+        queue = Volley.newRequestQueue(getApplicationContext());
+
         this.setSupportActionBar(toolbar);
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
 
         initMyTopic();
+
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("token","ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx");
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS_COUNT, new JSONObject(map), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (response.getString("error").equals("0")){
+                        tvFansAmount.setText(response.getJSONObject("data").getString("focused"));
+                        tvFocusAmount.setText(response.getJSONObject("data").getString("focus"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                headers.put("Content-Type", "application/json; charset=UTF-8");
+                return headers;
+            }
+        };
+
+        queue.add(req);
 
         btnTopic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +136,13 @@ public class PersonInfoActivity extends AppCompatActivity{
             }
         });
 
+        btnAddFocus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         layoutChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +157,11 @@ public class PersonInfoActivity extends AppCompatActivity{
         btnTopic = (Button) findViewById(R.id.btn_person_info_topic);
         btnActivity = (Button) findViewById(R.id.btn_person_info_activity);
         layoutChat = (LinearLayout) findViewById(R.id.person_info_chat);
+        btnAddFocus = (Button) findViewById(R.id.btn_person_info_plus_focus);
+        ivFace = (ImageView) findViewById(R.id.iv_person_info_face);
+        tvName = (TextView) findViewById(R.id.tv_person_info_name);
+        tvFansAmount = (TextView) findViewById(R.id.person_info_fans_amount);
+        tvFocusAmount = (TextView) findViewById(R.id.person_info_focus_amount);
 
     }
 
@@ -119,11 +189,12 @@ public class PersonInfoActivity extends AppCompatActivity{
 
     private void initMyTopic(){
 
-        PersonalInfoTopicFragment fragmentTopic = new PersonalInfoTopicFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        Log.d("frg",String.valueOf(fragmentTopic.isAdded()));
-
-            transaction.replace(R.id.person_framelayout, fragmentTopic);
+        if (fragmentTopic.isAdded()){
+            transaction.hide(fragmentActivity).show(fragmentTopic);
+        } else {
+            transaction.add(R.id.person_framelayout,fragmentTopic);
+        }
 
         transaction.commit();
 
@@ -131,11 +202,15 @@ public class PersonInfoActivity extends AppCompatActivity{
 
     private void initMyActivity(){
 
-        PersonalInfoActivityFragment fragmentActivity = new PersonalInfoActivityFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        Log.d("frg",String.valueOf(fragmentActivity.isAdded()));
-
-            transaction.replace(R.id.person_framelayout, fragmentActivity);
+        if (fragmentActivity.isAdded()){
+            transaction.hide(fragmentTopic).show(fragmentActivity);
+        } else {
+            if (fragmentTopic.isAdded()){
+                transaction.hide(fragmentTopic);
+            }
+            transaction.add(R.id.person_framelayout, fragmentActivity);
+        }
 
         transaction.commit();
 

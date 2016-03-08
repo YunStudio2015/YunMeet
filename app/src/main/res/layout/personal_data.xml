@@ -39,8 +39,11 @@
                         android:layout_width="70dp"
                         android:layout_height="20dp"
                         android:layout_marginTop="60dp"
+                        android:id="@+id/btn_person_info_plus_focus"
                         android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_marginRight="20dp"
+                        android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_rounded"
                         android:text="@string/plus_focus"/>
 
@@ -64,7 +67,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/person_info_name"
+                            android:id="@+id/tv_person_info_name"
                             android:text="某用户的昵称"
                             android:textSize="@dimen/actionbar_title_size"
                             android:textColor="@android:color/white"/>
@@ -72,7 +75,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/person_info_sex"
+                            android:id="@+id/tv_person_info_sex"
                             android:textSize="24sp"
                             android:text="@string/male_symbol"
                             android:textColor="@color/green"/>
@@ -139,6 +142,7 @@
                         <ImageView
                             android:layout_centerVertical="true"
                             android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
                             android:layout_width="@dimen/toolbar_backbtn_back_width"
                             android:layout_height="@dimen/toolbar_backbtn_back_height"
                             android:id="@+id/iv_back"
@@ -157,6 +161,7 @@
                         <Button
                             android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
                             android:layout_width="45dp"
                             android:layout_height="30dp"
                             android:id="@+id/btn_next_step"
@@ -234,7 +239,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/small_wechat"
-            android:layout_marginRight="4dp"/>
+            android:layout_marginRight="4dp"
+            android:layout_marginEnd="4dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -242,6 +248,7 @@
             android:text="聊天"
             android:textColor="@android:color/white"
             android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:textSize="16sp"/>
 
     </LinearLayout>
