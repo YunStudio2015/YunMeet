@@ -229,20 +229,6 @@ public class LaunchActivityActivity extends AppCompatActivity implements View.On
                         spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //                        spin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //                        ArrayAdapter<String> adapter = new ArrayAdapter<String>()
-                        categoriez_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                findViewById(R.id.iv_radiobutton_1_1).setVisibility(View.VISIBLE);
-                                findViewById(R.id.iv_radiobutton_1_2).setVisibility(View.INVISIBLE);
-                                findViewById(R.id.iv_radiobutton_1_3).setVisibility(View.INVISIBLE);
-//                                radioGroup1.selected_tag = "1";
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-                            }
-                        });
-
                         categoriez_spinner.setSelection(0);
                         i_dismissProgressDialog();
 
