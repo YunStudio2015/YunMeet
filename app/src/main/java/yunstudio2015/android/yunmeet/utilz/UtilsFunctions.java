@@ -22,7 +22,6 @@ public class UtilsFunctions {
         return pixel;
     }
 
-
     public static String getToken(Context ctx) {
 
         return "ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx";
@@ -31,5 +30,13 @@ public class UtilsFunctions {
             sharedPreferences = ctx.getSharedPreferences("UserData", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token", "");
             return token;*/
+    }
+
+    public static String getID(Context context){
+        return "1";
+
+        /*SharedPreferences sp = context.getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        return sp.getString("id",null);*/
+
     }
 }

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,8 +45,6 @@ public class PersonalInfoTopicFragment extends Fragment {
         tvTip = (TextView) viewTopic.findViewById(R.id.tv_person_info_topic);
         recyclerViewTopics = (RecyclerView) viewTopic.findViewById(R.id.recyclerview_simple_topics);
         recyclerViewTopics.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        Log.d("init", "topic初始");
 
         VolleyRequest.GetStringRequest(getActivity(), YunApi.URL_GET_TOPIC_LIST, "token=ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx", new VolleyOnResultListener() {
             @Override

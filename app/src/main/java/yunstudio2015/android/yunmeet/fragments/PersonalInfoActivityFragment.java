@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import java.util.List;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.SimpleActivityAdapter;
 import yunstudio2015.android.yunmeet.entityz.SimpleActivityItem;
-import yunstudio2015.android.yunmeet.entityz.SimpleTopicItem;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
@@ -53,7 +51,7 @@ public class PersonalInfoActivityFragment extends Fragment {
         recyclerViewActivities = (RecyclerView) viewActivity.findViewById(R.id.recyclerview_simple_activities);
         recyclerViewActivities.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        Log.d("init","activity初始");
+//        Log.d("init","activity初始");
 
         VolleyRequest.GetStringRequest(getActivity(), YunApi.URL_GET_ACTIVITY_LIST, "token=ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx", new VolleyOnResultListener() {
             @Override
@@ -70,7 +68,6 @@ public class PersonalInfoActivityFragment extends Fragment {
                                     array.getJSONObject(i).getString("detail"),
                                     array.getJSONObject(i).getString("pubtime"));
                             list.add(item);
-                            Log.d("atys", item.toString());
                         }
 
                         tvTip.setVisibility(View.GONE);
