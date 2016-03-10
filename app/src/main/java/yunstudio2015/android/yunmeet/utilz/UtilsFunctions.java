@@ -1,6 +1,7 @@
 package yunstudio2015.android.yunmeet.utilz;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 /**
  * Created by Ulrich on 3/1/2016.
@@ -21,6 +22,22 @@ public class UtilsFunctions {
         return pixel;
     }
 
+    public static String getToken(Context ctx) {
 
+        return "ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx";
+/*
+            SharedPreferences sharedPreferences;
+            sharedPreferences = ctx.getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+            return token;*/
+    }
+
+    public static String getID(Context context){
+        return "1";
+
+        /*SharedPreferences sp = context.getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        return sp.getString("id",null);*/
+
+    }
 
 }

@@ -3,7 +3,6 @@ package yunstudio2015.android.yunmeet.activityz;
 import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Build;
@@ -24,6 +23,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.handmark.pulltorefresh.library.internal.Utils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.File;
@@ -35,6 +35,7 @@ import yunstudio2015.android.yunmeet.customviewz.CircleImageView;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
 import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
 import yunstudio2015.android.yunmeet.utilz.UploadProfileImageTask;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
 /**
  * 作者：黎赵太郎
@@ -51,8 +52,6 @@ public class SetFaceActivity extends AppCompatActivity {
     private Button btnFinish;
     private TextView tvSelectFromAlbum;
     private TextView tvTakePhoto;
-
-    private SharedPreferences sharedPreferences;
 
     private static final int CODE_GALLERY_REQUEST = 0;//用于拍摄照片的requestCode
     private static final int CODE_CAMERA_REQUEST = 1;//用于裁剪照片的requestCode
@@ -99,8 +98,6 @@ public class SetFaceActivity extends AppCompatActivity {
 
         this.setSupportActionBar(toolbar); // 吧xml里面的toolbar设置成当前界面的actionbar
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
-
-        sharedPreferences = getSharedPreferences("UserData",MODE_PRIVATE);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,8 +175,8 @@ public class SetFaceActivity extends AppCompatActivity {
                 i_dismissProgressDialog();
             }
         });
-        String token = "FUYhFauGwUIUDbQRbZHS4MCHyb7rD4q8";
-        up.execute(imageLocalPath, token);
+
+        up.execute(imageLocalPath, UtilsFunctions.getToken(SetFaceActivity.this));
         i_showProgressDialog(getResources().getString(R.string.uploading));
     }
 

@@ -40,6 +40,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
 import yunstudio2015.android.yunmeet.utilz.User;
 import yunstudio2015.android.yunmeet.utilz.UsersAPI;
@@ -556,12 +557,15 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
 
                 //解析原jsonobject中嵌套的jsonobject
-                JSONObject token = new JSONObject(response.getString("data"));
+                JSONObject data = new JSONObject(response.getString("data"));
 
-                Toast.makeText(LoginActivity.this,token.getString("token"),Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,data.getString("token"),Toast.LENGTH_SHORT).show();
 
+                L.d(data.getString("token"));
+                L.d(data.getString("id"));
                 //保存token到sharedpreferences中
-                editor.putString("token",token.toString());
+                editor.putString("token",data.getString("token"));
+                editor.putString("id",data.getString("id"));
                 editor.apply();
 
                 Intent i = new Intent(LoginActivity.this,HallActivity.class);

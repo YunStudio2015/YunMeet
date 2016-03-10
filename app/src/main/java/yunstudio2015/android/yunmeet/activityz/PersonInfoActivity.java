@@ -6,11 +6,9 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,13 +16,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONException;
@@ -33,9 +34,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.crosswall.photo.pick.PickConfig;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.fragments.PersonalInfoActivityFragment;
 import yunstudio2015.android.yunmeet.fragments.PersonalInfoTopicFragment;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
@@ -50,9 +53,11 @@ public class PersonInfoActivity extends AppCompatActivity{
     private LinearLayout layoutChat;
     private Button btnAddFocus;
     private ImageView ivFace;
+    private ImageView ivBg;
     private TextView tvName;
     private TextView tvFansAmount;
     private TextView tvFocusAmount;
+    private TextView tvSex;
     private RequestQueue queue;
 
     PersonalInfoActivityFragment fragmentActivity = new PersonalInfoActivityFragment();
@@ -75,8 +80,8 @@ public class PersonInfoActivity extends AppCompatActivity{
         initMyTopic();
 
         Map<String,String> map = new HashMap<String,String>();
-        map.put("token","ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx");
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS_COUNT, new JSONObject(map), new Response.Listener<JSONObject>() {
+        map.put("token", UtilsFunctions.getToken(PersonInfoActivity.this));
+        final JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS_COUNT, new JSONObject(map), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -104,6 +109,47 @@ public class PersonInfoActivity extends AppCompatActivity{
         };
 
         queue.add(req);
+
+        Map<String,String> map1 = new HashMap<String,String>();
+        map1.put("id",UtilsFunctions.getID(this));
+        map1.put("token", UtilsFunctions.getToken(PersonInfoActivity.this));
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_INFO, new JSONObject(map1), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (response.getString("error").equals("0")){
+                        tvName.setText(response.getJSONObject("data").getString("nickname"));
+                        Glide.with(PersonInfoActivity.this).load(response.getJSONObject("data").getString("face")).into(ivFace);
+                        if (response.getJSONObject("data").getString("sex").equals("0")){
+                            tvSex.setText(getString(R.string.male_symbol));
+                        } else {
+                            tvSex.setText(getString(R.string.female_symbol));
+                        }
+                        Glide.with(PersonInfoActivity.this).load(response.getJSONObject("data").getString("background")).into(ivBg);
+
+                    } else {
+                        Toast.makeText(PersonInfoActivity.this,response.getString("message"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(PersonInfoActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                headers.put("Content-Type", "application/json; charset=UTF-8");
+                return headers;
+            }
+        };
+
+        queue.add(request);
 
         btnTopic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +195,7 @@ public class PersonInfoActivity extends AppCompatActivity{
 
             }
         });
+
     }
 
     private void initViews() {
@@ -159,7 +206,9 @@ public class PersonInfoActivity extends AppCompatActivity{
         layoutChat = (LinearLayout) findViewById(R.id.person_info_chat);
         btnAddFocus = (Button) findViewById(R.id.btn_person_info_plus_focus);
         ivFace = (ImageView) findViewById(R.id.iv_person_info_face);
+        ivBg = (ImageView) findViewById(R.id.iv_person_info_bg);
         tvName = (TextView) findViewById(R.id.tv_person_info_name);
+        tvSex = (TextView) findViewById(R.id.tv_person_info_sex);
         tvFansAmount = (TextView) findViewById(R.id.person_info_fans_amount);
         tvFocusAmount = (TextView) findViewById(R.id.person_info_focus_amount);
 
