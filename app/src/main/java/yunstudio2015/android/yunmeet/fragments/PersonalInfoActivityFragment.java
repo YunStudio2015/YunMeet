@@ -55,7 +55,7 @@ public class PersonalInfoActivityFragment extends Fragment {
 
         Log.d("init","activity初始");
 
-        VolleyRequest.GetStringRequest(getActivity(), YunApi.URL_GET_ACITIVITY_LIST, "token=ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx", new VolleyOnResultListener() {
+        VolleyRequest.GetStringRequest(getActivity(), YunApi.URL_GET_ACTIVITY_LIST, "token=ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx", new VolleyOnResultListener() {
             @Override
             public void onSuccess(String response) {
                 try {

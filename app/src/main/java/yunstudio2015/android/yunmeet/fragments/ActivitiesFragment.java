@@ -16,10 +16,17 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +36,19 @@ import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.YunActivitiesListAdapter;
 import yunstudio2015.android.yunmeet.customviewz.InnerScrollviewViewPager;
+import yunstudio2015.android.yunmeet.entityz.ActivityCategoryEntity;
+import yunstudio2015.android.yunmeet.entityz.ActivityDownloadEntity;
 import yunstudio2015.android.yunmeet.entityz.UploadActivityEntity;
+import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
+import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
+import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 
 public class ActivitiesFragment extends Fragment {
 
 
-    private static final String BASE_ACTIVITIES_API = "thisisjustatag";
+    private static final String BASE_ACTIVITIES_API = "re";
     private OnFragmentInteractionListener mListener;
     private DisplayMetrics metrics;
     public static Context context;
@@ -65,6 +78,13 @@ public class ActivitiesFragment extends Fragment {
     @Bind(R.id.pulltorefresh_main)
     PullToRefreshHorizontalScrollView pullToRefreshHorizontalScrollView;
 
+
+    @Bind(R.id.progressbar)
+    ProgressBar progressbar;
+
+    @Bind(R.id.error_message)
+    TextView tv_error_message;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,9 +97,69 @@ public class ActivitiesFragment extends Fragment {
 
         // id of the categorie, and it will help retrieve activities.
 
+
+        /* */
+
+        VolleyRequest.GetStringRequest(context, YunApi.URL_GET_ACTIVITY_LIST, "token=" + UtilsFunctions.getToken(context) +
+                "&id=" + base_api, new VolleyOnResultListener() {
+            @Override
+            public void onSuccess(String response) {
+//                mT(response);
+                Gson gson = new Gson();
+                try {
+                    JsonElement resp = gson.fromJson(response, JsonElement.class);
+                    ActivityDownloadEntity[] data = gson.fromJson(resp.getAsJsonObject().get("data"),
+                            ActivityDownloadEntity[].class);
+                    buildUi(data);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throwError("");
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                if (error.equals(context.getString(R.string.noconnection))) {
+                    /* 网络出问题可以显示。。。*/
+                    throwError(error);
+                }
+                throwError("");
+                /* 不是那就是数据出问题了 */
+//                mT(error);
+            }
+        });
+
+//        buildUi();
+        return rootview;
+    }
+
+    private void throwError(String s) {
+
+        viewPager.setVisibility(View.GONE);
+        progressbar.setVisibility(View.GONE);
+        tv_error_message.setVisibility(View.VISIBLE);
+
+        if (!"".equals(s)) {
+            // empty content.... data error
+            tv_error_message.setText(s);
+            return;
+        }
+        tv_error_message.setText("大哥，你这问题很严重了。。。");
+    }
+
+    public void mT(String string) {
+
+        Toast.makeText(getActivity().getApplicationContext(), string, Toast.LENGTH_SHORT).show();
+    }
+
+
+    private void buildUi(final ActivityDownloadEntity[] data) {
         // set adapter to the viewpager
+        tv_error_message.setVisibility(View.GONE);
+        progressbar.setVisibility(View.GONE);
+        viewPager.setVisibility(View.VISIBLE);
         viewPager.setPageMargin(getResources().getDimensionPixelOffset(R.dimen.viewpager_margin));
-        final int pageCount = 5;
+        final int pageCount = data.length;
         viewPager.setOffscreenPageLimit(pageCount/2 + 1);
 
         viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
@@ -88,7 +168,7 @@ public class ActivitiesFragment extends Fragment {
                 //if(position%2==0)
                 //    return new RecyclerViewFragment();
                 //else
-                return ScrollViewFragment.newInstance((String) getPageTitle(position));
+                return ScrollViewFragment.newInstance(data[position]);
             }
 
             @Override
@@ -115,8 +195,9 @@ public class ActivitiesFragment extends Fragment {
             }
         });
         pullToRefreshHorizontalScrollView.setInnerViewpager(viewPager);
-        return rootview;
+
     }
+
 
     private void hideFragments(FragmentTransaction transaction) {
         if (error_fragment != null)
@@ -214,14 +295,12 @@ public class ActivitiesFragment extends Fragment {
         }
 
 
-
        /* private void reload() {
 
 //        swipeRefreshLayout.setRefreshing(true);
             // reload with the link.
             L.d(YunApi.ACTIVITYZ_LIST);
             VolleyRequest.GetStringRequest(context, YunApi.ACTIVITYZ_LIST, "", new VolleyOnResultListener() {
-
 
                 @Override
                 public void onSuccess(String response) {
@@ -276,12 +355,6 @@ public class ActivitiesFragment extends Fragment {
         }
 
 
-        private void mT(String string) {
-
-            Toast.makeText(getActivity().getApplicationContext(), string, Toast.LENGTH_SHORT).show();
-        }
-
-
         private void modUpView(List<UploadActivityEntity> lActivity) {
 
             mRecyclerView.setHasFixedSize(true);
@@ -298,6 +371,12 @@ public class ActivitiesFragment extends Fragment {
                 mT("no result to show");
             }
         }
+
+        public void mT(String string) {
+
+            Toast.makeText(getActivity().getApplicationContext(), string, Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 

@@ -6,10 +6,31 @@
     android:background="@color/page_background"
     android:fillViewport="true">
 
-    <!-- have another viewpager inside this one -->
-    <yunstudio2015.android.yunmeet.customviewz.InnerScrollviewViewPager
-        android:id="@+id/vp_inner_activities"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <!-- have another viewpager inside this one -->
+        <yunstudio2015.android.yunmeet.customviewz.InnerScrollviewViewPager
+            android:id="@+id/vp_inner_activities"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/error_message"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_centerInParent="true"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
 </com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView>

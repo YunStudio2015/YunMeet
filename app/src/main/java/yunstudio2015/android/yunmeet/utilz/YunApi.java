@@ -65,7 +65,7 @@ public class YunApi {
     //获取单个用户发布的所有话题
     public static final String URL_GET_TOPIC_LIST = URL + "Topic/getBriefList";
     //获取单个用户的发布的所有活动
-    public static final String URL_GET_ACITIVITY_LIST = URL + "Atys/getBriefList";
+    public static final String URL_GET_ACTIVITY_LIST = URL + "Atys/getList";
     //获取用户的粉丝和关注的人的数量
     public static final String URL_GET_FOCUS_COUNT = URL + "User/getFocusCount";
 

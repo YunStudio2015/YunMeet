@@ -139,5 +139,7 @@
     <string name="test_description">描述没什么含义，就那样干干就好了。。。</string>
     <string name="test_place">地方值要说是我寝室就好了</string>
     <string name="test_title">标题还是算了吧</string>
+    <string name="meeting_people">人约</string>
+    <string name="commentcount">评论</string>
 
 </resources>

@@ -105,7 +105,7 @@ public class ActivitiesMainFragment extends Fragment {
         }
         else {
 
-            activitiesFragment = (ActivitiesFragment) ActivitiesFragment.getInstance(entity.base_api);
+            activitiesFragment = (ActivitiesFragment) ActivitiesFragment.getInstance(id);
             frgz.put(entity.name, activitiesFragment);
             transaction.add(R.id.fl_activitites_main, activitiesFragment, entity.name);
         }
@@ -258,7 +258,7 @@ public class ActivitiesMainFragment extends Fragment {
                 previous_selected = (int) view.getTag(R.id.category_position);
                 String category_tag = (String) view.getTag(R.id.category_id);
                 setFragment(view.getContext(), category_tag);
-                mToaz("selected id -- " + view.getTag(R.id.category_id));
+//                mToaz("selected id -- " + view.getTag(R.id.category_id));
             }
         }
     }
