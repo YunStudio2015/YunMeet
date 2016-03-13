@@ -30,7 +30,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="240dp">
+        android:layout_height="240dp"
+        android:id="@+id/RL_my_space">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/iv_person_info_bg"
+            android:scaleType="centerCrop"
+            android:src="@drawable/person_info_bg"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -137,7 +145,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/tv_new_msg"
+            android:id="@+id/LL_new_msg"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingLeft="16dp">
@@ -157,6 +165,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/tv_new_msg_amount"
                 android:textSize="16sp"
                 android:textColor="@color/btn_background"
                 android:layout_marginLeft="4dp"
@@ -172,14 +181,14 @@
 
         <View  android:layout_height="1dp"
             android:layout_width="match_parent"
-            android:layout_below="@id/tv_new_msg"
+            android:layout_below="@id/LL_new_msg"
             android:background="#dddddd" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_below="@id/tv_new_msg"
-            android:id="@+id/tv_new_fans"
+            android:layout_below="@id/LL_new_msg"
+            android:id="@+id/LL_new_fans"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingLeft="16dp">
@@ -202,6 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:layout_marginStart="4dp"
+                android:id="@+id/tv_new_fans_amount"
                 android:text="+88"
                 android:textSize="16sp"
                 android:textColor="@color/btn_background"/>
@@ -214,15 +224,15 @@
 
         <View  android:layout_height="1dp"
             android:layout_width="match_parent"
-            android:layout_below="@id/tv_new_fans"
+            android:layout_below="@id/LL_new_fans"
             android:background="#dddddd" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/tv_setting"
+            android:id="@+id/LL_setting"
             android:orientation="horizontal"
-            android:layout_below="@id/tv_new_fans"
+            android:layout_below="@id/LL_new_fans"
             android:gravity="center_vertical"
             android:paddingLeft="16dp">
 
@@ -247,7 +257,7 @@
 
         <View  android:layout_height="1dp"
             android:layout_width="match_parent"
-            android:layout_below="@id/tv_setting"
+            android:layout_below="@id/LL_setting"
             android:background="#dddddd" />
 
     </RelativeLayout>
