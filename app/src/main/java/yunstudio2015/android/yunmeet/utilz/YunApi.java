@@ -70,6 +70,8 @@ public class YunApi {
     public static final String URL_GET_FOCUS_COUNT = URL + "User/getFocusCount";
     //获取单个用户的个人信息
     public static final String URL_GET_INFO = URL + "User/getInfo";
+    //获取用户的粉丝和关注的人的列表
+    public static final String URL_GET_FOCUS = URL + "User/getFocus";
 
     // 获取QQ用户信息接口
     public static final String GET_QQ_USER_INFO = "https://graph.qq.com/user/get_simple_userinfo";

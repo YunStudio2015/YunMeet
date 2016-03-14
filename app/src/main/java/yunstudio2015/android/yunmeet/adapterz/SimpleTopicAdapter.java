@@ -43,7 +43,6 @@ public class SimpleTopicAdapter extends RecyclerView.Adapter<SimpleTopicAdapter.
         SimpleTopicItem item = data.get(position);
         holder.tvPubtime.setText(item.getPubtime());
         holder.tvContent.setText(item.getContent());
-        Log.d("imgurl",item.getLogoUrl());
         Glide.with(context).load(item.getLogoUrl()).centerCrop().into(holder.ivLogo);
     }
 
