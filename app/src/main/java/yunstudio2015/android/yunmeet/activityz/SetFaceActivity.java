@@ -177,10 +177,7 @@ public class SetFaceActivity extends AppCompatActivity {
                 SetFaceActivity.this.mSnack(rep);
             }
         });
-<<<<<<< HEAD
-=======
 
->>>>>>> aab69314aaf38419cf9ea74d35d9d836603b96a5
         up.execute(imageLocalPath, UtilsFunctions.getToken(SetFaceActivity.this));
         i_showProgressDialog(getResources().getString(R.string.uploading));
     }

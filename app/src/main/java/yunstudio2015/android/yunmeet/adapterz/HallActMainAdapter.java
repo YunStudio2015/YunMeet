@@ -27,6 +27,7 @@ public class HallActMainAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
+
         if (frg == null)
             frg = new HashMap<>();
         // create the fragment over.

@@ -5,29 +5,6 @@
     android:orientation="vertical"
     tools:context="yunstudio2015.android.yunmeet.fragments.MySpaceMainFragment">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/action_bar_size"
-        android:background="@color/actionbar_color">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的"
-                android:textColor="@android:color/white"
-                android:layout_centerInParent="true"
-                android:textSize="@dimen/actionbar_title_size"/>
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.Toolbar>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="240dp">

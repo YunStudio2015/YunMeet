@@ -14,7 +14,7 @@
             android:id="@+id/lny_sc"
             android:orientation="horizontal"
             android:background="@color/white"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:layout_height="wrap_content" />

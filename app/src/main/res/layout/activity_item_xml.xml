@@ -81,7 +81,7 @@
                     android:layout_height="100dp"
                     yun:border_width="7dp"
                     yun:border_color="@color/white"
-                    android:background="@color/page_background"
+                    android:background="@null"
                     android:layout_alignParentBottom="true"
                     android:src="@null"/>
 

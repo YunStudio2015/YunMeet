@@ -22,7 +22,7 @@ public class MainVpAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        if (position == 0)
+       if (position == 0)
             return ConcernListFragment.getInstance();
         else if (position == 1)
             return ActivitiesMainFragment.getInstance();

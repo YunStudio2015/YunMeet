@@ -87,12 +87,12 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hall);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
+
 
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
 
-        ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
 
         // setup main viewpager
