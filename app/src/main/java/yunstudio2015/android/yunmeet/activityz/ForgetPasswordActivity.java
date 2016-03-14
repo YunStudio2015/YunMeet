@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -126,6 +127,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     VolleyRequest.PostStringRequest(ForgetPasswordActivity.this, YunApi.URL_GET_CHECK_CODE, map, new VolleyOnResultListener() {
                         @Override
                         public void onSuccess(String response) {
+                            Log.d("response",response);
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 response = jsonObject.getString("message");
@@ -138,6 +140,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(String error) {
+                            Log.d("error",error);
                             Toast.makeText(ForgetPasswordActivity.this,error,Toast.LENGTH_SHORT).show();
                         }
                     });
