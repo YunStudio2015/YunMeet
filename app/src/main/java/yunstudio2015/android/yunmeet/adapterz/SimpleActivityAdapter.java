@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -24,6 +23,7 @@ public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAd
     private final Context context;
     private final LayoutInflater inflater;
     private final List<SimpleActivityItem> list;
+    private OnRecyclerViewItemClickListener mListener;
 
     public SimpleActivityAdapter(Context context,List<SimpleActivityItem> list){
         this.context = context;
@@ -33,7 +33,9 @@ public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAd
 
     @Override
     public SimpleActivityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new SimpleActivityViewHolder(inflater.inflate(R.layout.simple_activity_item,parent,false),context);
+        View view = inflater.inflate(R.layout.simple_activity_item,parent,false);
+        SimpleActivityViewHolder holder = new SimpleActivityViewHolder(view,context, mListener);
+        return  holder;
     }
 
     @Override
@@ -49,25 +51,39 @@ public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAd
         return list.size();
     }
 
-    public static class SimpleActivityViewHolder extends RecyclerView.ViewHolder{
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener){
+        this.mListener = listener;
+    }
 
-        TextView tvTheme;
-        TextView tvDetail;
-        ImageView ivImage;
+    public static class SimpleActivityViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        public SimpleActivityViewHolder(View itemView, final Context context) {
+        private TextView tvTheme;
+        private TextView tvDetail;
+        private ImageView ivImage;
+        private OnRecyclerViewItemClickListener listener;
+
+        public SimpleActivityViewHolder(View itemView, final Context context,OnRecyclerViewItemClickListener listener) {
             super(itemView);
 
             tvTheme = (TextView) itemView.findViewById(R.id.tv_simple_activity_item_theme);
             tvDetail = (TextView) itemView.findViewById(R.id.tv_simple_activity_item_detail);
             ivImage = (ImageView) itemView.findViewById(R.id.iv_simple_activtiy_image);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context,String.valueOf(getLayoutPosition()),Toast.LENGTH_SHORT).show();
-                }
-            });
+            this.listener = listener;
+            itemView.setOnClickListener(this);
         }
+
+
+        @Override
+        public void onClick(View v) {
+            if (listener != null){
+                listener.onItemClick(v,getLayoutPosition());
+            }
+        }
+    }
+
+
+    public static interface OnRecyclerViewItemClickListener{
+        void onItemClick(View view,int position);
     }
 }

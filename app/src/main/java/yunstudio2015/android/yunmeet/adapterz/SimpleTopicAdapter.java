@@ -2,13 +2,11 @@ package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -26,6 +24,8 @@ public class SimpleTopicAdapter extends RecyclerView.Adapter<SimpleTopicAdapter.
     private final Context context;
     private final List<SimpleTopicItem> data;
 
+    private SimpleActivityAdapter.OnRecyclerViewItemClickListener mListener;
+
     public SimpleTopicAdapter(Context context,List<SimpleTopicItem> list){
 
         this.context = context;
@@ -35,7 +35,9 @@ public class SimpleTopicAdapter extends RecyclerView.Adapter<SimpleTopicAdapter.
     }
     @Override
     public SimpleTopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new SimpleTopicViewHolder(inflater.inflate(R.layout.simple_topic_item,parent,false),context);
+        View view = inflater.inflate(R.layout.simple_topic_item,parent,false);
+        SimpleTopicViewHolder holder = new SimpleTopicViewHolder(view,context, mListener);
+        return holder;
     }
 
     @Override
@@ -52,26 +54,35 @@ public class SimpleTopicAdapter extends RecyclerView.Adapter<SimpleTopicAdapter.
         return data.size();
     }
 
-    public static class SimpleTopicViewHolder extends RecyclerView.ViewHolder{
+    public void setOnClickListener(SimpleActivityAdapter.OnRecyclerViewItemClickListener listener){
+        this.mListener = listener;
+    }
 
-        TextView tvContent;
-        TextView tvPubtime;
-        ImageView ivLogo;
+    public static class SimpleTopicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        public SimpleTopicViewHolder(View itemView, final Context context) {
+        private TextView tvContent;
+        private TextView tvPubtime;
+        private ImageView ivLogo;
+        private SimpleActivityAdapter.OnRecyclerViewItemClickListener listener;
+
+        public SimpleTopicViewHolder(View itemView, final Context context,SimpleActivityAdapter.OnRecyclerViewItemClickListener listener) {
             super(itemView);
 
             tvContent = (TextView) itemView.findViewById(R.id.tv_simple_topic_item_content);
             tvPubtime = (TextView) itemView.findViewById(R.id.tv_simple_topic_item_pubtime);
             ivLogo = (ImageView) itemView.findViewById(R.id.iv_simple_list_logo);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context,String.valueOf(getLayoutPosition()),Toast.LENGTH_SHORT).show();
-                }
-            });
+            this.listener = listener;
 
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (listener != null){
+                listener.onItemClick(v,getLayoutPosition());
+            }
         }
     }
 
