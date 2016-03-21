@@ -6,14 +6,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,8 +29,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
-import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 
@@ -43,10 +47,13 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     private Button btnSendCode;
     private EditText etPhoneNumber;
     private EditText etCode;
+    private EditText etOldPassword;
+    private EditText etNewPassword;
     private TextView tvPhoneTip;
     private TextView tvCodeTip;
     private String phoneNumber = null;//电话号码
     private String code = null;//验证码
+    private RequestQueue queue;
 
     private TimeCount time = new TimeCount(1000*60,1000);
 
@@ -56,6 +63,8 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forget_password);
 
         initViews();
+
+        queue = Volley.newRequestQueue(getApplicationContext());
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +112,34 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 } else {
                     //向服务器请求更改密码
 
+                    Map<String,String> map = new HashMap<String, String>();
+                    map.put("token", UtilsFunctions.getToken(ForgetPasswordActivity.this));
+                    map.put("oldPassword",String.valueOf(etOldPassword.getText()));
+                    map.put("newPassword",String.valueOf(etNewPassword.getText()));
+
+                    JsonObjectRequest re = new JsonObjectRequest(Request.Method.POST, YunApi.URL_FORGET_PASSWORD, new JSONObject(map), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                if (response.getString("error").equals("0")){
+                                    Toast.makeText(ForgetPasswordActivity.this,response.getString("message"),Toast.LENGTH_SHORT).show();
+                                   finish();
+                                } else {
+                                    Toast.makeText(ForgetPasswordActivity.this,response.getString("message"),Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(ForgetPasswordActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    queue.add(re);
+
                     tvPhoneTip.setText(null);
                     tvCodeTip.setText(null);
                 }
@@ -122,28 +159,37 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     map.put("type","password");
                     map.put("phone",phoneNumber);
 
-
                     //向服务器请求发送验证码到该手机号
-                    VolleyRequest.PostStringRequest(ForgetPasswordActivity.this, YunApi.URL_GET_CHECK_CODE, map, new VolleyOnResultListener() {
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_CHECK_CODE, new JSONObject(map), new Response.Listener<JSONObject>() {
                         @Override
-                        public void onSuccess(String response) {
-                            Log.d("response",response);
+                        public void onResponse(JSONObject response) {
                             try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                response = jsonObject.getString("message");
-                                Toast.makeText(ForgetPasswordActivity.this,response,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ForgetPasswordActivity.this,response.getString("message"),Toast.LENGTH_SHORT).show();
+                                if (response.getString("error").equals("0")){
+                                    etOldPassword.setVisibility(View.VISIBLE);
+                                    etNewPassword.setVisibility(View.VISIBLE);
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Toast.makeText(ForgetPasswordActivity.this,"出错了",Toast.LENGTH_SHORT).show();
                             }
                         }
-
+                    }, new Response.ErrorListener() {
                         @Override
-                        public void onFailure(String error) {
-                            Log.d("error",error);
-                            Toast.makeText(ForgetPasswordActivity.this,error,Toast.LENGTH_SHORT).show();
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(ForgetPasswordActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    }){
+                        @Override
+                        public Map<String, String> getHeaders() {
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            headers.put("Accept", "application/json");
+                            headers.put("Content-Type", "application/json; charset=UTF-8");
+                            return headers;
+                        }
+                    };
+
+                    queue.add(request);
 
                     tvPhoneTip.setText(null);
                     etPhoneNumber.setEnabled(false);
@@ -167,6 +213,10 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         etCode = (EditText) findViewById(R.id.et_code);
         tvPhoneTip = (TextView) findViewById(R.id.tv_phone_tip);
         tvCodeTip = (TextView) findViewById(R.id.tv_code_tip);
+        etOldPassword = (EditText) findViewById(R.id.et_old_password);
+        etOldPassword.setVisibility(View.GONE);
+        etNewPassword = (EditText) findViewById(R.id.et_new_password);
+        etNewPassword.setVisibility(View.GONE);
 
     }
 

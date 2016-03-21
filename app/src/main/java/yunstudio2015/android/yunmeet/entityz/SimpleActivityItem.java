@@ -28,6 +28,7 @@ public class SimpleActivityItem {
     }
 
     public String getImage() {
+
         return image_url;
     }
 

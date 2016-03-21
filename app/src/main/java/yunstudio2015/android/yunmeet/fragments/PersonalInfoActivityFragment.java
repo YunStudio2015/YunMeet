@@ -100,5 +100,4 @@ public class PersonalInfoActivityFragment extends Fragment {
         return viewActivity;
     }
 
-
 }

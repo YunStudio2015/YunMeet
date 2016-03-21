@@ -58,6 +58,11 @@ public class PersonInfoActivity extends AppCompatActivity{
     private TextView tvFansAmount;
     private TextView tvFocusAmount;
     private TextView tvSex;
+    //都是toolbar上的控件
+    private ImageView ivBack;
+    private TextView tvTitle;
+    private Button btnNextStep;
+
     private RequestQueue queue;
 
     PersonalInfoActivityFragment fragmentActivity = new PersonalInfoActivityFragment();
@@ -119,6 +124,7 @@ public class PersonInfoActivity extends AppCompatActivity{
                 try {
                     if (response.getString("error").equals("0")){
                         tvName.setText(response.getJSONObject("data").getString("nickname"));
+                        tvTitle.setText(response.getJSONObject("data").getString("nickname"));
                         Glide.with(PersonInfoActivity.this).load(response.getJSONObject("data").getString("face")).into(ivFace);
                         if (response.getJSONObject("data").getString("sex").equals("0")){
                             tvSex.setText(getString(R.string.male_symbol));
@@ -150,6 +156,20 @@ public class PersonInfoActivity extends AppCompatActivity{
         };
 
         queue.add(request);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        btnNextStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PersonInfoActivity.this,"next",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         btnTopic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,7 +212,7 @@ public class PersonInfoActivity extends AppCompatActivity{
         layoutChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(PersonInfoActivity.this,"chat",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -211,6 +231,10 @@ public class PersonInfoActivity extends AppCompatActivity{
         tvSex = (TextView) findViewById(R.id.tv_person_info_sex);
         tvFansAmount = (TextView) findViewById(R.id.person_info_fans_amount);
         tvFocusAmount = (TextView) findViewById(R.id.person_info_focus_amount);
+
+        ivBack = (ImageView) findViewById(R.id.iv_back);
+        tvTitle = (TextView) findViewById(R.id.toolbar_txt);
+        btnNextStep = (Button) findViewById(R.id.btn_next_step);
 
     }
 

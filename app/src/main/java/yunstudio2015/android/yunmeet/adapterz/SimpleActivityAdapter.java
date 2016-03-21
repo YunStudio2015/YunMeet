@@ -2,6 +2,7 @@ package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,13 @@ public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAd
         SimpleActivityItem item = list.get(position);
         holder.tvDetail.setText(item.getDetail());
         holder.tvTheme.setText(item.getTheme());
-        Glide.with(context).load(item.getImage()).centerCrop().into(holder.ivImage);
+        String s = item.getImage();
+        s = s.replace("[","");
+        s = s.replace("]","");
+        s = s.replace("\\","");
+        s = s.replace("\"","");
+        Log.d("地址",s);
+        Glide.with(context).load(s).centerCrop().into(holder.ivImage);
     }
 
     @Override

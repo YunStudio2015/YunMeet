@@ -47,7 +47,7 @@ public class ScrollViewFragment extends Fragment {
         View rootview = inflater.inflate(R.layout.fragment_scroll, container, false);
         context = rootview.getContext();
         String json_data = (String) getArguments().get("tag");
-Gson gson = new Gson();
+        Gson gson = new Gson();
         ActivityDownloadEntity entity = gson.fromJson(json_data, ActivityDownloadEntity.class);
 
         /* set up the data inside the fragment */

@@ -62,6 +62,8 @@ public class YunApi {
     public static final String URL_SET_FACE = URL + "User/setFace";
     //设置个人主页背景
     public static final String URL_SET_BACKGROUND = URL + "Uer/setBackground";
+    //更改密码
+    public static final String URL_FORGET_PASSWORD = URL + "User/setPwd";
     //获取单个用户发布的所有话题
     public static final String URL_GET_TOPIC_LIST = URL + "Topic/getBriefList";
     //获取单个用户的发布的所有活动
