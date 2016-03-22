@@ -1,10 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="yunstudio2015.android.yunmeet.fragments.MySpaceMainFragment">
 
+<<<<<<< HEAD
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="240dp"
@@ -126,117 +126,241 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingLeft="16dp">
+=======
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/wechat_small"
-                android:layout_marginRight="4dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="最新消息通知"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_new_msg_amount"
-                android:textSize="16sp"
-                android:textColor="@color/btn_background"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:text="+88"/>
-
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <View  android:layout_height="1dp"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_below="@id/LL_new_msg"
-            android:background="#dddddd" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@id/LL_new_msg"
-            android:id="@+id/LL_new_fans"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingLeft="16dp">
+            android:layout_height="240dp"
+            android:id="@+id/RL_my_space">
+>>>>>>> bd9740564afa44a55046b569ed018ce6f98fbd13
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/fans_small"
-                android:layout_marginRight="4dp"
-                android:layout_marginEnd="4dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="新粉丝"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginStart="4dp"
-                android:id="@+id/tv_new_fans_amount"
-                android:text="+88"
-                android:textSize="16sp"
-                android:textColor="@color/btn_background"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_person_info_bg"
+                android:scaleType="centerCrop"
+                android:src="@drawable/person_info_bg"/>
 
             <ImageView
+                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:src="@drawable/right_arrow"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"/>
 
-        </LinearLayout>
+            <yunstudio2015.android.yunmeet.customviewz.CircleImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/iv_person_info_face"
+                android:clickable="true"
+                android:layout_marginTop="40dp"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/setface" />
 
-        <View  android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:layout_below="@id/LL_new_fans"
-            android:background="#dddddd" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/LL_setting"
-            android:orientation="horizontal"
-            android:layout_below="@id/LL_new_fans"
-            android:gravity="center_vertical"
-            android:paddingLeft="16dp">
-
-            <ImageView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/setting_small"
-                android:layout_marginRight="4dp"
-                android:layout_marginEnd="4dp"/>
+                android:layout_below="@id/iv_person_info_face"
+                android:id="@+id/person_info_1"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true">
 
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_person_info_name"
+                    android:text="某用户的昵称"
+                    android:textSize="@dimen/actionbar_title_size"
+                    android:textColor="@color/inner_grayerzz"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_person_info_sex"
+                    android:textSize="24sp"
+                    android:text="@string/male_symbol"
+                    android:textColor="@color/green"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="设置"/>
+                android:layout_below="@id/person_info_1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/actionbar_title_size"
+                    android:textColor="@color/green"
+                    android:text="@string/fans"
+                    android:paddingRight="8dp"/>
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/actionbar_title_size"
+                    android:textColor="@color/green"
+                    android:id="@+id/person_info_fans_amount"
+                    android:paddingRight="8dp"
+                    android:text="88" />
 
-        <View  android:layout_height="1dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/actionbar_title_size"
+                    android:textColor="@color/green"
+                    android:text="@string/focus"
+                    android:paddingLeft="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/actionbar_title_size"
+                    android:id="@+id/person_info_focus_amount"
+                    android:textColor="@color/green"
+                    android:text="88"
+                    android:paddingLeft="8dp"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_below="@id/LL_setting"
-            android:background="#dddddd" />
+            android:layout_height="match_parent">
 
-    </RelativeLayout>
+            <View  android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:background="#dddddd" />
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/LL_new_msg"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/wechat_small"
+                    android:layout_marginRight="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="最新消息通知"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_new_msg_amount"
+                    android:textColor="@color/btn_background"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:text="+88"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View  android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:layout_below="@id/LL_new_msg"
+                android:background="#dddddd" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@id/LL_new_msg"
+                android:id="@+id/LL_new_fans"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fans_small"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="新粉丝"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:id="@+id/tv_new_fans_amount"
+                    android:text="+88"
+                    android:textColor="@color/btn_background"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View  android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:layout_below="@id/LL_new_fans"
+                android:background="#dddddd" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/LL_setting"
+                android:orientation="horizontal"
+                android:layout_below="@id/LL_new_fans"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/setting_small"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="设置"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View  android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:layout_below="@id/LL_setting"
+                android:background="#dddddd" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

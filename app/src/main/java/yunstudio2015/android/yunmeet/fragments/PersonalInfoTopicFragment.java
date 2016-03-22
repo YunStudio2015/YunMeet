@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.adapterz.SimpleActivityAdapter;
 import yunstudio2015.android.yunmeet.adapterz.SimpleTopicAdapter;
 import yunstudio2015.android.yunmeet.entityz.SimpleTopicItem;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
@@ -33,6 +34,8 @@ public class PersonalInfoTopicFragment extends Fragment {
 
     private List<SimpleTopicItem> list = new ArrayList<SimpleTopicItem>();
 
+    private SimpleTopicAdapter adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +48,8 @@ public class PersonalInfoTopicFragment extends Fragment {
         tvTip = (TextView) viewTopic.findViewById(R.id.tv_person_info_topic);
         recyclerViewTopics = (RecyclerView) viewTopic.findViewById(R.id.recyclerview_simple_topics);
         recyclerViewTopics.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        adapter = new SimpleTopicAdapter(getActivity(),list);
 
         VolleyRequest.GetStringRequest(getActivity(), YunApi.URL_GET_TOPIC_LIST, "token=ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx", new VolleyOnResultListener() {
             @Override
@@ -63,7 +68,13 @@ public class PersonalInfoTopicFragment extends Fragment {
                         }
 
                         tvTip.setVisibility(View.GONE);
-                        recyclerViewTopics.setAdapter(new SimpleTopicAdapter(getActivity(), list));
+                        recyclerViewTopics.setAdapter(adapter);
+                        adapter.setOnClickListener(new SimpleActivityAdapter.OnRecyclerViewItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                Toast.makeText(getContext(),String.valueOf(position),Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
                     } else {
                         recyclerViewTopics.setVisibility(View.GONE);

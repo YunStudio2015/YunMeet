@@ -1,2 +1,2 @@
-include ':app',':pickphotos',':hollyviewpager', ':pulltorefresh',':emojicon',':datetimepicker', ":SwipeNumberPicker", ":RecyclerViewpager",
-        ":androidmosaiclayout"
+include ':app',':pickphotos',':hollyviewpager', ':pulltorefresh',':emojicon',':datetimepicker', ":SwipeNumberPicker", ':RecyclerViewpager',
+        ':androidmosaiclayout'

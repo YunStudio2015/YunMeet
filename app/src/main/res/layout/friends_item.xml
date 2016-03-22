@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginLeft="16dp">
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,15 +26,18 @@
             android:id="@+id/tv_friend_name"
             android:layout_gravity="center_vertical"
             android:text="Megan Fox"
-            android:textSize="20sp"/>
+            android:ellipsize="end"
+            android:gravity="center_vertical"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_gravity="center_vertical"
             android:id="@+id/tv_friend_introduction"
-            android:textSize="10sp"
+            android:singleLine="true"
+            android:textSize="12sp"
             android:ellipsize="end"
+            android:gravity="center_vertical"
             android:text="Lorem Ipsum is simply dummy text of the printing and type setting"/>
 
     </LinearLayout>

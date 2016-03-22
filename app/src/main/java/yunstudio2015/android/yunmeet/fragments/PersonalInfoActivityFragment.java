@@ -35,6 +35,8 @@ public class PersonalInfoActivityFragment extends Fragment {
 
     private List<SimpleActivityItem> list = new ArrayList<SimpleActivityItem>();
 
+    private SimpleActivityAdapter adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,7 @@ public class PersonalInfoActivityFragment extends Fragment {
         recyclerViewActivities = (RecyclerView) viewActivity.findViewById(R.id.recyclerview_simple_activities);
         recyclerViewActivities.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-//        Log.d("init","activity初始");
+        adapter = new SimpleActivityAdapter(getContext(),list);
 
         VolleyRequest.GetStringRequest(getActivity(), YunApi.URL_GET_ACTIVITY_LIST, "token=ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx", new VolleyOnResultListener() {
             @Override
@@ -71,7 +73,13 @@ public class PersonalInfoActivityFragment extends Fragment {
                         }
 
                         tvTip.setVisibility(View.GONE);
-                        recyclerViewActivities.setAdapter(new SimpleActivityAdapter(getActivity(), list));
+                        recyclerViewActivities.setAdapter(adapter);
+                        adapter.setOnItemClickListener(new SimpleActivityAdapter.OnRecyclerViewItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                Toast.makeText(getContext(),String.valueOf(position),Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
                     } else {
                         tvTip.setVisibility(View.VISIBLE);
@@ -91,6 +99,5 @@ public class PersonalInfoActivityFragment extends Fragment {
 
         return viewActivity;
     }
-
 
 }

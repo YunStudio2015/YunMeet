@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RecyclerViewpager/RecyclerViewpager.iml" filepath="$PROJECT_DIR$/RecyclerViewpager/RecyclerViewpager.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SwipeNumberPicker/SwipeNumberPicker.iml" filepath="$PROJECT_DIR$/SwipeNumberPicker/SwipeNumberPicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/YunMeet.iml" filepath="$PROJECT_DIR$/YunMeet.iml" />
       <module fileurl="file://$PROJECT_DIR$/YunMeet.iml" filepath="$PROJECT_DIR$/YunMeet.iml" />
       <module fileurl="file://$PROJECT_DIR$/YunMeet12.iml" filepath="$PROJECT_DIR$/YunMeet12.iml" />
       <module fileurl="file://$PROJECT_DIR$/Yunmeet.iml" filepath="$PROJECT_DIR$/Yunmeet.iml" />
-      <module fileurl="file://$PROJECT_DIR$/androidmosaiclayout/androidmosaiclayout.iml" filepath="$PROJECT_DIR$/androidmosaiclayout/androidmosaiclayout.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/datetimepicker/datetimepicker.iml" filepath="$PROJECT_DIR$/datetimepicker/datetimepicker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/emojicon/emojicon.iml" filepath="$PROJECT_DIR$/emojicon/emojicon.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hollyviewpager/hollyviewpager.iml" filepath="$PROJECT_DIR$/hollyviewpager/hollyviewpager.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pickphotos/pickphotos.iml" filepath="$PROJECT_DIR$/pickphotos/pickphotos.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pulltorefresh/pulltorefresh.iml" filepath="$PROJECT_DIR$/pulltorefresh/pulltorefresh.iml" />
     </modules>
   </component>
 </project>

@@ -323,8 +323,8 @@ public class SignupActivity extends AppCompatActivity {
                                         public Map<String, String> getHeaders() {
 
                                             HashMap<String,String> params = new HashMap<String, String>();
-                                            params.put("Accept","appliction/json");
-                                            params.put("Content-Type","appliction/json,charset=UTF-8");
+                                            params.put("Accept","application/json");
+                                            params.put("Content-Type","application/json,charset=UTF-8");
                                             return params;
                                         }
                                     };
