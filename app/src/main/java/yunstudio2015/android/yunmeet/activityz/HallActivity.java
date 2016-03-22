@@ -9,20 +9,24 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -37,6 +41,8 @@ import yunstudio2015.android.yunmeet.customviewz.NoPaggingViewPager;
 import yunstudio2015.android.yunmeet.customviewz.SlidingTabLayout;
 import yunstudio2015.android.yunmeet.fragments.ActivitiesMainFragment;
 import yunstudio2015.android.yunmeet.fragments.ChatMainFragment;
+import yunstudio2015.android.yunmeet.fragments.ChatTopicsItemFragment;
+import yunstudio2015.android.yunmeet.fragments.ChatTopicsMainFragment;
 import yunstudio2015.android.yunmeet.fragments.DiscoverMainFragment;
 import yunstudio2015.android.yunmeet.fragments.MyFriendsMainFragment;
 import yunstudio2015.android.yunmeet.fragments.MySpaceMainFragment;
@@ -46,7 +52,9 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
         ActivitiesMainFragment.OnFragmentInteractionListener,
         ChatMainFragment.OnFragmentInteractionListener,
         MyFriendsMainFragment.OnFragmentInteractionListener,
-        MySpaceMainFragment.OnFragmentInteractionListener{
+        MySpaceMainFragment.OnFragmentInteractionListener,
+        ChatTopicsMainFragment.OnFragmentInteractionListener,
+        ChatTopicsItemFragment.OnFragmentInteractionListener{
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -69,6 +77,8 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
     @Bind(R.id.rel_popup_menu)
     RelativeLayout rel_popup_menu;
 
+    @Bind(R.id.tv_title)
+    TextView tv_title;
 
     @Override
     public void onBackPressed() {
@@ -89,14 +99,12 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
         setContentView(R.layout.activity_hall);
         ButterKnife.bind(this);
 
-
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
-
 
         setSupportActionBar(toolbar);
 
         // setup main viewpager
-        hallmain_viewpager.setOffscreenPageLimit(3);
+//        hallmain_viewpager.setOffscreenPageLimit(3);
         hallmain_viewpager.setAdapter(new HallActMainAdapter(getSupportFragmentManager()));
 
         // 不允许拖动animation
@@ -129,17 +137,21 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
                 hallmain_viewpager.setCurrentItem(radiobuttonz.indexOf(radioButton2));
                 if (checkedId == R.id.radiobutton_bottom_menu_1) {
                     // show the strip inside the action bar
+                    tv_title.setVisibility(View.GONE);
                     tabs.setVisibility(View.VISIBLE);
                 } else {
                     //  hide it.
                     tabs.setVisibility(View.GONE);
+                    if (checkedId == R.id.radiobutton_bottom_menu_4) {
+                        // set wode visible.
+                        tv_title.setText(getResources().getString(R.string.myspace));
+                        tv_title.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
 
         radiogroup_bottom_menu.check(R.id.radiobutton_bottom_menu_1);
-
-
 
         // manage popup launch menu
         View popupView = getLayoutInflater().inflate(R.layout.launch_button_poplayout, null);
@@ -191,7 +203,7 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
 
                 /* get the y equivalent to the position of the center of the floating button*/
                         int flt_btHeight;
-                        int flt_bt_margin_bottom;
+                        int flt_bt_margin_bottom = 0;
 
                         if (getScreenWidth() /2 >= 600) {
                             flt_btHeight = getResources().getDimensionPixelSize(R.dimen.flt_launch_button_7_pouces);
@@ -201,6 +213,7 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
                             flt_btHeight = getResources().getDimensionPixelSize(R.dimen.flt_launch_button);
                             flt_bt_margin_bottom = getResources().getDimensionPixelSize(R.dimen.launch_button_margin_bottom);
                         }
+
 
 
                         TypedValue tv = new TypedValue();
@@ -247,11 +260,11 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
     }
 
 
-    private void populateUpperTabStrip() {
+   /* private void populateUpperTabStrip() {
 
         // set up title to null
         toolbar.setTitle("");
-     /*   tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true,
+     *//*   tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true,
         // This makes the tabs Space Evenly in Available width
         // Setting Custom Color for the Scroll bar indicator of the Tab View
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
@@ -262,8 +275,9 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
         });
 
         // Setting the ViewPager For the SlidingTabsLayout
-        tabs.setViewPager(viewPager);*/
-    }
+        tabs.setViewPager(viewPager);*//*
+    }*/
+
 
     public static void setTranslucentStatusColor(Activity activity, @ColorRes int color) {
         if (Build.VERSION.SDK_INT != Build.VERSION_CODES.KITKAT)

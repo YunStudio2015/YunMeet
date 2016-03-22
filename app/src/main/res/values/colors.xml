@@ -20,4 +20,6 @@
     <color name="page_background">#e5e5e5</color>
     <color name="bottom_text_black">#717070</color>
     <color name="light_gray">#eeeeee</color>
+    <color name="special_gray_lk_comment">#8d8d8d</color>
+    <color name="nice_blue">#142fb4</color>
 </resources>

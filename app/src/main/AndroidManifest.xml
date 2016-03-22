@@ -10,25 +10,35 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+        android:screenOrientation="portrait"
+        android:hardwareAccelerated="true"
         android:name=".app.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
+            android:screenOrientation="portrait"
             android:name=".activityz.RestingActivity"
             android:label="@string/title_activity_resting" />
-        <activity android:name=".activityz.SignupActivity" />
-        <activity android:name=".activityz.LoginActivity"></activity>
-        <activity android:name=".activityz.LaunchChatTopicActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activityz.SignupActivity" />
+        <activity android:name=".activityz.LoginActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activityz.LaunchChatTopicActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="yunstudio2015.android.yunmeet.activityz.HallActivity" />
 
         </activity>
-        <activity android:name=".activityz.ForgetPasswordActivity" />
-        <activity android:name=".activityz.SetNickNameActivity" />
-        <activity android:name=".activityz.SetFaceActivity"></activity>
+        <activity android:name=".activityz.ForgetPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activityz.SetNickNameActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activityz.SetFaceActivity"
+            android:screenOrientation="portrait"></activity>
 
         <!-- QQ登录所需要的 -->
         <activity
@@ -53,22 +63,25 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activityz.BrowseSelectedPicturesActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_browse_selected_pictures">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activityz.LaunchChatTopicActivity" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activityz.CroppingActivity"
             android:label="@string/title_activity_cropping"
             android:theme="@style/AppTheme" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activityz.CropResultActivity"
             android:label="testing activity"
             android:theme="@style/AppTheme" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activityz.HallActivity"
-            android:hardwareAccelerated="true"
             android:label="@string/title_activity_hall"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -78,10 +91,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activityz.PersonInfoActivity"
             android:label="@string/title_activity_person_info"
             android:theme="@style/AppTheme"></activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activityz.LaunchActivityActivity"
             android:label="@string/title_activity_launch"
             android:theme="@style/AppTheme">

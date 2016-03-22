@@ -45,4 +45,11 @@
         <item name="android:textCursorDrawable">@drawable/text_cursor_drawable</item>
     </style>
 
+    <style name="topic_like_comment_btstyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:padding">5sp</item>
+        <item name="android:background">@drawable/like_comment_bt_bg</item>
+    </style>
+
 </resources>

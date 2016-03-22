@@ -1,14 +1,14 @@
 package yunstudio2015.android.yunmeet.fragments;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,21 +22,17 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
+import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.YunActivitiesListAdapter;
-import yunstudio2015.android.yunmeet.customviewz.InnerScrollviewViewPager;
-import yunstudio2015.android.yunmeet.entityz.ActivityCategoryEntity;
 import yunstudio2015.android.yunmeet.entityz.ActivityDownloadEntity;
 import yunstudio2015.android.yunmeet.entityz.UploadActivityEntity;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
@@ -54,6 +50,7 @@ public class ActivitiesFragment extends Fragment {
     public static Context context;
     private FragmentManager fragmentManager;
     private ErrorFragment error_fragment;
+    private Adapter adapter;
 
 
     public static Fragment getInstance(String base_api) {
@@ -72,12 +69,16 @@ public class ActivitiesFragment extends Fragment {
     View rootview;
 
 
-    @Bind(R.id.vp_inner_activities)
-    InnerScrollviewViewPager viewPager;
+    @Bind(R.id.list)
+    RecyclerViewPager recyclerViewPager;
+/*
 
     @Bind(R.id.pulltorefresh_main)
     PullToRefreshHorizontalScrollView pullToRefreshHorizontalScrollView;
+*/
 
+
+    Map<String, Fragment> fragmentMap;
 
     @Bind(R.id.progressbar)
     ProgressBar progressbar;
@@ -92,12 +93,10 @@ public class ActivitiesFragment extends Fragment {
         rootview = inflater.inflate(R.layout.discoveractivitiesfragment, container, false);
         context = rootview.getContext();
         ButterKnife.bind(this, rootview);
-
+        fragmentMap = new HashMap<>();
         String base_api = getArguments().getString("base", BASE_ACTIVITIES_API);
 
         // id of the categorie, and it will help retrieve activities.
-
-
         /* */
 
         VolleyRequest.GetStringRequest(context, YunApi.URL_GET_ACTIVITY_LIST, "token=" + UtilsFunctions.getToken(context) +
@@ -135,7 +134,7 @@ public class ActivitiesFragment extends Fragment {
 
     private void throwError(String s) {
 
-        viewPager.setVisibility(View.GONE);
+        recyclerViewPager.setVisibility(View.GONE);
         progressbar.setVisibility(View.GONE);
         tv_error_message.setVisibility(View.VISIBLE);
 
@@ -150,51 +149,20 @@ public class ActivitiesFragment extends Fragment {
     public void mT(String string) {
 
         Toast.makeText(getActivity().getApplicationContext(), string, Toast.LENGTH_SHORT).show();
-    }
+   /**/ }
 
 
     private void buildUi(final ActivityDownloadEntity[] data) {
         // set adapter to the viewpager
         tv_error_message.setVisibility(View.GONE);
         progressbar.setVisibility(View.GONE);
-        viewPager.setVisibility(View.VISIBLE);
-        viewPager.setPageMargin(getResources().getDimensionPixelOffset(R.dimen.viewpager_margin));
-        final int pageCount = data.length;
-        viewPager.setOffscreenPageLimit(pageCount/2 + 1);
+        recyclerViewPager.setVisibility(View.VISIBLE);
 
-        viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                //if(position%2==0)
-                //    return new RecyclerViewFragment();
-                //else
-                return ScrollViewFragment.newInstance(data[position]);
-            }
-
-            @Override
-            public int getCount() {
-                return pageCount;
-            }
-        });
-
-        // get the actual being dragged items, and progressively change their margin.
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        pullToRefreshHorizontalScrollView.setInnerViewpager(viewPager);
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        recyclerViewPager.setLayoutManager(layout);
+        recyclerViewPager.addItemDecoration(new ItemDecorator(15));
+        adapter = new Adapter(data);
+        recyclerViewPager.setAdapter(adapter);
 
     }
 
@@ -281,16 +249,16 @@ public class ActivitiesFragment extends Fragment {
                 }
             });
             // Configure the refreshing colors
-            swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+            swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_green_light,
                     android.R.color.holo_green_light,
-                    android.R.color.holo_orange_light,
-                    android.R.color.holo_red_light);
+                    android.R.color.holo_green_light,
+                    android.R.color.holo_green_light);
             // add one element.
 //        for (int i = 0; i < 3; i++)
 //            addFakeElement(mRecyclerView);
             mLayoutManager = new LinearLayoutManager(context);
             mRecyclerView.setLayoutManager(mLayoutManager);
-//        reload();
+//          reload();
             return rootview2;
         }
 
@@ -399,5 +367,57 @@ public class ActivitiesFragment extends Fragment {
         }
     }
 
+
+    private class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
+
+        private final ActivityDownloadEntity[] data;
+
+        public Adapter(ActivityDownloadEntity[] data) {
+            this.data = data;
+        }
+
+        @Override
+        public Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_xml, null);
+            return (new ViewHolder(view));
+        }
+
+        @Override
+        public void onBindViewHolder(Adapter.ViewHolder holder, int position) {
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return data.length;
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+            }
+        }
+    }
+
+    private class ItemDecorator extends RecyclerViewPager.ItemDecoration {
+
+        private final int horizontalItemSpace;
+
+        public ItemDecorator(int horizontalItemSpace) {
+            super();
+            this.horizontalItemSpace = horizontalItemSpace;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+            if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
+                outRect.right = horizontalItemSpace;
+            }
+        }
+    }
 
 }

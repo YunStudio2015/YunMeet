@@ -39,20 +39,18 @@ public class ScrollViewFragment extends Fragment {
     }
 
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_scroll, container, false);
         context = rootview.getContext();
         String json_data = (String) getArguments().get("tag");
-Gson gson = new Gson();
+        Gson gson = new Gson();
         ActivityDownloadEntity entity = gson.fromJson(json_data, ActivityDownloadEntity.class);
 
         /* set up the data inside the fragment */
         ViewHolder vh = new ViewHolder (rootview);
-
+//
         inflateData(vh, entity);
 
         return rootview;
@@ -74,14 +72,14 @@ Gson gson = new Gson();
 
         /* inflate text'z */
         vh.tv_act_date_time.setText(entity.time);
-        vh.tv_act_launch_time.setText(entity.pubtime);
+        vh.tv_act_launch_time.setText(entity.getLaunchTime(context)/*pubtime*/);
         vh.tv_act_launcher_name.setText(entity.nickname);
         vh.tv_act_paymode.setText(entity.cost);
         vh.tv_act_people_count.setText(entity.pepnum+getResources().getString(R.string.meeting_people));
         vh.tv_activity_description.setText(entity.detail);
         vh.tv_activity_place.setText(entity.place);
         vh.tv_activity_title.setText(entity.theme);
-        vh.tv_sex_ic.setText(entity.sex);
+        vh.tv_sex_ic.setText(entity.getSexText(context));
         vh.tv_comment_count.setText(entity.commentnum+getResources().getString(R.string.commentcount));
 //        vh.tv_takepart_count.setText(entity.apply);
     }

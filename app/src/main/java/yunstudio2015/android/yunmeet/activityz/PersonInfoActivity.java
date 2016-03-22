@@ -81,7 +81,7 @@ public class PersonInfoActivity extends AppCompatActivity{
 
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(PersonInfoActivity.this));
-        final JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS_COUNT, new JSONObject(map), new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS_COUNT, new JSONObject(map), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {

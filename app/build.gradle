@@ -23,12 +23,15 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
     compile project(":pickphotos")
     compile project(":pulltorefresh")
     compile project(path: ':hollyviewpager')
     compile project(":emojicon")
     compile project(":datetimepicker")
     compile project(":SwipeNumberPicker")
+    compile project(":RecyclerViewpager")
+    compile project(":androidmosaiclayout")
     // actionbar tinting
     // photocropper
     // photo viewer that supports zoom

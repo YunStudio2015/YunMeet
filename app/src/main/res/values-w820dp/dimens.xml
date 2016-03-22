@@ -6,5 +6,5 @@
     <dimen name="hsc_left_margin">30dp</dimen>
     <dimen name="hsc_right_margin">30dp</dimen>
 
-    <dimen name="launch_button_margin_bottom">20dp</dimen>
+    <dimen name="launch_button_margin_bottom">0dp</dimen>
 </resources>

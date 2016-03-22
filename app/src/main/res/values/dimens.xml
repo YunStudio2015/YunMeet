@@ -54,5 +54,10 @@
     <dimen name="launch_activity_item_height">50dp</dimen>
     <dimen name="light_separation_line_height">1dp</dimen>
     <dimen name="bottom_launch_button_height">70dp</dimen>
+    <dimen name="ct_user_ppic_dim">50dp</dimen>
+    <dimen name="txt_username_size">14sp</dimen>
+    <dimen name="topic_desc_txtsize">12sp</dimen>
+    <dimen name="bottom_navigation_bar_plus_a_bit">60dp</dimen>
+    <dimen name="bt_corner_radius">3dp</dimen>
 
 </resources>

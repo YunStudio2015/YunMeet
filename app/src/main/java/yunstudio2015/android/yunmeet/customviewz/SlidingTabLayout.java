@@ -15,6 +15,9 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import yunstudio2015.android.yunmeet.R;
 
 /**
@@ -38,6 +41,9 @@ import yunstudio2015.android.yunmeet.R;
 
 
 public class SlidingTabLayout extends HorizontalScrollView {
+
+    private List<TextView> tabTextViews;
+
     /**
      * Allows complete control over the colors drawn in the tab layout. Set with
      * {@link #setCustomTabColorizer(TabColorizer)}.
@@ -113,6 +119,13 @@ public class SlidingTabLayout extends HorizontalScrollView {
     }
 
     /**
+     * Get the textiews that compose the tab strip
+     */
+    public List<TextView> getStripTextviewsList () {
+        return tabTextViews;
+    }
+
+    /**
      * Set the {@link ViewPager.OnPageChangeListener}. When using {@link SlidingTabLayout} you are
      * required to set any {@link ViewPager.OnPageChangeListener} through this method. This is so
      * that the layout can update it's scroll position correctly.
@@ -181,6 +194,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
         final PagerAdapter adapter = mViewPager.getAdapter();
         final View.OnClickListener tabClickListener = new TabClickListener();
 
+        tabTextViews = new ArrayList<>();
+
         for (int i = 0; i < adapter.getCount(); i++) {
             View tabView = null;
             TextView tabTitleView = null;
@@ -217,6 +232,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
             if (i == mViewPager.getCurrentItem()) {
                 tabView.setSelected(true);
             }
+            tabTextViews.add(tabTitleView);
         }
     }
 

@@ -1,0 +1,43 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    tools:context="yunstudio2015.android.yunmeet.fragments.ChatTopicsItemFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_chattopic"
+        android:layout_width="match_parent"
+        android:background="@color/transparent"
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/bottom_navigation_bar_plus_a_bit"/>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/lny_error_message"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:text="@string/network_failure"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bt_action"
+            android:text="@string/retry"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</FrameLayout>

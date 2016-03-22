@@ -1,36 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<!--<com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/pulltorefresh_main"
     android:background="@color/page_background"
-    android:fillViewport="true">
+    android:fillViewport="true">-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/page_background"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- have another viewpager inside this one -->
 
 
-    <RelativeLayout
+ <!--   <yunstudio2015.android.yunmeet.customviewz.InnerScrollviewViewPager
+        android:id="@+id/vp_inner_activities"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <!-- have another viewpager inside this one -->
-        <yunstudio2015.android.yunmeet.customviewz.InnerScrollviewViewPager
-            android:id="@+id/vp_inner_activities"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:visibility="gone"/>
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>-->
+    <com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
+        android:background="@color/page_background"
+        android:paddingRight="15dp"
+        app:rvp_triggerOffset="0.1"
+        app:rvp_singlePageFling="true"
+        android:clipToPadding="false"
+       />
 
-        <TextView
-            android:id="@+id/error_message"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/error_message"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <ProgressBar
-            android:id="@+id/progressbar"
-            android:layout_centerInParent="true"
-            style="@style/Widget.AppCompat.ProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-
-</com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView>
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_centerInParent="true"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

@@ -33,6 +33,17 @@
         <item>ho</item>
     </string-array>
 
+    <string-array name="default_activity_categories_names">
+        <item>话题</item>
+        <item>活动</item>
+        <item>个人</item>
+    </string-array>
+
+    <string-array name="default_chat_topics_names">
+        <item>关注</item>
+        <item>广场</item>
+    </string-array>
+
     <string name="male_symbol">♂</string>
     <string name="female_symbol">♀</string>
 
@@ -111,7 +122,7 @@
     <string name="fans">粉丝</string>
     <string name="focus">关注</string>
     <string name="radiobutton_bottom_menu_4">我的</string>
-    <string name="radiobutton_bottom_menu_3">跑友</string>
+    <string name="radiobutton_bottom_menu_3">好友</string>
     <string name="radiobutton_bottom_menu_2">信息</string>
     <string name="radiobutton_bottom_menu_1">跑友圈</string>
 
@@ -141,5 +152,18 @@
     <string name="test_title">标题还是算了吧</string>
     <string name="meeting_people">人约</string>
     <string name="commentcount">评论</string>
+    <string name="myspace">我的</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">天</string>
+    <string name="hour">小时</string>
+    <string name="minute">分钟</string>
+    <string name="before">前</string>
+    <string name="test_username">小寒</string>
+    <string name="topic">话题。。。请告诉我你这个话题是什么？ 一起来讨论吧。。。 呵呵</string>
+    <string name="retry">重试</string>
+    <string name="tvlike">   65 Likes</string>
+    <string name="tvcoms">   12 Comments</string>
+    <string name="loading_">加载中...</string>
 
 </resources>

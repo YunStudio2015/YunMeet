@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:paddingBottom="@dimen/bottom_navigation_bar"/>
+        />
     <!-- add a radio button inside -->
     <RadioGroup
         android:background="@color/white"
@@ -112,6 +112,7 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab1"
+            android:visibility="visible"
             android:layout_width="@dimen/flt_launch_button"
             android:layout_height="@dimen/flt_launch_button"
             android:clickable="true"

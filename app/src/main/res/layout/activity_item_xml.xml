@@ -1,303 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:yun="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
+    android:orientation="vertical"
     android:layout_marginTop="10dp"
-    android:layout_marginBottom="5dp"
-    >
+    android:layout_marginRight="15dp"
+    android:layout_marginBottom="10dp">
 
-    <RelativeLayout
-        android:id="@+id/relative"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/lny_activity_top"
         android:background="@color/white"
-        >
-        <!-- title && comments -->
-        <LinearLayout
-            android:id="@+id/lny_activity_top"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-           <ImageView
-                   android:src="@drawable/ic_comment"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tv_activity_title"
-                android:text="@string/letseat"
-                android:textColor="@color/actionbar_color"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:textSize="16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- below we get the images-->
-        <RelativeLayout
-            android:id="@+id/rel_imagezz"
-            android:layout_below="@+id/lny_activity_top"
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_height="wrap_content">
-
-            <!-- set up height and width programmatically
-                     android:src="@color/inner_gray"
-                     -->
-            <ImageView
-                android:id="@+id/iv_activity_bg"
-                android:src="@drawable/ic_activity_bg"
-                android:layout_width="match_parent"
-                android:adjustViewBounds="true"
-                android:layout_marginTop="5dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/transparent"
-                />
-            <RelativeLayout
-                android:layout_below="@id/iv_activity_bg"
-                android:layout_width="match_parent"
-                android:background="@color/transparent"
-                android:layout_height="50dp"/>
-            <!-- add user icon and information at the bottom of it.-->
-
-            <!-- add other items to the bottom of it. -->
-
-            <RelativeLayout
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
-                android:background="@color/transparent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_height="wrap_content">
-
-                <yunstudio2015.android.yunmeet.customviewz.CircleImageView
-                    android:id="@+id/iv_activity_owner"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    yun:border_width="7dp"
-                    yun:border_color="@color/white"
-                    android:background="@null"
-                    android:layout_alignParentBottom="true"
-                    android:src="@null"/>
-
-                <LinearLayout
-                    android:layout_toRightOf="@+id/iv_activity_owner"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/iv_activity_owner"
-                    android:paddingBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/lny_namesex">
-
-                    <TextView
-                        android:id="@+id/tv_act_launcher_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="伍乐"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        />
-                    <TextView
-                        android:id="@+id/tv_act_sex_ic"
-                        android:padding="2dp"
-                        android:background="@color/little_red"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="8sp"
-                        android:text="@string/test_female_symbol"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:paddingBottom="10dp"
-                    android:layout_alignBaseline="@+id/lny_namesex"
-                    android:gravity="center_vertical"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tv_act_launch_time"
-                        android:layout_gravity="center_vertical"
-                        android:text="30 分钟前"
-                        android:textSize="10sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <ImageView
-                        android:layout_marginLeft="5dp"
-                        android:src="@drawable/ic_time_before"
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-
-
-        </RelativeLayout>
-
-        <!-- 几个人约 -->
-        <LinearLayout
-            android:id="@+id/lny1"
-            android:layout_below="@+id/rel_imagezz"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/ic_manypeople"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <!-- <LinearLayout
-                 android:orientation="horizontal"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content">-->
-            <TextView
-                android:textSize="12sp"
-                android:text="2人约"
-                android:id="@+id/tv_act_people_count"
-                android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textSize="12sp"
-                android:text="AA制"
-                android:id="@+id/tv_act_paymode"
-                android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <!-- </LinearLayout>-->
-
-        <!-- 约会什么时候 -->
-        <LinearLayout
-            android:id="@+id/lny2"
-            android:layout_below="@+id/lny1"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/ic_activity_detailz_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textSize="12sp"
-                android:text="19点半"
-                android:id="@+id/tv_act_date_time"
-                android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- 约会位置 -->
-        <LinearLayout
-            android:id="@+id/lny3"
-            android:layout_below="@+id/lny2"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/ic_activity_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-               android:id="@+id/tv_activity_place"
-                android:textSize="12sp"
-                android:text="理工大学丁香园"
-                android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- 约会主题 -->
-        <LinearLayout
-            android:id="@+id/lny4"
-            android:layout_below="@+id/lny3"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/ic_activity_theme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tv_activity_description"
-                android:textSize="12sp"
-                android:text="@string/sample"
-                android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/linez"
-        android:layout_below="@id/relative"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp"
-        android:background="@color/inner_grayerzz" />
-
-
-    <RelativeLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_below="@+id/linez"
-        android:paddingBottom="5dp"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:textSize="12sp"
-            android:layout_alignParentLeft="true"
-            android:id="@+id/tv_viewed_count"
-            android:text="阅读 555"
+        <ImageView
+            android:src="@drawable/ic_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
         <TextView
-            android:textSize="12sp"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/tv_takepart_count"
-            android:text="参加人数 41"
+            android:id="@+id/tv_activity_title"
+            android:text="@string/letseat"
+            android:textColor="@color/actionbar_color"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+    </LinearLayout>
+    <ScrollView
+        android:paddingBottom="@dimen/bottom_navigation_bar_plus_a_bit"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+                <!-- title && comments -->
+                <!-- below we get the images-->
+                <RelativeLayout
+                    android:id="@+id/rel_imagezz"
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:layout_height="wrap_content">
 
-        <TextView
-            android:textSize="@dimen/activity_details_tv_fontsize"
-            android:layout_alignParentRight="true"
-            android:id="@+id/tv_comment_count"
-            android:text="评论 75"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+                    <!-- set up height and width programmatically
+                             android:src="@color/inner_gray"
+                             -->
+                    <ImageView
+                        android:id="@+id/iv_activity_bg"
+                        android:src="@drawable/ic_activity_bg"
+                        android:layout_width="match_parent"
+                        android:adjustViewBounds="true"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@color/transparent"
+                        />
+                    <RelativeLayout
+                        android:layout_below="@id/iv_activity_bg"
+                        android:layout_width="match_parent"
+                        android:background="@color/transparent"
+                        android:layout_height="50dp"/>
+                    <!-- add user icon and information at the bottom of it.-->
 
-    </RelativeLayout>
+                    <!-- add other items to the bottom of it. -->
 
-</RelativeLayout>
+                    <RelativeLayout
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="match_parent"
+                        android:background="@color/transparent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content">
+
+                        <yunstudio2015.android.yunmeet.customviewz.CircleImageView
+                            android:id="@+id/iv_activity_owner"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            yun:border_width="7dp"
+                            yun:border_color="@color/white"
+                            android:background="@null"
+                            android:layout_alignParentBottom="true"
+                            android:src="@drawable/ic_fiy"/>
+
+                        <LinearLayout
+                            android:layout_toRightOf="@+id/iv_activity_owner"
+                            android:layout_alignParentBottom="true"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/iv_activity_owner"
+                            android:paddingBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:id="@+id/lny_namesex">
+
+                            <TextView
+                                android:id="@+id/tv_act_launcher_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="伍乐"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                />
+                            <TextView
+                                android:id="@+id/tv_act_sex_ic"
+                                android:padding="2dp"
+                                android:background="@color/little_red"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:text="@string/test_female_symbol"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:paddingBottom="10dp"
+                            android:layout_alignBaseline="@+id/lny_namesex"
+                            android:gravity="center_vertical"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_act_launch_time"
+                                android:layout_gravity="center_vertical"
+                                android:text="30 分钟前"
+                                android:textSize="10sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <ImageView
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/ic_time_before"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <!-- 几个人约 -->
+                <LinearLayout
+                    android:id="@+id/lny1"
+                    android:layout_below="@+id/rel_imagezz"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/ic_manypeople"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <!-- <LinearLayout
+                         android:orientation="horizontal"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content">-->
+                    <TextView
+                        android:textSize="12sp"
+                        android:text="2人约"
+                        android:id="@+id/tv_act_people_count"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textSize="12sp"
+                        android:text="AA制"
+                        android:id="@+id/tv_act_paymode"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <!-- </LinearLayout>-->
+
+                <!-- 约会什么时候 -->
+                <LinearLayout
+                    android:id="@+id/lny2"
+                    android:layout_below="@+id/lny1"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/ic_activity_detailz_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textSize="12sp"
+                        android:text="19点半"
+                        android:id="@+id/tv_act_date_time"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!-- 约会位置 -->
+                <LinearLayout
+                    android:id="@+id/lny3"
+                    android:layout_below="@+id/lny2"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/ic_activity_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_activity_place"
+                        android:textSize="12sp"
+                        android:text="理工大学丁香园"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!-- 约会主题 -->
+                <LinearLayout
+                    android:id="@+id/lny4"
+                    android:layout_below="@+id/lny3"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/ic_activity_theme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_activity_description"
+                        android:textSize="12sp"
+                        android:text="@string/sample"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/linez"
+                android:layout_below="@id/relative"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:background="@color/inner_grayerzz" />
+
+
+            <RelativeLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/linez"
+                android:paddingBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="12sp"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/tv_viewed_count"
+                    android:text="阅读 555"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="12sp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/tv_takepart_count"
+                    android:text="参加人数 41"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="@dimen/activity_details_tv_fontsize"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/tv_comment_count"
+                    android:text="评论 75"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
