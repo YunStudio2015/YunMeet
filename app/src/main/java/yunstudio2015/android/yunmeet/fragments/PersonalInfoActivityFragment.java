@@ -1,5 +1,6 @@
 package yunstudio2015.android.yunmeet.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.activityz.ActivityDetailsActivity;
 import yunstudio2015.android.yunmeet.adapterz.SimpleActivityAdapter;
 import yunstudio2015.android.yunmeet.entityz.SimpleActivityItem;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
@@ -77,7 +79,8 @@ public class PersonalInfoActivityFragment extends Fragment {
                         adapter.setOnItemClickListener(new SimpleActivityAdapter.OnRecyclerViewItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                Toast.makeText(getContext(),String.valueOf(position),Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getActivity(), ActivityDetailsActivity.class);
+                                startActivity(intent);
                             }
                         });
 
