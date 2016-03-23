@@ -75,6 +75,7 @@ public class PersonalInfoTopicFragment extends Fragment {
                             @Override
                             public void onItemClick(View view, int position) {
                                 Intent intent = new Intent(getActivity(), TopicDetailsActivity.class);
+                                intent.putExtra("topicID",list.get(position).getId());
                                 startActivity(intent);
                             }
                         });

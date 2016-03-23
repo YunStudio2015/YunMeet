@@ -80,6 +80,8 @@ public class PersonalInfoActivityFragment extends Fragment {
                             @Override
                             public void onItemClick(View view, int position) {
                                 Intent intent = new Intent(getActivity(), ActivityDetailsActivity.class);
+                                intent.putExtra("activityID",list.get(position).getID());
+                                intent.putExtra("activityIMG",list.get(position).getImage());
                                 startActivity(intent);
                             }
                         });
