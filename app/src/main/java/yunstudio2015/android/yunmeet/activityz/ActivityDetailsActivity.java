@@ -1,0 +1,142 @@
+package yunstudio2015.android.yunmeet.activityz;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.customviewz.CircleImageView;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
+import yunstudio2015.android.yunmeet.utilz.YunApi;
+
+/**
+ * Created by lizhaotailang on 2016/3/22.
+ */
+public class ActivityDetailsActivity extends AppCompatActivity {
+
+    private RequestQueue queue;
+
+    private ImageView ivActivity;
+    private TextView tvActivityTitle;
+    private CircleImageView circleIvOwner;
+    private TextView tvActLauncherName;
+    private TextView tvActSexIc;
+    private TextView tvActLaunchTime;
+    private TextView tvActPeopleCount;
+    private TextView tvActPaymode;
+    private TextView tvActDateTime;
+    private TextView tvActivityPlace;
+    private TextView tvActivityDescription;
+    private TextView tvViewedCount;
+    private TextView tvTakepartCount;
+    private TextView tvCommentCount;
+
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_details_layout);
+
+        queue = Volley.newRequestQueue(getApplicationContext());
+
+        initViews();
+
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("activityID");
+        String IMG = intent.getStringExtra("activityIMG");
+
+
+        Glide.with(ActivityDetailsActivity.this).load(parseUrl(IMG)).into(ivActivity);
+
+        //TODO:这里还要获取屏幕宽度，然后将imageview的高度设置为何屏幕宽度相同
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("token", UtilsFunctions.getToken(ActivityDetailsActivity.this));
+        map.put("id",id);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_ACTIVITY, new JSONObject(map), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (response.getString("error").equals("0")){
+                        JSONArray array = response.getJSONArray("data");
+                        tvActivityTitle.setText(array.getJSONObject(0).getString("theme"));
+                        Glide.with(ActivityDetailsActivity.this).load(parseUrl(array.getJSONObject(0).getString("face"))).into(circleIvOwner);
+                        tvActLauncherName.setText(array.getJSONObject(0).getString("nickname"));
+                        if (array.getJSONObject(0).getString("sex").equals("0")){
+                            tvActSexIc.setText(getString(R.string.male_symbol));
+                        } else {
+                            tvActSexIc.setText(getString(R.string.female_symbol));
+                        }
+                        tvActLaunchTime.setText(array.getJSONObject(0).getString("pubtime"));
+                        tvActPeopleCount.setText(array.getJSONObject(0).getString("passnum"));
+                        //TODO,解析获取的数字和文字的对应关系，PAYMODE
+                        /*if (array.getJSONObject(0).getString("cost").equals("0")){
+                            tvActPaymode.setText("我请客");
+                        }*/
+                        tvActDateTime.setText(array.getJSONObject(0).getString("time"));
+                        tvActivityPlace.setText(array.getJSONObject(0).getString("place"));
+                        tvActivityDescription.setText(array.getJSONObject(0).getString("detail"));
+                        tvViewedCount.setText(array.getJSONObject(0).getString("view"));
+                        tvTakepartCount.setText(array.getJSONObject(0).getString("passnum"));
+                        tvCommentCount.setText(array.getJSONObject(0).getString("comment"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        queue.add(request);
+    }
+
+    private void initViews() {
+
+        ivActivity = (ImageView) findViewById(R.id.iv_activity_bg);
+        tvActivityTitle = (TextView) findViewById(R.id.tv_activity_title);
+        circleIvOwner = (CircleImageView) findViewById(R.id.iv_activity_owner);
+        tvActLauncherName = (TextView) findViewById(R.id.tv_act_launcher_name);
+        tvActSexIc = (TextView) findViewById(R.id.tv_act_sex_ic);
+        tvActLaunchTime = (TextView) findViewById(R.id.tv_act_launch_time);
+        tvActPeopleCount = (TextView) findViewById(R.id.tv_act_people_count);
+        tvActPaymode = (TextView) findViewById(R.id.tv_act_paymode);
+        tvActDateTime = (TextView) findViewById(R.id.tv_act_date_time);
+        tvActivityPlace = (TextView) findViewById(R.id.tv_activity_place);
+        tvActivityDescription = (TextView) findViewById(R.id.tv_activity_description);
+        tvViewedCount = (TextView) findViewById(R.id.tv_viewed_count);
+        tvTakepartCount = (TextView) findViewById(R.id.tv_takepart_count);
+        tvCommentCount = (TextView) findViewById(R.id.tv_comment_count);
+    }
+
+    private String parseUrl(String IMG){
+        IMG = IMG.replace("[","");
+        IMG = IMG.replace("]","");
+        IMG = IMG.replace("\\","");
+        IMG = IMG.replace("\"","");
+
+        return IMG;
+    }
+
+}

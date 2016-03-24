@@ -79,4 +79,6 @@ public class YunApi {
     public static final String GET_QQ_USER_INFO = "https://graph.qq.com/user/get_simple_userinfo";
 
     public static String URL_NEW_ACTIVITY = URL + "Atys/add";
+
+    public static String URL_GET_ACTIVITY = URL + "Atys/getInfo";
 }
