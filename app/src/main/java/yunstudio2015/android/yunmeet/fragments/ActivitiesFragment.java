@@ -1,14 +1,13 @@
 package yunstudio2015.android.yunmeet.fragments;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,15 +15,17 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,10 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.activityz.HallActivity;
 import yunstudio2015.android.yunmeet.adapterz.YunActivitiesListAdapter;
+import yunstudio2015.android.yunmeet.app.AppConstants;
+import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.entityz.ActivityDownloadEntity;
 import yunstudio2015.android.yunmeet.entityz.UploadActivityEntity;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
@@ -51,6 +55,7 @@ public class ActivitiesFragment extends Fragment {
     private FragmentManager fragmentManager;
     private ErrorFragment error_fragment;
     private Adapter adapter;
+    private Drawable placeholder;
 
 
     public static Fragment getInstance(String base_api) {
@@ -71,12 +76,11 @@ public class ActivitiesFragment extends Fragment {
 
     @Bind(R.id.list)
     RecyclerViewPager recyclerViewPager;
-/*
 
+/*
     @Bind(R.id.pulltorefresh_main)
     PullToRefreshHorizontalScrollView pullToRefreshHorizontalScrollView;
 */
-
 
     Map<String, Fragment> fragmentMap;
 
@@ -94,17 +98,30 @@ public class ActivitiesFragment extends Fragment {
         context = rootview.getContext();
         ButterKnife.bind(this, rootview);
         fragmentMap = new HashMap<>();
-        String base_api = getArguments().getString("base", BASE_ACTIVITIES_API);
+        placeholder = context.getResources().getDrawable(R.drawable.wait_for_load);
+//        buildUi();
+        return rootview;
+    }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        String base_api = getArguments().getString("base", BASE_ACTIVITIES_API);
         // id of the categorie, and it will help retrieve activities.
         /* */
+        loadData(base_api);
+        if (mListener == null)
+            mListener = (OnFragmentInteractionListener) getActivity();
+    }
 
+    private void loadData(String base_api) {
         VolleyRequest.GetStringRequest(context, YunApi.URL_GET_ACTIVITY_LIST, "token=" + UtilsFunctions.getToken(context) +
                 "&id=" + base_api, new VolleyOnResultListener() {
             @Override
             public void onSuccess(String response) {
 //                mT(response);
                 Gson gson = new Gson();
+                L.d(response);
                 try {
                     JsonElement resp = gson.fromJson(response, JsonElement.class);
                     ActivityDownloadEntity[] data = gson.fromJson(resp.getAsJsonObject().get("data"),
@@ -127,9 +144,6 @@ public class ActivitiesFragment extends Fragment {
 //                mT(error);
             }
         });
-
-//        buildUi();
-        return rootview;
     }
 
     private void throwError(String s) {
@@ -161,29 +175,8 @@ public class ActivitiesFragment extends Fragment {
         LinearLayoutManager layout = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         recyclerViewPager.setLayoutManager(layout);
         recyclerViewPager.addItemDecoration(new ItemDecorator(15));
-        adapter = new Adapter(data);
+        adapter = new Adapter(data, mListener);
         recyclerViewPager.setAdapter(adapter);
-
-    }
-
-
-    private void hideFragments(FragmentTransaction transaction) {
-        if (error_fragment != null)
-            transaction.hide(error_fragment);
-    }
-
-    private void addFakeElement(RecyclerView mRecyclerView) {
-
-        mRecyclerView.setHasFixedSize(true);
-        // use a linear layout manager
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        // specify an adapter (see also next example)
-        List<UploadActivityEntity> myDataset = new ArrayList<>();
-        for (int i = 0; i < 8; i++)
-            myDataset.add(new UploadActivityEntity());
-        YunActivitiesListAdapter mAdapter = new YunActivitiesListAdapter(myDataset);
-        mRecyclerView.setAdapter(mAdapter);
     }
 
 
@@ -206,6 +199,15 @@ public class ActivitiesFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
+
+    // utils functions
+    public static int getScreenWidth (Context context) {
+        DisplayMetrics metrics = new DisplayMetrics();
+        ((HallActivity) context).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        return metrics.widthPixels;
+    }
+
 
 
     // error fragment
@@ -368,12 +370,15 @@ public class ActivitiesFragment extends Fragment {
     }
 
 
-    private class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
+    public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
 
         private final ActivityDownloadEntity[] data;
+        private final OnFragmentInteractionListener mListener;
 
-        public Adapter(ActivityDownloadEntity[] data) {
+
+        public Adapter(ActivityDownloadEntity[] data, OnFragmentInteractionListener mListener) {
             this.data = data;
+            this.mListener = mListener;
         }
 
         @Override
@@ -386,6 +391,50 @@ public class ActivitiesFragment extends Fragment {
         @Override
         public void onBindViewHolder(Adapter.ViewHolder holder, int position) {
 
+            ActivityDownloadEntity item = data[position];
+
+            // bind texts
+            holder.tv_act_launcher_name.setText(item.nickname);
+            holder.tv_act_paymode.setText(item.cost.equals("1") ? context.getResources().getString(R.string.i_invite) : (item.cost.equals("2") ?
+                    context.getResources().getString(R.string.look_for_invite) : context.getResources().getString(R.string.invite_aa)));
+            holder.tv_act_date_time.setText(item.time);
+            holder.tv_act_launch_time.setText(item.pubtime);
+            holder.tv_act_people_count.setText(item.pepnum);
+            holder.tv_activity_place.setText(item.place);
+            // setting background
+            Glide.with(context)
+                    .load(item.background)
+                    .centerCrop()
+                    .placeholder(placeholder)
+//                    .thumbnail(0.3f)
+                    .error(me.crosswall.photo.pick.R.drawable.default_error)
+                    .into(holder.iv_activity_bg);
+
+            // setting userface
+            Glide.with(context)
+                    .load(item.face)
+                    .centerCrop()
+                    .placeholder(placeholder)
+//                    .thumbnail(0.3f)
+                    .error(me.crosswall.photo.pick.R.drawable.default_error)
+                    .into(holder.iv_activity_owner);
+
+            holder.iv_activity_owner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // zooming
+                    Uri uri = Uri.parse(AppConstants.scheme_ui+"://"+AppConstants.authority);
+                    if (mListener != null)
+                        mListener.onFragmentInteraction(uri);
+                    else {
+                        Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
+
         }
 
         @Override
@@ -393,11 +442,73 @@ public class ActivitiesFragment extends Fragment {
             return data.length;
         }
 
+
         public class ViewHolder extends RecyclerView.ViewHolder {
+
+            @Bind(R.id.iv_activity_owner)
+            public ImageView iv_activity_owner;
+
+            @Bind(R.id.iv_activity_bg)
+            public ImageView iv_activity_bg;
+
+            @Bind(R.id.tv_act_launcher_name)
+            public TextView tv_act_launcher_name;
+
+            @Bind(R.id.tv_activity_title)
+            public TextView tv_activity_title;
+
+
+            @Bind(R.id.tv_act_sex_ic)
+            public TextView tv_act_sex_ic;
+
+            /* android:text="19点半"*/
+            @Bind(R.id.tv_act_date_time)
+            public TextView tv_act_date_time;
+
+            /*   android:text="理工大学丁香园"*/
+            @Bind(R.id.tv_activity_place)
+            public TextView tv_activity_place;
+
+
+            @Bind(R.id.tv_activity_description)
+            public TextView tv_activity_description;
+
+            /*  android:text="参加人数 41"*/
+            @Bind(R.id.tv_takepart_count)
+            public TextView tv_takepart_count;
+
+            /*   android:text="评论 75"*/
+            @Bind(R.id.tv_comment_count)
+            public TextView tv_comment_count;
+
+            /*  android:text="AA制"*/
+            @Bind(R.id.tv_act_paymode)
+            public TextView tv_act_paymode;
+
+            /*   android:text="阅读 555"*/
+            @Bind(R.id.tv_viewed_count)
+            public TextView tv_viewed_count;
+
+            /*  android:text="2人约"*/
+            @Bind(R.id.tv_act_people_count)
+            public TextView tv_act_people_count;
+
+            /* android:text="30 分钟前" */
+            @Bind(R.id.tv_act_launch_time)
+            public TextView tv_act_launch_time;
+
+
+
 
 
             public ViewHolder(View itemView) {
                 super(itemView);
+                ButterKnife.bind(this, itemView);
+                // set default size of background view.
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) iv_activity_bg.getLayoutParams();
+                params.width = ActivitiesFragment.getScreenWidth(context);
+                params.height = ActivitiesFragment.getScreenWidth(context);
+                iv_activity_bg.setLayoutParams(params);
             }
         }
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -62,6 +63,7 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
             "http://cdn.duitang.com/uploads/item/201507/29/20150729184755_3PEkC.jpeg",
             "http://bcs.kuaiapk.com/rbpiczy/Wallpaper/2013/9/18/ce3ce7b02b1d4a769e27946b1d8f69f8.jpg"
     };
+    private ColorDrawable placeholder = null;
 
     public ChatTopicRecyclerviewAdapter(List<Object> data) {
 
@@ -103,11 +105,12 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         if (hld instanceof ChatTopicViewHolder) {
             //
             ChatTopicViewHolder holder = (ChatTopicViewHolder) hld;
-            String[] tmpd = new String[]{
-                    tmpdata[getRandomInf(tmpdata.length)],  tmpdata[getRandomInf(tmpdata.length)],
-                    tmpdata[getRandomInf(tmpdata.length)],  tmpdata[getRandomInf(tmpdata.length)]
-                    ,  tmpdata[getRandomInf(tmpdata.length)]};
-            MosaicLayoutAdapter mAdapater = new MosaicLayoutAdapter(holder.iv_launcher.getContext(), tmpd);
+            if (holder.tmpd == null)
+                holder.tmpd = new String[]{
+                        tmpdata[getRandomInf(tmpdata.length)],  tmpdata[getRandomInf(tmpdata.length)],
+                        tmpdata[getRandomInf(tmpdata.length)],  tmpdata[getRandomInf(tmpdata.length)]
+                        ,  tmpdata[getRandomInf(tmpdata.length)]};
+            MosaicLayoutAdapter mAdapater = new MosaicLayoutAdapter(holder.iv_launcher.getContext(), holder.tmpd);
             holder.mosaicLayout.chooseRandomPattern(true);
             holder.mosaicLayout.setAdapter(mAdapater);
             holder.mosaicLayout.setOnItemClickListener(new OnItemClickListener() {
@@ -123,9 +126,10 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
                     .error(me.crosswall.photo.pick.R.drawable.default_error)
                     .into(holder.iv_launcher);
 
-        } else if (hld instanceof LoaderLayoutHolder) {
+            } else if (hld instanceof LoaderLayoutHolder) {
+                // if we get here, call the parent to let up update the quantity of data.
 
-        }
+            }
     }
 
     private int getRandomInf(int length) {
@@ -184,9 +188,12 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         @Bind(R.id.mosaic_layout)
         public   MosaicLayout mosaicLayout;
 
+        public String[] tmpd = null;
+
         public ChatTopicViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        // set up different patterns for different size of data array
         }
     }
 
@@ -214,9 +221,13 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.row_item, parent, false);
             ImageView image = (ImageView) rowView.findViewById(R.id.image);
+            if (placeholder == null) {
+                placeholder = new ColorDrawable(context.getResources().getColor(R.color.gray));
+            }
             Glide.with(context)
                     .load(values[position])
                     .centerCrop()
+                    .placeholder(placeholder)
 //                    .thumbnail(0.3f)
                     .error(me.crosswall.photo.pick.R.drawable.default_error)
                     .into(image);

@@ -71,7 +71,7 @@ public class ChatTopicsItemFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootview = inflater.inflate(R.layout.fragment_chat_topics_item, container, false);
         context = rootview.getContext();
-        int type = getArguments().getInt(param);
+        int type = getArguments().getInt(param, 0);
         ButterKnife.bind(this, rootview);
         // get the data according to the ...
         recyclerview_chattopic.setLayoutManager(new LinearLayoutManager(context));

@@ -297,7 +297,7 @@
                             <TextView
                                 android:id="@+id/tv_radiobutton_3_1"
                                 style="@style/launch_activity_basic_stylesheet_left"
-                                android:text="我请客"
+                                android:text="@string/i_invite"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
@@ -317,7 +317,7 @@
                             android:layout_height="wrap_content">
                             <TextView
                                 android:id="@+id/tv_radiobutton_3_2"
-                                android:text="求请客"
+                                android:text="@string/look_for_invite"
                                 style="@style/launch_activity_basic_stylesheet_left"
                                 android:textColor="@color/gray"
                                 android:layout_width="wrap_content"
@@ -338,7 +338,7 @@
                             android:layout_height="wrap_content">
                             <TextView
                                 android:id="@+id/tv_radiobutton_3_3"
-                                android:text="AA制"
+                                android:text="@string/invite_aa"
                                 style="@style/launch_activity_basic_stylesheet_left"
                                 android:textColor="@color/gray"
                                 android:layout_width="wrap_content"

@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize"
     tools:context="yunstudio2015.android.yunmeet.activityz.HallActivity"
     tools:showIn="@layout/activity_hall"
     >
@@ -14,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:layout_marginTop="?attr/actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
     <!-- add a radio button inside -->
@@ -124,4 +124,13 @@
             app:layout_anchorGravity="bottom|right|end"
             />
     </RelativeLayout>
+
+    <fragment
+        android:id="@+id/picture_shower"
+        class="yunstudio2015.android.yunmeet.fragments.ShowPicturesFragment"
+        android:name="yunstudio2015.android.yunmeet.fragments.ShowPicturesFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_chat_topics_item" />
+
 </FrameLayout>

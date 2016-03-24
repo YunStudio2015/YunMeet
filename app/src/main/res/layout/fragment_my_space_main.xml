@@ -4,129 +4,6 @@
     android:layout_height="match_parent"
     tools:context="yunstudio2015.android.yunmeet.fragments.MySpaceMainFragment">
 
-<<<<<<< HEAD
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:id="@+id/RL_my_space">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_person_info_bg"
-            android:scaleType="centerCrop"
-            android:src="@drawable/person_info_bg"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:text=">"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"/>
-
-        <yunstudio2015.android.yunmeet.customviewz.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/iv_person_info_face"
-            android:clickable="true"
-            android:layout_marginTop="40dp"
-            android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"
-            android:src="@drawable/setface" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_person_info_face"
-            android:id="@+id/person_info_1"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_person_info_name"
-                android:text="某用户的昵称"
-                android:textSize="@dimen/actionbar_title_size"
-                android:textColor="@color/inner_grayerzz"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_person_info_sex"
-                android:textSize="24sp"
-                android:text="@string/male_symbol"
-                android:textColor="@color/green"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/person_info_1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/actionbar_title_size"
-                android:textColor="@color/green"
-                android:text="@string/fans"
-                android:paddingRight="8dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/actionbar_title_size"
-                android:textColor="@color/green"
-                android:id="@+id/person_info_fans_amount"
-                android:paddingRight="8dp"
-                android:text="88" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/actionbar_title_size"
-                android:textColor="@color/green"
-                android:text="@string/focus"
-                android:paddingLeft="8dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/actionbar_title_size"
-                android:id="@+id/person_info_focus_amount"
-                android:textColor="@color/green"
-                android:text="88"
-                android:paddingLeft="8dp"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <View  android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:background="#dddddd" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/LL_new_msg"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingLeft="16dp">
-=======
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -136,7 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="240dp"
             android:id="@+id/RL_my_space">
->>>>>>> bd9740564afa44a55046b569ed018ce6f98fbd13
 
             <ImageView
                 android:layout_width="match_parent"

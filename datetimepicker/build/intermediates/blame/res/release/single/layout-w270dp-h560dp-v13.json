@@ -1,9 +1,5 @@
 [
     {
-        "merged": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\layout-w270dp-h560dp-v13\\date_picker_dialog.xml",
-        "source": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\layout-w270dp-h560dp\\date_picker_dialog.xml"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\res\\merged\\release\\layout-w270dp-h560dp-v13\\date_picker_dialog.xml",
         "source": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\layout-w270dp-h560dp\\date_picker_dialog.xml"
     }

@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,8 +31,6 @@ import com.google.gson.JsonElement;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.vi.swipenumberpicker.OnValueChangeListener;
 import com.vi.swipenumberpicker.SwipeNumberPicker;
-
-import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -56,8 +53,6 @@ import yunstudio2015.android.yunmeet.entityz.UploadActivityEntity;
 import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.UploadNewActivityTask;
-import yunstudio2015.android.yunmeet.utilz.UploadNewTopicTask;
-import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
@@ -274,7 +269,6 @@ public class LaunchActivityActivity extends AppCompatActivity implements View.On
                 }, 2000);
             }
         });
-
 
         bt_launch_activity.setOnClickListener(new View.OnClickListener() {
             @Override

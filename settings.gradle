@@ -1,2 +1,3 @@
-include ':app',':pickphotos',':hollyviewpager', ':pulltorefresh',':emojicon',':datetimepicker', ":SwipeNumberPicker", ':RecyclerViewpager',
+include ':app',':pickphotos',':hollyviewpager', ':pulltorefresh',':emojicon',':datetimepicker',
+        ':SwipeNumberPicker', ':RecyclerViewpager',
         ':androidmosaiclayout'

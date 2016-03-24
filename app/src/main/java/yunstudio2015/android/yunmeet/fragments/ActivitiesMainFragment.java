@@ -100,11 +100,10 @@ public class ActivitiesMainFragment extends Fragment {
 
         ActivitiesFragment activitiesFragment = null;
         if (frgz.containsKey(entity.name)) {
-            activitiesFragment = (ActivitiesFragment) frgz.get(entity.name);
+            activitiesFragment = (ActivitiesFragment) frgz.get(entity.id);
             transaction.show(activitiesFragment);
         }
         else {
-
             activitiesFragment = (ActivitiesFragment) ActivitiesFragment.getInstance(id);
             frgz.put(entity.name, activitiesFragment);
             transaction.add(R.id.fl_activitites_main, activitiesFragment, entity.name);

@@ -5,6 +5,11 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -53,40 +58,56 @@ public class MosaicLayout extends NestedScrollView {
 
 	/**
 	 * @param context: the context where the layout works in
-	 * 
+	 *
 	 * @description Constructor that pass an object of the context
 	 */
 	public MosaicLayout(Context context) {
 		super(context);
 		this.mContext = context;
-		if (frameLayout == null)
-
+		if (frameLayout == null) {
 			frameLayout = new FrameLayout(mContext);
+
+		}
 		Log.d("MosaicLayout", "MosaicLayout(Context context)");
 	}
 
 	public MosaicLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.mContext = context;
-		if (frameLayout == null)
+		if (frameLayout == null) {
 			frameLayout = new FrameLayout(mContext);
+			postSettings(frameLayout, attrs);
+		}
 		Log.d("MosaicLayout", "MosaicLayout(Context context, AttributeSet attrs)");
 
+	}
+
+	private void postSettings(FrameLayout frameLayout, AttributeSet attrs) {
+
+	/*	int[] attrsArray = new int[] {
+				android.R.attr.colorBackground, // 0
+		};
+		Context context = frameLayout.getContext();
+		TypedArray ta = context.obtainStyledAttributes(attrs, attrsArray);
+		ColorDrawable background = (ColorDrawable) ta.getDrawable(0);
+		frameLayout.setBackgroundColor(background.);
+		ta.recycle();*/
 	}
 
 	public MosaicLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		this.mContext = context;
-		if (frameLayout == null)
-
+		if (frameLayout == null) {
 			frameLayout = new FrameLayout(mContext);
+			postSettings(frameLayout, attrs);
+		}
 		Log.d("MosaicLayout", "MosaicLayout(Context context, AttributeSet attrs, int defStyle)");
 
 	}
 
 	/**
 	 * @param adapter: the adapter the binds the data to the layout
-	 * 
+	 *
 	 * @description this function set the adapter for the layout and start
 	 *              showing data according to it.
 	 * */
@@ -99,9 +120,9 @@ public class MosaicLayout extends NestedScrollView {
 	/**
 	 * @param x: the x coordinate on the screen
 	 * @param y: the y coordinate on the screen
-	 * 
+	 *
 	 * @return the cell object
-	 * 
+	 *
 	 * @description this function takes the x and y coordinates and find the
 	 *              cell where these coordinate exists
 	 * */
@@ -114,7 +135,7 @@ public class MosaicLayout extends NestedScrollView {
 
 	/**
 	 * @return the size of the data
-	 * 
+	 *
 	 * @description this function returns the size of the data
 	 * */
 	public int getCount() {
@@ -126,9 +147,9 @@ public class MosaicLayout extends NestedScrollView {
 	 * @param y1: the y coordinate of the first point
 	 * @param x2: the x coordinate of the second point
 	 * @param y2: the y coordinate of the second point
-	 * 
+	 *
 	 * @return the distance
-	 * 
+	 *
 	 * @description the distance value between two points
 	 * */
 	/*
@@ -138,12 +159,14 @@ public class MosaicLayout extends NestedScrollView {
 
 	/**
 	 * @param context: the context where the blocks are shown
-	 * 
+	 *
 	 * @description this function binds the data in already defined block
 	 *              pattern,
 	 * */
 	private void show(Context context) {
 		this.removeAllViews();
+		// draw a white background
+		frameLayout.removeAllViews();
 		do {
 			setPadding(1, 1, 1, 0);
 			display(context);
@@ -156,10 +179,10 @@ public class MosaicLayout extends NestedScrollView {
 	 * This function creates the wire frame for the blocks, where divide the
 	 * screen into cells (smallest unit), where each block can occupy one or
 	 * more cell.
-	 * 
+	 *
 	 * @param context
 	 *            context where the layout binds
-	 * 
+	 *
 	 * */
 	private void calculateAllCells(Context context) {
 
@@ -245,7 +268,7 @@ public class MosaicLayout extends NestedScrollView {
 			CellView cv = new CellView(cx);
 			View view = mAdapter.getView(postion, null, frameLayout);
 			cv.addView(view);
-			
+
 			LayoutParams params = new LayoutParams((int) blocks.get(i).width, (int) blocks.get(i).height);
 			params.setMargins((int) blocks.get(i).x1, (int) blocks.get(i).y1 + (int) blocks.get(i).getHeightShift(maxHeights), 0, 0);
 

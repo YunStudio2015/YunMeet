@@ -15,5 +15,6 @@ public class AppConstants {
             public static final String RECOMMEND = "re", HOT = "ho", FOLLOWING = "fo";
     }
 
-
+    public static final String authority = "yunstudio-ym";
+    public static final String scheme_ui = "uiinteractions", scheme_photo = "photo";
 }

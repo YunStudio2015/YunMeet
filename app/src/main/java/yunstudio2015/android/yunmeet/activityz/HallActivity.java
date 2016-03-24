@@ -9,24 +9,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -36,9 +35,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.HallActMainAdapter;
+import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.NoPaggingViewPager;
 import yunstudio2015.android.yunmeet.customviewz.SlidingTabLayout;
+import yunstudio2015.android.yunmeet.fragments.ActivitiesFragment;
 import yunstudio2015.android.yunmeet.fragments.ActivitiesMainFragment;
 import yunstudio2015.android.yunmeet.fragments.ChatMainFragment;
 import yunstudio2015.android.yunmeet.fragments.ChatTopicsItemFragment;
@@ -46,15 +47,19 @@ import yunstudio2015.android.yunmeet.fragments.ChatTopicsMainFragment;
 import yunstudio2015.android.yunmeet.fragments.DiscoverMainFragment;
 import yunstudio2015.android.yunmeet.fragments.MyFriendsMainFragment;
 import yunstudio2015.android.yunmeet.fragments.MySpaceMainFragment;
+import yunstudio2015.android.yunmeet.fragments.ShowPicturesFragment;
 
 
-public class HallActivity extends AppCompatActivity implements DiscoverMainFragment.OnFragmentInteractionListener,
+public class HallActivity extends AppCompatActivity implements
+        DiscoverMainFragment.OnFragmentInteractionListener,
         ActivitiesMainFragment.OnFragmentInteractionListener,
         ChatMainFragment.OnFragmentInteractionListener,
+        ActivitiesFragment.OnFragmentInteractionListener,
         MyFriendsMainFragment.OnFragmentInteractionListener,
         MySpaceMainFragment.OnFragmentInteractionListener,
         ChatTopicsMainFragment.OnFragmentInteractionListener,
-        ChatTopicsItemFragment.OnFragmentInteractionListener{
+        ChatTopicsItemFragment.OnFragmentInteractionListener,
+        ShowPicturesFragment.OnFragmentInteractionListener{
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -79,6 +84,11 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
 
     @Bind(R.id.tv_title)
     TextView tv_title;
+
+    @Bind(R.id.picture_shower)
+    View picture_shower;
+
+    private ShowPicturesFragment showpictureFragment;
 
     @Override
     public void onBackPressed() {
@@ -304,6 +314,36 @@ public class HallActivity extends AppCompatActivity implements DiscoverMainFragm
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+        // if uri means that we should hide the fragment, then we hide it.
+        showpictureFragment = (ShowPicturesFragment) getSupportFragmentManager().findFragmentById(R.id.picture_shower);
+
+        /* so it is an image, then, what we should do is show it... then try to show the bigger picture */
+
+        if (uri.getScheme().equals(AppConstants.scheme_photo)) {
+
+            /* show the small picture and load for the bigger */
+        }
+
+        if (uri.getScheme().equals(AppConstants.scheme_ui)) {
+            View frame = showpictureFragment.getView().findViewById(R.id.frame);
+            if (frame == null) {
+                Toast.makeText(this, "frame is null", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (frame.getVisibility() == View.VISIBLE) {
+                frame.setVisibility(View.GONE);
+                // hide the fragment
+                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+                trans.hide(showpictureFragment);
+                trans.commit();
+            } else {
+                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+                trans.show(showpictureFragment);
+                trans.commit();
+                frame.setVisibility(View.VISIBLE);
+            }
+        }
 
     }
 

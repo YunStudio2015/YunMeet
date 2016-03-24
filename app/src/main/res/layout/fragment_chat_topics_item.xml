@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:background="@color/transparent"
         android:visibility="gone"
+        android:listDivider="@drawable/topic_list_divider"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/bottom_navigation_bar_plus_a_bit"/>
 
@@ -41,3 +42,4 @@
     </LinearLayout>
 
 </FrameLayout>
+
