@@ -75,6 +75,12 @@ public class ChatTopicsItemFragment extends Fragment {
         ButterKnife.bind(this, rootview);
         // get the data according to the ...
         recyclerview_chattopic.setLayoutManager(new LinearLayoutManager(context));
+        recyclerview_chattopic.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
         loadData();
         return rootview;
     }

@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adhamenaya.androidmosaiclayout.listeners.OnItemClickListener;
+import com.adhamenaya.androidmosaiclayout.views.BlockPattern;
 import com.adhamenaya.androidmosaiclayout.views.MosaicLayout;
 import com.bumptech.glide.Glide;
 
@@ -63,6 +64,9 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
             "http://cdn.duitang.com/uploads/item/201507/29/20150729184755_3PEkC.jpeg",
             "http://bcs.kuaiapk.com/rbpiczy/Wallpaper/2013/9/18/ce3ce7b02b1d4a769e27946b1d8f69f8.jpg"
     };
+
+    public BlockPattern.BLOCK_PATTERN[] pattern1 = {};
+
     private ColorDrawable placeholder = null;
 
     public ChatTopicRecyclerviewAdapter(List<Object> data) {

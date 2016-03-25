@@ -21,6 +21,20 @@
             <option value="$PROJECT_DIR$/pulltorefresh" />
           </set>
         </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/RecyclerViewpager" />
+            <option value="$PROJECT_DIR$/SwipeNumberPicker" />
+            <option value="$PROJECT_DIR$/androidmosaiclayout" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/datetimepicker" />
+            <option value="$PROJECT_DIR$/emojicon" />
+            <option value="$PROJECT_DIR$/hollyviewpager" />
+            <option value="$PROJECT_DIR$/pickphotos" />
+            <option value="$PROJECT_DIR$/pulltorefresh" />
+          </set>
+        </option>
       </GradleProjectSettings>
     </option>
   </component>

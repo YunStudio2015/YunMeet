@@ -114,7 +114,7 @@ public class ActivitiesMainFragment extends Fragment {
     private void hideFragments(FragmentTransaction transaction) {
         // go arround the map and hide all the fragment
         for (String key : frgz.keySet()) {
-            transaction.hide((Fragment) frgz.get(key));
+            transaction.hide(frgz.get(key));
         }
     }
 
@@ -256,8 +256,8 @@ public class ActivitiesMainFragment extends Fragment {
                 ((TextView) view).setTextColor(getResources().getColor(R.color.btn_background));
                 previous_selected = (int) view.getTag(R.id.category_position);
                 String category_tag = (String) view.getTag(R.id.category_id);
-                setFragment(view.getContext(), category_tag);
-//                mToaz("selected id -- " + view.getTag(R.id.category_id));
+                mToaz("selected id -- " + view.getTag(R.id.category_id));
+//                setFragment(view.getContext(), category_tag);
             }
         }
     }
