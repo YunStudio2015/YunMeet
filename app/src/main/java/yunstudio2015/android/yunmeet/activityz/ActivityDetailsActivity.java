@@ -1,8 +1,10 @@
 package yunstudio2015.android.yunmeet.activityz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -115,6 +117,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
     private void initViews() {
 
         ivActivity = (ImageView) findViewById(R.id.iv_activity_bg);
+        ivActivity.setScaleType(ImageView.ScaleType.CENTER_CROP);
         tvActivityTitle = (TextView) findViewById(R.id.tv_activity_title);
         circleIvOwner = (CircleImageView) findViewById(R.id.iv_activity_owner);
         tvActLauncherName = (TextView) findViewById(R.id.tv_act_launcher_name);
@@ -137,6 +140,12 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         IMG = IMG.replace("\"","");
 
         return IMG;
+    }
+
+    private int getScreenWidth(Context context){
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        return dm.widthPixels;
     }
 
 }
