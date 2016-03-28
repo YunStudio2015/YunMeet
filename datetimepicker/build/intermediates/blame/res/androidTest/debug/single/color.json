@@ -1,18 +1,18 @@
 [
     {
-        "merged": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\date_picker_year_selector.xml",
-        "source": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\color\\date_picker_year_selector.xml"
+        "merged": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\date_picker_selector.xml",
+        "source": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\color\\date_picker_selector.xml"
     },
     {
-        "merged": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\done_text_color_dark.xml",
-        "source": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\color\\done_text_color_dark.xml"
+        "merged": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\done_text_color.xml",
+        "source": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\color\\done_text_color.xml"
     },
     {
-        "merged": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\done_text_color.xml",
-        "source": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\color\\done_text_color.xml"
+        "merged": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\date_picker_year_selector.xml",
+        "source": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\color\\date_picker_year_selector.xml"
     },
     {
-        "merged": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\date_picker_selector.xml",
-        "source": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\color\\date_picker_selector.xml"
+        "merged": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\done_text_color_dark.xml",
+        "source": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\color\\done_text_color_dark.xml"
     }
 ]

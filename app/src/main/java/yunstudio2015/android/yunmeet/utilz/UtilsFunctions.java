@@ -3,6 +3,8 @@ package yunstudio2015.android.yunmeet.utilz;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by Ulrich on 3/1/2016.
  */
@@ -13,6 +15,30 @@ public class UtilsFunctions {
         float scale = context.getResources().getDisplayMetrics().density;
         int dips=(int) ((pixel * scale) + 0.5f);
         return dips;
+    }
+
+    public static String encodedPath (String path)
+    {
+        String encodedPath = "";
+        try {
+            encodedPath = java.net.URLEncoder.encode(path, "ISO-8859-1");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return encodedPath;
+    }
+
+    public static String decodedPath (String encodedPath)
+    {
+        String decodedPath = "";
+        try {
+            decodedPath = java.net.URLDecoder.decode(encodedPath, "ISO-8859-1");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if (decodedPath.length() > 1)
+            decodedPath = decodedPath.substring(1);
+        return decodedPath;
     }
 
     public static int convertDiptoPx(int dips, Context context){

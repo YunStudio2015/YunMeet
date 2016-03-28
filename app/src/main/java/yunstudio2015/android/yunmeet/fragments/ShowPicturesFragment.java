@@ -6,7 +6,9 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +35,17 @@ public class ShowPicturesFragment extends Fragment {
 
 
     private OnFragmentInteractionListener mListener;
+    private String[] path = {"http://e.hiphotos.baidu.com/zhidao/pic/item/08f790529822720e68560ffe78cb0a46f21fab1e.jpg",
+            "http://c.hiphotos.baidu.com/zhidao/pic/item/d439b6003af33a870b354c87c45c10385243b5d7.jpg",
+            "http://img4.duitang.com/uploads/item/201203/02/20120302210557_KSWNP.thumb.600_0.jpeg",
+            "http://a.hiphotos.baidu.com/zhidao/pic/item/bd3eb13533fa828b26108612ff1f4134970a5a0b.jpg",
+            "http://pica.nipic.com/2007-12-25/2007122515616115_2.jpg",
+            "http://img4.imgtn.bdimg.com/it/u=20230736,313391552&fm=21&gp=0.jpg",
+            "http://imgstore.cdn.sogou.com/app/a/100540002/710338.jpg",
+            "http://c.hiphotos.baidu.com/zhidao/pic/item/d788d43f8794a4c22f0aafe10cf41bd5ac6e39ca.jpg",
+            "http://g.hiphotos.baidu.com/zhidao/pic/item/77c6a7efce1b9d16eb0ad811f2deb48f8d5464f4.jpg",
+            "http://img3.3lian.com/2014/c2/88/d/79.jpg",
+            "http://f.hiphotos.baidu.com/zhidao/pic/item/9213b07eca806538514d9b1f96dda144ad348212.jpg"};
 
     public ShowPicturesFragment() {
         // Required empty public constructor
@@ -71,8 +84,20 @@ public class ShowPicturesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
          /* retrieve the viewpager and inflate it setting it's adapter. */
-        relativeLayout.setOnClickListener(new OnClickListener_());
+//        relativeLayout.setOnClickListener(new OnClickListener_());
         vp_img_container.setOnClickListener(new OnClickListener_());
+        vp_img_container.setAdapter(new android.support.v4.app.FragmentPagerAdapter(getChildFragmentManager()) {
+
+            @Override
+            public Fragment getItem(int position) {
+                return ZoomImageFragment.newInstance(path[position]);
+            }
+
+            @Override
+            public int getCount() {
+                return path.length;
+            }
+        });
     }
 
 

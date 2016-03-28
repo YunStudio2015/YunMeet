@@ -380,6 +380,8 @@ public class RecyclerViewPager extends RecyclerView {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getLayoutManager() == null)
+            return false;
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             mPositionOnTouchDown = getLayoutManager().canScrollHorizontally()
                     ? ViewUtils.getCenterXChildPosition(this)

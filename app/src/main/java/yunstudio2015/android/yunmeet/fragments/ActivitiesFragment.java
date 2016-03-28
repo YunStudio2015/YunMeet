@@ -374,11 +374,13 @@ public class ActivitiesFragment extends Fragment {
 
         private final ActivityDownloadEntity[] data;
         private final OnFragmentInteractionListener mListener;
+        private final Gson gson;
 
 
         public Adapter(ActivityDownloadEntity[] data, OnFragmentInteractionListener mListener) {
             this.data = data;
             this.mListener = mListener;
+            gson = new Gson();
         }
 
         @Override
@@ -391,7 +393,7 @@ public class ActivitiesFragment extends Fragment {
         @Override
         public void onBindViewHolder(Adapter.ViewHolder holder, int position) {
 
-            ActivityDownloadEntity item = data[position];
+            final ActivityDownloadEntity item = data[position];
 
             // bind texts
             holder.tv_act_launcher_name.setText(item.nickname);
@@ -401,14 +403,19 @@ public class ActivitiesFragment extends Fragment {
             holder.tv_act_launch_time.setText(item.pubtime);
             holder.tv_act_people_count.setText(item.pepnum);
             holder.tv_activity_place.setText(item.place);
+            holder.tv_activity_description.setText(item.detail);
+            holder.tv_activity_title.setText(item.theme);
+
+/* ill need to build up the paterns for all view types, and then set the rules */
             // setting background
-            Glide.with(context)
-                    .load(item.background)
-                    .centerCrop()
-                    .placeholder(placeholder)
+            if (item.image != null && item.image.length > 0)
+                Glide.with(context)
+                        .load(item.image[0])
+                        .centerCrop()
+                        .placeholder(placeholder)
 //                    .thumbnail(0.3f)
-                    .error(me.crosswall.photo.pick.R.drawable.default_error)
-                    .into(holder.iv_activity_bg);
+                        .error(me.crosswall.photo.pick.R.drawable.default_error)
+                        .into(holder.iv_activity_bg);
 
             // setting userface
             Glide.with(context)
@@ -424,16 +431,30 @@ public class ActivitiesFragment extends Fragment {
                 public void onClick(View v) {
 
                     // zooming
-                    Uri uri = Uri.parse(AppConstants.scheme_ui+"://"+AppConstants.authority);
+                    Uri uri = Uri.parse(AppConstants.scheme_ui + "://" + AppConstants.authority + "/" +
+                            UtilsFunctions.encodedPath(gson.toJson(item.face)));
                     if (mListener != null)
                         mListener.onFragmentInteraction(uri);
                     else {
-                        Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
 
+            holder.iv_activity_bg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    // zooming
+                    Uri uri = Uri.parse(AppConstants.scheme_ui+"://"+AppConstants.authority+"/"+
+                            UtilsFunctions.encodedPath(gson.toJson(item.image)));
+                    if (mListener != null)
+                        mListener.onFragmentInteraction(uri);
+                    else {
+//                        Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
         }
 

@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -27,7 +28,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.rockerhieu.emojicon.emoji.Objects;
 
 import java.util.List;
 
@@ -48,6 +52,7 @@ import yunstudio2015.android.yunmeet.fragments.DiscoverMainFragment;
 import yunstudio2015.android.yunmeet.fragments.MyFriendsMainFragment;
 import yunstudio2015.android.yunmeet.fragments.MySpaceMainFragment;
 import yunstudio2015.android.yunmeet.fragments.ShowPicturesFragment;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
 
 public class HallActivity extends AppCompatActivity implements
@@ -60,6 +65,9 @@ public class HallActivity extends AppCompatActivity implements
         ChatTopicsMainFragment.OnFragmentInteractionListener,
         ChatTopicsItemFragment.OnFragmentInteractionListener,
         ShowPicturesFragment.OnFragmentInteractionListener{
+
+    private static final String FRG_SHOWPICTURE = "FRG_SHOWPICTURE";
+
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -85,15 +93,28 @@ public class HallActivity extends AppCompatActivity implements
     @Bind(R.id.tv_title)
     TextView tv_title;
 
-    @Bind(R.id.picture_shower)
-    View picture_shower;
 
     private ShowPicturesFragment showpictureFragment;
+    private Gson gson;
 
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        moveTaskToBack(true);
+        if (showpictureFragment != null && showpictureFragment.isVisible()) {
+            // hide it
+            hideShowPictureFragment();
+        } else {
+            moveTaskToBack(true);
+        }
+    }
+
+    private void hideShowPictureFragment() {
+
+        if (showpictureFragment != null) {
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+            trans.hide(showpictureFragment);
+            trans.commit();
+        }
     }
 
     private PopupWindow mPopupWindow;
@@ -108,7 +129,7 @@ public class HallActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hall);
         ButterKnife.bind(this);
-
+        gson = new Gson();
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
 
         setSupportActionBar(toolbar);
@@ -120,8 +141,6 @@ public class HallActivity extends AppCompatActivity implements
         // 不允许拖动animation
         hallmain_viewpager.setSwipeLocked(true);
         hallmain_viewpager.setScrollDurationFactor(0);
-
-        // setup bottom navigation panel
 
         // previously checked button id
         previouslyCheckButtonId = R.id.radiobutton_bottom_menu_1;
@@ -215,23 +234,21 @@ public class HallActivity extends AppCompatActivity implements
                         int flt_btHeight;
                         int flt_bt_margin_bottom = 0;
 
-                        if (getScreenWidth() /2 >= 600) {
+                        if (getScreenWidth() / 2 >= 600) {
                             flt_btHeight = getResources().getDimensionPixelSize(R.dimen.flt_launch_button_7_pouces);
                             flt_bt_margin_bottom = getResources().getDimensionPixelSize(R.dimen.launch_button_margin_bottom_7_pouces);
 
-                        }else {
+                        } else {
                             flt_btHeight = getResources().getDimensionPixelSize(R.dimen.flt_launch_button);
                             flt_bt_margin_bottom = getResources().getDimensionPixelSize(R.dimen.launch_button_margin_bottom);
                         }
 
 
-
                         TypedValue tv = new TypedValue();
-                        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
-                        {
+                        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
                             int actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
-                            L.d("computed one "+ (flt_btHeight/2 + flt_bt_margin_bottom));
-                            L.d("gotttt one "+ (getScreenHeight() - actionBarHeight - floatingActionButton.getY()));
+//                            L.d("computed one " + (flt_btHeight / 2 + flt_bt_margin_bottom));
+//                            L.d("gotttt one " + (getScreenHeight() - actionBarHeight - floatingActionButton.getY()));
 /*
                             L.d("screen width in px "+getScreenWidth());
                             L.d("screen width in dp "+ UtilsFunctions.convertPxtoDip(getScreenWidth(), HallActivity.this));
@@ -239,7 +256,7 @@ public class HallActivity extends AppCompatActivity implements
                         }
 
                         mPopupWindow.showAtLocation(v, Gravity.BOTTOM,
-                                0, /*(int) floatingActionButton.getY()*/ 4*flt_btHeight/3 + flt_bt_margin_bottom);
+                                0, /*(int) floatingActionButton.getY()*/ 4 * flt_btHeight / 3 + flt_bt_margin_bottom);
                         rel_popup_menu.setVisibility(View.VISIBLE);
                     }
                 });
@@ -252,7 +269,7 @@ public class HallActivity extends AppCompatActivity implements
                 });
             }
         });
-
+instantiateShowPictureFragment();
     }
 
     private int getScreenWidth() {
@@ -311,12 +328,22 @@ public class HallActivity extends AppCompatActivity implements
         win.setAttributes(winParams);
     }
 
+    public void instantiateShowPictureFragment () {
+        if (showpictureFragment == null) {
+            showpictureFragment = ShowPicturesFragment.newInstance();
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+            trans.add(R.id.frame_picture_shower, showpictureFragment, FRG_SHOWPICTURE);
+            trans.hide(showpictureFragment);
+            trans.commit();
+        }
+    }
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {
 
         // if uri means that we should hide the fragment, then we hide it.
-        showpictureFragment = (ShowPicturesFragment) getSupportFragmentManager().findFragmentById(R.id.picture_shower);
+        showpictureFragment = (ShowPicturesFragment) getSupportFragmentManager().findFragmentByTag(FRG_SHOWPICTURE);
 
         /* so it is an image, then, what we should do is show it... then try to show the bigger picture */
 
@@ -326,25 +353,47 @@ public class HallActivity extends AppCompatActivity implements
         }
 
         if (uri.getScheme().equals(AppConstants.scheme_ui)) {
-            View frame = showpictureFragment.getView().findViewById(R.id.frame);
-            if (frame == null) {
-                Toast.makeText(this, "frame is null", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (frame.getVisibility() == View.VISIBLE) {
-                frame.setVisibility(View.GONE);
+//            View frame = showpictureFragment.getView().findViewById(R.id.frame);
+//            if (frame == null) {
+//                Toast.makeText(this, "frame is null", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+            if (/*frame.getVisibility() == View.VISIBLE && */showpictureFragment.isVisible()) {
+//                frame.setVisibility(View.GONE);
                 // hide the fragment
-                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
                 trans.hide(showpictureFragment);
-                trans.commit();
             } else {
-                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
                 trans.show(showpictureFragment);
-                trans.commit();
-                frame.setVisibility(View.VISIBLE);
+//                frame.setVisibility(View.VISIBLE);
+//                trans.addToBackStack(null);
+            }
+            trans.commit();
+            if (gson == null) {
+                gson = new Gson();
+            }
+            Toast.makeText(this, UtilsFunctions.decodedPath(uri.getPath()), Toast.LENGTH_SHORT).show();
+            try {
+                Object imgz = gson.fromJson(UtilsFunctions.decodedPath(uri.getPath()), Object.class);
+                if (imgz instanceof String[]) {
+                    Toast.makeText(this, "show array", Toast.LENGTH_SHORT).show();
+                }
+                if (imgz instanceof String) {
+                    Toast.makeText(this, "show item", Toast.LENGTH_SHORT).show();
+                }
+                // let's show
+            } catch (Exception e) {
+                L.e("isnt showing object");
+                try {
+                    String[] imgz = gson.fromJson(UtilsFunctions.decodedPath(uri.getPath()), String[].class);
+                    if (imgz instanceof String[]) {
+                        Toast.makeText(this, "show array", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JsonSyntaxException e1) {
+                    L.e("isnt showing object array");
+                }
             }
         }
-
     }
 
     @Override

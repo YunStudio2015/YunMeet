@@ -125,12 +125,10 @@
             />
     </RelativeLayout>
 
-    <fragment
-        android:id="@+id/picture_shower"
-        class="yunstudio2015.android.yunmeet.fragments.ShowPicturesFragment"
-        android:name="yunstudio2015.android.yunmeet.fragments.ShowPicturesFragment"
+    <FrameLayout
+        android:id="@+id/frame_picture_shower"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_chat_topics_item" />
+        />
 
 </FrameLayout>
