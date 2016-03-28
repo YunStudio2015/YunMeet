@@ -96,10 +96,15 @@ public class ActivityDetailsActivity extends AppCompatActivity {
                         }
                         tvActLaunchTime.setText(array.getJSONObject(0).getString("pubtime"));
                         tvActPeopleCount.setText(array.getJSONObject(0).getString("passnum"));
-                        //TODO,解析获取的数字和文字的对应关系，PAYMODE
-                        /*if (array.getJSONObject(0).getString("cost").equals("0")){
-                            tvActPaymode.setText("我请客");
-                        }*/
+
+                        if (array.getJSONObject(0).getString("cost").equals("0")){
+                            tvActPaymode.setText(getString(R.string.i_invite));
+                        } else if (array.getJSONObject(0).getString("cost").equals("1")){
+                            tvActPaymode.setText(getString(R.string.look_for_invite));
+                        } else {
+                            tvActPaymode.setText(getString(R.string.invite_aa));
+                        }
+
                         tvActDateTime.setText(array.getJSONObject(0).getString("time"));
                         tvActivityPlace.setText(array.getJSONObject(0).getString("place"));
                         tvActivityDescription.setText(array.getJSONObject(0).getString("detail"));

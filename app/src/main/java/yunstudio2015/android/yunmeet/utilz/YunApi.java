@@ -75,10 +75,9 @@ public class YunApi {
     //获取用户的粉丝和关注的人的列表
     public static final String URL_GET_FOCUS = URL + "User/getFocus";
 
-    // 获取QQ用户信息接口
-    public static final String GET_QQ_USER_INFO = "https://graph.qq.com/user/get_simple_userinfo";
-
     public static String URL_NEW_ACTIVITY = URL + "Atys/add";
 
     public static String URL_GET_ACTIVITY = URL + "Atys/getInfo";
+
+    public static String URL_GET_TOPIC = URL + "Topic/getList";
 }
