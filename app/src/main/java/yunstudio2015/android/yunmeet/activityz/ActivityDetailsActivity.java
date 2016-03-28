@@ -2,11 +2,14 @@ package yunstudio2015.android.yunmeet.activityz;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -66,10 +69,13 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         String id = intent.getStringExtra("activityID");
         String IMG = intent.getStringExtra("activityIMG");
 
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivActivity.getLayoutParams();
+        params.width = getScreenWidth(ActivityDetailsActivity.this);
+        params.height = getScreenWidth(ActivityDetailsActivity.this);
+        ivActivity.setLayoutParams(params);
 
-        Glide.with(ActivityDetailsActivity.this).load(parseUrl(IMG)).into(ivActivity);
+        Glide.with(ActivityDetailsActivity.this).load(parseUrl(IMG)).centerCrop().into(ivActivity);
 
-        //TODO:这里还要获取屏幕宽度，然后将imageview的高度设置为何屏幕宽度相同
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(ActivityDetailsActivity.this));
         map.put("id",id);
@@ -80,6 +86,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
                     if (response.getString("error").equals("0")){
                         JSONArray array = response.getJSONArray("data");
                         tvActivityTitle.setText(array.getJSONObject(0).getString("theme"));
+                        circleIvOwner.setBackgroundColor(Color.TRANSPARENT);
                         Glide.with(ActivityDetailsActivity.this).load(parseUrl(array.getJSONObject(0).getString("face"))).into(circleIvOwner);
                         tvActLauncherName.setText(array.getJSONObject(0).getString("nickname"));
                         if (array.getJSONObject(0).getString("sex").equals("0")){
@@ -117,7 +124,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
     private void initViews() {
 
         ivActivity = (ImageView) findViewById(R.id.iv_activity_bg);
-        ivActivity.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
         tvActivityTitle = (TextView) findViewById(R.id.tv_activity_title);
         circleIvOwner = (CircleImageView) findViewById(R.id.iv_activity_owner);
         tvActLauncherName = (TextView) findViewById(R.id.tv_act_launcher_name);

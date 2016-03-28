@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import uk.co.senab.photoview.PhotoViewAttacher;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.app.AppConstants;
 
@@ -38,7 +39,7 @@ public class ZoomImageFragment extends Fragment {
                 .error(me.crosswall.photo.pick.R.drawable.default_error)
                 .into(imageView);
         // Attach a PhotoViewAttacher, which takes care of all of the zooming functionality.
-        mAttacher = new PhotoViewAttacher(mImageView);
+        mAttacher = new PhotoViewAttacher(imageView);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
