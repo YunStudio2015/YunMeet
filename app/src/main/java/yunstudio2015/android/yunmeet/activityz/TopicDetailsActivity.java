@@ -11,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,6 +61,14 @@ public class TopicDetailsActivity extends AppCompatActivity {
                     if (response.getString("error").equals("0")){
                         JSONArray array = response.getJSONArray("data");
                         tvTopic.setText(array.getJSONObject(0).getString("content"));
+                        tvUserName.setText(array.getJSONObject(0).getString("nickname"));
+                        tvTime.setText(array.getJSONObject(0).getString("pubtime"));
+                        String s = array.getJSONObject(0).getString("for_num") + "赞";
+                        tvLike.setText(s);
+                        s = array.getJSONObject(0).getString("comment_num") + "评论";
+                        tvComment.setText(s);
+
+                        Glide.with(TopicDetailsActivity.this).load(array.getJSONObject(0).getString("face")).centerCrop().into(circleImageView);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
