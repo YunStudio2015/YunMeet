@@ -168,5 +168,10 @@
     <string name="i_invite">我请客</string>
     <string name="look_for_invite">求请客</string>
     <string name="invite_aa">AA制</string>
+    <string name="hot_act">热门活动</string>
+    <string name="recommend_act">推荐活动</string>
+    <string name="new_act">城市活动</string>
+    <string name="title_activity_activity_category_actitivy">ActivityCategoryActitivy</string>
+
 
 </resources>

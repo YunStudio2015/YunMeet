@@ -3,17 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
+    android:id="@+id/swp"
     tools:context="yunstudio2015.android.yunmeet.fragments.ChatTopicsItemFragment">
 
+
     <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview_chattopic"
+    <yunstudio2015.android.yunmeet.customviewz.SuperSwipeRefreshLayout
         android:layout_width="match_parent"
-        android:background="@color/transparent"
-        android:visibility="gone"
-        android:listDivider="@drawable/topic_list_divider"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/bottom_navigation_bar_plus_a_bit"/>
+        android:id="@+id/superswp"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_chattopic"
+            android:layout_width="match_parent"
+            android:background="@color/transparent"
+            android:visibility="gone"
+            android:listDivider="@drawable/topic_list_divider"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/bottom_navigation_bar_plus_a_bit"/>
+    </yunstudio2015.android.yunmeet.customviewz.SuperSwipeRefreshLayout>
 
     <LinearLayout
         android:visibility="gone"
@@ -23,13 +30,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <TextView
-        android:text="@string/network_failure"
-        android:textColor="@color/black"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/network_failure"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/bt_action"
@@ -40,6 +47,5 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
 </FrameLayout>
 

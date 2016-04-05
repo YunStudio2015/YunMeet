@@ -65,7 +65,11 @@ public class YunApi {
     //更改密码
     public static final String URL_FORGET_PASSWORD = URL + "User/setPwd";
     //获取单个用户发布的所有话题
-    public static final String URL_GET_TOPIC_LIST = URL + "Topic/getBriefList";
+    public static final String URL_GET_USER_TOPIC_LIST = URL + "Topic/getBriefList";
+
+    //获取话题列表
+    public static final String URL_GET_ALL_TOPIC_LIST = URL + "Topic/getList";
+
     //获取单个用户的发布的所有活动
     public static final String URL_GET_ACTIVITY_LIST = URL + "Atys/getList";
     //获取用户的粉丝和关注的人的数量

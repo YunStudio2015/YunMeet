@@ -3,7 +3,9 @@ package yunstudio2015.android.yunmeet.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.adhamenaya.androidmosaiclayout.views.MosaicLayout;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +27,17 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.ChatTopicRecyclerviewAdapter;
+import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
+import yunstudio2015.android.yunmeet.customviewz.SuperSwipeRefreshLayout;
+import yunstudio2015.android.yunmeet.entityz.ActivityDownloadEntity;
+import yunstudio2015.android.yunmeet.entityz.ChatTopicDownloadEntity;
+import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
+import yunstudio2015.android.yunmeet.interfacez.OnLoadFinishCallBack;
+import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
+import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 import static yunstudio2015.android.yunmeet.adapterz.ChatTopicRecyclerviewAdapter.*;
 
@@ -41,7 +55,8 @@ public class ChatTopicsItemFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private android.content.Context context;
-    private RecyclerView.Adapter adapter;
+    private ChatTopicRecyclerviewAdapter adapter;
+    private boolean islocalLoaded = false;
 
     public ChatTopicsItemFragment() {
         // Required empty public constructor
@@ -52,6 +67,9 @@ public class ChatTopicsItemFragment extends Fragment {
 
     @Bind(R.id.lny_error_message)
     LinearLayout lny_error_message;
+
+    @Bind(R.id.superswp)
+    SuperSwipeRefreshLayout swp;
 
 
     // TODO: Rename and change types and number of parameters
@@ -81,41 +99,144 @@ public class ChatTopicsItemFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-        loadData();
+        // load data from local store
+        loadFromLocal (new OnLoadFinishCallBack() {
+            @Override
+            public void loadDone() {
+                refresh();
+                islocalLoaded = true;
+            }
+
+            @Override
+            public void loadfailed(String msg) {
+            }
+        });
+
+        swp.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+
+            @Override
+            public void onPullDistance(int distance) {
+            }
+
+            @Override
+            public void onPullEnable(boolean enable) {
+            }
+        });
+        swp.setFooterView(LayoutInflater.from(getActivity()).inflate(R.layout.list_loader_layout, null));
         return rootview;
     }
 
-    private void loadData() {
+    public void refresh () {
+        swp.setRefreshing(true);
+        loadData(new OnLoadFinishCallBack() {
 
-        i_showProgressDialog();
+            @Override
+            public void loadDone() {
+                //
+                swp.setRefreshing(false);
+            }
+
+            @Override
+            public void loadfailed(String msg) {
+                swp.setRefreshing(false);
+            }
+        });
+    }
+
+
+
+    private void loadFromLocal(OnLoadFinishCallBack onLoadFinishCallBack) {
+
+        onLoadFinishCallBack.loadDone();
+    }
+
+
+
+    private void loadData(@Nullable final OnLoadFinishCallBack callBack) {
+        VolleyRequest.GetStringRequest(context, YunApi.URL_GET_ALL_TOPIC_LIST, "token=" + UtilsFunctions.getToken(context)
+                , new VolleyOnResultListener() {
+
+                    @Override
+                    public void onSuccess(String response) {
+                        L.d(response);
+                        Gson gson = new Gson();
+                        try {
+                            JsonElement resp = gson.fromJson(response, JsonElement.class);
+                            ChatTopicEntity[] data = gson.fromJson(resp.getAsJsonObject().get("data").getAsJsonArray(),
+                                    ChatTopicEntity[].class);
+                            buildUi(data);
+                            if (callBack!= null)
+                                callBack.loadDone();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            throwError("");
+                            if (callBack!= null)
+                                callBack.loadfailed("error");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+                        if (error.equals(context.getString(R.string.noconnection))) {
+                    /* 网络出问题可以显示。。。*/
+                            throwError(error);
+                        }
+                        throwError("");
+                        if (callBack!= null)
+                            callBack.loadfailed("error");
+                /* 不是那就是数据出问题了 */
+//                mT(error);
+                    }
+                });
+    }
+
+    private void throwError(String s) {
+
+           /* recyclerViewPager.setVisibility(View.GONE);
+            progressbar.setVisibility(View.GONE);
+            tv_error_message.setVisibility(View.VISIBLE);
+
+            if (!"".equals(s)) {
+                // empty content.... data error
+                tv_error_message.setText(s);
+                return;
+            }
+            tv_error_message.setText("大哥，你这问题很严重了。。。");*/
+    }
+
+    private void buildUi(ChatTopicEntity[] data) {
+
+
         List<Object> d = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
-            d.add(new Object());
+
+        for (ChatTopicEntity entity: data
+                ) {
+            d.add(entity);
         }
+        i_showLoadingIc();
+        // load data from the database.
         adapter = new ChatTopicRecyclerviewAdapter(d);
-        recyclerview_chattopic.addItemDecoration(new ChatTopicRecyclerviewAdapter.DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
+//        recyclerview_chattopic.addItemDecoration(new ChatTopicRecyclerviewAdapter.DividerItemDecoration(context, LinearLayoutManager.VERTICAL),1);
         recyclerview_chattopic.setAdapter(adapter);
         recyclerview_chattopic.setVisibility(View.VISIBLE);
-        i_dismissProgressDialog();
+        i_dismissLoadingIc();
     }
 
-    LoadingDialog dialog;
-    public void i_showProgressDialog() {
-        dialog = new LoadingDialog(context);
-        dialog.show();
+
+    public void i_showLoadingIc() {
+
     }
 
-    public void i_showProgressDialog(String mess) {
-        dialog = new LoadingDialog(context, mess);
-        dialog.show();
+    public void i_showLoadingIc(String mess) {
+
     }
 
-    public void i_dismissProgressDialog () {
-        if (dialog != null) {
-            dialog.cancel();
-            dialog.dismiss();
-            dialog = null;
-        }
+    public void i_dismissLoadingIc () {
+
     }
 
 

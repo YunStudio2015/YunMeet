@@ -89,6 +89,7 @@
                 android:hint="@string/edit_topic_hint"
                 android:gravity="top"
                 android:padding="3dp"
+                android:maxLength="198"
                 app:emojiconSize="20dp"
                 android:textCursorDrawable="@drawable/text_cursor_drawable"
                 android:layout_marginTop="16dp" />

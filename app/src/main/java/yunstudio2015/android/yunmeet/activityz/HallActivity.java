@@ -8,12 +8,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -31,7 +31,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
-import com.rockerhieu.emojicon.emoji.Objects;
 
 import java.util.List;
 
@@ -111,8 +110,11 @@ public class HallActivity extends AppCompatActivity implements
     private void hideShowPictureFragment() {
 
         if (showpictureFragment != null) {
+//            mT ("hide n null");
             FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-            trans.hide(showpictureFragment);
+//            trans.hide(showpictureFragment);
+            trans.remove(showpictureFragment);
+            showpictureFragment = null;
             trans.commit();
         }
     }
@@ -269,7 +271,7 @@ public class HallActivity extends AppCompatActivity implements
                 });
             }
         });
-instantiateShowPictureFragment();
+//        instantiateShowPictureFragment();
     }
 
     private int getScreenWidth() {
@@ -328,77 +330,72 @@ instantiateShowPictureFragment();
         win.setAttributes(winParams);
     }
 
-    public void instantiateShowPictureFragment () {
-        if (showpictureFragment == null) {
-            showpictureFragment = ShowPicturesFragment.newInstance();
-            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-            trans.add(R.id.frame_picture_shower, showpictureFragment, FRG_SHOWPICTURE);
-            trans.hide(showpictureFragment);
-            trans.commit();
+    /*public void instantiateShowPictureFragment () {
+
+        if (showpictureFragment != null) {
+            // remove the fragment from the view, and
+            // add a new.
         }
-    }
+        showpictureFragment = ShowPicturesFragment.newInstance();
+        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+        trans.add(R.id.frame_picture_shower, showpictureFragment, FRG_SHOWPICTURE);
+        trans.hide(showpictureFragment);
+        trans.commit();
+//        }
+    }*/
 
 
     @Override
     public void onFragmentInteraction(Uri uri) {
 
-        // if uri means that we should hide the fragment, then we hide it.
-        showpictureFragment = (ShowPicturesFragment) getSupportFragmentManager().findFragmentByTag(FRG_SHOWPICTURE);
-
-        /* so it is an image, then, what we should do is show it... then try to show the bigger picture */
-
-        if (uri.getScheme().equals(AppConstants.scheme_photo)) {
-
-            /* show the small picture and load for the bigger */
-        }
-
-        if (uri.getScheme().equals(AppConstants.scheme_ui)) {
-//            View frame = showpictureFragment.getView().findViewById(R.id.frame);
-//            if (frame == null) {
-//                Toast.makeText(this, "frame is null", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-            if (/*frame.getVisibility() == View.VISIBLE && */showpictureFragment.isVisible()) {
-//                frame.setVisibility(View.GONE);
-                // hide the fragment
-                trans.hide(showpictureFragment);
-            } else {
-                trans.show(showpictureFragment);
-//                frame.setVisibility(View.VISIBLE);
-//                trans.addToBackStack(null);
-            }
-            trans.commit();
-            if (gson == null) {
-                gson = new Gson();
-            }
-            Toast.makeText(this, UtilsFunctions.decodedPath(uri.getPath()), Toast.LENGTH_SHORT).show();
-            try {
-                Object imgz = gson.fromJson(UtilsFunctions.decodedPath(uri.getPath()), Object.class);
-                if (imgz instanceof String[]) {
-                    Toast.makeText(this, "show array", Toast.LENGTH_SHORT).show();
-                }
-                if (imgz instanceof String) {
-                    Toast.makeText(this, "show item", Toast.LENGTH_SHORT).show();
-                }
-                // let's show
-            } catch (Exception e) {
-                L.e("isnt showing object");
-                try {
-                    String[] imgz = gson.fromJson(UtilsFunctions.decodedPath(uri.getPath()), String[].class);
-                    if (imgz instanceof String[]) {
-                        Toast.makeText(this, "show array", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JsonSyntaxException e1) {
-                    L.e("isnt showing object array");
-                }
-            }
-        }
     }
 
     @Override
     public void finish() {
         super.finish();
         this.overridePendingTransition(android.R.anim.slide_in_left,R.anim.noanim);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri, @Nullable String[] themelinks) {
+
+        showpictureFragment = (ShowPicturesFragment) getSupportFragmentManager().findFragmentByTag(FRG_SHOWPICTURE);
+
+        /* so it is an image, then, what we should do is show it... then try to show the bigger picture */
+
+        if (uri.getScheme().equals(AppConstants.scheme_photo)) {
+            /* show the small picture and load for the bigger */
+        }
+        if (uri.getScheme().equals(AppConstants.scheme_ui)) {
+
+            if (gson == null) {
+                gson = new Gson();
+            }
+            String imgz = null;
+            try {
+                imgz = gson.fromJson(UtilsFunctions.decodedPath(uri.getPath()), String.class);
+            } catch (Exception e) {
+                L.e("isnt showing object");
+            }
+            //
+            if (imgz != null) {
+//                mT ("clicked on != null");
+//                showpictureFragment.updateData(imgz, themelinks);
+                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+                if (showpictureFragment == null) {
+//                    mT ("create n  show");
+                    showpictureFragment = ShowPicturesFragment.newInstance(imgz, themelinks);
+                    trans.add(R.id.frame_picture_shower, showpictureFragment, FRG_SHOWPICTURE);
+                }
+                if (showpictureFragment.isVisible()) {
+                    hideShowPictureFragment();
+                }
+                trans.commit();
+            }
+        }
+    }
+
+    private void mT(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 }

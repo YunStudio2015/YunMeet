@@ -101,6 +101,7 @@ public class ChatTopicsMainFragment extends Fragment {
             tabs.getStripTextviewsList().get(i).setTextColor(getResources().getColor(i == 0 ? R.color.btn_background : R.color.gray));
         }
         viewpager.setCurrentItem(0);
+        setisLoading(0);
     }
 
     // utils functions
@@ -108,6 +109,11 @@ public class ChatTopicsMainFragment extends Fragment {
         DisplayMetrics metrics = new DisplayMetrics();
         ((HallActivity) context).getWindowManager().getDefaultDisplay().getMetrics(metrics);
         return metrics.widthPixels;
+    }
+
+    public void setisLoading (int i) {
+        TextView tv = tabs.getStripTextviewsList().get(i);
+//        tv.setCompoundDrawables(getResources().getDrawable(R.drawable.progress_medium_white),null,null,null);
     }
 
 
@@ -118,7 +124,7 @@ public class ChatTopicsMainFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(uri, null);
         }
     }
 
@@ -151,7 +157,7 @@ public class ChatTopicsMainFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(Uri uri, @Nullable String[] themelinks);
     }
 
     private class ChatTopicsFragmentAdapter extends android.support.v4.app.FragmentPagerAdapter {

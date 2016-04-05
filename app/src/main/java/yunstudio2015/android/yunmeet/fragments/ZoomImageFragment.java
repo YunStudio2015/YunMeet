@@ -8,11 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import uk.co.senab.photoview.PhotoViewAttacher;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.app.AppConstants;
 
@@ -31,24 +34,32 @@ public class ZoomImageFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String imgurl = getArguments().getString("path");
+        final String imgurl = getArguments().getString("path");
         ButterKnife.bind(this, view);
         Glide.with(getActivity())
                 .load(imgurl)
                 .error(me.crosswall.photo.pick.R.drawable.default_error)
                 .into(imageView);
         // Attach a PhotoViewAttacher, which takes care of all of the zooming functionality.
-        mAttacher = new PhotoViewAttacher(mImageView);
-        view.setOnClickListener(new View.OnClickListener() {
+        mAttacher = new PhotoViewAttacher(imageView);
+        mAttacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override
-            public void onClick(View v) {
-                Uri uri = Uri.parse(AppConstants.scheme_ui+"://"+AppConstants.authority);
-                ((ShowPicturesFragment.OnFragmentInteractionListener)getActivity()).onFragmentInteraction(uri);
+            public void onViewTap(View view, float x, float y) {
+                Uri uri = Uri.parse(AppConstants.scheme_ui+"://"+AppConstants.authority+"/"+toGson(imgurl));
+                ((ActivitiesFragment.OnFragmentInteractionListener)getActivity()).onFragmentInteraction(uri, null);
             }
         });
     }
 
-    public static Fragment newInstance(String s) {
+
+    private Gson gson;
+    private String toGson (Object obj) {
+        if (gson == null)
+            gson = new Gson();
+        return gson.toJson(obj);
+    }
+
+    public static ZoomImageFragment newInstance(String s) {
 
         ZoomImageFragment frg = new ZoomImageFragment();
         Bundle args = new Bundle();
@@ -61,6 +72,23 @@ public class ZoomImageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.layout_image_fragment, container, false);
+    }
+
+    public void update(String s) {
+        if (imageView != null) {
+            mT("updating the view");
+            Glide.with(getActivity())
+                    .load(s)
+                    .error(me.crosswall.photo.pick.R.drawable.default_error)
+                    .into(imageView);
+            mAttacher.update();
+        }else {
+            mT("fragment imageview is null");
+        }
+    }
+
+    private void mT(String s) {
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 }
 

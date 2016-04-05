@@ -53,7 +53,7 @@ public class PersonalInfoTopicFragment extends Fragment {
 
         adapter = new SimpleTopicAdapter(getActivity(),list);
 
-        VolleyRequest.GetStringRequest(getActivity(), YunApi.URL_GET_TOPIC_LIST, "token=ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx", new VolleyOnResultListener() {
+        VolleyRequest.GetStringRequest(getActivity(), YunApi.URL_GET_USER_TOPIC_LIST, "token=ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx", new VolleyOnResultListener() {
             @Override
             public void onSuccess(String response) {
                 try {

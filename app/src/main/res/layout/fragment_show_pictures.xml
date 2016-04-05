@@ -19,5 +19,13 @@
         android:clickable="true"
         android:layout_height="match_parent"/>
 
+   <LinearLayout
+       android:layout_marginBottom="50dp"
+       android:gravity="bottom|center_horizontal"
+       android:layout_gravity="center_horizontal"
+       android:id="@+id/lny_ic_container"
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"/>
 
 </FrameLayout>

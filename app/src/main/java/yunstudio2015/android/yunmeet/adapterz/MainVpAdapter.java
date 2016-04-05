@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.fragments.ActivitiesMainFragment;
 import yunstudio2015.android.yunmeet.fragments.ChatTopicsMainFragment;
-import yunstudio2015.android.yunmeet.fragments.FreeListFragment;
+import yunstudio2015.android.yunmeet.fragments.MySpaceMainFragment;
 
 /**
  * Created by Ultima on 2015/11/25.
@@ -27,7 +27,7 @@ public class MainVpAdapter extends FragmentStatePagerAdapter {
         else if (position == 1)
             return ActivitiesMainFragment.getInstance();
         else
-            return FreeListFragment.getInstance();
+            return MySpaceMainFragment.newInstance();
     }
 
     @Override

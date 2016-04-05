@@ -1,36 +1,52 @@
 package yunstudio2015.android.yunmeet.fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.activityz.ActivityCategoryActitivy;
 import yunstudio2015.android.yunmeet.activityz.HallActivity;
 import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.entityz.ActivityCategoryEntity;
+import yunstudio2015.android.yunmeet.entityz.ActivityDownloadEntity;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
@@ -39,8 +55,10 @@ public class ActivitiesMainFragment extends Fragment {
 
 
     private OnFragmentInteractionListener mListener;
+    private Context context;
+    private Drawable placeholder;
 
-    private OnTopCategoryMenuClickListener tab_category_menu_listener;
+//    private OnTopCategoryMenuClickListener tab_category_menu_listener;
 
     public ActivitiesMainFragment() {
         // Required empty public constructor
@@ -59,13 +77,23 @@ public class ActivitiesMainFragment extends Fragment {
     }
 
 
-    public Map<String, Fragment> frgz;
+//    public Map<String, Fragment> frgz;
 
-    @Bind(R.id.fl_activitites_main)
-    FrameLayout frameLayout;
 
-    @Bind(R.id.lny_sc)
-    LinearLayout hsc_lny;
+    @Bind(R.id.lny_recommended)
+    LinearLayout lny_recommended;
+
+    @Bind(R.id.lny_hot)
+    LinearLayout lny_hot;
+
+    @Bind(R.id.lny_new)
+    LinearLayout lny_new;
+
+    @Bind({R.id.lny_1,R.id.lny_2,R.id.lny_3,R.id.lny_4,R.id.lny_5,R.id.lny_6,R.id.lny_7,R.id.lny_8,R.id.lny_9,R.id.lny_10})
+    List<LinearLayout> lny_z;
+
+    String[] cat = new String[]{"re", "1", "2", "3", "4", "ho", "5", "6","1", "2"};
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,165 +101,118 @@ public class ActivitiesMainFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootview = inflater.inflate(R.layout.fragment_activities_main, container, false);
         ButterKnife.bind(this, rootview);
-
-        //
-        frgz = new HashMap<>();
-
-        //
-        tab_category_menu_listener = new OnTopCategoryMenuClickListener();
-        setUpCategoriesHv(rootview.getContext());
-
-        // get the list of activities from the db, and get the first with the id 0
-
-        // set up a standard fragment.
-        setFragment(rootview.getContext(), AppConstants.DEFAULT_BASE_ACTIVITIES_API.RECOMMEND);
+        context = rootview.getContext();
+        placeholder = context.getResources().getDrawable(R.drawable.wait_for_load);
+        inflateRecommendedActivities();
+        inflateHotActivities();
+        inflateNewActivities();
+        for (int i = 0; i < lny_z.size(); i++) {
+            lny_z.get(i).setTag(cat[i]);
+            lny_z.get(i).setOnClickListener(new MoveToActivityzOnClickListener());
+        }
         return rootview;
     }
 
-    private void setFragment(Context context, String id) {
+    private void inflateHotActivities() {
 
-        ActivityCategoryEntity entity = new ActivityCategoryEntity(context, id);
-
-        FragmentManager fragmentManager = getChildFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
-        // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
-        hideFragments(transaction);
-
-        ActivitiesFragment activitiesFragment = null;
-        if (frgz.containsKey(entity.name)) {
-            activitiesFragment = (ActivitiesFragment) frgz.get(entity.id);
-            transaction.show(activitiesFragment);
-        }
-        else {
-            activitiesFragment = (ActivitiesFragment) ActivitiesFragment.getInstance(id);
-            frgz.put(entity.name, activitiesFragment);
-            transaction.add(R.id.fl_activitites_main, activitiesFragment, entity.name);
-        }
-        transaction.commit();
+        loadData("ho", lny_hot);
     }
 
-    private void hideFragments(FragmentTransaction transaction) {
-        // go arround the map and hide all the fragment
-        for (String key : frgz.keySet()) {
-            transaction.hide(frgz.get(key));
-        }
+    private void inflateNewActivities() {
+        loadData("re", lny_new);
     }
 
+    private void inflateRecommendedActivities() {
+        loadData("re", lny_recommended);
+    }
 
-    int i = 0;
-    private void setUpCategoriesHv(final Context mctx) {
+    private void throwError(String s) {
+    }
 
-        // standard categories, and other categories could be got the db
-        // we doing this so that in case of no connection, there is
-        // still some categories to show if we want to subdivise
-        // or get a way to actualize the activity local database everytime it got
-        // some changes.
-
-        // get the default categories list inside the database, if it doesnt exist,
-        // then change it inside this file
-
-//        listener
-
-        // 从本低那获取默认的类型
-        String[] default_categories = getResources().getStringArray(R.array.default_categories);
-        String[] default_categories_id = getResources().getStringArray(R.array.default_categories_idz);
-        // we just create items and add them with a predefined width
-
-        final int usewidth = getScreenWidth(mctx);
-
-        hsc_lny.removeAllViews();
-
-
-         /* 添加固定分类 、推荐、关注、热度 */
-        for (i = 0; i < default_categories.length; i++) {
-            TextView tv_tmp = new TextView(mctx);
-            tv_tmp.setText(default_categories[i]);
-            tv_tmp.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.submenu_textsize));
-            tv_tmp.setTextColor(getResources().getColor(R.color.actionbar_color));
-            tv_tmp.setTag(R.id.category_position, i);
-            tv_tmp.setTag(R.id.category_id, default_categories_id[i]);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.width = usewidth/6;
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            tv_tmp.setLayoutParams(params);
-            tv_tmp.setOnClickListener(tab_category_menu_listener);
-            if (i == 0)
-                params.leftMargin =  getResources().getDimensionPixelSize(R.dimen.hsc_left_margin);
-            else if (i == default_categories.length -1)
-                params.rightMargin = getResources().getDimensionPixelSize(R.dimen.hsc_right_margin);
-            hsc_lny.addView(tv_tmp);
-            // give to all of them the same listener and make
-            // do his job.
-            if (i == 0)
-                tv_tmp.setTextColor(getResources().getColor(R.color.btn_background));
-            // each child will keep an id for himself
-        }
-
-        /*调用接口去获取*/
-        VolleyRequest.GetStringRequest(getContext(), YunApi.CATEGORYZ, "", new VolleyOnResultListener() {
-
+    private void loadData (final String base_api, final LinearLayout recycler)  {
+        VolleyRequest.GetStringRequest(context, YunApi.URL_GET_ACTIVITY_LIST, "token=" + UtilsFunctions.getToken(context) +
+                "&id=" + base_api, new VolleyOnResultListener() {
             @Override
             public void onSuccess(String response) {
-                L.i(response);
+//                mT(response);
+                Gson gson = new Gson();
+                L.d(response);
                 try {
-                    Gson gson = new Gson();
                     JsonElement resp = gson.fromJson(response, JsonElement.class);
-                    int error = resp.getAsJsonObject().get("error").getAsInt();
-                    if (error == 0) {
-                        final ActivityCategoryEntity[] activityCategoryEntities = gson.fromJson(resp.getAsJsonObject().get("data"), ActivityCategoryEntity[].class);
-                        // 获取成功
-                        ((HallActivity) getContext()).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                for (int ii = 0; ii < activityCategoryEntities.length; ii++) {
-                                    ActivityCategoryEntity categoryEntity = activityCategoryEntities[ii];
-                                    L.i("adding " + categoryEntity.name);
-                                    final TextView tv_tmp = new TextView(getContext());
-                                    tv_tmp.setText(categoryEntity.name);
-                                    tv_tmp.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.submenu_textsize));
-                                    tv_tmp.setTextColor(getResources().getColor(R.color.actionbar_color));
-                                    tv_tmp.setTag(R.id.category_id, categoryEntity.id);
-                                    tv_tmp.setTag(R.id.category_position, (i+ii));
-                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                    params.width = usewidth/6;
-                                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                                    tv_tmp.setLayoutParams(params);
-                                    tv_tmp.setOnClickListener(tab_category_menu_listener);
-                                    tv_tmp.setVisibility(View.GONE);
-                                    if (ii == activityCategoryEntities.length -1)
-                                        params.rightMargin = getResources().getDimensionPixelSize(R.dimen.hsc_right_margin);
-                                    hsc_lny.addView(tv_tmp);
-                                    tv_tmp.postDelayed(new Runnable() {
-                                                           @Override
-                                                           public void run() {
-                                                               ((HallActivity) getContext()).runOnUiThread(new Runnable() {
-                                                                   @Override
-                                                                   public void run() {
-                                                                       tv_tmp.setVisibility(View.VISIBLE);
-                                                                       // run an apparition activity.
-                                                                   }
-                                                               });
-                                                           }},1000
-                                    );
-
-                                }
-                            }
-                        });
-                    }
+                    ActivityDownloadEntity[] data = gson.fromJson(resp.getAsJsonObject().get("data"),
+                            ActivityDownloadEntity[].class);
+                    buildRecyclerview(recycler, data);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    throwError("");
                 }
             }
 
             @Override
             public void onFailure(String error) {
-                L.e(error);
+                if (error.equals(context.getString(R.string.noconnection))) {
+                    /* 网络出问题可以显示。。。*/
+                    throwError(error);
+                }
+                throwError("");
+                /* 不是那就是数据出问题了 */
+//                mT(error);
             }
-
         });
     }
+
+
+    public void buildRecyclerview(LinearLayout recyclerViewPager, ActivityDownloadEntity[] data) {
+
+        LayoutInflater inf = LayoutInflater.from(context);
+        HorizontalScrollView.LayoutParams pz = (HorizontalScrollView.LayoutParams) recyclerViewPager.getLayoutParams();
+        int i = 0;
+        for (ActivityDownloadEntity item: data
+                ) {
+            if (i > 7)
+                break;
+            i++;
+            // inflate a new element and add it to the lny
+            View view = inf.inflate(R.layout.mini_activity_item_xml, recyclerViewPager, false);
+            MiniItemsViewHolder vh = new MiniItemsViewHolder(view);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, pz.height);
+            params.leftMargin = 20;
+            view.setLayoutParams(params);
+            recyclerViewPager.addView(view);
+            Glide.with(context)
+                    .load(item.face)
+                    .centerCrop()
+                    .placeholder(placeholder)
+                    .error(me.crosswall.photo.pick.R.drawable.default_error)
+                    .into(vh.iv_user);
+            if (item.image != null && item.image.length >0)
+                Glide.with(context)
+                        .load(item.image[0])
+                        .centerCrop()
+                        .placeholder(placeholder)
+                        .error(me.crosswall.photo.pick.R.drawable.default_error)
+                        .into(vh.iv_bg);
+            vh.tv_name.setText(item.theme);
+            L.d("face img is "+item.face);
+            if (item.image != null && item.image.length >0)
+                L.d("bg img is "+item.image[0]);
+        }
+    }
+
+    class MiniItemsViewHolder {
+
+        @Bind(R.id.iv_activity_bg)
+        public ImageView iv_bg;
+        @Bind(R.id.user_ic)
+        public ImageView iv_user;
+        @Bind(R.id.tv_username)
+        public TextView tv_name;
+
+        public MiniItemsViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
 
     // utils functions
     public static int getScreenWidth (Context context) {
@@ -241,7 +222,9 @@ public class ActivitiesMainFragment extends Fragment {
     }
 
 
-    // inner classes
+
+
+    /*// inner classes
     class OnTopCategoryMenuClickListener implements View.OnClickListener {
 
         private int previous_selected = 0;
@@ -257,10 +240,10 @@ public class ActivitiesMainFragment extends Fragment {
                 previous_selected = (int) view.getTag(R.id.category_position);
                 String category_tag = (String) view.getTag(R.id.category_id);
                 mToaz("selected id -- " + view.getTag(R.id.category_id));
-//                setFragment(view.getContext(), category_tag);
+                setFragment(view.getContext(), category_tag);
             }
         }
-    }
+    }*/
 
     private void mToaz(String s) {
         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
@@ -305,4 +288,16 @@ public class ActivitiesMainFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    private class MoveToActivityzOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            String tag = (String) v.getTag();
+            if (tag == null || "".equals(tag)) {
+                tag = "re";
+            }
+            Intent intent = new Intent(getActivity(), ActivityCategoryActitivy.class);
+            intent.putExtra(ActivityCategoryActitivy.BASE, "tag");
+            startActivity(intent);
+        }
+    }
 }

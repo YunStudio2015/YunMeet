@@ -1,26 +1,31 @@
 package yunstudio2015.android.yunmeet.fragments;
 
-import android.animation.AnimatorSet;
 import android.content.Context;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.activityz.HallActivity;
 import yunstudio2015.android.yunmeet.app.AppConstants;
+import yunstudio2015.android.yunmeet.commonLogs.L;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,14 +52,21 @@ public class ShowPicturesFragment extends Fragment {
             "http://img3.3lian.com/2014/c2/88/d/79.jpg",
             "http://f.hiphotos.baidu.com/zhidao/pic/item/9213b07eca806538514d9b1f96dda144ad348212.jpg"};
 
+
+    private ArrayList<ImageView> bottom_iv;
+
     public ShowPicturesFragment() {
         // Required empty public constructor
     }
 
+    public static final String currenting = "currenting", imgarray = "imgarray";
+
     // TODO: Rename and change types and number of parameters
-    public static ShowPicturesFragment newInstance( ) {
+    public static ShowPicturesFragment newInstance(String imgz, String[] themelinks) {
         ShowPicturesFragment fragment = new ShowPicturesFragment();
         Bundle args = new Bundle();
+        args.putString(currenting, imgz);
+        args.putStringArray(imgarray, themelinks);
         fragment.setArguments(args);
         return fragment;
     }
@@ -79,25 +91,129 @@ public class ShowPicturesFragment extends Fragment {
     @Bind(R.id.frame)
     RelativeLayout relativeLayout;
 
+    @Bind(R.id.lny_ic_container)
+    LinearLayout lny_ic_container;
+
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
          /* retrieve the viewpager and inflate it setting it's adapter. */
 //        relativeLayout.setOnClickListener(new OnClickListener_());
+        Bundle args = getArguments();
+        String currentimage = args.getString(currenting);
+        String[] imz = args.getStringArray(imgarray);
         vp_img_container.setOnClickListener(new OnClickListener_());
-        vp_img_container.setAdapter(new android.support.v4.app.FragmentPagerAdapter(getChildFragmentManager()) {
+        adapter = new Adapter(getChildFragmentManager(), new String[]{});
+        vp_img_container.setOffscreenPageLimit(1);
+        vp_img_container.setAdapter(adapter);
+        updateData(currentimage, imz);
+        inflateBottomIcContainer(LayoutInflater.from(getActivity()));
+    }
+
+    private void inflateBottomIcContainer(LayoutInflater inf) {
+
+        if (bottom_iv == null)
+            bottom_iv = new ArrayList<>();
+        else
+            bottom_iv.clear();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            ImageView v = (ImageView) inf.inflate(R.layout.img_indic, null);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.rightMargin = 10;
+            v.setLayoutParams(params);
+            bottom_iv.add(v);
+            lny_ic_container.addView(v);
+            if (i == vp_img_container.getCurrentItem())
+                v.setImageResource(R.drawable.ic_indic_bottom_selected);
+            else
+                v.setImageResource(R.drawable.ic_indic_bottom_notselected);
+        }
+        vp_img_container.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 
             @Override
-            public Fragment getItem(int position) {
-                return ZoomImageFragment.newInstance(path[position]);
-            }
-
-            @Override
-            public int getCount() {
-                return path.length;
+            public void onPageSelected(int position) {
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    if (i == position)
+                        bottom_iv.get(position).setImageResource(R.drawable.ic_indic_bottom_selected);
+                    else
+                        bottom_iv.get(i).setImageResource(R.drawable.ic_indic_bottom_notselected);
+                }
             }
         });
+    }
+
+    private void mT(String s) {
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+    }
+
+    Adapter adapter = null;
+
+    public void updateData (String link, String[] otherlinks) {
+//        vp_img_container.removeAllViews();
+        if (otherlinks == null)
+            otherlinks = new String[]{link};
+        final String[] finalOtherlinks = otherlinks;
+        if (adapter == null) {
+            adapter = new Adapter(getChildFragmentManager(), finalOtherlinks);
+        }
+        else {
+            adapter.setData(finalOtherlinks);
+        }
+        adapter.notifyDataSetChanged();
+        vp_img_container.invalidate();
+        vp_img_container.setOnClickListener(new OnClickListener_());
+        for (int i = 0; i < otherlinks.length; i++) {
+            if (link.contentEquals(otherlinks[i])){
+                vp_img_container.setCurrentItem(i);
+                return;
+            }
+        }
+    }
+
+
+    private class Adapter extends android.support.v4.app.FragmentPagerAdapter {
+
+
+        private String[] data;
+
+        public Adapter(FragmentManager fm, String[] data) {
+            super(fm);
+            this.data = data;
+        }
+
+        Map<String, ZoomImageFragment> frg;
+
+        @Override
+        public Fragment getItem(int position) {
+            if (frg == null)
+                frg = new HashMap<>();
+            ZoomImageFragment fragment = frg.get(""+position);
+            if (fragment == null)
+                fragment = ZoomImageFragment.newInstance(data[position]);
+            else
+                fragment.update(data[position]);
+            frg.put(""+position, fragment);
+            return fragment;
+        }
+
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
+
+        @Override
+        public int getCount() {
+            return data.length;
+        }
+
+        public void setData(String[] finalOtherlinks) {
+
+            this.data = finalOtherlinks;
+        }
     }
 
 

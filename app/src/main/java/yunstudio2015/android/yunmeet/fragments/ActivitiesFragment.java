@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.activityz.HallActivity;
+import yunstudio2015.android.yunmeet.activityz.ActivityCategoryActitivy;
 import yunstudio2015.android.yunmeet.adapterz.YunActivitiesListAdapter;
 import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.commonLogs.L;
@@ -58,9 +59,9 @@ public class ActivitiesFragment extends Fragment {
     private Drawable placeholder;
 
 
-    public static Fragment getInstance(String base_api) {
+    public static ActivitiesFragment getInstance(String base_api) {
 
-        Fragment frg = new  ActivitiesFragment();
+        ActivitiesFragment frg = new  ActivitiesFragment();
         Bundle args = new Bundle();
         args.putString("base", base_api);
         frg.setArguments(args);
@@ -75,20 +76,21 @@ public class ActivitiesFragment extends Fragment {
 
 
     @Bind(R.id.list)
-    RecyclerViewPager recyclerViewPager;
+    RecyclerViewPager recyclerViewPager; //
 
 /*
     @Bind(R.id.pulltorefresh_main)
     PullToRefreshHorizontalScrollView pullToRefreshHorizontalScrollView;
 */
 
-    Map<String, Fragment> fragmentMap;
+    Map<String, Fragment> fragmentMap; // 保存fragment的map
 
     @Bind(R.id.progressbar)
-    ProgressBar progressbar;
+    ProgressBar progressbar; // 第一次进去进度条
 
     @Bind(R.id.error_message)
-    TextView tv_error_message;
+    TextView tv_error_message; // 万一程序出错，显示本textview 和出错愿意
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,8 +100,7 @@ public class ActivitiesFragment extends Fragment {
         context = rootview.getContext();
         ButterKnife.bind(this, rootview);
         fragmentMap = new HashMap<>();
-        placeholder = context.getResources().getDrawable(R.drawable.wait_for_load);
-//        buildUi();
+        placeholder = context.getResources().getDrawable(R.drawable.wait_for_load); // 获取当照片还没加载完成的图片 (暂时只是个灰色背景)
         return rootview;
     }
 
@@ -177,13 +178,62 @@ public class ActivitiesFragment extends Fragment {
         recyclerViewPager.addItemDecoration(new ItemDecorator(15));
         adapter = new Adapter(data, mListener);
         recyclerViewPager.setAdapter(adapter);
+        recyclerViewPager.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int i, int i2) {
+                int childCount = recyclerViewPager.getChildCount();
+                int width = recyclerViewPager.getChildAt(0).getWidth();
+                int padding  = (recyclerViewPager.getWidth() - width)/2;
+
+                for (int j = 0; j < childCount; j++) {
+                    View v = recyclerView.getChildAt(j);
+                    float rate = 0;
+                    if (v.getLeft() <= padding) {
+                        if (v.getLeft() >= padding - v.getWidth()) {
+                            rate = (padding - v.getLeft()) * 1f / v.getWidth();
+                        } else {
+                            rate = 1;
+                        }
+                        v.setScaleY(1 - rate * 0.1f);
+                    } else {
+                        if (v.getLeft() <= recyclerView.getWidth() - padding) {
+                            rate = (recyclerView.getWidth() - padding - v.getLeft()) * 1f / v.getWidth();
+                        }
+                        v.setScaleY(0.9f + rate * 0.1f);
+                    }
+                }
+            }
+        });
+        // registering addOnLayoutChangeListener  aim to setScale at first layout action
+        recyclerViewPager.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if(recyclerViewPager.getChildCount()<3){
+                    if (recyclerViewPager.getChildAt(1) != null) {
+                        View v1 = recyclerViewPager.getChildAt(1);
+                        v1.setScaleY(0.9f);
+                    }
+                }else {
+                    if (recyclerViewPager.getChildAt(0) != null) {
+                        View v0 = recyclerViewPager.getChildAt(0);
+                        v0.setScaleY(0.9f);
+                    }
+                    if (recyclerViewPager.getChildAt(2) != null) {
+                        View v2 = recyclerViewPager.getChildAt(2);
+                        v2.setScaleY(0.9f);
+                    }
+                }
+
+            }
+        });
     }
 
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+//            mListener.onFragmentInteraction(uri, null);
         }
     }
 
@@ -197,14 +247,14 @@ public class ActivitiesFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(Uri uri, @Nullable String[] themelinks);
     }
 
 
     // utils functions
     public static int getScreenWidth (Context context) {
         DisplayMetrics metrics = new DisplayMetrics();
-        ((HallActivity) context).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        ((ActivityCategoryActitivy) context).getWindowManager().getDefaultDisplay().getMetrics(metrics);
         return metrics.widthPixels;
     }
 
@@ -222,7 +272,7 @@ public class ActivitiesFragment extends Fragment {
         SwipeRefreshLayout swipeRefreshLayout;
 
         @Bind(R.id.my_recycler_view)
-        RecyclerView mRecyclerView;
+        RecyclerView recyclerViewPager;
 
 
         @Bind(R.id.error_message)
@@ -257,9 +307,9 @@ public class ActivitiesFragment extends Fragment {
                     android.R.color.holo_green_light);
             // add one element.
 //        for (int i = 0; i < 3; i++)
-//            addFakeElement(mRecyclerView);
+//            addFakeElement(recyclerViewPager);
             mLayoutManager = new LinearLayoutManager(context);
-            mRecyclerView.setLayoutManager(mLayoutManager);
+            recyclerViewPager.setLayoutManager(mLayoutManager);
 //          reload();
             return rootview2;
         }
@@ -311,13 +361,13 @@ public class ActivitiesFragment extends Fragment {
             switch (errodid) {
                 case -1:
                     if (mAdapter != null && mAdapter.getItemCount() > 0) {
-//                         mRecyclerView.setVisibility(View.GONE);
+//                         recyclerViewPager.setVisibility(View.GONE);
                         tv_error_message.setText("出现异常");
                     }
                     break;
                 case -2:
                     if (mAdapter != null && mAdapter.getItemCount() > 0) {
-//                         mRecyclerView.setVisibility(View.GONE);
+//                         recyclerViewPager.setVisibility(View.GONE);
                         tv_error_message.setText("数据结构识别出现异常");
                     }
                     break;
@@ -327,14 +377,14 @@ public class ActivitiesFragment extends Fragment {
 
         private void modUpView(List<UploadActivityEntity> lActivity) {
 
-            mRecyclerView.setHasFixedSize(true);
+            recyclerViewPager.setHasFixedSize(true);
             // use a linear layout manager
             // specify an adapter (see also next example)
-//             mRecyclerView.setVisibility(View.VISIBLE);
+//             recyclerViewPager.setVisibility(View.VISIBLE);
 //             rel_error.setVisibility(View.GONE);
             if (lActivity != null && lActivity.size() > 0) {
                 mAdapter = new YunActivitiesListAdapter(lActivity);
-                mRecyclerView.setAdapter(mAdapter);
+                recyclerViewPager.setAdapter(mAdapter);
             } else {
                 // hide the mrecycler and show the network error fragment.
                 // change the current fragment into a network error fragment.
@@ -434,7 +484,7 @@ public class ActivitiesFragment extends Fragment {
                     Uri uri = Uri.parse(AppConstants.scheme_ui + "://" + AppConstants.authority + "/" +
                             UtilsFunctions.encodedPath(gson.toJson(item.face)));
                     if (mListener != null)
-                        mListener.onFragmentInteraction(uri);
+                        mListener.onFragmentInteraction(uri,null);
                     else {
 //                        Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
                     }
@@ -447,9 +497,9 @@ public class ActivitiesFragment extends Fragment {
 
                     // zooming
                     Uri uri = Uri.parse(AppConstants.scheme_ui+"://"+AppConstants.authority+"/"+
-                            UtilsFunctions.encodedPath(gson.toJson(item.image)));
+                            UtilsFunctions.encodedPath(gson.toJson(item.image[0])));
                     if (mListener != null)
-                        mListener.onFragmentInteraction(uri);
+                        mListener.onFragmentInteraction(uri, item.image);
                     else {
 //                        Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
                     }
@@ -518,8 +568,8 @@ public class ActivitiesFragment extends Fragment {
             @Bind(R.id.tv_act_launch_time)
             public TextView tv_act_launch_time;
 
-
-
+            @Bind(R.id.lny_comments)
+            LinearLayout lny_comments; // 评论
 
 
             public ViewHolder(View itemView) {

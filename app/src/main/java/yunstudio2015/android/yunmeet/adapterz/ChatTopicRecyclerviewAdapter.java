@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,20 +14,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.adhamenaya.androidmosaiclayout.listeners.OnItemClickListener;
 import com.adhamenaya.androidmosaiclayout.views.BlockPattern;
 import com.adhamenaya.androidmosaiclayout.views.MosaicLayout;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.commonLogs.L;
+import yunstudio2015.android.yunmeet.entityz.ChatTopicDownloadEntity;
+import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
+import yunstudio2015.android.yunmeet.fragments.ChatTopicsMainFragment;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
 /**
  * Created by Ulrich on 3/18/2016.
@@ -65,7 +74,10 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
             "http://bcs.kuaiapk.com/rbpiczy/Wallpaper/2013/9/18/ce3ce7b02b1d4a769e27946b1d8f69f8.jpg"
     };
 
-    public BlockPattern.BLOCK_PATTERN[] pattern1 = {};
+    public BlockPattern.BLOCK_PATTERN[][] patternz = {AppConstants.pattern1, AppConstants.pattern2,
+            AppConstants.pattern3, AppConstants.pattern4,
+            AppConstants.pattern5, AppConstants.pattern6,
+            AppConstants.pattern7, AppConstants.pattern8};
 
     private ColorDrawable placeholder = null;
 
@@ -83,39 +95,39 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
     @Override
     public int getItemViewType(int position) {
 //        return super.getItemViewType(position);
-        if (position < data.size()){
+       /* if (position < data.size()){
             return TYPE_ITEM;
         } else {
             return TYPE_LOADER;
-        }
+        }*/
+        return TYPE_ITEM;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        if (viewType == TYPE_ITEM) {
+
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chattopic_list_item, parent, false);
             return (new ChatTopicViewHolder(view));
-        } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_loader_layout, parent, false);
-            return (new LoaderLayoutHolder(view));
-        }
     }
 
 
     @Override
     public void onBindViewHolder(ViewHolder hld, int position) {
 
-        if (hld instanceof ChatTopicViewHolder) {
-            //
+            ChatTopicEntity entity = (ChatTopicEntity) data.get(position);
+
             ChatTopicViewHolder holder = (ChatTopicViewHolder) hld;
             if (holder.tmpd == null)
-                holder.tmpd = new String[]{
+                holder.tmpd = entity.image;
+            /*new String[]{
                         tmpdata[getRandomInf(tmpdata.length)],  tmpdata[getRandomInf(tmpdata.length)],
                         tmpdata[getRandomInf(tmpdata.length)],  tmpdata[getRandomInf(tmpdata.length)]
-                        ,  tmpdata[getRandomInf(tmpdata.length)]};
+                        ,  tmpdata[getRandomInf(tmpdata.length)]};*/
             MosaicLayoutAdapter mAdapater = new MosaicLayoutAdapter(holder.iv_launcher.getContext(), holder.tmpd);
-            holder.mosaicLayout.chooseRandomPattern(true);
+            if (holder.tmpd.length >= 1 && holder.tmpd.length <= 8) {
+                holder.mosaicLayout.addPattern(patternz[holder.tmpd.length-1]);
+            }
             holder.mosaicLayout.setAdapter(mAdapater);
             holder.mosaicLayout.setOnItemClickListener(new OnItemClickListener() {
                 @Override
@@ -123,20 +135,21 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
                     L.d("clicked on nb "+position);
                 }
             });
+
             Glide.with(((ChatTopicViewHolder) hld).iv_launcher.getContext())
-                    .load(profilepics[getRandomInf(profilepics.length)])
+                    .load(entity.face)
                     .centerCrop()
 //                    .thumbnail(0.3f)
                     .error(me.crosswall.photo.pick.R.drawable.default_error)
                     .into(holder.iv_launcher);
 
-            } else if (hld instanceof LoaderLayoutHolder) {
-                // if we get here, call the parent to let up update the quantity of data.
-
-            }
+            // set the others
+            holder.tv_username.setText(entity.nickname);
+            holder.tv_topic.setText(entity.content);
     }
 
     private int getRandomInf(int length) {
+
 
         // get random value between 0 and length
 
@@ -159,7 +172,7 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
 
     @Override
     public int getItemCount() {
-        return data == null ? 0 : data.size()+1;
+        return data == null ? 0 : data.size();
     }
 
     private class LoaderLayoutHolder extends ViewHolder {
@@ -181,23 +194,24 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         @Bind(R.id.iv_launcher_pic)
         public ImageView iv_launcher;
 
-
         @Bind(R.id.tv_username)
         public TextView tv_username;
 
         @Bind(R.id.tv_topic)
         public  TextView tv_topic;
 
-
         @Bind(R.id.mosaic_layout)
         public   MosaicLayout mosaicLayout;
+
+        @Bind(R.id.lny_comments)
+        LinearLayout lny_comments;
 
         public String[] tmpd = null;
 
         public ChatTopicViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-        // set up different patterns for different size of data array
+            // set up different patterns for different size of data array
         }
     }
 
@@ -206,12 +220,14 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
 
         private Context context;
         private String[] values;
+        private Gson gson;
 
 
         public MosaicLayoutAdapter(Context context, String[] values) {
             super(context, R.layout.row_item);
             this.context = context;
             this.values = values;
+            gson = new Gson();
         }
 
         @Override
@@ -220,14 +236,25 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View rowView = inflater.inflate(R.layout.row_item, parent, false);
-            ImageView image = (ImageView) rowView.findViewById(R.id.image);
+            final View rowView = inflater.inflate(R.layout.row_item, parent, false);
+            final ImageView image = (ImageView) rowView.findViewById(R.id.image);
             if (placeholder == null) {
                 placeholder = new ColorDrawable(context.getResources().getColor(R.color.gray));
             }
+
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Uri uri = Uri.parse(AppConstants.scheme_ui + "://" + AppConstants.authority + "/" +
+                            UtilsFunctions.encodedPath(gson.toJson(values[position])));
+                    ((ChatTopicsMainFragment.OnFragmentInteractionListener) context).onFragmentInteraction(uri, values);
+                }
+            });
+
             Glide.with(context)
                     .load(values[position])
                     .centerCrop()

@@ -118,11 +118,9 @@
             android:clickable="true"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/launch_button_margin_bottom"
             app:backgroundTint="@color/btn_background"
             android:src="@null"
-            app:layout_anchorGravity="bottom|right|end"
-            />
+             />
     </RelativeLayout>
 
     <FrameLayout
