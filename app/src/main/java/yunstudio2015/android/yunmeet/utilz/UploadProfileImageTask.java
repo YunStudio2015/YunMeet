@@ -2,30 +2,15 @@ package yunstudio2015.android.yunmeet.utilz;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Debug;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.List;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.commonLogs.L;
-import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
+import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallback;
 
 /**
  * Created by Ulrich on 2/13/2016.
@@ -34,9 +19,9 @@ public class UploadProfileImageTask extends AsyncTask<String, Long, String> {
 
     private static final java.lang.String TAG = "yunmeet";
     private final Context context;
-    private UploadFinishCallBack callBack;
+    private UploadFinishCallback callBack;
 
-    public UploadProfileImageTask(Context context, UploadFinishCallBack uploadFinishCallBack) {
+    public UploadProfileImageTask(Context context, UploadFinishCallback uploadFinishCallBack) {
 
         this.context = context;
         this.callBack = uploadFinishCallBack;

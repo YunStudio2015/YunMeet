@@ -42,7 +42,11 @@ public class ZoomImageFragment extends Fragment {
                 .into(imageView);
         // Attach a PhotoViewAttacher, which takes care of all of the zooming functionality.
         mAttacher = new PhotoViewAttacher(imageView);
+<<<<<<< HEAD
         mAttacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
+=======
+        view.setOnClickListener(new View.OnClickListener() {
+>>>>>>> 77d2813212313822f1a43280cef3c4a0912d56a9
             @Override
             public void onViewTap(View view, float x, float y) {
                 Uri uri = Uri.parse(AppConstants.scheme_ui+"://"+AppConstants.authority+"/"+toGson(imgurl));

@@ -50,7 +50,7 @@ import yunstudio2015.android.yunmeet.customviewz.ErrorDialog;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
 import yunstudio2015.android.yunmeet.entityz.ActivityCategoryEntity;
 import yunstudio2015.android.yunmeet.entityz.UploadActivityEntity;
-import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
+import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallback;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.UploadNewActivityTask;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
@@ -305,7 +305,7 @@ public class LaunchActivityActivity extends AppCompatActivity implements View.On
                         ""+categoriez_spinner.getSelectedItemId()+1,
                         ""+radioGroup3.selected_tag,
                         adapter.getData())))
-                        .execute(new UploadFinishCallBack() {
+                        .execute(new UploadFinishCallback() {
                             @Override
                             public void uploadDone() {
                                 i_dismissProgressDialog();

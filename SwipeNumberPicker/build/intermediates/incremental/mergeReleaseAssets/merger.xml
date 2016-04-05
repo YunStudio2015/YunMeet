@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="F:\AndroidStudioProjects\YunMeet12\SwipeNumberPicker\src\main\assets"/><source path="F:\AndroidStudioProjects\YunMeet12\SwipeNumberPicker\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="F:\AndroidStudioProjects\YunMeet12\SwipeNumberPicker\src\release\assets"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="main"><source path="D:\AndroidProjects\YunMeet\SwipeNumberPicker\src\main\assets"/></dataSet><dataSet config="release"><source path="D:\AndroidProjects\YunMeet\SwipeNumberPicker\src\release\assets"/></dataSet></merger>
+>>>>>>> 77d2813212313822f1a43280cef3c4a0912d56a9

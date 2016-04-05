@@ -6,20 +6,18 @@ import android.os.AsyncTask;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.app.MyApplication;
 import yunstudio2015.android.yunmeet.commonLogs.L;
-import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
+import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallback;
 
 /**
  * Created by Ulrich on 3/2/2016.
  */
-public class UploadNewTopicTask extends AsyncTask<UploadFinishCallBack, Long, String> {
+public class UploadNewTopicTask extends AsyncTask<UploadFinishCallback, Long, String> {
 
 
     private static final java.lang.String TAG = MyApplication.appname;
@@ -28,7 +26,7 @@ public class UploadNewTopicTask extends AsyncTask<UploadFinishCallBack, Long, St
     private final Context context;
     private  String content;
 
-    UploadFinishCallBack callBack;
+    UploadFinishCallback callBack;
 
     public UploadNewTopicTask(Context context, String content, ArrayList<String> imgPath) {
 
@@ -39,7 +37,7 @@ public class UploadNewTopicTask extends AsyncTask<UploadFinishCallBack, Long, St
     }
 
     @Override
-    protected String doInBackground(UploadFinishCallBack... params) {
+    protected String doInBackground(UploadFinishCallback... params) {
 
 
         callBack = params[0];

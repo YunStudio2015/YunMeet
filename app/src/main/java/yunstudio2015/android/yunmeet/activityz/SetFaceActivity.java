@@ -24,7 +24,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.handmark.pulltorefresh.library.internal.Utils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.File;
@@ -34,7 +33,7 @@ import me.crosswall.photo.pick.PickConfig;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.customviewz.CircleImageView;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
-import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
+import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallback;
 import yunstudio2015.android.yunmeet.utilz.UploadProfileImageTask;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
@@ -157,7 +156,7 @@ public class SetFaceActivity extends AppCompatActivity {
         if (imageLocalPath == null || "".equals(imageLocalPath))
             return;
         // upload the file
-        UploadProfileImageTask up = new UploadProfileImageTask(SetFaceActivity.this,new UploadFinishCallBack(){
+        UploadProfileImageTask up = new UploadProfileImageTask(SetFaceActivity.this,new UploadFinishCallback(){
 
             @Override
             public void uploadDone() {

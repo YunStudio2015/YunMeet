@@ -18,7 +18,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -38,12 +37,10 @@ import butterknife.OnClick;
 import me.crosswall.photo.pick.PickConfig;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.LaunchTopicImageAdapter;
-import yunstudio2015.android.yunmeet.adapterz.TextWatcherAdapter;
 import yunstudio2015.android.yunmeet.customviewz.ErrorDialog;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
-import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallBack;
+import yunstudio2015.android.yunmeet.interfacez.UploadFinishCallback;
 import yunstudio2015.android.yunmeet.utilz.UploadNewTopicTask;
-import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
 /**
  * Created by Ulrich on 1/29/2016.
@@ -160,7 +157,7 @@ public class LaunchChatTopicActivity extends AppCompatActivity implements Emojic
 
             i_showProgressDialog();
             // start uploading
-            (new UploadNewTopicTask(LaunchChatTopicActivity.this, content, imgPathz)).execute(new UploadFinishCallBack() {
+            (new UploadNewTopicTask(LaunchChatTopicActivity.this, content, imgPathz)).execute(new UploadFinishCallback() {
                 @Override
                 public void uploadDone() {
                     i_dismissProgressDialog();

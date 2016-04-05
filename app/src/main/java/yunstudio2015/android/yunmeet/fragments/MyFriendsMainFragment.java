@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ public class MyFriendsMainFragment extends Fragment {
     private List<SimpleFriendItemEntity> friends = new ArrayList<SimpleFriendItemEntity>();
     private Context context;
     private RequestQueue queue;
+    private Toolbar toolbar;
 
     private OnFragmentInteractionListener mListener;
 
@@ -73,8 +75,6 @@ public class MyFriendsMainFragment extends Fragment {
         context = rootView.getContext();
 
         initViews(rootView);
-
-        Log.d("friends", "initviews");
 
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(context));
@@ -122,6 +122,9 @@ public class MyFriendsMainFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
                     if (response.getString("error").equals("0")){
+                        if (friends.size() != 0){
+                            friends.clear();
+                        }
                         JSONArray list = response.getJSONArray("data");
                         for (int i = 0; i < list.length(); i++) {
                             SimpleFriendItemEntity friend = new SimpleFriendItemEntity(
@@ -130,7 +133,6 @@ public class MyFriendsMainFragment extends Fragment {
                                     list.getJSONObject(i).getString("nickname"),
                                     list.getJSONObject(i).getString("signature")
                             );
-                            Log.d("friends", "dddddddddddddddd");
                             friends.add(friend);
                         }
                         rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -197,6 +199,8 @@ public class MyFriendsMainFragment extends Fragment {
     private void initViews(View view) {
 
         rvFriends = (RecyclerView) view.findViewById(R.id.friends_list);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar.setVisibility(View.GONE);
 
     }
 }

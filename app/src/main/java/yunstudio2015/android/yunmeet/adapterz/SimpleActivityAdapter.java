@@ -2,11 +2,13 @@ package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -49,8 +51,9 @@ public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAd
         s = s.replace("]","");
         s = s.replace("\\","");
         s = s.replace("\"","");
-        Log.d("地址",s);
         Glide.with(context).load(s).centerCrop().into(holder.ivImage);
+
+        setAnimation(holder.layoutItem,position);
     }
 
     @Override
@@ -68,6 +71,7 @@ public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAd
         private TextView tvDetail;
         private ImageView ivImage;
         private OnRecyclerViewItemClickListener listener;
+        private LinearLayout layoutItem;
 
         public SimpleActivityViewHolder(View itemView, final Context context,OnRecyclerViewItemClickListener listener) {
             super(itemView);
@@ -75,6 +79,7 @@ public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAd
             tvTheme = (TextView) itemView.findViewById(R.id.tv_simple_activity_item_theme);
             tvDetail = (TextView) itemView.findViewById(R.id.tv_simple_activity_item_detail);
             ivImage = (ImageView) itemView.findViewById(R.id.iv_simple_activtiy_image);
+            layoutItem = (LinearLayout) itemView.findViewById(R.id.simple_activity_item);
 
             this.listener = listener;
             itemView.setOnClickListener(this);
@@ -92,5 +97,12 @@ public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAd
 
     public static interface OnRecyclerViewItemClickListener{
         void onItemClick(View view,int position);
+    }
+
+    private void setAnimation(View viewToAnimation,int position){
+        if (position > -1){
+            Animation animation = AnimationUtils.loadAnimation(context,android.R.anim.slide_in_left);
+            viewToAnimation.startAnimation(animation);
+        }
     }
 }
