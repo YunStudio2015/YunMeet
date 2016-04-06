@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\res\\merged\\release\\values-hr\\values-hr.xml",
+        "outputFile": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/res/merged/release/values-hr/values-hr.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 202
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-hr\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hr/strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 318
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-hr\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hr/strings.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -49,7 +49,7 @@
                     "endOffset": 394
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-hr\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hr/strings.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -68,7 +68,7 @@
                     "endOffset": 495
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-hr\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hr/strings.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -87,7 +87,7 @@
                     "endOffset": 619
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-hr\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hr/strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -106,7 +106,7 @@
                     "endOffset": 724
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-hr\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hr/strings.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -125,7 +125,7 @@
                     "endOffset": 816
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-hr\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hr/strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -144,7 +144,7 @@
                     "endOffset": 902
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-hr\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hr/strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -163,7 +163,7 @@
                     "endOffset": 992
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-hr\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hr/strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -182,7 +182,7 @@
                     "endOffset": 1079
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-hr\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hr/strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -201,227 +201,13 @@
                     "endOffset": 1174
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-hr\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hr/strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
                         "startOffset": 1369,
                         "endColumn": 94,
                         "endOffset": 1459
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\values-hr\\values-hr.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 105,
-                    "endColumn": 101,
-                    "endOffset": 202
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hr\\strings.xml",
-                    "position": {
-                        "startLine": 24,
-                        "startColumn": 4,
-                        "startOffset": 1291,
-                        "endColumn": 101,
-                        "endOffset": 1388
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 207,
-                    "endColumn": 115,
-                    "endOffset": 318
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hr\\strings.xml",
-                    "position": {
-                        "startLine": 29,
-                        "startColumn": 4,
-                        "startOffset": 1800,
-                        "endColumn": 119,
-                        "endOffset": 1915
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 4,
-                    "startColumn": 4,
-                    "startOffset": 323,
-                    "endColumn": 75,
-                    "endOffset": 394
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hr\\strings.xml",
-                    "position": {
-                        "startLine": 19,
-                        "startColumn": 4,
-                        "startOffset": 828,
-                        "endColumn": 75,
-                        "endOffset": 899
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 5,
-                    "startColumn": 4,
-                    "startOffset": 399,
-                    "endColumn": 100,
-                    "endOffset": 495
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hr\\strings.xml",
-                    "position": {
-                        "startLine": 20,
-                        "startColumn": 4,
-                        "startOffset": 905,
-                        "endColumn": 100,
-                        "endOffset": 1001
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 6,
-                    "startColumn": 4,
-                    "startOffset": 500,
-                    "endColumn": 123,
-                    "endOffset": 619
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hr\\strings.xml",
-                    "position": {
-                        "startLine": 28,
-                        "startColumn": 4,
-                        "startOffset": 1671,
-                        "endColumn": 127,
-                        "endOffset": 1794
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 7,
-                    "startColumn": 4,
-                    "startOffset": 624,
-                    "endColumn": 104,
-                    "endOffset": 724
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hr\\strings.xml",
-                    "position": {
-                        "startLine": 21,
-                        "startColumn": 4,
-                        "startOffset": 1007,
-                        "endColumn": 104,
-                        "endOffset": 1107
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 8,
-                    "startColumn": 4,
-                    "startOffset": 729,
-                    "endColumn": 91,
-                    "endOffset": 816
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hr\\strings.xml",
-                    "position": {
-                        "startLine": 26,
-                        "startColumn": 4,
-                        "startOffset": 1490,
-                        "endColumn": 91,
-                        "endOffset": 1577
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 9,
-                    "startColumn": 4,
-                    "startOffset": 821,
-                    "endColumn": 85,
-                    "endOffset": 902
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hr\\strings.xml",
-                    "position": {
-                        "startLine": 22,
-                        "startColumn": 4,
-                        "startOffset": 1113,
-                        "endColumn": 85,
-                        "endOffset": 1194
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 10,
-                    "startColumn": 4,
-                    "startOffset": 907,
-                    "endColumn": 89,
-                    "endOffset": 992
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hr\\strings.xml",
-                    "position": {
-                        "startLine": 23,
-                        "startColumn": 4,
-                        "startOffset": 1200,
-                        "endColumn": 89,
-                        "endOffset": 1285
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 11,
-                    "startColumn": 4,
-                    "startOffset": 997,
-                    "endColumn": 86,
-                    "endOffset": 1079
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hr\\strings.xml",
-                    "position": {
-                        "startLine": 27,
-                        "startColumn": 4,
-                        "startOffset": 1583,
-                        "endColumn": 86,
-                        "endOffset": 1665
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 12,
-                    "startColumn": 4,
-                    "startOffset": 1084,
-                    "endColumn": 94,
-                    "endOffset": 1174
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hr\\strings.xml",
-                    "position": {
-                        "startLine": 25,
-                        "startColumn": 4,
-                        "startOffset": 1394,
-                        "endColumn": 94,
-                        "endOffset": 1484
                     }
                 }
             }

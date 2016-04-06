@@ -5,7 +5,7 @@
       <GradleProjectSettings>
         <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="C:\Program Files\android-studio\gradle\gradle-2.10" />
+        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.10" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -15,7 +15,6 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/datetimepicker" />
             <option value="$PROJECT_DIR$/emojicon" />
-            <option value="$PROJECT_DIR$/hollyviewpager" />
             <option value="$PROJECT_DIR$/pickphotos" />
             <option value="$PROJECT_DIR$/pulltorefresh" />
           </set>
@@ -29,7 +28,6 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/datetimepicker" />
             <option value="$PROJECT_DIR$/emojicon" />
-            <option value="$PROJECT_DIR$/hollyviewpager" />
             <option value="$PROJECT_DIR$/pickphotos" />
             <option value="$PROJECT_DIR$/pulltorefresh" />
           </set>

@@ -1,10 +1,6 @@
 [
     {
-        "merged": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\res\\merged\\release\\layout-sw600dp-v13\\date_picker_dialog.xml",
-        "source": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\layout-sw600dp\\date_picker_dialog.xml"
-    },
-    {
-        "merged": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\layout-sw600dp-v13\\date_picker_dialog.xml",
-        "source": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\layout-sw600dp\\date_picker_dialog.xml"
+        "merged": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/res/merged/release/layout-sw600dp-v13/date_picker_dialog.xml",
+        "source": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/layout-sw600dp/date_picker_dialog.xml"
     }
 ]

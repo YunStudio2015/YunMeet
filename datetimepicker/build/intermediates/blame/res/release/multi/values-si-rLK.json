@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\res\\merged\\release\\values-si-rLK\\values-si-rLK.xml",
+        "outputFile": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/res/merged/release/values-si-rLK/values-si-rLK.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 199
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-si-rLK\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-si-rLK/strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 310
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-si-rLK\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-si-rLK/strings.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -49,7 +49,7 @@
                     "endOffset": 385
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-si-rLK\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-si-rLK/strings.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -68,7 +68,7 @@
                     "endOffset": 485
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-si-rLK\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-si-rLK/strings.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -87,7 +87,7 @@
                     "endOffset": 601
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-si-rLK\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-si-rLK/strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -106,7 +106,7 @@
                     "endOffset": 708
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-si-rLK\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-si-rLK/strings.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -125,7 +125,7 @@
                     "endOffset": 797
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-si-rLK\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-si-rLK/strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -144,7 +144,7 @@
                     "endOffset": 879
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-si-rLK\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-si-rLK/strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -163,7 +163,7 @@
                     "endOffset": 968
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-si-rLK\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-si-rLK/strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -182,7 +182,7 @@
                     "endOffset": 1049
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-si-rLK\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-si-rLK/strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -201,227 +201,13 @@
                     "endOffset": 1145
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-si-rLK\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-si-rLK/strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
                         "startOffset": 1361,
                         "endColumn": 95,
                         "endOffset": 1452
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\values-si-rLK\\values-si-rLK.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 105,
-                    "endColumn": 98,
-                    "endOffset": 199
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-si-rLK\\strings.xml",
-                    "position": {
-                        "startLine": 24,
-                        "startColumn": 4,
-                        "startOffset": 1286,
-                        "endColumn": 98,
-                        "endOffset": 1380
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 204,
-                    "endColumn": 110,
-                    "endOffset": 310
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-si-rLK\\strings.xml",
-                    "position": {
-                        "startLine": 29,
-                        "startColumn": 4,
-                        "startOffset": 1776,
-                        "endColumn": 114,
-                        "endOffset": 1886
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 4,
-                    "startColumn": 4,
-                    "startOffset": 315,
-                    "endColumn": 74,
-                    "endOffset": 385
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-si-rLK\\strings.xml",
-                    "position": {
-                        "startLine": 19,
-                        "startColumn": 4,
-                        "startOffset": 828,
-                        "endColumn": 74,
-                        "endOffset": 898
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 5,
-                    "startColumn": 4,
-                    "startOffset": 390,
-                    "endColumn": 99,
-                    "endOffset": 485
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-si-rLK\\strings.xml",
-                    "position": {
-                        "startLine": 20,
-                        "startColumn": 4,
-                        "startOffset": 904,
-                        "endColumn": 99,
-                        "endOffset": 999
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 6,
-                    "startColumn": 4,
-                    "startOffset": 490,
-                    "endColumn": 115,
-                    "endOffset": 601
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-si-rLK\\strings.xml",
-                    "position": {
-                        "startLine": 28,
-                        "startColumn": 4,
-                        "startOffset": 1655,
-                        "endColumn": 119,
-                        "endOffset": 1770
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 7,
-                    "startColumn": 4,
-                    "startOffset": 606,
-                    "endColumn": 106,
-                    "endOffset": 708
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-si-rLK\\strings.xml",
-                    "position": {
-                        "startLine": 21,
-                        "startColumn": 4,
-                        "startOffset": 1005,
-                        "endColumn": 106,
-                        "endOffset": 1107
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 8,
-                    "startColumn": 4,
-                    "startOffset": 713,
-                    "endColumn": 88,
-                    "endOffset": 797
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-si-rLK\\strings.xml",
-                    "position": {
-                        "startLine": 26,
-                        "startColumn": 4,
-                        "startOffset": 1483,
-                        "endColumn": 88,
-                        "endOffset": 1567
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 9,
-                    "startColumn": 4,
-                    "startOffset": 802,
-                    "endColumn": 81,
-                    "endOffset": 879
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-si-rLK\\strings.xml",
-                    "position": {
-                        "startLine": 22,
-                        "startColumn": 4,
-                        "startOffset": 1113,
-                        "endColumn": 81,
-                        "endOffset": 1190
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 10,
-                    "startColumn": 4,
-                    "startOffset": 884,
-                    "endColumn": 88,
-                    "endOffset": 968
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-si-rLK\\strings.xml",
-                    "position": {
-                        "startLine": 23,
-                        "startColumn": 4,
-                        "startOffset": 1196,
-                        "endColumn": 88,
-                        "endOffset": 1280
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 11,
-                    "startColumn": 4,
-                    "startOffset": 973,
-                    "endColumn": 80,
-                    "endOffset": 1049
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-si-rLK\\strings.xml",
-                    "position": {
-                        "startLine": 27,
-                        "startColumn": 4,
-                        "startOffset": 1573,
-                        "endColumn": 80,
-                        "endOffset": 1649
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 12,
-                    "startColumn": 4,
-                    "startOffset": 1054,
-                    "endColumn": 95,
-                    "endOffset": 1145
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-si-rLK\\strings.xml",
-                    "position": {
-                        "startLine": 25,
-                        "startColumn": 4,
-                        "startOffset": 1386,
-                        "endColumn": 95,
-                        "endOffset": 1477
                     }
                 }
             }

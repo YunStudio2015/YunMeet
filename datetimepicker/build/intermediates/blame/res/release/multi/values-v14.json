@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\res\\merged\\release\\values-v14\\values-v14.xml",
+        "outputFile": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/res/merged/release/values-v14/values-v14.xml",
         "map": [
             {
                 "to": {
@@ -12,7 +12,7 @@
                     "endOffset": 201
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-v14\\styles.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-v14/styles.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -20,32 +20,6 @@
                         "endLine": 9,
                         "endColumn": 12,
                         "endOffset": 366
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\values-v14\\values-v14.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endLine": 4,
-                    "endColumn": 12,
-                    "endOffset": 201
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-v14\\styles.xml",
-                    "position": {
-                        "startLine": 7,
-                        "startColumn": 4,
-                        "startOffset": 227,
-                        "endLine": 9,
-                        "endColumn": 12,
-                        "endOffset": 375
                     }
                 }
             }

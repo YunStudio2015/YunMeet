@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\debug\\values-gl-rES\\values-gl-rES.xml",
+        "outputFile": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/res/merged/debug/values-gl-rES/values-gl-rES.xml",
         "map": [
             {
                 "to": {
@@ -11,221 +11,7 @@
                     "endOffset": 203
                 },
                 "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-gl-rES\\strings.xml",
-                    "position": {
-                        "startLine": 24,
-                        "startColumn": 4,
-                        "startOffset": 1346,
-                        "endColumn": 102,
-                        "endOffset": 1444
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 208,
-                    "endColumn": 109,
-                    "endOffset": 313
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-gl-rES\\strings.xml",
-                    "position": {
-                        "startLine": 29,
-                        "startColumn": 4,
-                        "startOffset": 1850,
-                        "endColumn": 113,
-                        "endOffset": 1959
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 4,
-                    "startColumn": 4,
-                    "startOffset": 318,
-                    "endColumn": 74,
-                    "endOffset": 388
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-gl-rES\\strings.xml",
-                    "position": {
-                        "startLine": 19,
-                        "startColumn": 4,
-                        "startOffset": 828,
-                        "endColumn": 74,
-                        "endOffset": 898
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 5,
-                    "startColumn": 4,
-                    "startOffset": 393,
-                    "endColumn": 125,
-                    "endOffset": 514
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-gl-rES\\strings.xml",
-                    "position": {
-                        "startLine": 20,
-                        "startColumn": 4,
-                        "startOffset": 904,
-                        "endColumn": 125,
-                        "endOffset": 1025
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 6,
-                    "startColumn": 4,
-                    "startOffset": 519,
-                    "endColumn": 118,
-                    "endOffset": 633
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-gl-rES\\strings.xml",
-                    "position": {
-                        "startLine": 28,
-                        "startColumn": 4,
-                        "startOffset": 1726,
-                        "endColumn": 122,
-                        "endOffset": 1844
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 7,
-                    "startColumn": 4,
-                    "startOffset": 638,
-                    "endColumn": 129,
-                    "endOffset": 763
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-gl-rES\\strings.xml",
-                    "position": {
-                        "startLine": 21,
-                        "startColumn": 4,
-                        "startOffset": 1031,
-                        "endColumn": 129,
-                        "endOffset": 1156
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 8,
-                    "startColumn": 4,
-                    "startOffset": 768,
-                    "endColumn": 90,
-                    "endOffset": 854
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-gl-rES\\strings.xml",
-                    "position": {
-                        "startLine": 26,
-                        "startColumn": 4,
-                        "startOffset": 1547,
-                        "endColumn": 90,
-                        "endOffset": 1633
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 9,
-                    "startColumn": 4,
-                    "startOffset": 859,
-                    "endColumn": 88,
-                    "endOffset": 943
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-gl-rES\\strings.xml",
-                    "position": {
-                        "startLine": 22,
-                        "startColumn": 4,
-                        "startOffset": 1162,
-                        "endColumn": 88,
-                        "endOffset": 1246
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 10,
-                    "startColumn": 4,
-                    "startOffset": 948,
-                    "endColumn": 92,
-                    "endOffset": 1036
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-gl-rES\\strings.xml",
-                    "position": {
-                        "startLine": 23,
-                        "startColumn": 4,
-                        "startOffset": 1252,
-                        "endColumn": 92,
-                        "endOffset": 1340
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 11,
-                    "startColumn": 4,
-                    "startOffset": 1041,
-                    "endColumn": 85,
-                    "endOffset": 1122
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-gl-rES\\strings.xml",
-                    "position": {
-                        "startLine": 27,
-                        "startColumn": 4,
-                        "startOffset": 1639,
-                        "endColumn": 85,
-                        "endOffset": 1720
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 12,
-                    "startColumn": 4,
-                    "startOffset": 1127,
-                    "endColumn": 95,
-                    "endOffset": 1218
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-gl-rES\\strings.xml",
-                    "position": {
-                        "startLine": 25,
-                        "startColumn": 4,
-                        "startOffset": 1450,
-                        "endColumn": 95,
-                        "endOffset": 1541
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\build\\intermediates\\res\\merged\\debug\\values-gl-rES\\values-gl-rES.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 105,
-                    "endColumn": 102,
-                    "endOffset": 203
-                },
-                "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-gl-rES\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-gl-rES/strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -244,7 +30,7 @@
                     "endOffset": 313
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-gl-rES\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-gl-rES/strings.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -263,7 +49,7 @@
                     "endOffset": 388
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-gl-rES\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-gl-rES/strings.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -282,7 +68,7 @@
                     "endOffset": 514
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-gl-rES\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-gl-rES/strings.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -301,7 +87,7 @@
                     "endOffset": 633
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-gl-rES\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-gl-rES/strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -320,7 +106,7 @@
                     "endOffset": 763
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-gl-rES\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-gl-rES/strings.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -339,7 +125,7 @@
                     "endOffset": 854
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-gl-rES\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-gl-rES/strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -358,7 +144,7 @@
                     "endOffset": 943
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-gl-rES\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-gl-rES/strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -377,7 +163,7 @@
                     "endOffset": 1036
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-gl-rES\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-gl-rES/strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -396,7 +182,7 @@
                     "endOffset": 1122
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-gl-rES\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-gl-rES/strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -415,7 +201,7 @@
                     "endOffset": 1218
                 },
                 "from": {
-                    "file": "F:\\AndroidStudioProjects\\YunMeet12\\datetimepicker\\res\\values-gl-rES\\strings.xml",
+                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-gl-rES/strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
