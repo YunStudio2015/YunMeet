@@ -132,7 +132,6 @@
     <orderEntry type="library" exported="" name="support-vector-drawable-23.2.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.2.1" level="project" />
     <orderEntry type="module" module-name="pulltorefresh" exported="" />
-    <orderEntry type="module" module-name="androidmosaiclayout" exported="" />
     <orderEntry type="module" module-name="RecyclerViewpager" exported="" />
     <orderEntry type="module" module-name="pickphotos" exported="" />
     <orderEntry type="module" module-name="datetimepicker" exported="" />

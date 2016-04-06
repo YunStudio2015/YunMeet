@@ -1,25 +1,17 @@
 package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.adhamenaya.androidmosaiclayout.views.BlockPattern;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.rockerhieu.emojicon.EmojiconTextView;
@@ -75,10 +67,6 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
             "http://bcs.kuaiapk.com/rbpiczy/Wallpaper/2013/9/18/ce3ce7b02b1d4a769e27946b1d8f69f8.jpg"
     };
 
-    public BlockPattern.BLOCK_PATTERN[][] patternz = {AppConstants.pattern1, AppConstants.pattern2,
-            AppConstants.pattern3, AppConstants.pattern4,
-            AppConstants.pattern5, AppConstants.pattern6,
-            AppConstants.pattern7, AppConstants.pattern8};
 
     private Drawable placeholder = null;
     private LayoutInflater inf;

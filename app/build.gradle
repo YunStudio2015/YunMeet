@@ -30,7 +30,6 @@ dependencies {
     compile project(":datetimepicker")
     compile project(":SwipeNumberPicker")
     compile project(":RecyclerViewpager")
-    compile project(":androidmosaiclayout")
     // actionbar tinting
     // photocropper
     // photo viewer that supports zoom
