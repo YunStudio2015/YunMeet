@@ -5,20 +5,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.adhamenaya.androidmosaiclayout.views.MosaicLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +24,7 @@ import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.ChatTopicRecyclerviewAdapter;
 import yunstudio2015.android.yunmeet.commonLogs.L;
-import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
 import yunstudio2015.android.yunmeet.customviewz.SuperSwipeRefreshLayout;
-import yunstudio2015.android.yunmeet.entityz.ActivityDownloadEntity;
-import yunstudio2015.android.yunmeet.entityz.ChatTopicDownloadEntity;
 import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
 import yunstudio2015.android.yunmeet.interfacez.OnLoadFinishCallBack;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
@@ -39,15 +32,8 @@ import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
-import static yunstudio2015.android.yunmeet.adapterz.ChatTopicRecyclerviewAdapter.*;
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ChatTopicsItemFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ChatTopicsItemFragment#newInstance} factory method to
- * create an instance of this fragment.
+/***
+ * By UAb
  */
 public class ChatTopicsItemFragment extends Fragment {
 
@@ -57,6 +43,8 @@ public class ChatTopicsItemFragment extends Fragment {
     private android.content.Context context;
     private ChatTopicRecyclerviewAdapter adapter;
     private boolean islocalLoaded = false;
+    private List<Object> globalData;
+    private int pageCount = 2;
 
     public ChatTopicsItemFragment() {
         // Required empty public constructor
@@ -111,11 +99,20 @@ public class ChatTopicsItemFragment extends Fragment {
             public void loadfailed(String msg) {
             }
         });
-
         swp.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override
             public void onRefresh() {
-                refresh();
+                loadNewData (new OnLoadFinishCallBack() {
+                    @Override
+                    public void loadDone() {
+                        swp.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void loadfailed(String msg) {
+                        swp.setRefreshing(false);
+                    }
+                });
             }
 
             @Override
@@ -126,13 +123,97 @@ public class ChatTopicsItemFragment extends Fragment {
             public void onPullEnable(boolean enable) {
             }
         });
+        swp.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                // 加載更多的數據
+                swp.setLoadMore(true);
+                loadOlderData(new OnLoadFinishCallBack() {
+                    @Override
+                    public void loadDone() {
+                        swp.setLoadMore(false);
+                    }
+
+                    @Override
+                    public void loadfailed(String msg) {
+                        swp.setLoadMore(false);
+                    }
+                });
+            }
+
+            @Override
+            public void onPushDistance(int distance) {
+            }
+
+            @Override
+            public void onPushEnable(boolean enable) {
+            }
+        });
         swp.setFooterView(LayoutInflater.from(getActivity()).inflate(R.layout.list_loader_layout, null));
         return rootview;
     }
 
+    private void loadOlderData(final OnLoadFinishCallBack callBack) {
+
+        if (globalData != null && globalData.size()>0) {
+            mT("older id == "+((ChatTopicEntity) globalData.get(globalData.size()-1)).id);
+        }
+        String paramz = "";
+        if (globalData!=null && globalData.size() > 0) {
+            ChatTopicEntity lastestItem = (ChatTopicEntity) globalData.get(globalData.size() - 1);
+            // load the next 20 from the localdatabase, if possible ok, else, load what we have,
+            // if we dont have enough, load from the
+            paramz+="min="+lastestItem.topic_id;
+        }
+        paramz += "num="+pageCount
+                +"token=" + UtilsFunctions.getToken(context);
+        // get the id of the older one.
+        VolleyRequest.GetStringRequest(context, YunApi.URL_GET_ALL_TOPIC_LIST,
+                paramz
+                , new VolleyOnResultListener() {
+
+                    @Override
+                    public void onSuccess(String response) {
+                        L.d(response);
+                        Gson gson = new Gson();
+                        try {
+                            JsonElement resp = gson.fromJson(response, JsonElement.class);
+                            ChatTopicEntity[] data = gson.fromJson(resp.getAsJsonObject().get("data").getAsJsonArray(),
+                                    ChatTopicEntity[].class);
+                            buildUiOld(data);
+                            if (callBack!= null)
+                                callBack.loadDone();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            throwError("");
+                            if (callBack!= null)
+                                callBack.loadfailed("error");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+                        if (error.equals(context.getString(R.string.noconnection))) {
+                    /* 网络出问题可以显示。。。*/
+                            throwError(error);
+                        }
+                        throwError("");
+                        if (callBack!= null)
+                            callBack.loadfailed("error");
+                /* 不是那就是数据出问题了 */
+//                mT(error);
+                    }
+                });
+    }
+
+    private void mT(String s) {
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+    }
+
+
     public void refresh () {
         swp.setRefreshing(true);
-        loadData(new OnLoadFinishCallBack() {
+        loadNewData(new OnLoadFinishCallBack() {
 
             @Override
             public void loadDone() {
@@ -147,16 +228,12 @@ public class ChatTopicsItemFragment extends Fragment {
         });
     }
 
-
-
     private void loadFromLocal(OnLoadFinishCallBack onLoadFinishCallBack) {
 
         onLoadFinishCallBack.loadDone();
     }
 
-
-
-    private void loadData(@Nullable final OnLoadFinishCallBack callBack) {
+    private void loadNewData(@Nullable final OnLoadFinishCallBack callBack) {
         VolleyRequest.GetStringRequest(context, YunApi.URL_GET_ALL_TOPIC_LIST, "token=" + UtilsFunctions.getToken(context)
                 , new VolleyOnResultListener() {
 
@@ -168,7 +245,7 @@ public class ChatTopicsItemFragment extends Fragment {
                             JsonElement resp = gson.fromJson(response, JsonElement.class);
                             ChatTopicEntity[] data = gson.fromJson(resp.getAsJsonObject().get("data").getAsJsonArray(),
                                     ChatTopicEntity[].class);
-                            buildUi(data);
+                            buildUiNew(data);
                             if (callBack!= null)
                                 callBack.loadDone();
                         } catch (Exception e) {
@@ -208,22 +285,85 @@ public class ChatTopicsItemFragment extends Fragment {
             tv_error_message.setText("大哥，你这问题很严重了。。。");*/
     }
 
-    private void buildUi(ChatTopicEntity[] data) {
+    private void buildUiNew(ChatTopicEntity[] data) {
 
 
-        List<Object> d = new ArrayList<>();
-
+        if (data != null && data.length > 0) {
+            ChatTopicEntity e = data[0];
+            if (Integer.valueOf(e.id) <= ((globalData != null && globalData.size()>0 ? globalData.size() : 0))) {
+                mT("no more new for now");
+                return;
+            }
+        } else {
+            mT("no more new for now");
+            return;
+        }
+        List<ChatTopicEntity> d = new ArrayList<>();
         for (ChatTopicEntity entity: data
                 ) {
             d.add(entity);
         }
         i_showLoadingIc();
-        // load data from the database.
-        adapter = new ChatTopicRecyclerviewAdapter(d);
+        if (globalData == null) {
+            globalData = new ArrayList<>();
+            adapter = new ChatTopicRecyclerviewAdapter(d);
+            recyclerview_chattopic.setAdapter(adapter);
+            recyclerview_chattopic.setVisibility(View.VISIBLE);
+            adapter.notifyDataSetChanged();
+        }
+        else {
+            for (ChatTopicEntity entity: data
+                    ) {
+                adapter.addEntry(entity);
+            }
+            adapter.notifyItemRangeInserted(adapter.getItemCount()-data.length, data.length);
+        }
 //        recyclerview_chattopic.addItemDecoration(new ChatTopicRecyclerviewAdapter.DividerItemDecoration(context, LinearLayoutManager.VERTICAL),1);
-        recyclerview_chattopic.setAdapter(adapter);
-        recyclerview_chattopic.setVisibility(View.VISIBLE);
-        i_dismissLoadingIc();
+    }
+
+    private void buildUiOld(ChatTopicEntity[] data) {
+
+
+        if (data != null && data.length > 0) {
+            ChatTopicEntity e = data[0];
+            if (Integer.valueOf(e.id) >= ((globalData != null && globalData.size()>0 ? globalData.size() : 0)))
+                mT("still hv old");
+            else {
+                mT("no more new for now");
+                setEndRecyclerview();
+            }
+        } else {
+            mT("no more new for now");
+            setEndRecyclerview();
+        }
+        List<ChatTopicEntity> d = new ArrayList<>();
+        for (ChatTopicEntity entity: data
+                ) {
+            d.add(entity);
+        }
+        i_showLoadingIc();
+        if (globalData == null) {
+            globalData = new ArrayList<>();
+            adapter = new ChatTopicRecyclerviewAdapter(d);
+            recyclerview_chattopic.setAdapter(adapter);
+            recyclerview_chattopic.setVisibility(View.VISIBLE);
+            adapter.notifyDataSetChanged();
+        }
+        else {
+            for (ChatTopicEntity entity: data
+                    ) {
+                adapter.addEntry(entity);
+            }
+            adapter.notifyItemRangeInserted(adapter.getItemCount()-data.length, data.length);
+        }
+//        recyclerview_chattopic.addItemDecoration(new ChatTopicRecyclerviewAdapter.DividerItemDecoration(context, LinearLayoutManager.VERTICAL),1);
+    }
+
+    private void setEndRecyclerview() {
+        mT("end recyclerview");
+        swp.setOnPushLoadMoreListener(null);
+        if (recyclerview_chattopic != null)
+            swp.setFooterView(LayoutInflater.from(getActivity()).inflate(R.layout.rv_footer, swp, false));
     }
 
 

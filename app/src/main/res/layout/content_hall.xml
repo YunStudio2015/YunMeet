@@ -107,7 +107,6 @@
             android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
         </RelativeLayout>
 
         <android.support.design.widget.FloatingActionButton
@@ -119,8 +118,9 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             app:backgroundTint="@color/btn_background"
-            android:src="@null"
-             />
+            android:src="@drawable/ic_action_add"
+            />
+
     </RelativeLayout>
 
     <FrameLayout

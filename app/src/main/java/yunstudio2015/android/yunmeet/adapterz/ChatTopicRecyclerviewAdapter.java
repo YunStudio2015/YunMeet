@@ -1,27 +1,28 @@
 package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.adhamenaya.androidmosaiclayout.listeners.OnItemClickListener;
 import com.adhamenaya.androidmosaiclayout.views.BlockPattern;
-import com.adhamenaya.androidmosaiclayout.views.MosaicLayout;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.rockerhieu.emojicon.EmojiconTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.commonLogs.L;
-import yunstudio2015.android.yunmeet.entityz.ChatTopicDownloadEntity;
+import yunstudio2015.android.yunmeet.customviewz.GridLayoutManAger;
 import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
 import yunstudio2015.android.yunmeet.fragments.ChatTopicsMainFragment;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
@@ -43,7 +44,7 @@ import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopicRecyclerviewAdapter.ViewHolder> {
 
 
-    List<Object> data = null;
+    List<ChatTopicEntity> data = null;
 
     // view types
     private final int TYPE_LOADER = 111, TYPE_ITEM = 222;
@@ -79,14 +80,18 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
             AppConstants.pattern5, AppConstants.pattern6,
             AppConstants.pattern7, AppConstants.pattern8};
 
-    private ColorDrawable placeholder = null;
+    private Drawable placeholder = null;
+    private LayoutInflater inf;
+    private Context ctx  = null;
+    private Gson gson;
 
-    public ChatTopicRecyclerviewAdapter(List<Object> data) {
+    public ChatTopicRecyclerviewAdapter(List<ChatTopicEntity> data) {
 
         this.data = data;
+        gson = new Gson();
     }
 
-    public void setData (List<Object> data) {
+    public void setData (List<ChatTopicEntity> data) {
 
         this.data.addAll(data);
         notifyDataSetChanged();
@@ -107,52 +112,67 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
 
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chattopic_list_item, parent, false);
-            return (new ChatTopicViewHolder(view));
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chattopic_list_item, parent, false);
+        return (new ChatTopicViewHolder(view));
     }
 
 
     @Override
     public void onBindViewHolder(ViewHolder hld, int position) {
 
-            ChatTopicEntity entity = (ChatTopicEntity) data.get(position);
-
-            ChatTopicViewHolder holder = (ChatTopicViewHolder) hld;
-            if (holder.tmpd == null)
-                holder.tmpd = entity.image;
-            /*new String[]{
-                        tmpdata[getRandomInf(tmpdata.length)],  tmpdata[getRandomInf(tmpdata.length)],
-                        tmpdata[getRandomInf(tmpdata.length)],  tmpdata[getRandomInf(tmpdata.length)]
-                        ,  tmpdata[getRandomInf(tmpdata.length)]};*/
-            MosaicLayoutAdapter mAdapater = new MosaicLayoutAdapter(holder.iv_launcher.getContext(), holder.tmpd);
-            if (holder.tmpd.length >= 1 && holder.tmpd.length <= 8) {
-                holder.mosaicLayout.addPattern(patternz[holder.tmpd.length-1]);
+        ChatTopicEntity entity = data.get(position);
+        ChatTopicViewHolder holder = (ChatTopicViewHolder) hld;
+        holder.lny_model.setActivated(true);
+        if (holder.tmpd == null)
+            holder.tmpd = entity.image;
+        holder.grid_recycler_view.setHasFixedSize(true);
+        if (inf == null)
+            inf = LayoutInflater.from(holder.grid_recycler_view.getContext());
+        if (ctx == null)
+            ctx = holder.grid_recycler_view.getContext();
+        if (entity.image != null && entity.image.length > 1) {
+            holder.iv_unique.setVisibility(View.GONE);
+            int rowCount = 0;
+            if (entity.image.length == 1 || entity.image.length == 2) {
+                rowCount = entity.image.length;
+            } else if (entity.image.length > 2) {
+                rowCount = 3;
             }
-            holder.mosaicLayout.setAdapter(mAdapater);
-            holder.mosaicLayout.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onClick(int position) {
-                    L.d("clicked on nb "+position);
-                }
-            });
-
-            Glide.with(((ChatTopicViewHolder) hld).iv_launcher.getContext())
-                    .load(entity.face)
-                    .centerCrop()
+            GridLayoutManAger gr = new GridLayoutManAger(ctx, rowCount);
+            holder.grid_recycler_view.setLayoutManager(gr);
+            //  set up an adapter
+            holder.grid_recycler_view.setAdapter(new GridInnerAdapter(entity.image));
+            holder.grid_recycler_view.setVisibility(View.VISIBLE);
+        } else {
+            holder.grid_recycler_view.setVisibility(View.GONE);
+            if (entity.image != null && entity.image.length==1) {
+                L.d("setting one img for position "+position);
+                Glide.with(((ChatTopicViewHolder) hld).iv_launcher.getContext())
+                        .load(entity.image[0])
+//                        .centerCrop()
 //                    .thumbnail(0.3f)
-                    .error(me.crosswall.photo.pick.R.drawable.default_error)
-                    .into(holder.iv_launcher);
-
-            // set the others
-            holder.tv_username.setText(entity.nickname);
-            holder.tv_topic.setText(entity.content);
+                        .error(me.crosswall.photo.pick.R.drawable.default_error)
+                        .into(holder.iv_unique);
+                holder.iv_unique.setVisibility(View.VISIBLE);
+            } else {
+                holder.iv_unique.setVisibility(View.GONE);
+            }
+        }
+        Glide.with(((ChatTopicViewHolder) hld).iv_launcher.getContext())
+                .load(entity.face)
+                .centerCrop()
+//                    .thumbnail(0.3f)
+                .error(me.crosswall.photo.pick.R.drawable.default_error)
+                .into(holder.iv_launcher);
+        holder.iv_launcher.setImageResource(R.drawable.rowitem_bg);
+        // set the others
+        holder.tv_username.setText(entity.nickname);
+        holder.tv_topic.setText(entity.content);
     }
 
     private int getRandomInf(int length) {
 
-
         // get random value between 0 and length
-
         return showRandomInteger(0, length-1, new Random());
     }
 
@@ -175,6 +195,12 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         return data == null ? 0 : data.size();
     }
 
+    public void addEntry(ChatTopicEntity entity) {
+        if (data == null)
+            data = new ArrayList<>();
+        data.add(entity);
+    }
+
     private class LoaderLayoutHolder extends ViewHolder {
 
         public LoaderLayoutHolder(View view) {
@@ -190,18 +216,23 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
 
     public class ChatTopicViewHolder extends  ViewHolder {
 
+        @Bind(R.id.lny_model)
+        LinearLayout lny_model;
 
         @Bind(R.id.iv_launcher_pic)
         public ImageView iv_launcher;
 
         @Bind(R.id.tv_username)
-        public TextView tv_username;
+        public EmojiconTextView tv_username;
 
         @Bind(R.id.tv_topic)
-        public  TextView tv_topic;
+        public  EmojiconTextView tv_topic;
 
-        @Bind(R.id.mosaic_layout)
-        public   MosaicLayout mosaicLayout;
+        @Bind(R.id.iv_unique)
+        ImageView iv_unique;
+
+        @Bind(R.id.grid_recycler_view)
+        public RecyclerView grid_recycler_view;
 
         @Bind(R.id.lny_comments)
         LinearLayout lny_comments;
@@ -211,143 +242,92 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         public ChatTopicViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            grid_recycler_view.addItemDecoration(new GridItemDecoration(5));
             // set up different patterns for different size of data array
         }
     }
 
 
-    public class MosaicLayoutAdapter extends ArrayAdapter<Object> {
+    public class GridInnerAdapter extends RecyclerView.Adapter {
 
-        private Context context;
-        private String[] values;
-        private Gson gson;
+        private String[] imgd = null;
 
-
-        public MosaicLayoutAdapter(Context context, String[] values) {
-            super(context, R.layout.row_item);
-            this.context = context;
-            this.values = values;
-            gson = new Gson();
+        public GridInnerAdapter(String[] imgd) {
+            this.imgd = imgd;
         }
 
         @Override
-        public int getCount() {
-            return values.length;
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new InnerViewHolder(inf.inflate(R.layout.row_item, null));
         }
 
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
+        public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final View rowView = inflater.inflate(R.layout.row_item, parent, false);
-            final ImageView image = (ImageView) rowView.findViewById(R.id.image);
-            if (placeholder == null) {
-                placeholder = new ColorDrawable(context.getResources().getColor(R.color.gray));
-            }
-
-            image.setOnClickListener(new View.OnClickListener() {
+            ((InnerViewHolder)holder).iv.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
-                public void onClick(View v) {
-
-                    Uri uri = Uri.parse(AppConstants.scheme_ui + "://" + AppConstants.authority + "/" +
-                            UtilsFunctions.encodedPath(gson.toJson(values[position])));
-                    ((ChatTopicsMainFragment.OnFragmentInteractionListener) context).onFragmentInteraction(uri, values);
+                public void onGlobalLayout() {
+                    ViewGroup.LayoutParams layoutParams = ((InnerViewHolder) holder).iv.getLayoutParams();
+                    ((InnerViewHolder)holder).iv.setLayoutParams(layoutParams);
                 }
             });
-
-            Glide.with(context)
-                    .load(values[position])
-                    .centerCrop()
+            Glide.with(ctx)
+                    .load(imgd[position])
                     .placeholder(placeholder)
+                    .centerCrop()
 //                    .thumbnail(0.3f)
                     .error(me.crosswall.photo.pick.R.drawable.default_error)
-                    .into(image);
-            return rowView;
-        }
-    }
-
-    public static class DividerItemDecoration extends RecyclerView.ItemDecoration {
-
-        private static final int[] ATTRS = new int[]{
-                android.R.attr.listDivider
-        };
-
-        public static final int HORIZONTAL_LIST = LinearLayoutManager.HORIZONTAL;
-
-        public static final int VERTICAL_LIST = LinearLayoutManager.VERTICAL;
-
-        private Drawable mDivider;
-
-        private int mOrientation;
-
-        public DividerItemDecoration(Context context, int orientation) {
-            final TypedArray a = context.obtainStyledAttributes(ATTRS);
-            mDivider = a.getDrawable(0);
-            a.recycle();
-            setOrientation(orientation);
-        }
-
-        public void setOrientation(int orientation) {
-            if (orientation != HORIZONTAL_LIST && orientation != VERTICAL_LIST) {
-                throw new IllegalArgumentException("invalid orientation");
-            }
-            mOrientation = orientation;
+                    .into(((InnerViewHolder)holder).iv);
+            ((InnerViewHolder)holder).iv.setImageResource(R.drawable.rowitem_bg);
+            ((InnerViewHolder)holder).iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri uri = Uri.parse(AppConstants.scheme_ui + "://" + AppConstants.authority + "/" +
+                            UtilsFunctions.encodedPath(gson.toJson(imgd[position])));
+                    ((ChatTopicsMainFragment.OnFragmentInteractionListener) ctx).onFragmentInteraction(uri, imgd);
+                }
+            });
         }
 
         @Override
-        public void onDraw(Canvas c, RecyclerView parent) {
-
-            /* if it is the last dont draw anything. */
-            if (mOrientation == VERTICAL_LIST) {
-                drawVertical(c, parent);
-            } else {
-                drawHorizontal(c, parent);
-            }
-
+        public int getItemCount() {
+            return imgd.length;
         }
 
-        public void drawVertical(Canvas c, RecyclerView parent) {
-            final int left = parent.getPaddingLeft();
-            final int right = parent.getWidth() - parent.getPaddingRight();
+        public class InnerViewHolder extends RecyclerView.ViewHolder {
 
-            final int childCount = parent.getChildCount();
-            for (int i = 0; i < childCount; i++) {
-                final View child = parent.getChildAt(i);
-                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
-                        .getLayoutParams();
-                final int top = child.getBottom() + params.bottomMargin;
-                final int bottom = top + mDivider.getIntrinsicHeight();
-                mDivider.setBounds(left, top, right, bottom);
-                mDivider.draw(c);
-            }
-        }
+            @Bind(R.id.image)
+            public ImageView iv;
 
-        public void drawHorizontal(Canvas c, RecyclerView parent) {
-            final int top = parent.getPaddingTop();
-            final int bottom = parent.getHeight() - parent.getPaddingBottom();
-
-            final int childCount = parent.getChildCount();
-            for (int i = 0; i < childCount; i++) {
-                final View child = parent.getChildAt(i);
-                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
-                        .getLayoutParams();
-                int customRightMargin = 20;
-                final int left = child.getRight() + customRightMargin/*params.rightMargin*/;
-                final int right = left + mDivider.getIntrinsicHeight();
-                mDivider.setBounds(left, top, right, bottom);
-                mDivider.draw(c);
-            }
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
-            if (mOrientation == VERTICAL_LIST) {
-                outRect.set(10, 0, 10, mDivider.getIntrinsicHeight());
-            } else {
-                outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
+            public InnerViewHolder(View itemView) {
+                super(itemView);
+                ButterKnife.bind(this, itemView);
             }
         }
     }
 
+    public class GridItemDecoration extends RecyclerView.ItemDecoration {
+
+        private final int space;
+
+        public GridItemDecoration(int space) {
+            this.space =space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+            outRect.left = space;
+            outRect.right = space;
+            outRect.bottom = space;
+
+            // Add top margin only for the first item to avoid double space between items
+            if (parent.getChildLayoutPosition(view) == 0) {
+                outRect.top = space;
+            } else {
+                outRect.top = 0;
+            }
+        }
+    }
 
 }

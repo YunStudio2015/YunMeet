@@ -1,14 +1,7 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-     >
-
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@null"
-        android:background="@drawable/rowitem_bg"
-        android:scaleType="centerCrop" />
-
-</FrameLayout>
+    android:id="@+id/image"
+    android:src="@null"
+    android:background="@color/transparent"
+  />
