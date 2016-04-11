@@ -4,47 +4,25 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.adapterz.MyFriendsAdapter;
-import yunstudio2015.android.yunmeet.entityz.SimpleFriendItemEntity;
-import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
-import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 
 public class MyFriendsMainFragment extends Fragment {
 
-    private RecyclerView rvFriends;
-    private List<SimpleFriendItemEntity> friends = new ArrayList<SimpleFriendItemEntity>();
-    private Context context;
-    private RequestQueue queue;
-    private Toolbar toolbar;
     private ImageView ivFriend;
     private ImageView ivGroup;
+
+    // position用于保存当前所处fragment，取值只能为0或者1
+    // 0表示当前处于好友，1表示当前处于群组
+    private int position = 0;
+
+    private MyFriendsMainFriendsFragment friendsFragment = new MyFriendsMainFriendsFragment();
+    private MyFriendsMainGroupFragment groupFragment = new MyFriendsMainGroupFragment();
 
     private OnFragmentInteractionListener mListener;
 
@@ -63,8 +41,6 @@ public class MyFriendsMainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        queue = Volley.newRequestQueue(getContext().getApplicationContext());
     }
 
     @Override
@@ -72,48 +48,40 @@ public class MyFriendsMainFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_my_friends_main, container, false);
 
-        context = rootView.getContext();
-
         initViews(rootView);
 
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("token", UtilsFunctions.getToken(context));
+        ivFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS, new JSONObject(map), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    if (response.getString("error").equals("0")){
-                        if (friends.size() != 0){
-                            friends.clear();
-                        }
-                        JSONArray list = response.getJSONArray("data");
-                        for (int i = 0; i < list.length(); i++) {
-                            SimpleFriendItemEntity friend = new SimpleFriendItemEntity(
-                                    list.getJSONObject(i).getString("id"),
-                                    list.getJSONObject(i).getString("face"),
-                                    list.getJSONObject(i).getString("nickname"),
-                                    list.getJSONObject(i).getString("signature")
-                            );
-                            friends.add(friend);
-                        }
-                        rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        rvFriends.setAdapter(new MyFriendsAdapter(getActivity(), friends));
-                    } else {
-                        Toast.makeText(getActivity(), response.getString("message"), Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (position == 0){
+                    // 更改对应的图片资源
+                    ivFriend.setImageResource(R.drawable.friends_0);
+                    ivGroup.setImageResource(R.drawable.group_0);
+
+                    changeToFragment(position);
+
+                    position = 1;
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
             }
         });
 
-        queue.add(req);
+        ivGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (position == 1){
+                    ivFriend.setImageResource(R.drawable.friends_1);
+                    ivGroup.setImageResource(R.drawable.group_1);
+
+                    changeToFragment(position);
+
+                    position = 0;
+                }
+
+            }
+        });
 
         return rootView;
     }
@@ -159,10 +127,27 @@ public class MyFriendsMainFragment extends Fragment {
 
     private void initViews(View view) {
 
-        rvFriends = (RecyclerView) view.findViewById(R.id.friends_list);
-        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        ivFriend = (ImageView) view.findViewById(R.id.iv_friends);
-        ivGroup = (ImageView) view.findViewById(R.id.iv_group);
+        // toolbar中两个imageview需要用context来获取，不能简单的通过传入的view获取
+        ivFriend = (ImageView) getActivity().findViewById(R.id.iv_friends);
+        ivGroup = (ImageView) getActivity().findViewById(R.id.iv_group);
 
+    }
+
+    /**
+     * 用于加载不同的fragment
+     * @param position 当前所处的位置，0或者1
+     */
+    private void changeToFragment(int position){
+        if (position == 0){
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.my_friends_main_container,friendsFragment)
+                    .commit();
+        } else {
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.my_friends_main_container,groupFragment)
+                    .commit();
+        }
     }
 }
