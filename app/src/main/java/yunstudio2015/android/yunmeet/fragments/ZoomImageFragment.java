@@ -27,6 +27,7 @@ public class ZoomImageFragment extends Fragment {
     @Bind(R.id.img)
     ImageView imageView;
 
+
     PhotoViewAttacher mAttacher;
 
     @Override
@@ -41,7 +42,6 @@ public class ZoomImageFragment extends Fragment {
                 .into(imageView);
         // Attach a PhotoViewAttacher, which takes care of all of the zooming functionality.
         mAttacher = new PhotoViewAttacher(imageView);
-
         mAttacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
 
             @Override
@@ -50,13 +50,6 @@ public class ZoomImageFragment extends Fragment {
                 ((ActivitiesFragment.OnFragmentInteractionListener)getActivity()).onFragmentInteraction(uri, null);
             }
         });
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mAttacher != null)
-            mAttacher.cleanup();
     }
 
     private Gson gson;
