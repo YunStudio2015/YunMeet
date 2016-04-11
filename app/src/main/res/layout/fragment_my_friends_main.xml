@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="yunstudio2015.android.yunmeet.fragments.MyFriendsMainFragment">
 
-    <android.support.v7.widget.Toolbar
+   <!-- <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/action_bar_size"
@@ -64,7 +64,7 @@
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
-
+-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -14,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,12 +31,18 @@ public class ChatTopicsMainFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private Context context;
+    private ChatTopicsFragmentAdapter viewpagerAdapter;
 
 
     public ChatTopicsMainFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+    }
 
     public static ChatTopicsMainFragment getInstance() {
         ChatTopicsMainFragment fragment = new ChatTopicsMainFragment();
@@ -58,7 +68,9 @@ public class ChatTopicsMainFragment extends Fragment {
         View rootview = inflater.inflate(R.layout.fragment_chat_topics, container, false);
         ButterKnife.bind(this, rootview);
         context = rootview.getContext();
-        viewpager.setAdapter(new ChatTopicsFragmentAdapter(getChildFragmentManager(), context.getResources().getStringArray(R.array.default_chat_topics_names)));
+        viewpagerAdapter = new ChatTopicsFragmentAdapter(getChildFragmentManager(),
+                context.getResources().getStringArray(R.array.default_chat_topics_names));
+        viewpager.setAdapter(viewpagerAdapter);
         populateUpperTabStrip();
         return rootview;
     }
@@ -169,9 +181,15 @@ public class ChatTopicsMainFragment extends Fragment {
             this.titles = stringArray;
         }
 
+        private Map<String, Fragment> frg;
+
         @Override
         public Fragment getItem(int position) {
-            return ChatTopicsItemFragment.newInstance (position);
+            if (frg == null)
+                frg = new HashMap<>();
+            if (frg.get("n"+position) == null)
+                frg.put("n"+position, ChatTopicsItemFragment.newInstance(position));
+            return frg.get("n"+position);
         }
 
         @Override

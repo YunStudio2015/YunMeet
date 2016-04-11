@@ -29,7 +29,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.List;
@@ -92,6 +91,11 @@ public class HallActivity extends AppCompatActivity implements
     @Bind(R.id.tv_title)
     TextView tv_title;
 
+    @Bind(R.id.rel_discover_fragmentbar)
+    RelativeLayout rel_discover_fragmentbar;
+
+    @Bind(R.id.rel_myfriend_fragmentbar)
+    RelativeLayout rel_myfriend_fragmentbar;
 
     private ShowPicturesFragment showpictureFragment;
     private Gson gson;
@@ -166,19 +170,29 @@ public class HallActivity extends AppCompatActivity implements
 
                  /* changing the fragment. */
                 hallmain_viewpager.setCurrentItem(radiobuttonz.indexOf(radioButton2));
-                if (checkedId == R.id.radiobutton_bottom_menu_1) {
-                    // show the strip inside the action bar
-                    tv_title.setVisibility(View.GONE);
-                    tabs.setVisibility(View.VISIBLE);
+
+                // hide the main content bars
+                if (checkedId == R.id.radiobutton_bottom_menu_3) {
+                    rel_discover_fragmentbar.setVisibility(View.GONE);
+                    rel_myfriend_fragmentbar.setVisibility(View.VISIBLE);
                 } else {
-                    //  hide it.
-                    tabs.setVisibility(View.GONE);
-                    if (checkedId == R.id.radiobutton_bottom_menu_4) {
-                        // set wode visible.
-                        tv_title.setText(getResources().getString(R.string.myspace));
-                        tv_title.setVisibility(View.VISIBLE);
+                    rel_myfriend_fragmentbar.setVisibility(View.GONE);
+                    rel_discover_fragmentbar.setVisibility(View.VISIBLE);
+                    if (checkedId == R.id.radiobutton_bottom_menu_1) {
+                        // show the strip inside the action bar
+                        tv_title.setVisibility(View.GONE);
+                        tabs.setVisibility(View.VISIBLE);
+                    } else {
+                        //  hide it.
+                        tabs.setVisibility(View.GONE);
+                        if (checkedId == R.id.radiobutton_bottom_menu_4) {
+                            // set wode visible.
+                            tv_title.setText(getResources().getString(R.string.myspace));
+                            tv_title.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
+
             }
         });
 
@@ -361,7 +375,8 @@ public class HallActivity extends AppCompatActivity implements
 
         showpictureFragment = (ShowPicturesFragment) getSupportFragmentManager().findFragmentByTag(FRG_SHOWPICTURE);
 
-        /* so it is an image, then, what we should do is show it... then try to show the bigger picture */
+        /* so it is an image, then,   @Bind(R.id.toolbar)
+    Toolbar toolbar at we should do is show it... then try to show the bigger picture */
 
         if (uri.getScheme().equals(AppConstants.scheme_photo)) {
             /* show the small picture and load for the bigger */

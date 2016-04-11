@@ -32,9 +32,7 @@ import java.util.Map;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.MyFriendsAdapter;
 import yunstudio2015.android.yunmeet.entityz.SimpleFriendItemEntity;
-import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
-import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 
@@ -44,7 +42,6 @@ public class MyFriendsMainFragment extends Fragment {
     private List<SimpleFriendItemEntity> friends = new ArrayList<SimpleFriendItemEntity>();
     private Context context;
     private RequestQueue queue;
-    private Toolbar toolbar;
 
     private OnFragmentInteractionListener mListener;
 
@@ -199,8 +196,5 @@ public class MyFriendsMainFragment extends Fragment {
     private void initViews(View view) {
 
         rvFriends = (RecyclerView) view.findViewById(R.id.friends_list);
-        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setVisibility(View.GONE);
-
     }
 }
