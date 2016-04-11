@@ -4,12 +4,11 @@
     android:layout_height="match_parent"
     tools:context="yunstudio2015.android.yunmeet.fragments.MyFriendsMainFragment">
 
-   <!-- <android.support.v7.widget.Toolbar
+    <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/action_bar_size"
-        android:background="@color/actionbar_color"
-        >
+        android:background="@color/actionbar_color">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,25 +25,21 @@
                 android:background="@color/toolbar_dark"/>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="32dp"
                 android:layout_centerInParent="true">
 
-                <Button
-                    android:layout_width="80dp"
+                <ImageView
+                    android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/btn_friends"
-                    android:text="@string/friends"
-                    android:textColor="@color/actionbar_color"
-                    android:background="@drawable/bordered_button_selected" />
+                    android:id="@+id/iv_friends"
+                    android:src="@drawable/friends_1"/>
 
-                <Button
-                    android:layout_width="80dp"
+                <ImageView
+                    android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/btn_group"
-                    android:text="@string/group"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/bordered_button_unselected"/>
+                    android:id="@+id/iv_group"
+                    android:src="@drawable/group_1"/>
 
             </LinearLayout>
 
@@ -64,7 +59,6 @@
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
--->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

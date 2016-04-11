@@ -7,10 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -32,9 +32,7 @@ import java.util.Map;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.MyFriendsAdapter;
 import yunstudio2015.android.yunmeet.entityz.SimpleFriendItemEntity;
-import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
-import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 
@@ -45,6 +43,8 @@ public class MyFriendsMainFragment extends Fragment {
     private Context context;
     private RequestQueue queue;
     private Toolbar toolbar;
+    private ImageView ivFriend;
+    private ImageView ivGroup;
 
     private OnFragmentInteractionListener mListener;
 
@@ -78,44 +78,6 @@ public class MyFriendsMainFragment extends Fragment {
 
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(context));
-        Log.d("friends", UtilsFunctions.getToken(context));
-        /*VolleyRequest.PostStringRequest(getActivity(), YunApi.URL_GET_FOCUS, map , new VolleyOnResultListener() {
-            @Override
-            public void onSuccess(String response) {
-
-                Log.d("friends", "resq suc");
-                try {
-                    JSONObject resp = new JSONObject(response);
-                    Log.d("friends", "data");
-                    if (resp.getString("error").equals("0")) {
-
-                        JSONArray list = resp.getJSONArray("data");
-                        for (int i = 0; i < list.length(); i++) {
-                            SimpleFriendItemEntity friend = new SimpleFriendItemEntity(
-                                    list.getJSONObject(i).getString("id"),
-                                    list.getJSONObject(i).getString("face"),
-                                    list.getJSONObject(i).getString("nickname"),
-                                    list.getJSONObject(i).getString("signature")
-                            );
-                            Log.d("friends", "dddddddddddddddd");
-                            friends.add(friend);
-                        }
-                        rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        rvFriends.setAdapter(new MyFriendsAdapter(getActivity(), friends));
-                    } else {
-                        Toast.makeText(getActivity(), resp.getString("message"), Toast.LENGTH_SHORT).show();
-                        Log.d("friend", resp.getString("message"));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(String error) {
-                Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS, new JSONObject(map), new Response.Listener<JSONObject>() {
             @Override
@@ -139,7 +101,6 @@ public class MyFriendsMainFragment extends Fragment {
                         rvFriends.setAdapter(new MyFriendsAdapter(getActivity(), friends));
                     } else {
                         Toast.makeText(getActivity(), response.getString("message"), Toast.LENGTH_SHORT).show();
-                        Log.d("friend", response.getString("message"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -200,6 +161,8 @@ public class MyFriendsMainFragment extends Fragment {
 
         rvFriends = (RecyclerView) view.findViewById(R.id.friends_list);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ivFriend = (ImageView) view.findViewById(R.id.iv_friends);
+        ivGroup = (ImageView) view.findViewById(R.id.iv_group);
 
     }
 }
