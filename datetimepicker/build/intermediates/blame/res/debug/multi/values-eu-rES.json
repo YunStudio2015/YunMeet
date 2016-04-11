@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/res/merged/debug/values-eu-rES/values-eu-rES.xml",
+        "outputFile": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\debug\\values-eu-rES\\values-eu-rES.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,221 @@
                     "endOffset": 226
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-eu-rES/strings.xml",
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1330,
+                        "endColumn": 125,
+                        "endOffset": 1451
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 231,
+                    "endColumn": 109,
+                    "endOffset": 336
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 1860,
+                        "endColumn": 113,
+                        "endOffset": 1969
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 341,
+                    "endColumn": 75,
+                    "endOffset": 412
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 828,
+                        "endColumn": 75,
+                        "endOffset": 899
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 417,
+                    "endColumn": 119,
+                    "endOffset": 532
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 905,
+                        "endColumn": 119,
+                        "endOffset": 1020
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 537,
+                    "endColumn": 115,
+                    "endOffset": 648
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 1739,
+                        "endColumn": 119,
+                        "endOffset": 1854
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 653,
+                    "endColumn": 124,
+                    "endOffset": 773
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1026,
+                        "endColumn": 124,
+                        "endOffset": 1146
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 778,
+                    "endColumn": 96,
+                    "endOffset": 870
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1556,
+                        "endColumn": 96,
+                        "endOffset": 1648
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 875,
+                    "endColumn": 85,
+                    "endOffset": 956
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1152,
+                        "endColumn": 85,
+                        "endOffset": 1233
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 961,
+                    "endColumn": 89,
+                    "endOffset": 1046
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 1239,
+                        "endColumn": 89,
+                        "endOffset": 1324
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1051,
+                    "endColumn": 83,
+                    "endOffset": 1130
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 1654,
+                        "endColumn": 83,
+                        "endOffset": 1733
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1135,
+                    "endColumn": 97,
+                    "endOffset": 1228
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1457,
+                        "endColumn": 97,
+                        "endOffset": 1550
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\debug\\values-eu-rES\\values-eu-rES.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 125,
+                    "endOffset": 226
+                },
+                "from": {
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -30,7 +244,7 @@
                     "endOffset": 336
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-eu-rES/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -49,7 +263,7 @@
                     "endOffset": 412
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-eu-rES/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -68,7 +282,7 @@
                     "endOffset": 532
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-eu-rES/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -87,7 +301,7 @@
                     "endOffset": 648
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-eu-rES/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -106,7 +320,7 @@
                     "endOffset": 773
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-eu-rES/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -125,7 +339,7 @@
                     "endOffset": 870
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-eu-rES/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -144,7 +358,7 @@
                     "endOffset": 956
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-eu-rES/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -163,7 +377,7 @@
                     "endOffset": 1046
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-eu-rES/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -182,7 +396,7 @@
                     "endOffset": 1130
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-eu-rES/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -201,7 +415,7 @@
                     "endOffset": 1228
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-eu-rES/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-eu-rES\\strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,

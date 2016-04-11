@@ -200,7 +200,6 @@ public class MyFriendsMainFragment extends Fragment {
 
         rvFriends = (RecyclerView) view.findViewById(R.id.friends_list);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setVisibility(View.GONE);
 
     }
 }

@@ -1,6 +1,10 @@
 [
     {
-        "merged": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/res/merged/androidTest/debug/layout-sw600dp-land-v13/date_picker_dialog.xml",
-        "source": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/bundles/debug/res/layout-sw600dp-land-v13/date_picker_dialog.xml"
+        "merged": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-sw600dp-land-v13\\date_picker_dialog.xml",
+        "source": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\layout-sw600dp-land-v13\\date_picker_dialog.xml"
+    },
+    {
+        "merged": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-sw600dp-land-v13\\date_picker_dialog.xml",
+        "source": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\layout-sw600dp-land-v13\\date_picker_dialog.xml"
     }
 ]

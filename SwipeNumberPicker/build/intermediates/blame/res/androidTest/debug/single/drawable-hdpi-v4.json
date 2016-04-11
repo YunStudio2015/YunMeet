@@ -1,10 +1,18 @@
 [
     {
-        "merged": "/home/ulrich/Documents/as/YunMeet/SwipeNumberPicker/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/ic_arrow_left.png",
-        "source": "/home/ulrich/Documents/as/YunMeet/SwipeNumberPicker/build/intermediates/bundles/debug/res/drawable-hdpi-v4/ic_arrow_left.png"
+        "merged": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\SwipeNumberPicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ic_arrow_right.png",
+        "source": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\SwipeNumberPicker\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_arrow_right.png"
     },
     {
-        "merged": "/home/ulrich/Documents/as/YunMeet/SwipeNumberPicker/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/ic_arrow_right.png",
-        "source": "/home/ulrich/Documents/as/YunMeet/SwipeNumberPicker/build/intermediates/bundles/debug/res/drawable-hdpi-v4/ic_arrow_right.png"
+        "merged": "D:\\AndroidProjects\\YunMeet\\SwipeNumberPicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ic_arrow_right.png",
+        "source": "D:\\AndroidProjects\\YunMeet\\SwipeNumberPicker\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_arrow_right.png"
+    },
+    {
+        "merged": "D:\\AndroidProjects\\YunMeet\\SwipeNumberPicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ic_arrow_left.png",
+        "source": "D:\\AndroidProjects\\YunMeet\\SwipeNumberPicker\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_arrow_left.png"
+    },
+    {
+        "merged": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\SwipeNumberPicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ic_arrow_left.png",
+        "source": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\SwipeNumberPicker\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_arrow_left.png"
     }
 ]

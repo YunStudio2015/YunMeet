@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/res/merged/release/values-hy-rAM/values-hy-rAM.xml",
+        "outputFile": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\values-hy-rAM\\values-hy-rAM.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,221 @@
                     "endOffset": 209
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hy-rAM/strings.xml",
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1317,
+                        "endColumn": 108,
+                        "endOffset": 1421
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 214,
+                    "endColumn": 105,
+                    "endOffset": 315
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 1817,
+                        "endColumn": 109,
+                        "endOffset": 1922
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 320,
+                    "endColumn": 79,
+                    "endOffset": 395
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 828,
+                        "endColumn": 79,
+                        "endOffset": 903
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 400,
+                    "endColumn": 112,
+                    "endOffset": 508
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 909,
+                        "endColumn": 112,
+                        "endOffset": 1017
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 513,
+                    "endColumn": 112,
+                    "endOffset": 621
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 1699,
+                        "endColumn": 116,
+                        "endOffset": 1811
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 626,
+                    "endColumn": 116,
+                    "endOffset": 738
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1023,
+                        "endColumn": 116,
+                        "endOffset": 1135
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 743,
+                    "endColumn": 88,
+                    "endOffset": 827
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1525,
+                        "endColumn": 88,
+                        "endOffset": 1609
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 832,
+                    "endColumn": 84,
+                    "endOffset": 912
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1141,
+                        "endColumn": 84,
+                        "endOffset": 1221
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 917,
+                    "endColumn": 88,
+                    "endOffset": 1001
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 1227,
+                        "endColumn": 88,
+                        "endOffset": 1311
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1006,
+                    "endColumn": 82,
+                    "endOffset": 1084
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 1615,
+                        "endColumn": 82,
+                        "endOffset": 1693
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1089,
+                    "endColumn": 96,
+                    "endOffset": 1181
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1427,
+                        "endColumn": 96,
+                        "endOffset": 1519
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\values-hy-rAM\\values-hy-rAM.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 108,
+                    "endOffset": 209
+                },
+                "from": {
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -30,7 +244,7 @@
                     "endOffset": 315
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hy-rAM/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -49,7 +263,7 @@
                     "endOffset": 395
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hy-rAM/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -68,7 +282,7 @@
                     "endOffset": 508
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hy-rAM/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -87,7 +301,7 @@
                     "endOffset": 621
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hy-rAM/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -106,7 +320,7 @@
                     "endOffset": 738
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hy-rAM/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -125,7 +339,7 @@
                     "endOffset": 827
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hy-rAM/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -144,7 +358,7 @@
                     "endOffset": 912
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hy-rAM/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -163,7 +377,7 @@
                     "endOffset": 1001
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hy-rAM/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -182,7 +396,7 @@
                     "endOffset": 1084
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hy-rAM/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -201,7 +415,7 @@
                     "endOffset": 1181
                 },
                 "from": {
-                    "file": "/home/ulrich/Documents/as/YunMeet/datetimepicker/res/values-hy-rAM/strings.xml",
+                    "file": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\res\\values-hy-rAM\\strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,

@@ -1,10 +1,18 @@
 [
     {
-        "merged": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/res/merged/androidTest/debug/drawable-land/done_background_color_dark.xml",
-        "source": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/bundles/debug/res/drawable-land/done_background_color_dark.xml"
+        "merged": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-land\\done_background_color_dark.xml",
+        "source": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\drawable-land\\done_background_color_dark.xml"
     },
     {
-        "merged": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/res/merged/androidTest/debug/drawable-land/done_background_color.xml",
-        "source": "/home/ulrich/Documents/as/YunMeet/datetimepicker/build/intermediates/bundles/debug/res/drawable-land/done_background_color.xml"
+        "merged": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-land\\done_background_color.xml",
+        "source": "D:\\home\\ulrich\\Documents\\as\\YunMeet\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\drawable-land\\done_background_color.xml"
+    },
+    {
+        "merged": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-land\\done_background_color.xml",
+        "source": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\drawable-land\\done_background_color.xml"
+    },
+    {
+        "merged": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-land\\done_background_color_dark.xml",
+        "source": "D:\\AndroidProjects\\YunMeet\\datetimepicker\\build\\intermediates\\bundles\\debug\\res\\drawable-land\\done_background_color_dark.xml"
     }
 ]
