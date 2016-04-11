@@ -23,7 +23,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.ChatTopicRecyclerviewAdapter;
-import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.SuperSwipeRefreshLayout;
 import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
 import yunstudio2015.android.yunmeet.interfacez.OnLoadFinishCallBack;
@@ -174,7 +173,7 @@ public class ChatTopicsItemFragment extends Fragment {
 
                     @Override
                     public void onSuccess(String response) {
-                        L.d(response);
+//                        L.d(response);
                         Gson gson = new Gson();
                         try {
                             JsonElement resp = gson.fromJson(response, JsonElement.class);
@@ -239,7 +238,7 @@ public class ChatTopicsItemFragment extends Fragment {
 
                     @Override
                     public void onSuccess(String response) {
-                        L.d(response);
+//                        L.d(response);
                         Gson gson = new Gson();
                         try {
                             JsonElement resp = gson.fromJson(response, JsonElement.class);
