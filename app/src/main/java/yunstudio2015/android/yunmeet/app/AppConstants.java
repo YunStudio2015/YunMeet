@@ -1,9 +1,5 @@
 package yunstudio2015.android.yunmeet.app;
 
-import com.adhamenaya.androidmosaiclayout.views.BlockPattern;
-
-import static com.adhamenaya.androidmosaiclayout.views.BlockPattern.*;
-
 /**
  * Created by Ultima on 2015/11/25.
  */
@@ -23,57 +19,5 @@ public class AppConstants {
     public static final String authority = "yunstudio-ym";
     public static final String scheme_ui = "uiinteractions", scheme_photo = "photo";
 
-
-//    public static final
-
-
-    public static final BLOCK_PATTERN pattern1[] = {
-            BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG,
-            BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG
-    };
-
-
-
-    public static final BLOCK_PATTERN pattern2[] = {
-            BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG,
-            BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG
-    };
-
-
-    public static final BLOCK_PATTERN pattern3[] = {
-            BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG,   BLOCK_PATTERN.HORIZONTAL, BLOCK_PATTERN.HORIZONTAL,
-            BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG,  BLOCK_PATTERN.HORIZONTAL, BLOCK_PATTERN.HORIZONTAL
-    };
-
-
-    public static final BLOCK_PATTERN pattern4[] = {
-            BLOCK_PATTERN.HORIZONTAL, BLOCK_PATTERN.HORIZONTAL,   BLOCK_PATTERN.HORIZONTAL, BLOCK_PATTERN.HORIZONTAL,
-            BLOCK_PATTERN.HORIZONTAL, BLOCK_PATTERN.HORIZONTAL,  BLOCK_PATTERN.HORIZONTAL, BLOCK_PATTERN.HORIZONTAL
-    };
-
-
-
-    public static final BLOCK_PATTERN pattern5[] = {
-            BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG, BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL,
-            BLOCK_PATTERN.BIG, BLOCK_PATTERN.BIG, BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL
-    };
-
-
-    public static final BLOCK_PATTERN pattern6[] = {
-            BLOCK_PATTERN.HORIZONTAL, BLOCK_PATTERN.HORIZONTAL, BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL,
-            BLOCK_PATTERN.HORIZONTAL, BLOCK_PATTERN.HORIZONTAL, BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL
-    };
-
-
-    public static final BLOCK_PATTERN pattern7[] = {
-            BLOCK_PATTERN.HORIZONTAL, BLOCK_PATTERN.HORIZONTAL, BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL,
-            BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL
-    };
-
-
-    public static final BLOCK_PATTERN pattern8[] = {
-            BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL,
-            BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL, BLOCK_PATTERN.SMALL
-    };
 
 }
