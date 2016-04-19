@@ -40,15 +40,11 @@ public class MyFriendsAdapter extends RecyclerView.Adapter<MyFriendsAdapter.MyFr
     public void onBindViewHolder(MyFriendsViewHolder holder, int position) {
         SimpleFriendItemEntity friend = friends.get(position);
         holder.tvFriendsName.setText(friend.getName());
-        Log.d("friend","name " + friend.getName());
         if (friend.getIntroduction() != null){
             holder.tvFriendsIntroduction.setText(friend.getIntroduction());
         } else {
             holder.tvFriendsIntroduction.setText("这个人太懒，什么都没有写");
         }
-        Log.d("friend","intro " + friend.getIntroduction());
-
-        Log.d("friend","img " + friend.getFace());
         Glide.with(context).load(friend.getFace()).into(holder.ivFace);
     }
 
@@ -69,6 +65,7 @@ public class MyFriendsAdapter extends RecyclerView.Adapter<MyFriendsAdapter.MyFr
             ivFace = (ImageView) itemView.findViewById(R.id.iv_friend_face);
             tvFriendsName = (TextView) itemView.findViewById(R.id.tv_friend_name);
             tvFriendsIntroduction = (TextView) itemView.findViewById(R.id.tv_friend_introduction);
+
         }
     }
 }

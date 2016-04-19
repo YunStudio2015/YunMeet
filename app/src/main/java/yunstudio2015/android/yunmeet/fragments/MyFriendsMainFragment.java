@@ -18,8 +18,7 @@ public class MyFriendsMainFragment extends Fragment {
     private ImageView ivGroup;
 
     // position用于保存当前所处fragment，取值只能为0或者1
-    // 0表示当前处于好友，1表示当前处于群组
-    private int position = 0;
+    private int position = 1;
 
     private MyFriendsMainFriendsFragment friendsFragment = new MyFriendsMainFriendsFragment();
     private MyFriendsMainGroupFragment groupFragment = new MyFriendsMainGroupFragment();
@@ -49,6 +48,11 @@ public class MyFriendsMainFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_my_friends_main, container, false);
 
         initViews(rootView);
+
+        // 初始化界面为好友界面
+        getActivity().getSupportFragmentManager()
+                .beginTransaction().replace(R.id.my_friends_main_container,friendsFragment)
+                .commit();
 
         ivFriend.setOnClickListener(new View.OnClickListener() {
             @Override
