@@ -15,3 +15,6 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-keepnames class yunstudio2015.android.yunmeet.app.MyGlideModule
+# or more generally:
+#-keep public class * implements com.bumptech.glide.module.GlideModule

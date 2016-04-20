@@ -1,0 +1,1392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Lint Report</title>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto" />
+<link rel="stylesheet" type="text/css" href="lint-results-debug_files/hololike.css" />
+<script language="javascript" type="text/javascript"> 
+<!--
+function reveal(id) {
+if (document.getElementById) {
+document.getElementById(id).style.display = 'block';
+document.getElementById(id+'Link').style.display = 'none';
+}
+}
+//--> 
+</script>
+</head>
+<body>
+<h1>Lint Report</h1>
+<div class="titleSeparator"></div>
+Check performed at Wed Apr 20 19:24:28 CST 2016.<br/>
+6 errors and 65 warnings found:<br/><br/>
+<table class="overview">
+<tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
+</td></tr>
+<tr>
+<td class="countColumn">8</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-warning.png" alt="Warning" />
+<a href="#DefaultLocale">DefaultLocale: Implied default locale in case conversion</a>
+</td></tr>
+<tr>
+<td class="countColumn">5</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-warning.png" alt="Warning" />
+<a href="#InlinedApi">InlinedApi: Using inlined constants on older versions</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-warning.png" alt="Warning" />
+<a href="#OldTargetApi">OldTargetApi: Target SDK attribute is not targeting latest version</a>
+</td></tr>
+<tr>
+<td class="countColumn">6</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-warning.png" alt="Warning" />
+<a href="#UnusedAttribute">UnusedAttribute: Attribute unused on older versions</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-error.png" alt="Error" />
+<a href="#ValidFragment">ValidFragment: Fragment not instantiatable</a>
+</td></tr>
+<tr>
+<td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-warning.png" alt="Warning" />
+<a href="#InflateParams">InflateParams: Layout Inflation without a Parent</a>
+</td></tr>
+<tr>
+<td class="countColumn">14</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-warning.png" alt="Warning" />
+<a href="#SpUsage">SpUsage: Using <code>dp</code> instead of <code>sp</code> for text sizes</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Correctness:Messages">Correctness:Messages</a>
+</td></tr>
+<tr>
+<td class="countColumn">5</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-error.png" alt="Error" />
+<a href="#MissingTranslation">MissingTranslation: Incomplete translation</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-warning.png" alt="Warning" />
+<a href="#StringFormatCount">StringFormatCount: Formatting argument types incomplete or inconsistent</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Performance">Performance</a>
+</td></tr>
+<tr>
+<td class="countColumn">5</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-warning.png" alt="Warning" />
+<a href="#Overdraw">Overdraw: Overdraw: Painting regions more than once</a>
+</td></tr>
+<tr>
+<td class="countColumn">11</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-warning.png" alt="Warning" />
+<a href="#UnusedResources">UnusedResources: Unused resources</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Usability">Usability</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-warning.png" alt="Warning" />
+<a href="#ViewConstructor">ViewConstructor: Missing View constructors for XML inflation</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Accessibility">Accessibility</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-warning.png" alt="Warning" />
+<a href="#ClickableViewAccessibility">ClickableViewAccessibility: Accessibility in Custom Views</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Internationalization:Bidirectional Text">Internationalization:Bidirectional Text</a>
+</td></tr>
+<tr>
+<td class="countColumn">10</td><td class="issueColumn"><img border="0" align="top" src="lint-results-debug_files/lint-warning.png" alt="Warning" />
+<a href="#RtlHardcoded">RtlHardcoded: Using left/right instead of start/end attributes</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (15)</a>
+</td></tr></table>
+<br/>
+<a name="Correctness"></a>
+<div class="category"><a href="#" title="Return to top">Correctness</a><div class="categorySeparator"></div>
+</div>
+<a name="DefaultLocale"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">DefaultLocale: Implied default locale in case conversion</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/com/android/datetimepicker/time/RadialPickerLayout.java">../../src/com/android/datetimepicker/time/RadialPickerLayout.java</a>:211</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno"> 208</span>         String[] minutesTexts = new String[12];
+<span class="lineno"> 209</span>         for (int i = 0; i &lt; 12; i++) {
+<span class="lineno"> 210</span>             hoursTexts[i] = is24HourMode?
+<span class="lineno"> 211</span>                     <span class="errorspan">String.format("%02d", hours_24[i]) : String.format("%d", hours[i]);</span>
+<span class="lineno"> 212</span>             innerHoursTexts[i] = String.format("%d", hours[i]);
+<span class="lineno"> 213</span>             minutesTexts[i] = String.format("%02d", minutes[i]);
+</pre>
+<span class="location"><a href="../../src/com/android/datetimepicker/time/RadialPickerLayout.java">../../src/com/android/datetimepicker/time/RadialPickerLayout.java</a>:212</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno"> 209</span>         for (int i = 0; i &lt; 12; i++) {
+<span class="lineno"> 210</span>             hoursTexts[i] = is24HourMode?
+<span class="lineno"> 211</span>                     String.format("%02d", hours_24[i]) : String.format("%d", hours[i]);
+<span class="lineno"> 212</span>             innerHoursTexts[i] = <span class="errorspan">String.format("%d", hours[i]);</span>
+<span class="lineno"> 213</span>             minutesTexts[i] = String.format("%02d", minutes[i]);
+<span class="lineno"> 214</span>         }
+</pre>
+<span class="location"><a href="../../src/com/android/datetimepicker/time/RadialPickerLayout.java">../../src/com/android/datetimepicker/time/RadialPickerLayout.java</a>:213</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno"> 210</span>             hoursTexts[i] = is24HourMode?
+<span class="lineno"> 211</span>                     String.format("%02d", hours_24[i]) : String.format("%d", hours[i]);
+<span class="lineno"> 212</span>             innerHoursTexts[i] = String.format("%d", hours[i]);
+<span class="lineno"> 213</span>             minutesTexts[i] = <span class="errorspan">String.format("%02d", minutes[i]);</span>
+<span class="lineno"> 214</span>         }
+<span class="lineno"> 215</span>         mHourRadialTextsView.initialize(res,
+</pre>
+<span class="location"><a href="../../src/com/android/datetimepicker/date/SimpleMonthView.java">../../src/com/android/datetimepicker/date/SimpleMonthView.java</a>:46</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno">  43</span>         } else {
+<span class="lineno">  44</span>             mMonthNumPaint.setColor(mDayTextColor);
+<span class="lineno">  45</span>         }
+<span class="lineno">  46</span>         canvas.drawText(<span class="errorspan">String.format("%d", day), x, y, mMonthNumPaint);</span>
+<span class="lineno">  47</span>     }
+<span class="lineno">  48</span> }
+</pre>
+<span class="location"><a href="../../src/com/android/datetimepicker/time/TimePickerDialog.java">../../src/com/android/datetimepicker/time/TimePickerDialog.java</a>:399</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno"> 396</span>         if (pickerIndex == HOUR_INDEX) {
+<span class="lineno"> 397</span>             if (valueRespectsHoursConstraint(newValue)) {
+<span class="lineno"> 398</span>                 setHour(newValue, false);
+<span class="lineno"> 399</span>                 String announcement = <span class="errorspan">String.format("%d", newValue);</span>
+<span class="lineno"> 400</span>                 if (mAllowAutoAdvance &amp;&amp; autoAdvance) {
+<span class="lineno"> 401</span>                     setCurrentItemShowing(MINUTE_INDEX, true, true, false);
+</pre>
+<span class="location"><a href="../../src/com/android/datetimepicker/time/TimePickerDialog.java">../../src/com/android/datetimepicker/time/TimePickerDialog.java</a>:530</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno"> 527</span>                     } else if (deleted == getAmOrPmKeyCode(PM)) {
+<span class="lineno"> 528</span>                         deletedKeyStr = mPmText;
+<span class="lineno"> 529</span>                     } else {
+<span class="lineno"> 530</span>                         deletedKeyStr = <span class="errorspan">String.format("%d", getValFromKeyCode(deleted));</span>
+<span class="lineno"> 531</span>                     }
+<span class="lineno"> 532</span>                     Utils.tryAccessibilityAnnounce(mTimePicker,
+</pre>
+<span class="location"><a href="../../src/com/android/datetimepicker/time/TimePickerDialog.java">../../src/com/android/datetimepicker/time/TimePickerDialog.java</a>:594</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno"> 591</span>         }
+<span class="lineno"> 592</span> 
+<span class="lineno"> 593</span>         int val = getValFromKeyCode(keyCode);
+<span class="lineno"> 594</span>         Utils.tryAccessibilityAnnounce(mTimePicker, <span class="errorspan">String.format("%d", val));</span>
+<span class="lineno"> 595</span>         // Automatically fill in 0's if AM or PM was legally entered.
+<span class="lineno"> 596</span>         if (isTypedTimeFullyLegal()) {
+</pre>
+<span class="location"><a href="../../src/com/android/datetimepicker/date/YearPickerView.java">../../src/com/android/datetimepicker/date/YearPickerView.java</a>:74</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno">  71</span>     private void init(Context context) {
+<span class="lineno">  72</span>         ArrayList&lt;String> years = new ArrayList&lt;String>();
+<span class="lineno">  73</span>         for (int year = mController.getMinYear(); year &lt;= mController.getMaxYear(); year++) {
+<span class="lineno">  74</span>             years.add(<span class="errorspan">String.format("%d", year));</span>
+<span class="lineno">  75</span>         }
+<span class="lineno">  76</span>         mAdapter = new YearAdapter(context, R.layout.year_label_text_view, years);
+</pre>
+</div>
+<div class="metadata">Priority: 6 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Implied default locale in case conversion.</div>
+<div class="explanation">
+Calling <code>String#toLowerCase()</code> or <code>#toUpperCase()</code> <b>without specifying an explicit locale</b> is a common source of bugs. The reason for that is that those methods will use the current locale on the user's device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for <code>i</code> is <b>not</b> <code>I</code>.<br/>
+<br/>
+If you want the methods to just perform ASCII replacement, for example to convert an enum name, call <code>String#toUpperCase(Locale.US)</code> instead. If you really want to use the current locale, call <code>String#toUpperCase(Locale.getDefault())</code> instead.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/reference/java/util/Locale.html#default_locale">http://developer.android.com/reference/java/util/Locale.html#default_locale</a>
+</div><br/>To suppress this error, use the issue id "DefaultLocale" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="InlinedApi"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">InlinedApi: Using inlined constants on older versions</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/com/android/datetimepicker/date/DayPickerView.java">../../src/com/android/datetimepicker/date/DayPickerView.java</a>:458</span>: <span class="message">Field requires API level 16 (current min is 14): <code>android.view.accessibility.AccessibilityNodeInfo#ACTION_SCROLL_FORWARD</code></span><br /><pre class="errorlines">
+<span class="lineno"> 455</span>     @Override
+<span class="lineno"> 456</span>     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
+<span class="lineno"> 457</span>       super.onInitializeAccessibilityNodeInfo(info);
+<span class="lineno"> 458</span>       info.addAction(<span class="errorspan">AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);</span>
+<span class="lineno"> 459</span>       info.addAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD);
+<span class="lineno"> 460</span>     }
+</pre>
+<span class="location"><a href="../../src/com/android/datetimepicker/date/DayPickerView.java">../../src/com/android/datetimepicker/date/DayPickerView.java</a>:459</span>: <span class="message">Field requires API level 16 (current min is 14): <code>android.view.accessibility.AccessibilityNodeInfo#ACTION_SCROLL_BACKWARD</code></span><br /><pre class="errorlines">
+<span class="lineno"> 456</span>     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
+<span class="lineno"> 457</span>       super.onInitializeAccessibilityNodeInfo(info);
+<span class="lineno"> 458</span>       info.addAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+<span class="lineno"> 459</span>       info.addAction(<span class="errorspan">AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD);</span>
+<span class="lineno"> 460</span>     }
+<span class="lineno"> 461</span> 
+</pre>
+<span class="location"><a href="../../src/com/android/datetimepicker/date/MonthView.java">../../src/com/android/datetimepicker/date/MonthView.java</a>:748</span>: <span class="message">Field requires API level 16 (current min is 14): <code>android.view.accessibility.AccessibilityNodeInfo#ACTION_CLICK</code></span><br /><pre class="errorlines">
+<span class="lineno"> 745</span> 
+<span class="lineno"> 746</span>             node.setContentDescription(getItemDescription(virtualViewId));
+<span class="lineno"> 747</span>             node.setBoundsInParent(mTempRect);
+<span class="lineno"> 748</span>             node.addAction(<span class="errorspan">AccessibilityNodeInfo.ACTION_CLICK);</span>
+<span class="lineno"> 749</span> 
+<span class="lineno"> 750</span>             if (virtualViewId == mSelectedDay) {
+</pre>
+<span class="location"><a href="../../src/com/android/datetimepicker/time/RadialPickerLayout.java">../../src/com/android/datetimepicker/time/RadialPickerLayout.java</a>:775</span>: <span class="message">Field requires API level 16 (current min is 14): <code>android.view.accessibility.AccessibilityNodeInfo#ACTION_SCROLL_FORWARD</code></span><br /><pre class="errorlines">
+<span class="lineno"> 772</span>     @Override
+<span class="lineno"> 773</span>     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
+<span class="lineno"> 774</span>       super.onInitializeAccessibilityNodeInfo(info);
+<span class="lineno"> 775</span>       info.addAction(<span class="errorspan">AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);</span>
+<span class="lineno"> 776</span>       info.addAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD);
+<span class="lineno"> 777</span>     }
+</pre>
+<span class="location"><a href="../../src/com/android/datetimepicker/time/RadialPickerLayout.java">../../src/com/android/datetimepicker/time/RadialPickerLayout.java</a>:776</span>: <span class="message">Field requires API level 16 (current min is 14): <code>android.view.accessibility.AccessibilityNodeInfo#ACTION_SCROLL_BACKWARD</code></span><br /><pre class="errorlines">
+<span class="lineno"> 773</span>     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
+<span class="lineno"> 774</span>       super.onInitializeAccessibilityNodeInfo(info);
+<span class="lineno"> 775</span>       info.addAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+<span class="lineno"> 776</span>       info.addAction(<span class="errorspan">AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD);</span>
+<span class="lineno"> 777</span>     }
+<span class="lineno"> 778</span> 
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ & Eclipse/ADT&nbsp;<img alt="Fix" border="0" align="top" src="lint-results-debug_files/lint-run.png" />
+<br>
+Priority: 6 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Using inlined constants on older versions.</div>
+<div class="explanation">
+This check scans through all the Android API field references in the application and flags certain constants, such as static final integers and Strings, which were introduced in later versions. These will actually be copied into the class files rather than being referenced, which means that the value is available even when running on older devices. In some cases that's fine, and in other cases it can result in a runtime crash or incorrect behavior. It depends on the context, so consider the code carefully and device whether it's safe and can be suppressed or whether the code needs tbe guarded.<br/>
+<br/>
+If you really want to use this API and don't need to support older devices just set the <code>minSdkVersion</code> in your <code>build.gradle</code> or <code>AndroidManifest.xml</code> files.<br/>
+If your code is <b>deliberately</b> accessing newer APIs, and you have ensured (e.g. with conditional execution) that this code will only ever be called on a supported platform, then you can annotate your class or method with the <code>@TargetApi</code> annotation specifying the local minimum SDK to apply, such as <code>@TargetApi(11)</code>, such that this check considers 11 rather than your manifest file's minimum SDK as the required API level.<br/>
+
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "InlinedApi" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="OldTargetApi"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">OldTargetApi: Target SDK attribute is not targeting latest version</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../AndroidManifest.xml">../../AndroidManifest.xml</a>:23</span>: <span class="message">Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the <code>android.os.Build.VERSION_CODES</code> javadoc for details.</span><br /><pre class="errorlines">
+<span class="lineno">  20</span> 
+<span class="lineno">  21</span>     &lt;uses-sdk
+<span class="lineno">  22</span>         android:minSdkVersion="14"
+<span class="lineno">  23</span>         <span class="errorspan">android:targetSdkVersion="21" /></span>
+<span class="lineno">  24</span> 
+<span class="lineno">  25</span>     &lt;uses-permission android:name="android.permission.VIBRATE" />
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results-debug_files/lint-run.png" />
+<br>
+Priority: 6 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Target SDK attribute is not targeting latest version.</div>
+<div class="explanation">
+When your application runs on a version of Android that is more recent than your <code>targetSdkVersion</code> specifies that it has been tested with, various compatibility modes kick in. This ensures that your application continues to work, but it may look out of place. For example, if the <code>targetSdkVersion</code> is less than 14, your app may get an option button in the UI.<br/>
+<br/>
+To fix this issue, set the <code>targetSdkVersion</code> to the highest available value. Then test your app to make sure everything works correctly. You may want to consult the compatibility notes to see what changes apply to each version you are adding support for: <a href="http://developer.android.com/reference/android/os/Build.VERSION_CODES.html">http://developer.android.com/reference/android/os/Build.VERSION_CODES.html</a>
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/reference/android/os/Build.VERSION_CODES.html">http://developer.android.com/reference/android/os/Build.VERSION_CODES.html</a>
+</div><br/>To suppress this error, use the issue id "OldTargetApi" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="UnusedAttribute"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">UnusedAttribute: Attribute unused on older versions</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout/date_picker_header_view.xml">../../res/layout/date_picker_header_view.xml</a>:26</span>: <span class="message">Attribute <code>importantForAccessibility</code> is only used in API level 16 and higher (current min is 14)</span><br /><pre class="errorlines">
+<span class="lineno">  23</span>     android:includeFontPadding="false"
+<span class="lineno">  24</span>     android:textColor="@android:color/white"
+<span class="lineno">  25</span>     android:textSize="@dimen/date_picker_header_text_size"
+<span class="lineno">  26</span>     <span class="errorspan">android:importantForAccessibility="no" /></span>
+<span class="lineno">  27</span> 
+
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:30</span>: <span class="message">Attribute <code>importantForAccessibility</code> is only used in API level 16 and higher (current min is 14)</span><br /><pre class="errorlines">
+<span class="lineno">  27</span>             android:background="#00000000"
+<span class="lineno">  28</span>             android:layout_centerInParent="true"
+<span class="lineno">  29</span>             android:visibility="invisible"
+<span class="lineno">  30</span>             <span class="errorspan">android:importantForAccessibility="no" /></span>
+<span class="lineno">  31</span> 
+<span class="lineno">  32</span>         &lt;TextView
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:41</span>: <span class="message">Attribute <code>importantForAccessibility</code> is only used in API level 16 and higher (current min is 14)</span><br /><pre class="errorlines">
+<span class="lineno">  38</span>             android:layout_centerVertical="true"
+<span class="lineno">  39</span>             android:visibility="invisible"
+<span class="lineno">  40</span>             style="@style/time_label"
+<span class="lineno">  41</span>             <span class="errorspan">android:importantForAccessibility="no" /></span>
+<span class="lineno">  42</span>         &lt;FrameLayout
+<span class="lineno">  43</span>             android:layout_width="0dp"
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:71</span>: <span class="message">Attribute <code>importantForAccessibility</code> is only used in API level 16 and higher (current min is 14)</span><br /><pre class="errorlines">
+<span class="lineno">  68</span>             android:layout_alignRight="@+id/center_view"
+<span class="lineno">  69</span>             android:layout_centerVertical="true"
+<span class="lineno">  70</span>             style="@style/time_label"
+<span class="lineno">  71</span>             <span class="errorspan">android:importantForAccessibility="no" /></span>
+<span class="lineno">  72</span> 
+<span class="lineno">  73</span>         &lt;TextView
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:82</span>: <span class="message">Attribute <code>importantForAccessibility</code> is only used in API level 16 and higher (current min is 14)</span><br /><pre class="errorlines">
+<span class="lineno">  79</span>             android:layout_centerVertical="true"
+<span class="lineno">  80</span>             android:visibility="invisible"
+<span class="lineno">  81</span>             style="@style/time_label"
+<span class="lineno">  82</span>             <span class="errorspan">android:importantForAccessibility="no" /></span>
+<span class="lineno">  83</span>         &lt;FrameLayout
+<span class="lineno">  84</span>             android:layout_width="0dp"
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:118</span>: <span class="message">Attribute <code>importantForAccessibility</code> is only used in API level 16 and higher (current min is 14)</span><br /><pre class="errorlines">
+<span class="lineno"> 115</span>             android:layout_toRightOf="@+id/minutes_space"
+<span class="lineno"> 116</span>             android:layout_alignBaseline="@+id/separator"
+<span class="lineno"> 117</span>             style="@style/ampm_label"
+<span class="lineno"> 118</span>             <span class="errorspan">android:importantForAccessibility="no" /></span>
+<span class="lineno"> 119</span>   &lt;/RelativeLayout>
+<span class="lineno"> 120</span> 
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results-debug_files/lint-run.png" />
+<br>
+Priority: 6 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Attribute unused on older versions.</div>
+<div class="explanation">
+This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the <code>minSdkVersion</code> attribute).<br/>
+<br/>
+This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance of functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.<br/>
+<br/>
+Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new <code>&lt;tag></code> element in layouts introduced in API 21.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UnusedAttribute" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="ValidFragment"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">ValidFragment: Fragment not instantiatable</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/com/android/datetimepicker/time/TimePickerDialog.java">../../src/com/android/datetimepicker/time/TimePickerDialog.java</a>:135</span>: <span class="message">Avoid non-default constructors in fragments: use a default constructor plus <code>Fragment#setArguments(Bundle)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno"> 132</span>         // Empty constructor required for dialog fragment.
+<span class="lineno"> 133</span>     }
+<span class="lineno"> 134</span> 
+<span class="lineno"> 135</span>     public <span class="errorspan">TimePickerDialog(Context context, int theme, OnTimeSetListener callback,</span>
+<span class="lineno"> 136</span>             int hourOfDay, int minute, boolean is24HourMode) {
+<span class="lineno"> 137</span>         // Empty constructor required for dialog fragment.
+</pre>
+</div>
+<div class="metadata">Priority: 6 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="error">Fatal</span><div class="summary">
+Explanation: Fragment not instantiatable.</div>
+<div class="explanation">
+From the Fragment documentation:<br/>
+<b>Every</b> fragment must have an empty constructor, so it can be instantiated when restoring its activity's state. It is strongly recommended that subclasses do not have other constructors with parameters, since these constructors will not be called when the fragment is re-instantiated; instead, arguments can be supplied by the caller with <code>setArguments(Bundle)</code> and later retrieved by the Fragment with <code>getArguments()</code>.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/reference/android/app/Fragment.html#Fragment()">http://developer.android.com/reference/android/app/Fragment.html#Fragment()</a>
+</div><br/>To suppress this error, use the issue id "ValidFragment" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="InflateParams"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">InflateParams: Layout Inflation without a Parent</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/com/android/datetimepicker/date/DatePickerDialog.java">../../src/com/android/datetimepicker/date/DatePickerDialog.java</a>:207</span>: <span class="message">Avoid passing <code>null</code> as the view root (needed to resolve layout parameters on the inflated layout's root element)</span><br /><pre class="errorlines">
+<span class="lineno"> 204</span>         Log.d(TAG, "onCreateView: ");
+<span class="lineno"> 205</span>         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+<span class="lineno"> 206</span> 
+<span class="lineno"> 207</span>         View view = inflater.inflate(R.layout.date_picker_dialog, <span class="errorspan">null);</span>
+<span class="lineno"> 208</span> 
+<span class="lineno"> 209</span>         mDayOfWeekView = (TextView) view.findViewById(R.id.date_picker_header);
+</pre>
+<span class="location"><a href="../../src/com/android/datetimepicker/time/TimePickerDialog.java">../../src/com/android/datetimepicker/time/TimePickerDialog.java</a>:198</span>: <span class="message">Avoid passing <code>null</code> as the view root (needed to resolve layout parameters on the inflated layout's root element)</span><br /><pre class="errorlines">
+<span class="lineno"> 195</span>             Bundle savedInstanceState) {
+<span class="lineno"> 196</span>         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+<span class="lineno"> 197</span> 
+<span class="lineno"> 198</span>         View view = inflater.inflate(R.layout.time_picker_dialog, <span class="errorspan">null);</span>
+<span class="lineno"> 199</span>         KeyboardListener keyboardListener = new KeyboardListener();
+<span class="lineno"> 200</span>         view.findViewById(R.id.time_picker_dialog).setOnKeyListener(keyboardListener);
+</pre>
+</div>
+<div class="metadata">Priority: 5 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Layout Inflation without a Parent.</div>
+<div class="explanation">
+When inflating a layout, avoid passing in null as the parent view, since otherwise any layout parameters on the root of the inflated layout will be ignored.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://www.doubleencore.com/2013/05/layout-inflation-as-intended">http://www.doubleencore.com/2013/05/layout-inflation-as-intended</a>
+</div><br/>To suppress this error, use the issue id "InflateParams" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="SpUsage"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">SpUsage: Using <code>dp</code> instead of <code>sp</code> for text sizes</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/values-w270dp-h560dp/dimens.xml">../../res/values-w270dp-h560dp/dimens.xml</a>:25</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  22</span>     xmlns:android="http://schemas.android.com/apk/res/android" >
+<span class="lineno">  23</span> 
+<span class="lineno">  24</span>     &lt;dimen name="selected_calendar_layout_height">230dp&lt;/dimen>
+<span class="lineno">  25</span>     &lt;dimen name="selected_date_year_size"><span class="errorspan">30dp&lt;/dimen></span>
+<span class="lineno">  26</span>     &lt;dimen name="selected_date_day_size">100dp&lt;/dimen>
+<span class="lineno">  27</span>     &lt;dimen name="selected_date_month_size">30dp&lt;/dimen>
+</pre>
+<ul><span class="location"><a href="../../res/layout/date_picker_selected_date.xml">../../res/layout/date_picker_selected_date.xml</a>:68</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  65</span>         android:gravity="center_horizontal|top"
+<span class="lineno">  66</span>         android:includeFontPadding="false"
+<span class="lineno">  67</span>         android:textColor="@color/date_picker_selector"
+<span class="lineno">  68</span>         <span class="errorspan">android:textSize="@dimen/selected_date_year_size" /></span>
+<span class="lineno">  69</span> 
+<span class="lineno">  70</span> &lt;/LinearLayout>
+</pre></ul><span class="location"><a href="../../res/values-land/dimens.xml">../../res/values-land/dimens.xml</a>:26</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  23</span>     &lt;dimen name="dialog_height">200dip&lt;/dimen>
+<span class="lineno">  24</span>     &lt;dimen name="left_side_width">250dip&lt;/dimen>
+<span class="lineno">  25</span> 
+<span class="lineno">  26</span>     &lt;dimen name="selected_date_year_size"><span class="errorspan">30dp&lt;/dimen></span>
+<span class="lineno">  27</span>     &lt;dimen name="selected_date_day_size">100dp&lt;/dimen>
+<span class="lineno">  28</span>     &lt;dimen name="selected_date_month_size">30dp&lt;/dimen>
+</pre>
+<ul><span class="location"><a href="../../res/layout/date_picker_selected_date.xml">../../res/layout/date_picker_selected_date.xml</a>:68</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  65</span>         android:gravity="center_horizontal|top"
+<span class="lineno">  66</span>         android:includeFontPadding="false"
+<span class="lineno">  67</span>         android:textColor="@color/date_picker_selector"
+<span class="lineno">  68</span>         <span class="errorspan">android:textSize="@dimen/selected_date_year_size" /></span>
+<span class="lineno">  69</span> 
+<span class="lineno">  70</span> &lt;/LinearLayout>
+</pre></ul><span class="location"><a href="../../res/values-land/dimens.xml">../../res/values-land/dimens.xml</a>:27</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  24</span>     &lt;dimen name="left_side_width">250dip&lt;/dimen>
+<span class="lineno">  25</span> 
+<span class="lineno">  26</span>     &lt;dimen name="selected_date_year_size">30dp&lt;/dimen>
+<span class="lineno">  27</span>     &lt;dimen name="selected_date_day_size"><span class="errorspan">100dp&lt;/dimen></span>
+<span class="lineno">  28</span>     &lt;dimen name="selected_date_month_size">30dp&lt;/dimen>
+<span class="lineno">  29</span> &lt;/resources>
+</pre>
+<ul><span class="location"><a href="../../res/layout/date_picker_selected_date.xml">../../res/layout/date_picker_selected_date.xml</a>:57</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  54</span>             android:gravity="center"
+<span class="lineno">  55</span>             android:includeFontPadding="false"
+<span class="lineno">  56</span>             android:textColor="@color/date_picker_selector"
+<span class="lineno">  57</span>             <span class="errorspan">android:textSize="@dimen/selected_date_day_size" /></span>
+<span class="lineno">  58</span>     &lt;/com.android.datetimepicker.AccessibleLinearLayout>
+<span class="lineno">  59</span> 
+</pre></ul><span class="location"><a href="../../res/values-land/dimens.xml">../../res/values-land/dimens.xml</a>:28</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  25</span> 
+<span class="lineno">  26</span>     &lt;dimen name="selected_date_year_size">30dp&lt;/dimen>
+<span class="lineno">  27</span>     &lt;dimen name="selected_date_day_size">100dp&lt;/dimen>
+<span class="lineno">  28</span>     &lt;dimen name="selected_date_month_size"><span class="errorspan">30dp&lt;/dimen></span>
+<span class="lineno">  29</span> &lt;/resources>
+
+</pre>
+<ul><span class="location"><a href="../../res/layout/date_picker_selected_date.xml">../../res/layout/date_picker_selected_date.xml</a>:44</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  41</span>             android:gravity="center_horizontal|bottom"
+<span class="lineno">  42</span>             android:includeFontPadding="false"
+<span class="lineno">  43</span>             android:textColor="@color/date_picker_selector"
+<span class="lineno">  44</span>             <span class="errorspan">android:textSize="@dimen/selected_date_month_size" /></span>
+<span class="lineno">  45</span> 
+<span class="lineno">  46</span>         &lt;TextView
+</pre></ul><span class="location"><a href="../../res/values-sw600dp/dimens.xml">../../res/values-sw600dp/dimens.xml</a>:31</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  28</span>     &lt;dimen name="month_list_item_padding">24dp&lt;/dimen>
+<span class="lineno">  29</span>     &lt;dimen name="day_number_select_circle_radius">24dp&lt;/dimen>
+<span class="lineno">  30</span>     &lt;dimen name="month_select_circle_radius">36dp&lt;/dimen>
+<span class="lineno">  31</span>     &lt;dimen name="selected_date_year_size"><span class="errorspan">45dp&lt;/dimen></span>
+<span class="lineno">  32</span>     &lt;dimen name="selected_date_day_size">150dp&lt;/dimen>
+<span class="lineno">  33</span>     &lt;dimen name="selected_date_month_size">45dp&lt;/dimen>
+</pre>
+<ul><span class="location"><a href="../../res/layout/date_picker_selected_date.xml">../../res/layout/date_picker_selected_date.xml</a>:68</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  65</span>         android:gravity="center_horizontal|top"
+<span class="lineno">  66</span>         android:includeFontPadding="false"
+<span class="lineno">  67</span>         android:textColor="@color/date_picker_selector"
+<span class="lineno">  68</span>         <span class="errorspan">android:textSize="@dimen/selected_date_year_size" /></span>
+<span class="lineno">  69</span> 
+<span class="lineno">  70</span> &lt;/LinearLayout>
+</pre></ul><button id="SpUsageDivLink" onclick="reveal('SpUsageDiv');" />+ 9 More Occurrences...</button>
+<div id="SpUsageDiv" style="display: none">
+<span class="location"><a href="../../res/values-sw600dp/dimens.xml">../../res/values-sw600dp/dimens.xml</a>:32</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  29</span>     &lt;dimen name="day_number_select_circle_radius">24dp&lt;/dimen>
+<span class="lineno">  30</span>     &lt;dimen name="month_select_circle_radius">36dp&lt;/dimen>
+<span class="lineno">  31</span>     &lt;dimen name="selected_date_year_size">45dp&lt;/dimen>
+<span class="lineno">  32</span>     &lt;dimen name="selected_date_day_size"><span class="errorspan">150dp&lt;/dimen></span>
+<span class="lineno">  33</span>     &lt;dimen name="selected_date_month_size">45dp&lt;/dimen>
+<span class="lineno">  34</span>     &lt;dimen name="year_label_height">96dp&lt;/dimen>
+</pre>
+<ul><span class="location"><a href="../../res/layout/date_picker_selected_date.xml">../../res/layout/date_picker_selected_date.xml</a>:57</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  54</span>             android:gravity="center"
+<span class="lineno">  55</span>             android:includeFontPadding="false"
+<span class="lineno">  56</span>             android:textColor="@color/date_picker_selector"
+<span class="lineno">  57</span>             <span class="errorspan">android:textSize="@dimen/selected_date_day_size" /></span>
+<span class="lineno">  58</span>     &lt;/com.android.datetimepicker.AccessibleLinearLayout>
+<span class="lineno">  59</span> 
+</pre></ul><span class="location"><a href="../../res/values-sw600dp/dimens.xml">../../res/values-sw600dp/dimens.xml</a>:33</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  30</span>     &lt;dimen name="month_select_circle_radius">36dp&lt;/dimen>
+<span class="lineno">  31</span>     &lt;dimen name="selected_date_year_size">45dp&lt;/dimen>
+<span class="lineno">  32</span>     &lt;dimen name="selected_date_day_size">150dp&lt;/dimen>
+<span class="lineno">  33</span>     &lt;dimen name="selected_date_month_size"><span class="errorspan">45dp&lt;/dimen></span>
+<span class="lineno">  34</span>     &lt;dimen name="year_label_height">96dp&lt;/dimen>
+<span class="lineno">  35</span>     &lt;dimen name="year_label_text_size">33dp&lt;/dimen>
+</pre>
+<ul><span class="location"><a href="../../res/layout/date_picker_selected_date.xml">../../res/layout/date_picker_selected_date.xml</a>:44</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  41</span>             android:gravity="center_horizontal|bottom"
+<span class="lineno">  42</span>             android:includeFontPadding="false"
+<span class="lineno">  43</span>             android:textColor="@color/date_picker_selector"
+<span class="lineno">  44</span>             <span class="errorspan">android:textSize="@dimen/selected_date_month_size" /></span>
+<span class="lineno">  45</span> 
+<span class="lineno">  46</span>         &lt;TextView
+</pre></ul><span class="location"><a href="../../res/values-sw600dp/dimens.xml">../../res/values-sw600dp/dimens.xml</a>:35</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  32</span>     &lt;dimen name="selected_date_day_size">150dp&lt;/dimen>
+<span class="lineno">  33</span>     &lt;dimen name="selected_date_month_size">45dp&lt;/dimen>
+<span class="lineno">  34</span>     &lt;dimen name="year_label_height">96dp&lt;/dimen>
+<span class="lineno">  35</span>     &lt;dimen name="year_label_text_size"><span class="errorspan">33dp&lt;/dimen></span>
+<span class="lineno">  36</span>     &lt;dimen name="date_picker_header_text_size">21dp&lt;/dimen>
+<span class="lineno">  37</span>     &lt;dimen name="month_list_item_size">24sp&lt;/dimen>
+</pre>
+<ul><span class="location"><a href="../../res/layout/year_label_text_view.xml">../../res/layout/year_label_text_view.xml</a>:24</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  21</span>     android:layout_gravity="center"
+<span class="lineno">  22</span>     android:gravity="center"
+<span class="lineno">  23</span>     android:textColor="@color/date_picker_year_selector"
+<span class="lineno">  24</span>     <span class="errorspan">android:textSize="@dimen/year_label_text_size" /></span>
+<span class="lineno">  25</span> 
+
+</pre></ul><span class="location"><a href="../../res/values-sw600dp/dimens.xml">../../res/values-sw600dp/dimens.xml</a>:36</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  33</span>     &lt;dimen name="selected_date_month_size">45dp&lt;/dimen>
+<span class="lineno">  34</span>     &lt;dimen name="year_label_height">96dp&lt;/dimen>
+<span class="lineno">  35</span>     &lt;dimen name="year_label_text_size">33dp&lt;/dimen>
+<span class="lineno">  36</span>     &lt;dimen name="date_picker_header_text_size"><span class="errorspan">21dp&lt;/dimen></span>
+<span class="lineno">  37</span>     &lt;dimen name="month_list_item_size">24sp&lt;/dimen>
+<span class="lineno">  38</span>     &lt;dimen name="month_label_size">24sp&lt;/dimen>
+</pre>
+<ul><span class="location"><a href="../../res/layout/date_picker_header_view.xml">../../res/layout/date_picker_header_view.xml</a>:25</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  22</span>     android:gravity="center"
+<span class="lineno">  23</span>     android:includeFontPadding="false"
+<span class="lineno">  24</span>     android:textColor="@android:color/white"
+<span class="lineno">  25</span>     <span class="errorspan">android:textSize="@dimen/date_picker_header_text_size"</span>
+<span class="lineno">  26</span>     android:importantForAccessibility="no" />
+<span class="lineno">  27</span> 
+</pre></ul><span class="location"><a href="../../res/values/dimens.xml">../../res/values/dimens.xml</a>:54</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  51</span>     &lt;dimen name="month_day_label_text_size">10sp&lt;/dimen>
+<span class="lineno">  52</span>     &lt;dimen name="day_number_select_circle_radius">16dp&lt;/dimen>
+<span class="lineno">  53</span>     &lt;dimen name="month_select_circle_radius">45dp&lt;/dimen>
+<span class="lineno">  54</span>     &lt;dimen name="selected_date_year_size"><span class="errorspan">22dp&lt;/dimen></span>
+<span class="lineno">  55</span>     &lt;dimen name="selected_date_day_size">60dp&lt;/dimen>
+<span class="lineno">  56</span>     &lt;dimen name="selected_date_month_size">22dp&lt;/dimen>
+</pre>
+<ul><span class="location"><a href="../../res/layout/date_picker_selected_date.xml">../../res/layout/date_picker_selected_date.xml</a>:68</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  65</span>         android:gravity="center_horizontal|top"
+<span class="lineno">  66</span>         android:includeFontPadding="false"
+<span class="lineno">  67</span>         android:textColor="@color/date_picker_selector"
+<span class="lineno">  68</span>         <span class="errorspan">android:textSize="@dimen/selected_date_year_size" /></span>
+<span class="lineno">  69</span> 
+<span class="lineno">  70</span> &lt;/LinearLayout>
+</pre></ul><span class="location"><a href="../../res/values/dimens.xml">../../res/values/dimens.xml</a>:55</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  52</span>     &lt;dimen name="day_number_select_circle_radius">16dp&lt;/dimen>
+<span class="lineno">  53</span>     &lt;dimen name="month_select_circle_radius">45dp&lt;/dimen>
+<span class="lineno">  54</span>     &lt;dimen name="selected_date_year_size">22dp&lt;/dimen>
+<span class="lineno">  55</span>     &lt;dimen name="selected_date_day_size"><span class="errorspan">60dp&lt;/dimen></span>
+<span class="lineno">  56</span>     &lt;dimen name="selected_date_month_size">22dp&lt;/dimen>
+<span class="lineno">  57</span>     &lt;dimen name="date_picker_header_text_size">14dp&lt;/dimen>
+</pre>
+<ul><span class="location"><a href="../../res/layout/date_picker_selected_date.xml">../../res/layout/date_picker_selected_date.xml</a>:57</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  54</span>             android:gravity="center"
+<span class="lineno">  55</span>             android:includeFontPadding="false"
+<span class="lineno">  56</span>             android:textColor="@color/date_picker_selector"
+<span class="lineno">  57</span>             <span class="errorspan">android:textSize="@dimen/selected_date_day_size" /></span>
+<span class="lineno">  58</span>     &lt;/com.android.datetimepicker.AccessibleLinearLayout>
+<span class="lineno">  59</span> 
+</pre></ul><span class="location"><a href="../../res/values/dimens.xml">../../res/values/dimens.xml</a>:56</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  53</span>     &lt;dimen name="month_select_circle_radius">45dp&lt;/dimen>
+<span class="lineno">  54</span>     &lt;dimen name="selected_date_year_size">22dp&lt;/dimen>
+<span class="lineno">  55</span>     &lt;dimen name="selected_date_day_size">60dp&lt;/dimen>
+<span class="lineno">  56</span>     &lt;dimen name="selected_date_month_size"><span class="errorspan">22dp&lt;/dimen></span>
+<span class="lineno">  57</span>     &lt;dimen name="date_picker_header_text_size">14dp&lt;/dimen>
+<span class="lineno">  58</span>     &lt;dimen name="month_label_size">16sp&lt;/dimen>
+</pre>
+<ul><span class="location"><a href="../../res/layout/date_picker_selected_date.xml">../../res/layout/date_picker_selected_date.xml</a>:44</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  41</span>             android:gravity="center_horizontal|bottom"
+<span class="lineno">  42</span>             android:includeFontPadding="false"
+<span class="lineno">  43</span>             android:textColor="@color/date_picker_selector"
+<span class="lineno">  44</span>             <span class="errorspan">android:textSize="@dimen/selected_date_month_size" /></span>
+<span class="lineno">  45</span> 
+<span class="lineno">  46</span>         &lt;TextView
+</pre></ul><span class="location"><a href="../../res/values/dimens.xml">../../res/values/dimens.xml</a>:57</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  54</span>     &lt;dimen name="selected_date_year_size">22dp&lt;/dimen>
+<span class="lineno">  55</span>     &lt;dimen name="selected_date_day_size">60dp&lt;/dimen>
+<span class="lineno">  56</span>     &lt;dimen name="selected_date_month_size">22dp&lt;/dimen>
+<span class="lineno">  57</span>     &lt;dimen name="date_picker_header_text_size"><span class="errorspan">14dp&lt;/dimen></span>
+<span class="lineno">  58</span>     &lt;dimen name="month_label_size">16sp&lt;/dimen>
+<span class="lineno">  59</span>     &lt;dimen name="day_number_size">16sp&lt;/dimen>
+</pre>
+<ul><span class="location"><a href="../../res/layout/date_picker_header_view.xml">../../res/layout/date_picker_header_view.xml</a>:25</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  22</span>     android:gravity="center"
+<span class="lineno">  23</span>     android:includeFontPadding="false"
+<span class="lineno">  24</span>     android:textColor="@android:color/white"
+<span class="lineno">  25</span>     <span class="errorspan">android:textSize="@dimen/date_picker_header_text_size"</span>
+<span class="lineno">  26</span>     android:importantForAccessibility="no" />
+<span class="lineno">  27</span> 
+</pre></ul><span class="location"><a href="../../res/values/dimens.xml">../../res/values/dimens.xml</a>:61</span>: <span class="message">This dimension is used as a text size: Should use "<code>sp</code>" instead of "<code>dp</code>"</span><br /><pre class="errorlines">
+<span class="lineno">  58</span>     &lt;dimen name="month_label_size">16sp&lt;/dimen>
+<span class="lineno">  59</span>     &lt;dimen name="day_number_size">16sp&lt;/dimen>
+<span class="lineno">  60</span>     &lt;dimen name="year_label_height">64dp&lt;/dimen>
+<span class="lineno">  61</span>     &lt;dimen name="year_label_text_size"><span class="errorspan">22dp&lt;/dimen></span>
+<span class="lineno">  62</span> &lt;/resources>
+
+</pre>
+<ul><span class="location"><a href="../../res/layout/year_label_text_view.xml">../../res/layout/year_label_text_view.xml</a>:24</span>: <span class="message">Dimension used as a text size here</span><br /><pre class="errorlines">
+<span class="lineno">  21</span>     android:layout_gravity="center"
+<span class="lineno">  22</span>     android:gravity="center"
+<span class="lineno">  23</span>     android:textColor="@color/date_picker_year_selector"
+<span class="lineno">  24</span>     <span class="errorspan">android:textSize="@dimen/year_label_text_size" /></span>
+<span class="lineno">  25</span> 
+
+</pre></ul></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results-debug_files/lint-run.png" />
+<br>
+Priority: 3 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Using <code>dp</code> instead of <code>sp</code> for text sizes.</div>
+<div class="explanation">
+When setting text sizes, you should normally use <code>sp</code>, or "scale-independent pixels". This is like the <code>dp</code> unit, but it is also scaled by the user's font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user's preference.<br/>
+<br/>
+There <b>are</b> cases where you might need to use <code>dp</code>; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user's font size settings are not respected, so consider adjusting the layout itself to be more flexible.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/training/multiscreen/screendensities.html">http://developer.android.com/training/multiscreen/screendensities.html</a>
+</div><br/>To suppress this error, use the issue id "SpUsage" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Correctness:Messages"></a>
+<div class="category"><a href="#" title="Return to top">Correctness:Messages</a><div class="categorySeparator"></div>
+</div>
+<a name="MissingTranslation"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">MissingTranslation: Incomplete translation</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:60</span>: <span class="message">"<code>time_placeholder</code>" is not translated in "af" (Afrikaans), "am" (Amharic), "ar" (Arabic), "bg" (Bulgarian), "bn-BD" (Bengali: Bangladesh), "ca" (Catalan), "cs" (Czech), "da" (Danish), "de" (German), "el" (Greek), "es" (Spanish), "es-US" (Spanish: United States), "et-EE" (Estonian: Estonia), "eu-ES" (Basque: Spain), "fa" (Persian), "fi" (Finnish), "fr" (French), "fr-CA" (French: Canada), "gl-ES" (Galician: Spain), "hi" (Hindi), "hr" (Croatian), "hu" (Hungarian), "hy-AM" (Armenian: Armenia), "in" (Indonesian), "is-IS" (Icelandic: Iceland), "it" (Italian), "iw" (Hebrew), "ja" (Japanese), "ka-GE" (Georgian: Georgia), "kk-KZ" (Kazakh: Kazakhstan), "km-KH" (Khmer: Cambodia), "kn-IN" (Kannada: India), "ko" (Korean), "ky-KG" (Kyrgyz: Kyrgyzstan), "lo-LA" (Lao: Laos), "lt" (Lithuanian), "lv" (Latvian), "mk-MK" (Macedonian: Macedonia), "ml-IN" (Malayalam: India), "mn-MN" (Mongolian: Mongolia), "mr-IN" (Marathi: India), "ms-MY" (Malay: Malaysia), "my-MM" (Burmese: Myanmar (Burma)), "nb" (Norwegian Bokmål), "ne-NP" (Nepali: Nepal), "nl" (Dutch), "pl" (Polish), "pt" (Portuguese), "pt-PT" (Portuguese: Portugal), "ro" (Romanian), "ru" (Russian), "si-LK" (Sinhala: Sri Lanka), "sk" (Slovak), "sl" (Slovenian), "sr" (Serbian), "sv" (Swedish), "sw" (Swahili), "ta-IN" (Tamil: India), "te-IN" (Telugu: India), "th" (Thai), "tl" (Tagalog), "tr" (Turkish), "uk" (Ukrainian), "ur-PK" (Urdu: Pakistan), "uz-UZ" (Uzbek: Uzbekistan), "vi" (Vietnamese), "zh-CN" (Chinese: China), "zh-HK" (Chinese: Hong Kong SAR China), "zh-TW" (Chinese: Taiwan), "zu" (Zulu)</span><br /><pre class="errorlines">
+<span class="lineno">  57</span>     &lt;string name="deleted_key">&lt;xliff:g id="key" example="4">%1$s&lt;/xliff:g> deleted&lt;/string>
+<span class="lineno">  58</span> 
+<span class="lineno">  59</span>     &lt;!-- DO NOT TRANSLATE -->
+<span class="lineno">  60</span>     &lt;string <span class="errorspan">name="time_placeholder">--&lt;/string></span>
+<span class="lineno">  61</span>     &lt;!-- DO NOT TRANSLATE -->
+<span class="lineno">  62</span>     &lt;string name="time_separator">:&lt;/string>
+</pre>
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:62</span>: <span class="message">"<code>time_separator</code>" is not translated in "af" (Afrikaans), "am" (Amharic), "ar" (Arabic), "bg" (Bulgarian), "bn-BD" (Bengali: Bangladesh), "ca" (Catalan), "cs" (Czech), "da" (Danish), "de" (German), "el" (Greek), "es" (Spanish), "es-US" (Spanish: United States), "et-EE" (Estonian: Estonia), "eu-ES" (Basque: Spain), "fa" (Persian), "fi" (Finnish), "fr" (French), "fr-CA" (French: Canada), "gl-ES" (Galician: Spain), "hi" (Hindi), "hr" (Croatian), "hu" (Hungarian), "hy-AM" (Armenian: Armenia), "in" (Indonesian), "is-IS" (Icelandic: Iceland), "it" (Italian), "iw" (Hebrew), "ja" (Japanese), "ka-GE" (Georgian: Georgia), "kk-KZ" (Kazakh: Kazakhstan), "km-KH" (Khmer: Cambodia), "kn-IN" (Kannada: India), "ko" (Korean), "ky-KG" (Kyrgyz: Kyrgyzstan), "lo-LA" (Lao: Laos), "lt" (Lithuanian), "lv" (Latvian), "mk-MK" (Macedonian: Macedonia), "ml-IN" (Malayalam: India), "mn-MN" (Mongolian: Mongolia), "mr-IN" (Marathi: India), "ms-MY" (Malay: Malaysia), "my-MM" (Burmese: Myanmar (Burma)), "nb" (Norwegian Bokmål), "ne-NP" (Nepali: Nepal), "nl" (Dutch), "pl" (Polish), "pt" (Portuguese), "pt-PT" (Portuguese: Portugal), "ro" (Romanian), "ru" (Russian), "si-LK" (Sinhala: Sri Lanka), "sk" (Slovak), "sl" (Slovenian), "sr" (Serbian), "sv" (Swedish), "sw" (Swahili), "ta-IN" (Tamil: India), "te-IN" (Telugu: India), "th" (Thai), "tl" (Tagalog), "tr" (Turkish), "uk" (Ukrainian), "ur-PK" (Urdu: Pakistan), "uz-UZ" (Uzbek: Uzbekistan), "vi" (Vietnamese), "zh-CN" (Chinese: China), "zh-HK" (Chinese: Hong Kong SAR China), "zh-TW" (Chinese: Taiwan), "zu" (Zulu)</span><br /><pre class="errorlines">
+<span class="lineno">  59</span>     &lt;!-- DO NOT TRANSLATE -->
+<span class="lineno">  60</span>     &lt;string name="time_placeholder">--&lt;/string>
+<span class="lineno">  61</span>     &lt;!-- DO NOT TRANSLATE -->
+<span class="lineno">  62</span>     &lt;string <span class="errorspan">name="time_separator">:&lt;/string></span>
+<span class="lineno">  63</span> 
+<span class="lineno">  64</span>     &lt;!-- DO NOT TRANSLATE -->
+</pre>
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:65</span>: <span class="message">"<code>radial_numbers_typeface</code>" is not translated in "af" (Afrikaans), "am" (Amharic), "ar" (Arabic), "bg" (Bulgarian), "bn-BD" (Bengali: Bangladesh), "ca" (Catalan), "cs" (Czech), "da" (Danish), "de" (German), "el" (Greek), "es" (Spanish), "es-US" (Spanish: United States), "et-EE" (Estonian: Estonia), "eu-ES" (Basque: Spain), "fa" (Persian), "fi" (Finnish), "fr" (French), "fr-CA" (French: Canada), "gl-ES" (Galician: Spain), "hi" (Hindi), "hr" (Croatian), "hu" (Hungarian), "hy-AM" (Armenian: Armenia), "in" (Indonesian), "is-IS" (Icelandic: Iceland), "it" (Italian), "iw" (Hebrew), "ja" (Japanese), "ka-GE" (Georgian: Georgia), "kk-KZ" (Kazakh: Kazakhstan), "km-KH" (Khmer: Cambodia), "kn-IN" (Kannada: India), "ko" (Korean), "ky-KG" (Kyrgyz: Kyrgyzstan), "lo-LA" (Lao: Laos), "lt" (Lithuanian), "lv" (Latvian), "mk-MK" (Macedonian: Macedonia), "ml-IN" (Malayalam: India), "mn-MN" (Mongolian: Mongolia), "mr-IN" (Marathi: India), "ms-MY" (Malay: Malaysia), "my-MM" (Burmese: Myanmar (Burma)), "nb" (Norwegian Bokmål), "ne-NP" (Nepali: Nepal), "nl" (Dutch), "pl" (Polish), "pt" (Portuguese), "pt-PT" (Portuguese: Portugal), "ro" (Romanian), "ru" (Russian), "si-LK" (Sinhala: Sri Lanka), "sk" (Slovak), "sl" (Slovenian), "sr" (Serbian), "sv" (Swedish), "sw" (Swahili), "ta-IN" (Tamil: India), "te-IN" (Telugu: India), "th" (Thai), "tl" (Tagalog), "tr" (Turkish), "uk" (Ukrainian), "ur-PK" (Urdu: Pakistan), "uz-UZ" (Uzbek: Uzbekistan), "vi" (Vietnamese), "zh-CN" (Chinese: China), "zh-HK" (Chinese: Hong Kong SAR China), "zh-TW" (Chinese: Taiwan), "zu" (Zulu)</span><br /><pre class="errorlines">
+<span class="lineno">  62</span>     &lt;string name="time_separator">:&lt;/string>
+<span class="lineno">  63</span> 
+<span class="lineno">  64</span>     &lt;!-- DO NOT TRANSLATE -->
+<span class="lineno">  65</span>     &lt;string <span class="errorspan">name="radial_numbers_typeface">sans-serif&lt;/string></span>
+<span class="lineno">  66</span>     &lt;!-- DO NOT TRANSLATE -->
+<span class="lineno">  67</span>     &lt;string name="sans_serif">sans-serif&lt;/string>
+</pre>
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:67</span>: <span class="message">"<code>sans_serif</code>" is not translated in "af" (Afrikaans), "am" (Amharic), "ar" (Arabic), "bg" (Bulgarian), "bn-BD" (Bengali: Bangladesh), "ca" (Catalan), "cs" (Czech), "da" (Danish), "de" (German), "el" (Greek), "es" (Spanish), "es-US" (Spanish: United States), "et-EE" (Estonian: Estonia), "eu-ES" (Basque: Spain), "fa" (Persian), "fi" (Finnish), "fr" (French), "fr-CA" (French: Canada), "gl-ES" (Galician: Spain), "hi" (Hindi), "hr" (Croatian), "hu" (Hungarian), "hy-AM" (Armenian: Armenia), "in" (Indonesian), "is-IS" (Icelandic: Iceland), "it" (Italian), "iw" (Hebrew), "ja" (Japanese), "ka-GE" (Georgian: Georgia), "kk-KZ" (Kazakh: Kazakhstan), "km-KH" (Khmer: Cambodia), "kn-IN" (Kannada: India), "ko" (Korean), "ky-KG" (Kyrgyz: Kyrgyzstan), "lo-LA" (Lao: Laos), "lt" (Lithuanian), "lv" (Latvian), "mk-MK" (Macedonian: Macedonia), "ml-IN" (Malayalam: India), "mn-MN" (Mongolian: Mongolia), "mr-IN" (Marathi: India), "ms-MY" (Malay: Malaysia), "my-MM" (Burmese: Myanmar (Burma)), "nb" (Norwegian Bokmål), "ne-NP" (Nepali: Nepal), "nl" (Dutch), "pl" (Polish), "pt" (Portuguese), "pt-PT" (Portuguese: Portugal), "ro" (Romanian), "ru" (Russian), "si-LK" (Sinhala: Sri Lanka), "sk" (Slovak), "sl" (Slovenian), "sr" (Serbian), "sv" (Swedish), "sw" (Swahili), "ta-IN" (Tamil: India), "te-IN" (Telugu: India), "th" (Thai), "tl" (Tagalog), "tr" (Turkish), "uk" (Ukrainian), "ur-PK" (Urdu: Pakistan), "uz-UZ" (Uzbek: Uzbekistan), "vi" (Vietnamese), "zh-CN" (Chinese: China), "zh-HK" (Chinese: Hong Kong SAR China), "zh-TW" (Chinese: Taiwan), "zu" (Zulu)</span><br /><pre class="errorlines">
+<span class="lineno">  64</span>     &lt;!-- DO NOT TRANSLATE -->
+<span class="lineno">  65</span>     &lt;string name="radial_numbers_typeface">sans-serif&lt;/string>
+<span class="lineno">  66</span>     &lt;!-- DO NOT TRANSLATE -->
+<span class="lineno">  67</span>     &lt;string <span class="errorspan">name="sans_serif">sans-serif&lt;/string></span>
+<span class="lineno">  68</span> 
+<span class="lineno">  69</span>     &lt;!-- DO NOT TRANSLATE -->
+</pre>
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:70</span>: <span class="message">"<code>day_of_week_label_typeface</code>" is not translated in "af" (Afrikaans), "am" (Amharic), "ar" (Arabic), "bg" (Bulgarian), "bn-BD" (Bengali: Bangladesh), "ca" (Catalan), "cs" (Czech), "da" (Danish), "de" (German), "el" (Greek), "es" (Spanish), "es-US" (Spanish: United States), "et-EE" (Estonian: Estonia), "eu-ES" (Basque: Spain), "fa" (Persian), "fi" (Finnish), "fr" (French), "fr-CA" (French: Canada), "gl-ES" (Galician: Spain), "hi" (Hindi), "hr" (Croatian), "hu" (Hungarian), "hy-AM" (Armenian: Armenia), "in" (Indonesian), "is-IS" (Icelandic: Iceland), "it" (Italian), "iw" (Hebrew), "ja" (Japanese), "ka-GE" (Georgian: Georgia), "kk-KZ" (Kazakh: Kazakhstan), "km-KH" (Khmer: Cambodia), "kn-IN" (Kannada: India), "ko" (Korean), "ky-KG" (Kyrgyz: Kyrgyzstan), "lo-LA" (Lao: Laos), "lt" (Lithuanian), "lv" (Latvian), "mk-MK" (Macedonian: Macedonia), "ml-IN" (Malayalam: India), "mn-MN" (Mongolian: Mongolia), "mr-IN" (Marathi: India), "ms-MY" (Malay: Malaysia), "my-MM" (Burmese: Myanmar (Burma)), "nb" (Norwegian Bokmål), "ne-NP" (Nepali: Nepal), "nl" (Dutch), "pl" (Polish), "pt" (Portuguese), "pt-PT" (Portuguese: Portugal), "ro" (Romanian), "ru" (Russian), "si-LK" (Sinhala: Sri Lanka), "sk" (Slovak), "sl" (Slovenian), "sr" (Serbian), "sv" (Swedish), "sw" (Swahili), "ta-IN" (Tamil: India), "te-IN" (Telugu: India), "th" (Thai), "tl" (Tagalog), "tr" (Turkish), "uk" (Ukrainian), "ur-PK" (Urdu: Pakistan), "uz-UZ" (Uzbek: Uzbekistan), "vi" (Vietnamese), "zh-CN" (Chinese: China), "zh-HK" (Chinese: Hong Kong SAR China), "zh-TW" (Chinese: Taiwan), "zu" (Zulu)</span><br /><pre class="errorlines">
+<span class="lineno">  67</span>     &lt;string name="sans_serif">sans-serif&lt;/string>
+<span class="lineno">  68</span> 
+<span class="lineno">  69</span>     &lt;!-- DO NOT TRANSLATE -->
+<span class="lineno">  70</span>     &lt;string <span class="errorspan">name="day_of_week_label_typeface">sans-serif&lt;/string></span>
+<span class="lineno">  71</span> &lt;/resources>
+<span class="lineno">  72</span> 
+</pre>
+<ul></ul><button id="Location5DivLink" onclick="reveal('Location5Div');" />+ 1 Additional Locations...</button>
+<div id="Location5Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../res/values-v16/strings.xml">../../res/values-v16/strings.xml</a>:19</span>
+</ul>
+</div><br/><br/>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT&nbsp;<img alt="Fix" border="0" align="top" src="lint-results-debug_files/lint-run.png" />
+<br>
+Priority: 8 / 10<br/>
+Category: Correctness:Messages</div>
+Severity: <span class="error">Fatal</span><div class="summary">
+Explanation: Incomplete translation.</div>
+<div class="explanation">
+If an application has more than one locale, then all the strings declared in one language should also be translated in all other languages.<br/>
+<br/>
+If the string should <b>not</b> be translated, you can add the attribute <code>translatable="false"</code> on the <code>&lt;string></code> element, or you can define all your non-translatable strings in a resource file called <code>donottranslate.xml</code>. Or, you can ignore the issue with a <code>tools:ignore="MissingTranslation"</code> attribute.<br/>
+<br/>
+By default this detector allows regions of a language to just provide a subset of the strings and fall back to the standard language strings. You can require all regions to provide a full translation by setting the environment variable <code>ANDROID_LINT_COMPLETE_REGIONS</code>.<br/>
+<br/>
+You can tell lint (and other tools) which language is the default language in your <code>res/values/</code> folder by specifying <code>tools:locale="languageCode"</code> for the root <code>&lt;resources></code> element in your resource file. (The <code>tools</code> prefix refers to the namespace declaration <code>http://schemas.android.com/tools</code>.)
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "MissingTranslation" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="StringFormatCount"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">StringFormatCount: Formatting argument types incomplete or inconsistent</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:57</span>: <span class="message">Inconsistent number of arguments in formatting string <code>deleted_key</code>; found both 0 and 1</span><br /><pre class="errorlines">
+<span class="lineno">  54</span>     &lt;!-- Accessibility description for the item that is currently selected. -->
+<span class="lineno">  55</span>     &lt;string name="item_is_selected">&lt;xliff:g id="item" example="2013">%1$s&lt;/xliff:g> selected&lt;/string>
+<span class="lineno">  56</span>     &lt;!-- Accessibility announcement when a number that had been typed in is deleted [CHAR_LIMIT=NONE] -->
+<span class="lineno">  57</span>     <span class="errorspan">&lt;string name="deleted_key">&lt;xliff:g id="key" example="4">%1$s&lt;/xliff:g> deleted&lt;/string></span>
+<span class="lineno">  58</span> 
+<span class="lineno">  59</span>     &lt;!-- DO NOT TRANSLATE -->
+</pre>
+<ul><span class="location"><a href="../../res/values-fr/strings.xml">../../res/values-fr/strings.xml</a>:30</span>: <span class="message">Conflicting number of arguments here</span><br /><pre class="errorlines">
+<span class="lineno">  27</span>     &lt;string name="select_day" msgid="3973338219107019769">"Sélectionnez un mois et un jour"&lt;/string>
+<span class="lineno">  28</span>     &lt;string name="select_year" msgid="2603330600102539372">"Sélectionnez une année"&lt;/string>
+<span class="lineno">  29</span>     &lt;string name="item_is_selected" msgid="2674929164900463786">"&lt;xliff:g id="ITEM">%1$s&lt;/xliff:g> sélectionné"&lt;/string>
+<span class="lineno">  30</span>     <span class="errorspan">&lt;string name="deleted_key" msgid="6908431551612331381">"\"&lt;xliff:g id="KEY">%1$s&lt;/xliff:g>\" supprimé"&lt;/string></span>
+<span class="lineno">  31</span> &lt;/resources>
+<span class="lineno">  32</span> 
+</pre></ul></div>
+<div class="metadata">Priority: 5 / 10<br/>
+Category: Correctness:Messages</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Formatting argument types incomplete or inconsistent.</div>
+<div class="explanation">
+When a formatted string takes arguments, it usually needs to reference the same arguments in all translations (or all arguments if there are no translations.<br/>
+<br/>
+There are cases where this is not the case, so this issue is a warning rather than an error by default. However, this usually happens when a language is not translated or updated correctly.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "StringFormatCount" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Performance"></a>
+<div class="category"><a href="#" title="Return to top">Performance</a><div class="categorySeparator"></div>
+</div>
+<a name="Overdraw"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">Overdraw: Overdraw: Painting regions more than once</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout-sw600dp/date_picker_dialog.xml">../../res/layout-sw600dp/date_picker_dialog.xml</a>:20</span>: <span class="message">Possible overdraw: Root element paints background <code>@color/date_picker_view_animator</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">  17</span> &lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<span class="lineno">  18</span>     android:layout_width="wrap_content"
+<span class="lineno">  19</span>     android:layout_height="match_parent"
+<span class="lineno">  20</span>     <span class="errorspan">android:background="@color/date_picker_view_animator"</span>
+<span class="lineno">  21</span>     android:gravity="center"
+<span class="lineno">  22</span>     android:orientation="vertical" >
+</pre>
+<span class="location"><a href="../../res/layout/date_picker_header_view.xml">../../res/layout/date_picker_header_view.xml</a>:21</span>: <span class="message">Possible overdraw: Root element paints background <code>@color/calendar_header</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">  18</span>     android:id="@+id/date_picker_header"
+<span class="lineno">  19</span>     android:layout_width="@dimen/date_picker_component_width"
+<span class="lineno">  20</span>     android:layout_height="@dimen/date_picker_header_height"
+<span class="lineno">  21</span>     <span class="errorspan">android:background="@color/calendar_header"</span>
+<span class="lineno">  22</span>     android:gravity="center"
+<span class="lineno">  23</span>     android:includeFontPadding="false"
+</pre>
+<span class="location"><a href="../../res/layout/date_picker_selected_date.xml">../../res/layout/date_picker_selected_date.xml</a>:23</span>: <span class="message">Possible overdraw: Root element paints background <code>@android:color/white</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">  20</span>     android:layout_width="@dimen/date_picker_component_width"
+<span class="lineno">  21</span>     android:layout_height="0dip"
+<span class="lineno">  22</span>     android:layout_weight="1"
+<span class="lineno">  23</span>     <span class="errorspan">android:background="@android:color/white"</span>
+<span class="lineno">  24</span>     android:gravity="center"
+<span class="lineno">  25</span>     android:orientation="vertical" >
+</pre>
+<span class="location"><a href="../../res/layout/date_picker_view_animator.xml">../../res/layout/date_picker_view_animator.xml</a>:22</span>: <span class="message">Possible overdraw: Root element paints background <code>@color/date_picker_view_animator</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">  19</span>      android:layout_width="@dimen/date_picker_component_width"
+<span class="lineno">  20</span>      android:layout_height="@dimen/date_picker_view_animator_height"
+<span class="lineno">  21</span>      android:gravity="center"
+<span class="lineno">  22</span>      <span class="errorspan">android:background="@color/date_picker_view_animator" /></span>
+
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:22</span>: <span class="message">Possible overdraw: Root element paints background <code>@android:color/white</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">  19</span>       android:layout_width="match_parent"
+<span class="lineno">  20</span>       android:layout_height="match_parent"
+<span class="lineno">  21</span>       android:layout_gravity="center"
+<span class="lineno">  22</span>       <span class="errorspan">android:background="@android:color/white" ></span>
+<span class="lineno">  23</span>         &lt;View
+<span class="lineno">  24</span>             android:id="@+id/center_view"
+</pre>
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Overdraw: Painting regions more than once.</div>
+<div class="explanation">
+If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called "overdraw".<br/>
+<br/>
+NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it's currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.<br/>
+<br/>
+If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.<br/>
+<br/>
+Of course it's possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.<br/>
+
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "Overdraw" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="UnusedResources"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">UnusedResources: Unused resources</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/values/colors.xml">../../res/values/colors.xml</a>:27</span>: <span class="message">The resource <code>R.color.transparent_light_black</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  24</span>     &lt;color name="numbers_text_color">#8c8c8c&lt;/color>
+<span class="lineno">  25</span> 
+<span class="lineno">  26</span>     &lt;color name="transparent_black">#7f000000&lt;/color>
+<span class="lineno">  27</span>     &lt;color <span class="errorspan">name="transparent_light_black">#2f000000&lt;/color></span>
+<span class="lineno">  28</span>     &lt;color name="transparent_light_green">#339fd500&lt;/color>
+<span class="lineno">  29</span> 
+</pre>
+<span class="location"><a href="../../res/values/colors.xml">../../res/values/colors.xml</a>:28</span>: <span class="message">The resource <code>R.color.transparent_light_green</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  25</span> 
+<span class="lineno">  26</span>     &lt;color name="transparent_black">#7f000000&lt;/color>
+<span class="lineno">  27</span>     &lt;color name="transparent_light_black">#2f000000&lt;/color>
+<span class="lineno">  28</span>     &lt;color <span class="errorspan">name="transparent_light_green">#339fd500&lt;/color></span>
+<span class="lineno">  29</span> 
+<span class="lineno">  30</span> 
+</pre>
+<span class="location"><a href="../../res/values/colors.xml">../../res/values/colors.xml</a>:40</span>: <span class="message">The resource <code>R.color.calendar_selected_date_text</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  37</span> 
+<span class="lineno">  38</span>     &lt;color name="calendar_header">#999999&lt;/color>
+<span class="lineno">  39</span>     &lt;color name="date_picker_view_animator">#f2f2f2&lt;/color>
+<span class="lineno">  40</span>     &lt;color <span class="errorspan">name="calendar_selected_date_text">#ffd1d2d4&lt;/color></span>
+<span class="lineno">  41</span> 
+<span class="lineno">  42</span>     &lt;!-- Colors for red theme -->
+</pre>
+<span class="location"><a href="../../res/values/colors.xml">../../res/values/colors.xml</a>:50</span>: <span class="message">The resource <code>R.color.done_disabled_dark</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  47</span>     &lt;color name="line_dark">#808080&lt;/color>
+<span class="lineno">  48</span>     &lt;color name="done_text_color_dark_normal">#ffffff&lt;/color>
+<span class="lineno">  49</span>     &lt;color name="done_text_color_dark_disabled">#888888&lt;/color>
+<span class="lineno">  50</span>     &lt;color <span class="errorspan">name="done_disabled_dark">#bfbfbf&lt;/color></span>
+<span class="lineno">  51</span> &lt;/resources>
+<span class="lineno">  52</span> 
+</pre>
+<span class="location"><a href="../../res/values-sw600dp-land/dimens.xml">../../res/values-sw600dp-land/dimens.xml</a>:24</span>: <span class="message">The resource <code>R.dimen.time_label_right_padding</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  21</span>     xmlns:android="http://schemas.android.com/apk/res/android">
+<span class="lineno">  22</span> 
+<span class="lineno">  23</span>     &lt;dimen name="date_picker_header_height">45dp&lt;/dimen>
+<span class="lineno">  24</span>     &lt;dimen <span class="errorspan">name="time_label_right_padding">16sp&lt;/dimen></span>
+<span class="lineno">  25</span>     &lt;dimen name="time_label_size">64sp&lt;/dimen>
+<span class="lineno">  26</span>     &lt;dimen name="ampm_label_size">21sp&lt;/dimen>
+</pre>
+<button id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 6 More Occurrences...</button>
+<div id="UnusedResourcesDiv" style="display: none">
+<span class="location"><a href="../../res/values-sw600dp/dimens.xml">../../res/values-sw600dp/dimens.xml</a>:28</span>: <span class="message">The resource <code>R.dimen.month_list_item_padding</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  25</span>     &lt;dimen name="selected_calendar_layout_height">360dp&lt;/dimen>
+<span class="lineno">  26</span>     &lt;dimen name="date_picker_header_height">45dp&lt;/dimen>
+<span class="lineno">  27</span>     &lt;dimen name="month_list_item_header_height">75dp&lt;/dimen>
+<span class="lineno">  28</span>     &lt;dimen <span class="errorspan">name="month_list_item_padding">24dp&lt;/dimen></span>
+<span class="lineno">  29</span>     &lt;dimen name="day_number_select_circle_radius">24dp&lt;/dimen>
+<span class="lineno">  30</span>     &lt;dimen name="month_select_circle_radius">36dp&lt;/dimen>
+</pre>
+<span class="location"><a href="../../res/values-sw600dp/dimens.xml">../../res/values-sw600dp/dimens.xml</a>:37</span>: <span class="message">The resource <code>R.dimen.month_list_item_size</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  34</span>     &lt;dimen name="year_label_height">96dp&lt;/dimen>
+<span class="lineno">  35</span>     &lt;dimen name="year_label_text_size">33dp&lt;/dimen>
+<span class="lineno">  36</span>     &lt;dimen name="date_picker_header_text_size">21dp&lt;/dimen>
+<span class="lineno">  37</span>     &lt;dimen <span class="errorspan">name="month_list_item_size">24sp&lt;/dimen></span>
+<span class="lineno">  38</span>     &lt;dimen name="month_label_size">24sp&lt;/dimen>
+<span class="lineno">  39</span>     &lt;dimen name="day_number_size">24sp&lt;/dimen>
+</pre>
+<span class="location"><a href="../../res/values/dimens.xml">../../res/values/dimens.xml</a>:39</span>: <span class="message">The resource <code>R.dimen.footer_height</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  36</span>     &lt;dimen name="ampm_left_padding">6dip&lt;/dimen>
+<span class="lineno">  37</span>     &lt;dimen name="separator_padding">4dip&lt;/dimen>
+<span class="lineno">  38</span>     &lt;dimen name="header_height">96dip&lt;/dimen>
+<span class="lineno">  39</span>     &lt;dimen <span class="errorspan">name="footer_height">48dip&lt;/dimen></span>
+<span class="lineno">  40</span>     &lt;dimen name="minimum_margin_sides">48dip&lt;/dimen>
+<span class="lineno">  41</span>     &lt;dimen name="minimum_margin_top_bottom">24dip&lt;/dimen>
+</pre>
+<ul></ul><button id="Location8DivLink" onclick="reveal('Location8Div');" />+ 2 Additional Locations...</button>
+<div id="Location8Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../res/values-sw600dp/dimens.xml">../../res/values-sw600dp/dimens.xml</a>:48</span>
+<li> <span class="location"><a href="../../res/values-sw600dp-land/dimens.xml">../../res/values-sw600dp-land/dimens.xml</a>:30</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../res/values/dimens.xml">../../res/values/dimens.xml</a>:48</span>: <span class="message">The resource <code>R.dimen.done_button_height</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  45</span>     &lt;dimen name="date_picker_header_height">30dp&lt;/dimen>
+<span class="lineno">  46</span>     &lt;dimen name="selected_calendar_layout_height">125dp&lt;/dimen>
+<span class="lineno">  47</span>     &lt;dimen name="date_picker_view_animator_height">270dp&lt;/dimen>
+<span class="lineno">  48</span>     &lt;dimen <span class="errorspan">name="done_button_height">42dp&lt;/dimen></span>
+<span class="lineno">  49</span> 
+<span class="lineno">  50</span>     &lt;dimen name="month_list_item_header_height">50dp&lt;/dimen>
+</pre>
+<span class="location"><a href="../../res/values-v16/styles.xml">../../res/values-v16/styles.xml</a>:23</span>: <span class="message">The resource <code>R.style.done_button_light</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  20</span>         &lt;item name="android:fontFamily">sans-serif-light&lt;/item>
+<span class="lineno">  21</span>     &lt;/style>
+<span class="lineno">  22</span> 
+<span class="lineno">  23</span>     &lt;style <span class="errorspan">name="done_button_light"></span>
+<span class="lineno">  24</span>         &lt;item name="android:fontFamily">sans-serif-light&lt;/item>
+<span class="lineno">  25</span>     &lt;/style>
+</pre>
+<span class="location"><a href="../../res/values/styles.xml">../../res/values/styles.xml</a>:31</span>: <span class="message">The resource <code>R.style.day_of_week_label_condensed</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  28</span>         &lt;item name="android:textStyle">bold&lt;/item>
+<span class="lineno">  29</span>     &lt;/style>
+<span class="lineno">  30</span> 
+<span class="lineno">  31</span>     &lt;style <span class="errorspan">name="day_of_week_label_condensed" /></span>
+<span class="lineno">  32</span> &lt;/resources>
+<span class="lineno">  33</span> 
+</pre>
+<ul></ul><button id="Location11DivLink" onclick="reveal('Location11Div');" />+ 1 Additional Locations...</button>
+<div id="Location11Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../res/values-v16/styles.xml">../../res/values-v16/styles.xml</a>:27</span>
+</ul>
+</div><br/><br/>
+</div>
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Unused resources.</div>
+<div class="explanation">
+Unused resources make applications larger and slow down builds.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UnusedResources" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Usability"></a>
+<div class="category"><a href="#" title="Return to top">Usability</a><div class="categorySeparator"></div>
+</div>
+<a name="ViewConstructor"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">ViewConstructor: Missing View constructors for XML inflation</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/com/android/datetimepicker/date/YearPickerView.java">../../src/com/android/datetimepicker/date/YearPickerView.java</a>:40</span>: <span class="message">Custom view <code>YearPickerView</code> is missing constructor used by tools: <code>(Context)</code> or <code>(Context,AttributeSet)</code> or <code>(Context,AttributeSet,int)</code></span><br /><pre class="errorlines">
+<span class="lineno">  37</span> /**
+<span class="lineno">  38</span>  * Displays a selectable list of years.
+<span class="lineno">  39</span>  */
+<span class="lineno">  40</span> public class <span class="errorspan">YearPickerView extends ListView implements OnItemClickListener, OnDateChangedListener {</span>
+<span class="lineno">  41</span>     private static final String TAG = "YearPickerView";
+<span class="lineno">  42</span> 
+</pre>
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Missing View constructors for XML inflation.</div>
+<div class="explanation">
+Some layout tools (such as the Android layout editor for Studio &amp; Eclipse) needs to find a constructor with one of the following signatures:<br/>
+* <code>View(Context context)</code><br/>
+* <code>View(Context context, AttributeSet attrs)</code><br/>
+* <code>View(Context context, AttributeSet attrs, int defStyle)</code><br/>
+<br/>
+If your custom view needs to perform initialization which does not apply when used in a layout editor, you can surround the given code with a check to see if <code>View#isInEditMode()</code> is false, since that method will return <code>false</code> at runtime but true within a user interface editor.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "ViewConstructor" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Accessibility"></a>
+<div class="category"><a href="#" title="Return to top">Accessibility</a><div class="categorySeparator"></div>
+</div>
+<a name="ClickableViewAccessibility"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">ClickableViewAccessibility: Accessibility in Custom Views</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/com/android/datetimepicker/time/RadialPickerLayout.java">../../src/com/android/datetimepicker/time/RadialPickerLayout.java</a>:592</span>: <span class="message"><code>com/android/datetimepicker/time/RadialPickerLayout#onTouch</code> should call <code>View#performClick</code> when a click is detected</span><br /><pre class="errorlines">
+<span class="lineno"> 589</span>     }
+<span class="lineno"> 590</span> 
+<span class="lineno"> 591</span>     @Override
+<span class="lineno"> 592</span>     public boolean <span class="errorspan">onTouch(View v, MotionEvent event) {</span>
+<span class="lineno"> 593</span>         final float eventX = event.getX();
+<span class="lineno"> 594</span>         final float eventY = event.getY();
+</pre>
+</div>
+<div class="metadata">Priority: 6 / 10<br/>
+Category: Accessibility</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Accessibility in Custom Views.</div>
+<div class="explanation">
+If a <code>View</code> that overrides <code>onTouchEvent</code> or uses an <code>OnTouchListener</code> does not also implement <code>performClick</code> and call it when clicks are detected, the <code>View</code> may not handle accessibility actions properly. Logic handling the click actions should ideally be placed in <code>View#performClick</code> as some accessibility services invoke <code>performClick</code> when a click action should occur.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "ClickableViewAccessibility" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Internationalization:Bidirectional Text"></a>
+<div class="category"><a href="#" title="Return to top">Internationalization:Bidirectional Text</a><div class="categorySeparator"></div>
+</div>
+<a name="RtlHardcoded"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">RtlHardcoded: Using left/right instead of start/end attributes</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:37</span>: <span class="message">Consider adding <code>android:layout_toStartOf="@+id/separator"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  34</span>             android:layout_width="wrap_content"
+<span class="lineno">  35</span>             android:layout_height="wrap_content"
+<span class="lineno">  36</span>             android:text="@string/time_placeholder"
+<span class="lineno">  37</span>             <span class="errorspan">android:layout_toLeftOf="@+id/separator"</span>
+<span class="lineno">  38</span>             android:layout_centerVertical="true"
+<span class="lineno">  39</span>             android:visibility="invisible"
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:45</span>: <span class="message">Consider adding <code>android:layout_alignEnd="@+id/hour_space"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  42</span>         &lt;FrameLayout
+<span class="lineno">  43</span>             android:layout_width="0dp"
+<span class="lineno">  44</span>             android:layout_height="match_parent"
+<span class="lineno">  45</span>             <span class="errorspan">android:layout_alignRight="@+id/hour_space"</span>
+<span class="lineno">  46</span>             android:layout_alignLeft="@+id/hour_space"
+<span class="lineno">  47</span>             android:layout_marginLeft="@dimen/extra_time_label_margin"
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:46</span>: <span class="message">Consider adding <code>android:layout_alignStart="@+id/hour_space"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  43</span>             android:layout_width="0dp"
+<span class="lineno">  44</span>             android:layout_height="match_parent"
+<span class="lineno">  45</span>             android:layout_alignRight="@+id/hour_space"
+<span class="lineno">  46</span>             <span class="errorspan">android:layout_alignLeft="@+id/hour_space"</span>
+<span class="lineno">  47</span>             android:layout_marginLeft="@dimen/extra_time_label_margin"
+<span class="lineno">  48</span>             android:layout_marginRight="@dimen/extra_time_label_margin"
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:68</span>: <span class="message">Consider adding <code>android:layout_alignEnd="@+id/center_view"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  65</span>             android:text="@string/time_separator"
+<span class="lineno">  66</span>             android:paddingLeft="@dimen/separator_padding"
+<span class="lineno">  67</span>             android:paddingRight="@dimen/separator_padding"
+<span class="lineno">  68</span>             <span class="errorspan">android:layout_alignRight="@+id/center_view"</span>
+<span class="lineno">  69</span>             android:layout_centerVertical="true"
+<span class="lineno">  70</span>             style="@style/time_label"
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:78</span>: <span class="message">Consider adding <code>android:layout_toEndOf="@+id/separator"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  75</span>             android:layout_width="wrap_content"
+<span class="lineno">  76</span>             android:layout_height="wrap_content"
+<span class="lineno">  77</span>             android:text="@string/time_placeholder"
+<span class="lineno">  78</span>             <span class="errorspan">android:layout_toRightOf="@+id/separator"</span>
+<span class="lineno">  79</span>             android:layout_centerVertical="true"
+<span class="lineno">  80</span>             android:visibility="invisible"
+</pre>
+<button id="RtlHardcodedDivLink" onclick="reveal('RtlHardcodedDiv');" />+ 5 More Occurrences...</button>
+<div id="RtlHardcodedDiv" style="display: none">
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:86</span>: <span class="message">Consider adding <code>android:layout_alignEnd="@+id/minutes_space"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  83</span>         &lt;FrameLayout
+<span class="lineno">  84</span>             android:layout_width="0dp"
+<span class="lineno">  85</span>             android:layout_height="match_parent"
+<span class="lineno">  86</span>             <span class="errorspan">android:layout_alignRight="@+id/minutes_space"</span>
+<span class="lineno">  87</span>             android:layout_alignLeft="@+id/minutes_space"
+<span class="lineno">  88</span>             android:layout_marginLeft="@dimen/extra_time_label_margin"
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:87</span>: <span class="message">Consider adding <code>android:layout_alignStart="@+id/minutes_space"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  84</span>             android:layout_width="0dp"
+<span class="lineno">  85</span>             android:layout_height="match_parent"
+<span class="lineno">  86</span>             android:layout_alignRight="@+id/minutes_space"
+<span class="lineno">  87</span>             <span class="errorspan">android:layout_alignLeft="@+id/minutes_space"</span>
+<span class="lineno">  88</span>             android:layout_marginLeft="@dimen/extra_time_label_margin"
+<span class="lineno">  89</span>             android:layout_marginRight="@dimen/extra_time_label_margin"
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:106</span>: <span class="message">Consider adding <code>android:layout_alignStart="@+id/ampm_label"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno"> 103</span>             android:layout_height="wrap_content"
+<span class="lineno"> 104</span>             android:layout_alignParentTop="true"
+<span class="lineno"> 105</span>             android:layout_alignParentBottom="true"
+<span class="lineno"> 106</span>             <span class="errorspan">android:layout_alignLeft="@+id/ampm_label"</span>
+<span class="lineno"> 107</span>             android:layout_alignRight="@+id/ampm_label" />
+<span class="lineno"> 108</span>         &lt;TextView
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:107</span>: <span class="message">Consider adding <code>android:layout_alignEnd="@+id/ampm_label"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno"> 104</span>             android:layout_alignParentTop="true"
+<span class="lineno"> 105</span>             android:layout_alignParentBottom="true"
+<span class="lineno"> 106</span>             android:layout_alignLeft="@+id/ampm_label"
+<span class="lineno"> 107</span>             <span class="errorspan">android:layout_alignRight="@+id/ampm_label" /></span>
+<span class="lineno"> 108</span>         &lt;TextView
+<span class="lineno"> 109</span>             android:id="@+id/ampm_label"
+</pre>
+<span class="location"><a href="../../res/layout/time_header_label.xml">../../res/layout/time_header_label.xml</a>:115</span>: <span class="message">Consider adding <code>android:layout_toEndOf="@+id/minutes_space"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno"> 112</span>             android:text="@string/time_placeholder"
+<span class="lineno"> 113</span>             android:paddingLeft="@dimen/ampm_left_padding"
+<span class="lineno"> 114</span>             android:paddingRight="@dimen/ampm_left_padding"
+<span class="lineno"> 115</span>             <span class="errorspan">android:layout_toRightOf="@+id/minutes_space"</span>
+<span class="lineno"> 116</span>             android:layout_alignBaseline="@+id/separator"
+<span class="lineno"> 117</span>             style="@style/ampm_label"
+</pre>
+</div>
+</div>
+<div class="metadata">Priority: 5 / 10<br/>
+Category: Internationalization:Bidirectional Text</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Using left/right instead of start/end attributes.</div>
+<div class="explanation">
+Using <code>Gravity#LEFT</code> and <code>Gravity#RIGHT</code> can lead to problems when a layout is rendered in locales where text flows from right to left. Use <code>Gravity#START</code> and <code>Gravity#END</code> instead. Similarly, in XML <code>gravity</code> and <code>layout_gravity</code> attributes, use <code>start</code> rather than <code>left</code>.<br/>
+<br/>
+For XML attributes such as paddingLeft and <code>layout_marginLeft</code>, use <code>paddingStart</code> and <code>layout_marginStart</code>. <b>NOTE</b>: If your <code>minSdkVersion</code> is less than 17, you should add <b>both</b> the older left/right attributes <b>as well as</b> the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.<br/>
+<br/>
+(Note: For <code>Gravity#LEFT</code> and <code>Gravity#START</code>, you can use these constants even when targeting older platforms, because the <code>start</code> bitmask is a superset of the <code>left</code> bitmask. Therefore, you can use <code>gravity="start"</code> rather than <code>gravity="left|start"</code>.)
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "RtlHardcoded" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="MissingIssues"></a>
+<div class="category">Disabled Checks<div class="categorySeparator"></div>
+</div>
+The following issues were not run by lint, either because the check is not enabled by default, or because it was disabled with a command line flag or via one or more lint.xml configuration files in the project directories.
+<br/><br/>
+<a name="AppLinksAutoVerifyError"></a>
+<div class="issue">
+<div class="id">AppLinksAutoVerifyError<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="error">Error</span><div class="summary">
+Explanation: App Links Auto Verification Failure.</div>
+<div class="explanation">
+Ensures that app links are correctly set and associated with website.
+</div>
+<br/><div class="moreinfo">More info: <a href="https://g.co/appindexing/applinks">https://g.co/appindexing/applinks</a>
+</div><br/>To suppress this error, use the issue id "AppLinksAutoVerifyError" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="AppLinksAutoVerifyWarning"></a>
+<div class="issue">
+<div class="id">AppLinksAutoVerifyWarning<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Potential App Links Auto Verification Failure.</div>
+<div class="explanation">
+Ensures that app links are correctly set and associated with website.
+</div>
+<br/><div class="moreinfo">More info: <a href="https://g.co/appindexing/applinks">https://g.co/appindexing/applinks</a>
+</div><br/>To suppress this error, use the issue id "AppLinksAutoVerifyWarning" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="BackButton"></a>
+<div class="issue">
+<div class="id">BackButton<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 6 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Back button.</div>
+<div class="explanation">
+According to the Android Design Guide,<br/>
+<br/>
+"Other platforms use an explicit back button with label to allow the user to navigate up the application's hierarchy. Instead, Android uses the main action bar's app icon for hierarchical navigation and the navigation bar's back button for temporal navigation."<br/>
+This check is not very sophisticated (it just looks for buttons with the label "Back"), so it is disabled by default to not trigger on common scenarios like pairs of Back/Next buttons to paginate through screens.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/design/patterns/pure-android.html">http://developer.android.com/design/patterns/pure-android.html</a>
+</div><br/>To suppress this error, use the issue id "BackButton" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="EasterEgg"></a>
+<div class="issue">
+<div class="id">EasterEgg<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 6 / 10<br/>
+Category: Security</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Code contains easter egg.</div>
+<div class="explanation">
+An "easter egg" is code deliberately hidden in the code, both from potential users and even from other developers. This lint check looks for code which looks like it may be hidden from sight.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "EasterEgg" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="FieldGetter"></a>
+<div class="issue">
+<div class="id">FieldGetter<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 4 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Using getter instead of field.</div>
+<div class="explanation">
+Accessing a field within the class that defines a getter for that field is at least 3 times faster than calling the getter. For simple getters that do nothing other than return the field, you might want to just reference the local field directly instead.<br/>
+<br/>
+<b>NOTE</b>: As of Android 2.3 (Gingerbread), this optimization is performed automatically by Dalvik, so there is no need to change your code; this is only relevant if you are targeting older versions of Android.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/design/performance.html#internal_get_set">http://developer.android.com/guide/practices/design/performance.html#internal_get_set</a>
+</div><br/>To suppress this error, use the issue id "FieldGetter" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="GoogleAppIndexingApiWarning"></a>
+<div class="issue">
+<div class="id">GoogleAppIndexingApiWarning<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results-debug_files/lint-run.png" />
+<br>
+Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Missing support for Google App Indexing Api.</div>
+<div class="explanation">
+Adds URLs to get your app into the Google index, to get installs and traffic to your app from Google Search.
+</div>
+<br/><div class="moreinfo">More info: <a href="https://g.co/AppIndexing/AndroidStudio">https://g.co/AppIndexing/AndroidStudio</a>
+</div><br/>To suppress this error, use the issue id "GoogleAppIndexingApiWarning" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="IconExpectedSize"></a>
+<div class="issue">
+<div class="id">IconExpectedSize<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Usability:Icons</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Icon has incorrect size.</div>
+<div class="explanation">
+There are predefined sizes (for each density) for launcher icons. You should follow these conventions to make sure your icons fit in with the overall look of the platform.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/design/style/iconography.html">http://developer.android.com/design/style/iconography.html</a>
+</div><br/>To suppress this error, use the issue id "IconExpectedSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="LogConditional"></a>
+<div class="issue">
+<div class="id">LogConditional<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Unconditional Logging Calls.</div>
+<div class="explanation">
+The BuildConfig class (available in Tools 17) provides a constant, "DEBUG", which indicates whether the code is being built in release mode or in debug mode. In release mode, you typically want to strip out all the logging calls. Since the compiler will automatically remove all code which is inside a "if (false)" check, surrounding your logging calls with a check for BuildConfig.DEBUG is a good idea.<br/>
+<br/>
+If you <b>really</b> intend for the logging to be present in release mode, you can suppress this warning with a @SuppressLint annotation for the intentional logging calls.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "LogConditional" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="MangledCRLF"></a>
+<div class="issue">
+<div class="id">MangledCRLF<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT&nbsp;<img alt="Fix" border="0" align="top" src="lint-results-debug_files/lint-run.png" />
+<br>
+Disabled By: Default<br/>
+Priority: 2 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="error">Error</span><div class="summary">
+Explanation: Mangled file line endings.</div>
+<div class="explanation">
+On Windows, line endings are typically recorded as carriage return plus newline: \r\n.<br/>
+<br/>
+This detector looks for invalid line endings with repeated carriage return characters (without newlines). Previous versions of the ADT plugin could accidentally introduce these into the file, and when editing the file, the editor could produce confusing visual artifacts.
+</div>
+<br/><div class="moreinfo">More info: <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=375421">https://bugs.eclipse.org/bugs/show_bug.cgi?id=375421</a>
+</div><br/>To suppress this error, use the issue id "MangledCRLF" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="NegativeMargin"></a>
+<div class="issue">
+<div class="id">NegativeMargin<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 4 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Negative Margins.</div>
+<div class="explanation">
+Margin values should be positive. Negative values are generally a sign that you are making assumptions about views surrounding the current one, or may be tempted to turn off child clipping to allow a view to escape its parent. Turning off child clipping to do this not only leads to poor graphical performance, it also results in wrong touch event handling since touch events are based strictly on a chain of parent-rect hit tests. Finally, making assumptions about the size of strings can lead to localization problems.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "NegativeMargin" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="NewerVersionAvailable"></a>
+<div class="issue">
+<div class="id">NewerVersionAvailable<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results-debug_files/lint-run.png" />
+<br>
+Disabled By: Default<br/>
+Priority: 4 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Newer Library Versions Available.</div>
+<div class="explanation">
+This detector checks with a central repository to see if there are newer versions available for the dependencies used by this project. This is similar to the <code>GradleDependency</code> check, which checks for newer versions available in the Android SDK tools and libraries, but this works with any MavenCentral dependency, and connects to the library every time, which makes it more flexible but also <b>much</b> slower.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "NewerVersionAvailable" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="SelectableText"></a>
+<div class="issue">
+<div class="id">SelectableText<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results-debug_files/lint-run.png" />
+<br>
+Disabled By: Default<br/>
+Priority: 7 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Dynamic text should probably be selectable.</div>
+<div class="explanation">
+If a <code>&lt;TextView></code> is used to display data, the user might want to copy that data and paste it elsewhere. To allow this, the <code>&lt;TextView></code> should specify <code>android:textIsSelectable="true"</code>.<br/>
+<br/>
+This lint check looks for TextViews which are likely to be displaying data: views whose text is set dynamically. This value will be ignored on platforms older than API 11, so it is okay to set it regardless of your <code>minSdkVersion</code>.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "SelectableText" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="StopShip"></a>
+<div class="issue">
+<div class="id">StopShip<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results-debug_files/lint-run.png" />
+<br>
+Disabled By: Default<br/>
+Priority: 10 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Code contains <code>STOPSHIP</code> marker.</div>
+<div class="explanation">
+Using the comment <code>// STOPSHIP</code> can be used to flag code that is incomplete but checked in. This comment marker can be used to indicate that the code should not be shipped until the issue is addressed, and lint will look for these.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "StopShip" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="TypographyQuotes"></a>
+<div class="issue">
+<div class="id">TypographyQuotes<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ & Eclipse/ADT&nbsp;<img alt="Fix" border="0" align="top" src="lint-results-debug_files/lint-run.png" />
+<br>
+Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Usability:Typography</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Straight quotes can be replaced with curvy quotes.</div>
+<div class="explanation">
+Straight single quotes and double quotes, when used as a pair, can be replaced by "curvy quotes" (or directional quotes). This can make the text more readable.<br/>
+<br/>
+Note that you should never use grave accents and apostrophes to quote, `like this'.<br/>
+<br/>
+(Also note that you should not use curvy quotes for code fragments.)
+</div>
+<br/><div class="moreinfo">More info: <a href="http://en.wikipedia.org/wiki/Quotation_mark">http://en.wikipedia.org/wiki/Quotation_mark</a>
+</div><br/>To suppress this error, use the issue id "TypographyQuotes" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="UnusedIds"></a>
+<div class="issue">
+<div class="id">UnusedIds<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 1 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Unused id.</div>
+<div class="explanation">
+This resource id definition appears not to be needed since it is not referenced from anywhere. Having id definitions, even if unused, is not necessarily a bad idea since they make working on layouts and menus easier, so there is not a strong reason to delete these.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UnusedIds" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="SuppressInfo"></a>
+<div class="category">Suppressing Warnings and Errors<div class="categorySeparator"></div>
+</div>
+Lint errors can be suppressed in a variety of ways:<br/>
+<br/>
+1. With a <code>@SuppressLint</code> annotation in the Java code<br/>
+2. With a <code>tools:ignore</code> attribute in the XML file<br/>
+3. With ignore flags specified in the <code>build.gradle</code> file, as explained below<br/>
+4. With a <code>lint.xml</code> configuration file in the project<br/>
+5. With a <code>lint.xml</code> configuration file passed to lint via the --config flag<br/>
+6. With the --ignore flag passed to lint.<br/>
+<br/>
+To suppress a lint warning with an annotation, add a <code>@SuppressLint("id")</code> annotation on the class, method or variable declaration closest to the warning instance you want to disable. The id can be one or more issue id's, such as <code>"UnusedResources"</code> or <code>{"UnusedResources","UnusedIds"}</code>, or it can be <code>"all"</code> to suppress all lint warnings in the given scope.<br/>
+<br/>
+To suppress a lint warning in an XML file, add a <code>tools:ignore="id"</code> attribute on the element containing the error, or one of its surrounding elements. You also need to define the namespace for the tools prefix on the root element in your document, next to the <code>xmlns:android</code> declaration:<br/>
+<code>xmlns:tools="http://schemas.android.com/tools"</code><br/>
+<br/>
+To suppress a lint warning in a <code>build.gradle</code> file, add a section like this:<br/>
+<br/>
+android {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;lintOptions {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;disable 'TypographyFractions','TypographyQuotes'<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+}<br/>
+<br/>
+Here we specify a comma separated list of issue id's after the disable command. You can also use <code>warning</code> or <code>error</code> instead of <code>disable</code> to change the severity of issues.<br/>
+<br/>
+To suppress lint warnings with a configuration XML file, create a file named <code>lint.xml</code> and place it at the root directory of the project in which it applies.<br/>
+<br/>
+The format of the <code>lint.xml</code> file is something like the following:<br/>
+<br/>
+&lt;?xml version="1.0" encoding="UTF-8"?><br/>
+&lt;lint><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Disable this given check in this project --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="IconMissingDensityFolder" severity="ignore" /><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Ignore the ObsoleteLayoutParam issue in the given files --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="ObsoleteLayoutParam"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout/activation.xml" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout-xlarge/activation.xml" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/issue><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Ignore the UselessLeaf issue in the given file --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="UselessLeaf"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout/main.xml" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/issue><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Change the severity of hardcoded strings to "error" --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="HardcodedText" severity="error" /><br/>
+&lt;/lint><br/>
+<br/>
+To suppress lint checks from the command line, pass the --ignore flag with a comma separated list of ids to be suppressed, such as:<br/>
+<code>$ lint --ignore UnusedResources,UselessLeaf /my/project/path</code><br/>
+<br/>
+For more information, see <a href="http://g.co/androidstudio/suppressing-lint-warnings">http://g.co/androidstudio/suppressing-lint-warnings</a><br/>
+
+
+</body>
+</html>

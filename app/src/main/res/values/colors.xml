@@ -9,7 +9,19 @@
     <color name="maintab_textcolor">#ffffff</color>
     <color name="inner_gray">#ededed</color>
     <color name="inner_grayerzz">#a9a9a9</color>
+    <color name="gray">#696767</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="yellow">#fffb5e</color>
+    <color name="toolbar_dark">#343434</color>
+
+    <color name="btn_background">#9fd500</color>
+    <color name="deadbackgroundcolor">#3a3b3b</color>
+    <color name="page_background">#e5e5e5</color>
+    <color name="bottom_text_black">#717070</color>
+    <color name="light_gray">#eeeeee</color>
+    <color name="special_gray_lk_comment">#8d8d8d</color>
+    <color name="nice_blue">#142fb4</color>
+    <color name="nice_gray">#717070</color>
+    <color name="transparent_yellow">#33fffb5e</color>
 </resources>

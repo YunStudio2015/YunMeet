@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
 
 
     defaultConfig {
         applicationId "yunstudio2015.android.yunmeet"
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -18,24 +18,36 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
+
 }
 
-repositories {
-    maven {
-        url "https://oss.sonatype.org/content/repositories/snapshots"
-    }
-}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-//    compile project(":volley")
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.android.support:support-v4:23.0.1'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    testCompile 'junit:junit:4.12'
+    compile project(":pickphotos")
+    compile project(":pulltorefresh")
+    compile project(":emojicon")
+    compile project(":datetimepicker")
+    compile project(":SwipeNumberPicker")
+    compile project(":RecyclerViewpager")
+    // actionbar tinting
+    // photocropper
+    // photo viewer that supports zoom
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:support-v4:23.2.1'
+    compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'com.android.support:cardview-v7:23.2.1'
     compile 'com.google.code.gson:gson:2.3'
+    compile 'com.android.support:design:23.2.1'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.android.support:recyclerview-v7:23.0.+'
     compile 'com.mcxiaoke.volley:library:1.0.19'
-
-
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
+    compile 'com.lyft:scissors:1.0.3'
+    compile 'com.commit451:PhotoView:1.2.5'
 }

@@ -7,6 +7,6 @@ import org.json.JSONObject;
  */
 public interface VolleyOnResultListener {
 
-    public void onSuccess (JSONObject response);
+    public void onSuccess (String response);
     public void onFailure (String error);
 }

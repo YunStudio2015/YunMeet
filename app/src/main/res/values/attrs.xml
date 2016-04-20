@@ -34,4 +34,9 @@
     <attr name="unselectedColor" format="color" />
 
 
+    <declare-styleable name="HollyViewPager">
+        <attr name="hvp_headerHeight" format="dimension"/>
+        <attr name="hvp_headerBackgroundView" format="reference"/>
+    </declare-styleable>
+
 </resources>

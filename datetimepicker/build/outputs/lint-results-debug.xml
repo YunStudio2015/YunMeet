@@ -1,0 +1,1502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="4" by="lint 25.1.2">
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` *without specifying an explicit locale* is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is *not* `I`.
+
+If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.US)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="                    String.format(&quot;%02d&quot;, hours_24[i]) : String.format(&quot;%d&quot;, hours[i]);"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\time\RadialPickerLayout.java"
+            line="211"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` *without specifying an explicit locale* is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is *not* `I`.
+
+If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.US)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="            innerHoursTexts[i] = String.format(&quot;%d&quot;, hours[i]);"
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\time\RadialPickerLayout.java"
+            line="212"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` *without specifying an explicit locale* is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is *not* `I`.
+
+If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.US)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="            minutesTexts[i] = String.format(&quot;%02d&quot;, minutes[i]);"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\time\RadialPickerLayout.java"
+            line="213"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` *without specifying an explicit locale* is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is *not* `I`.
+
+If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.US)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="        canvas.drawText(String.format(&quot;%d&quot;, day), x, y, mMonthNumPaint);"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\date\SimpleMonthView.java"
+            line="46"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` *without specifying an explicit locale* is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is *not* `I`.
+
+If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.US)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="                String announcement = String.format(&quot;%d&quot;, newValue);"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\time\TimePickerDialog.java"
+            line="399"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` *without specifying an explicit locale* is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is *not* `I`.
+
+If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.US)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="                        deletedKeyStr = String.format(&quot;%d&quot;, getValFromKeyCode(deleted));"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\time\TimePickerDialog.java"
+            line="530"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` *without specifying an explicit locale* is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is *not* `I`.
+
+If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.US)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="        Utils.tryAccessibilityAnnounce(mTimePicker, String.format(&quot;%d&quot;, val));"
+        errorLine2="                                                    ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\time\TimePickerDialog.java"
+            line="594"
+            column="53"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` *without specifying an explicit locale* is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is *not* `I`.
+
+If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.US)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="            years.add(String.format(&quot;%d&quot;, year));"
+        errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\date\YearPickerView.java"
+            line="74"
+            column="23"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        severity="Warning"
+        message="Field requires API level 16 (current min is 14): `android.view.accessibility.AccessibilityNodeInfo#ACTION_SCROLL_FORWARD`"
+        category="Correctness"
+        priority="6"
+        summary="Using inlined constants on older versions"
+        explanation="This check scans through all the Android API field references in the application and flags certain constants, such as static final integers and Strings, which were introduced in later versions. These will actually be copied into the class files rather than being referenced, which means that the value is available even when running on older devices. In some cases that&apos;s fine, and in other cases it can result in a runtime crash or incorrect behavior. It depends on the context, so consider the code carefully and device whether it&apos;s safe and can be suppressed or whether the code needs tbe guarded.
+
+If you really want to use this API and don&apos;t need to support older devices just set the `minSdkVersion` in your `build.gradle` or `AndroidManifest.xml` files.
+If your code is *deliberately* accessing newer APIs, and you have ensured (e.g. with conditional execution) that this code will only ever be called on a supported platform, then you can annotate your class or method with the `@TargetApi` annotation specifying the local minimum SDK to apply, such as `@TargetApi(11)`, such that this check considers 11 rather than your manifest file&apos;s minimum SDK as the required API level.
+"
+        errorLine1="      info.addAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);"
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\date\DayPickerView.java"
+            line="458"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        severity="Warning"
+        message="Field requires API level 16 (current min is 14): `android.view.accessibility.AccessibilityNodeInfo#ACTION_SCROLL_BACKWARD`"
+        category="Correctness"
+        priority="6"
+        summary="Using inlined constants on older versions"
+        explanation="This check scans through all the Android API field references in the application and flags certain constants, such as static final integers and Strings, which were introduced in later versions. These will actually be copied into the class files rather than being referenced, which means that the value is available even when running on older devices. In some cases that&apos;s fine, and in other cases it can result in a runtime crash or incorrect behavior. It depends on the context, so consider the code carefully and device whether it&apos;s safe and can be suppressed or whether the code needs tbe guarded.
+
+If you really want to use this API and don&apos;t need to support older devices just set the `minSdkVersion` in your `build.gradle` or `AndroidManifest.xml` files.
+If your code is *deliberately* accessing newer APIs, and you have ensured (e.g. with conditional execution) that this code will only ever be called on a supported platform, then you can annotate your class or method with the `@TargetApi` annotation specifying the local minimum SDK to apply, such as `@TargetApi(11)`, such that this check considers 11 rather than your manifest file&apos;s minimum SDK as the required API level.
+"
+        errorLine1="      info.addAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD);"
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\date\DayPickerView.java"
+            line="459"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        severity="Warning"
+        message="Field requires API level 16 (current min is 14): `android.view.accessibility.AccessibilityNodeInfo#ACTION_CLICK`"
+        category="Correctness"
+        priority="6"
+        summary="Using inlined constants on older versions"
+        explanation="This check scans through all the Android API field references in the application and flags certain constants, such as static final integers and Strings, which were introduced in later versions. These will actually be copied into the class files rather than being referenced, which means that the value is available even when running on older devices. In some cases that&apos;s fine, and in other cases it can result in a runtime crash or incorrect behavior. It depends on the context, so consider the code carefully and device whether it&apos;s safe and can be suppressed or whether the code needs tbe guarded.
+
+If you really want to use this API and don&apos;t need to support older devices just set the `minSdkVersion` in your `build.gradle` or `AndroidManifest.xml` files.
+If your code is *deliberately* accessing newer APIs, and you have ensured (e.g. with conditional execution) that this code will only ever be called on a supported platform, then you can annotate your class or method with the `@TargetApi` annotation specifying the local minimum SDK to apply, such as `@TargetApi(11)`, such that this check considers 11 rather than your manifest file&apos;s minimum SDK as the required API level.
+"
+        errorLine1="            node.addAction(AccessibilityNodeInfo.ACTION_CLICK);"
+        errorLine2="                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\date\MonthView.java"
+            line="748"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        severity="Warning"
+        message="Field requires API level 16 (current min is 14): `android.view.accessibility.AccessibilityNodeInfo#ACTION_SCROLL_FORWARD`"
+        category="Correctness"
+        priority="6"
+        summary="Using inlined constants on older versions"
+        explanation="This check scans through all the Android API field references in the application and flags certain constants, such as static final integers and Strings, which were introduced in later versions. These will actually be copied into the class files rather than being referenced, which means that the value is available even when running on older devices. In some cases that&apos;s fine, and in other cases it can result in a runtime crash or incorrect behavior. It depends on the context, so consider the code carefully and device whether it&apos;s safe and can be suppressed or whether the code needs tbe guarded.
+
+If you really want to use this API and don&apos;t need to support older devices just set the `minSdkVersion` in your `build.gradle` or `AndroidManifest.xml` files.
+If your code is *deliberately* accessing newer APIs, and you have ensured (e.g. with conditional execution) that this code will only ever be called on a supported platform, then you can annotate your class or method with the `@TargetApi` annotation specifying the local minimum SDK to apply, such as `@TargetApi(11)`, such that this check considers 11 rather than your manifest file&apos;s minimum SDK as the required API level.
+"
+        errorLine1="      info.addAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);"
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\time\RadialPickerLayout.java"
+            line="775"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        severity="Warning"
+        message="Field requires API level 16 (current min is 14): `android.view.accessibility.AccessibilityNodeInfo#ACTION_SCROLL_BACKWARD`"
+        category="Correctness"
+        priority="6"
+        summary="Using inlined constants on older versions"
+        explanation="This check scans through all the Android API field references in the application and flags certain constants, such as static final integers and Strings, which were introduced in later versions. These will actually be copied into the class files rather than being referenced, which means that the value is available even when running on older devices. In some cases that&apos;s fine, and in other cases it can result in a runtime crash or incorrect behavior. It depends on the context, so consider the code carefully and device whether it&apos;s safe and can be suppressed or whether the code needs tbe guarded.
+
+If you really want to use this API and don&apos;t need to support older devices just set the `minSdkVersion` in your `build.gradle` or `AndroidManifest.xml` files.
+If your code is *deliberately* accessing newer APIs, and you have ensured (e.g. with conditional execution) that this code will only ever be called on a supported platform, then you can annotate your class or method with the `@TargetApi` annotation specifying the local minimum SDK to apply, such as `@TargetApi(11)`, such that this check considers 11 rather than your manifest file&apos;s minimum SDK as the required API level.
+"
+        errorLine1="      info.addAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD);"
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\time\RadialPickerLayout.java"
+            line="776"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="OldTargetApi"
+        severity="Warning"
+        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details."
+        category="Correctness"
+        priority="6"
+        summary="Target SDK attribute is not targeting latest version"
+        explanation="When your application runs on a version of Android that is more recent than your `targetSdkVersion` specifies that it has been tested with, various compatibility modes kick in. This ensures that your application continues to work, but it may look out of place. For example, if the `targetSdkVersion` is less than 14, your app may get an option button in the UI.
+
+To fix this issue, set the `targetSdkVersion` to the highest available value. Then test your app to make sure everything works correctly. You may want to consult the compatibility notes to see what changes apply to each version you are adding support for: http://developer.android.com/reference/android/os/Build.VERSION_CODES.html"
+        url="http://developer.android.com/reference/android/os/Build.VERSION_CODES.html"
+        urls="http://developer.android.com/reference/android/os/Build.VERSION_CODES.html"
+        errorLine1="        android:targetSdkVersion=&quot;21&quot; />"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\AndroidManifest.xml"
+            line="23"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `importantForAccessibility` is only used in API level 16 and higher (current min is 14)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).
+
+This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance of functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.
+
+Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="    android:importantForAccessibility=&quot;no&quot; />"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_header_view.xml"
+            line="26"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `importantForAccessibility` is only used in API level 16 and higher (current min is 14)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).
+
+This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance of functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.
+
+Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="            android:importantForAccessibility=&quot;no&quot; />"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="30"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `importantForAccessibility` is only used in API level 16 and higher (current min is 14)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).
+
+This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance of functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.
+
+Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="            android:importantForAccessibility=&quot;no&quot; />"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="41"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `importantForAccessibility` is only used in API level 16 and higher (current min is 14)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).
+
+This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance of functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.
+
+Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="            android:importantForAccessibility=&quot;no&quot; />"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="71"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `importantForAccessibility` is only used in API level 16 and higher (current min is 14)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).
+
+This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance of functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.
+
+Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="            android:importantForAccessibility=&quot;no&quot; />"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="82"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `importantForAccessibility` is only used in API level 16 and higher (current min is 14)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).
+
+This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance of functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.
+
+Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="            android:importantForAccessibility=&quot;no&quot; />"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="118"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ValidFragment"
+        severity="Fatal"
+        message="Avoid non-default constructors in fragments: use a default constructor plus `Fragment#setArguments(Bundle)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Fragment not instantiatable"
+        explanation="From the Fragment documentation:
+*Every* fragment must have an empty constructor, so it can be instantiated when restoring its activity&apos;s state. It is strongly recommended that subclasses do not have other constructors with parameters, since these constructors will not be called when the fragment is re-instantiated; instead, arguments can be supplied by the caller with `setArguments(Bundle)` and later retrieved by the Fragment with `getArguments()`."
+        url="http://developer.android.com/reference/android/app/Fragment.html#Fragment()"
+        urls="http://developer.android.com/reference/android/app/Fragment.html#Fragment()"
+        errorLine1="    public TimePickerDialog(Context context, int theme, OnTimeSetListener callback,"
+        errorLine2="           ^">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\time\TimePickerDialog.java"
+            line="135"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        severity="Warning"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        category="Correctness"
+        priority="5"
+        summary="Layout Inflation without a Parent"
+        explanation="When inflating a layout, avoid passing in null as the parent view, since otherwise any layout parameters on the root of the inflated layout will be ignored."
+        url="http://www.doubleencore.com/2013/05/layout-inflation-as-intended"
+        urls="http://www.doubleencore.com/2013/05/layout-inflation-as-intended"
+        errorLine1="        View view = inflater.inflate(R.layout.date_picker_dialog, null);"
+        errorLine2="                                                                  ~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\date\DatePickerDialog.java"
+            line="207"
+            column="67"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        severity="Warning"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        category="Correctness"
+        priority="5"
+        summary="Layout Inflation without a Parent"
+        explanation="When inflating a layout, avoid passing in null as the parent view, since otherwise any layout parameters on the root of the inflated layout will be ignored."
+        url="http://www.doubleencore.com/2013/05/layout-inflation-as-intended"
+        urls="http://www.doubleencore.com/2013/05/layout-inflation-as-intended"
+        errorLine1="        View view = inflater.inflate(R.layout.time_picker_dialog, null);"
+        errorLine2="                                                                  ~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\time\TimePickerDialog.java"
+            line="198"
+            column="67"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;selected_date_year_size&quot;>30dp&lt;/dimen>"
+        errorLine2="                                          ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-w270dp-h560dp\dimens.xml"
+            line="25"
+            column="43"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_selected_date.xml"
+            line="68"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;selected_date_year_size&quot;>30dp&lt;/dimen>"
+        errorLine2="                                          ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-land\dimens.xml"
+            line="26"
+            column="43"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_selected_date.xml"
+            line="68"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;selected_date_day_size&quot;>100dp&lt;/dimen>"
+        errorLine2="                                         ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-land\dimens.xml"
+            line="27"
+            column="42"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_selected_date.xml"
+            line="57"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;selected_date_month_size&quot;>30dp&lt;/dimen>"
+        errorLine2="                                           ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-land\dimens.xml"
+            line="28"
+            column="44"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_selected_date.xml"
+            line="44"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;selected_date_year_size&quot;>45dp&lt;/dimen>"
+        errorLine2="                                          ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-sw600dp\dimens.xml"
+            line="31"
+            column="43"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_selected_date.xml"
+            line="68"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;selected_date_day_size&quot;>150dp&lt;/dimen>"
+        errorLine2="                                         ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-sw600dp\dimens.xml"
+            line="32"
+            column="42"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_selected_date.xml"
+            line="57"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;selected_date_month_size&quot;>45dp&lt;/dimen>"
+        errorLine2="                                           ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-sw600dp\dimens.xml"
+            line="33"
+            column="44"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_selected_date.xml"
+            line="44"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;year_label_text_size&quot;>33dp&lt;/dimen>"
+        errorLine2="                                       ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-sw600dp\dimens.xml"
+            line="35"
+            column="40"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\year_label_text_view.xml"
+            line="24"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;date_picker_header_text_size&quot;>21dp&lt;/dimen>"
+        errorLine2="                                               ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-sw600dp\dimens.xml"
+            line="36"
+            column="48"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_header_view.xml"
+            line="25"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;selected_date_year_size&quot;>22dp&lt;/dimen>"
+        errorLine2="                                          ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\dimens.xml"
+            line="54"
+            column="43"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_selected_date.xml"
+            line="68"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;selected_date_day_size&quot;>60dp&lt;/dimen>"
+        errorLine2="                                         ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\dimens.xml"
+            line="55"
+            column="42"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_selected_date.xml"
+            line="57"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;selected_date_month_size&quot;>22dp&lt;/dimen>"
+        errorLine2="                                           ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\dimens.xml"
+            line="56"
+            column="44"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_selected_date.xml"
+            line="44"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;date_picker_header_text_size&quot;>14dp&lt;/dimen>"
+        errorLine2="                                               ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\dimens.xml"
+            line="57"
+            column="48"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_header_view.xml"
+            line="25"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        severity="Warning"
+        message="This dimension is used as a text size: Should use &quot;`sp`&quot; instead of &quot;`dp`&quot;"
+        category="Correctness"
+        priority="3"
+        summary="Using `dp` instead of `sp` for text sizes"
+        explanation="When setting text sizes, you should normally use `sp`, or &quot;scale-independent pixels&quot;. This is like the `dp` unit, but it is also scaled by the user&apos;s font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user&apos;s preference.
+
+There *are* cases where you might need to use `dp`; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user&apos;s font size settings are not respected, so consider adjusting the layout itself to be more flexible."
+        url="http://developer.android.com/training/multiscreen/screendensities.html"
+        urls="http://developer.android.com/training/multiscreen/screendensities.html"
+        errorLine1="    &lt;dimen name=&quot;year_label_text_size&quot;>22dp&lt;/dimen>"
+        errorLine2="                                       ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\dimens.xml"
+            line="61"
+            column="40"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\year_label_text_view.xml"
+            line="24"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        severity="Fatal"
+        message="&quot;`time_placeholder`&quot; is not translated in &quot;af&quot; (Afrikaans), &quot;am&quot; (Amharic), &quot;ar&quot; (Arabic), &quot;bg&quot; (Bulgarian), &quot;bn-BD&quot; (Bengali: Bangladesh), &quot;ca&quot; (Catalan), &quot;cs&quot; (Czech), &quot;da&quot; (Danish), &quot;de&quot; (German), &quot;el&quot; (Greek), &quot;es&quot; (Spanish), &quot;es-US&quot; (Spanish: United States), &quot;et-EE&quot; (Estonian: Estonia), &quot;eu-ES&quot; (Basque: Spain), &quot;fa&quot; (Persian), &quot;fi&quot; (Finnish), &quot;fr&quot; (French), &quot;fr-CA&quot; (French: Canada), &quot;gl-ES&quot; (Galician: Spain), &quot;hi&quot; (Hindi), &quot;hr&quot; (Croatian), &quot;hu&quot; (Hungarian), &quot;hy-AM&quot; (Armenian: Armenia), &quot;in&quot; (Indonesian), &quot;is-IS&quot; (Icelandic: Iceland), &quot;it&quot; (Italian), &quot;iw&quot; (Hebrew), &quot;ja&quot; (Japanese), &quot;ka-GE&quot; (Georgian: Georgia), &quot;kk-KZ&quot; (Kazakh: Kazakhstan), &quot;km-KH&quot; (Khmer: Cambodia), &quot;kn-IN&quot; (Kannada: India), &quot;ko&quot; (Korean), &quot;ky-KG&quot; (Kyrgyz: Kyrgyzstan), &quot;lo-LA&quot; (Lao: Laos), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;mk-MK&quot; (Macedonian: Macedonia), &quot;ml-IN&quot; (Malayalam: India), &quot;mn-MN&quot; (Mongolian: Mongolia), &quot;mr-IN&quot; (Marathi: India), &quot;ms-MY&quot; (Malay: Malaysia), &quot;my-MM&quot; (Burmese: Myanmar (Burma)), &quot;nb&quot; (Norwegian Bokmål), &quot;ne-NP&quot; (Nepali: Nepal), &quot;nl&quot; (Dutch), &quot;pl&quot; (Polish), &quot;pt&quot; (Portuguese), &quot;pt-PT&quot; (Portuguese: Portugal), &quot;ro&quot; (Romanian), &quot;ru&quot; (Russian), &quot;si-LK&quot; (Sinhala: Sri Lanka), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sr&quot; (Serbian), &quot;sv&quot; (Swedish), &quot;sw&quot; (Swahili), &quot;ta-IN&quot; (Tamil: India), &quot;te-IN&quot; (Telugu: India), &quot;th&quot; (Thai), &quot;tl&quot; (Tagalog), &quot;tr&quot; (Turkish), &quot;uk&quot; (Ukrainian), &quot;ur-PK&quot; (Urdu: Pakistan), &quot;uz-UZ&quot; (Uzbek: Uzbekistan), &quot;vi&quot; (Vietnamese), &quot;zh-CN&quot; (Chinese: China), &quot;zh-HK&quot; (Chinese: Hong Kong SAR China), &quot;zh-TW&quot; (Chinese: Taiwan), &quot;zu&quot; (Zulu)"
+        category="Correctness:Messages"
+        priority="8"
+        summary="Incomplete translation"
+        explanation="If an application has more than one locale, then all the strings declared in one language should also be translated in all other languages.
+
+If the string should *not* be translated, you can add the attribute `translatable=&quot;false&quot;` on the `&lt;string>` element, or you can define all your non-translatable strings in a resource file called `donottranslate.xml`. Or, you can ignore the issue with a `tools:ignore=&quot;MissingTranslation&quot;` attribute.
+
+By default this detector allows regions of a language to just provide a subset of the strings and fall back to the standard language strings. You can require all regions to provide a full translation by setting the environment variable `ANDROID_LINT_COMPLETE_REGIONS`.
+
+You can tell lint (and other tools) which language is the default language in your `res/values/` folder by specifying `tools:locale=&quot;languageCode&quot;` for the root `&lt;resources>` element in your resource file. (The `tools` prefix refers to the namespace declaration `http://schemas.android.com/tools`.)"
+        errorLine1="    &lt;string name=&quot;time_placeholder&quot;>--&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="adt">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\strings.xml"
+            line="60"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        severity="Fatal"
+        message="&quot;`time_separator`&quot; is not translated in &quot;af&quot; (Afrikaans), &quot;am&quot; (Amharic), &quot;ar&quot; (Arabic), &quot;bg&quot; (Bulgarian), &quot;bn-BD&quot; (Bengali: Bangladesh), &quot;ca&quot; (Catalan), &quot;cs&quot; (Czech), &quot;da&quot; (Danish), &quot;de&quot; (German), &quot;el&quot; (Greek), &quot;es&quot; (Spanish), &quot;es-US&quot; (Spanish: United States), &quot;et-EE&quot; (Estonian: Estonia), &quot;eu-ES&quot; (Basque: Spain), &quot;fa&quot; (Persian), &quot;fi&quot; (Finnish), &quot;fr&quot; (French), &quot;fr-CA&quot; (French: Canada), &quot;gl-ES&quot; (Galician: Spain), &quot;hi&quot; (Hindi), &quot;hr&quot; (Croatian), &quot;hu&quot; (Hungarian), &quot;hy-AM&quot; (Armenian: Armenia), &quot;in&quot; (Indonesian), &quot;is-IS&quot; (Icelandic: Iceland), &quot;it&quot; (Italian), &quot;iw&quot; (Hebrew), &quot;ja&quot; (Japanese), &quot;ka-GE&quot; (Georgian: Georgia), &quot;kk-KZ&quot; (Kazakh: Kazakhstan), &quot;km-KH&quot; (Khmer: Cambodia), &quot;kn-IN&quot; (Kannada: India), &quot;ko&quot; (Korean), &quot;ky-KG&quot; (Kyrgyz: Kyrgyzstan), &quot;lo-LA&quot; (Lao: Laos), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;mk-MK&quot; (Macedonian: Macedonia), &quot;ml-IN&quot; (Malayalam: India), &quot;mn-MN&quot; (Mongolian: Mongolia), &quot;mr-IN&quot; (Marathi: India), &quot;ms-MY&quot; (Malay: Malaysia), &quot;my-MM&quot; (Burmese: Myanmar (Burma)), &quot;nb&quot; (Norwegian Bokmål), &quot;ne-NP&quot; (Nepali: Nepal), &quot;nl&quot; (Dutch), &quot;pl&quot; (Polish), &quot;pt&quot; (Portuguese), &quot;pt-PT&quot; (Portuguese: Portugal), &quot;ro&quot; (Romanian), &quot;ru&quot; (Russian), &quot;si-LK&quot; (Sinhala: Sri Lanka), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sr&quot; (Serbian), &quot;sv&quot; (Swedish), &quot;sw&quot; (Swahili), &quot;ta-IN&quot; (Tamil: India), &quot;te-IN&quot; (Telugu: India), &quot;th&quot; (Thai), &quot;tl&quot; (Tagalog), &quot;tr&quot; (Turkish), &quot;uk&quot; (Ukrainian), &quot;ur-PK&quot; (Urdu: Pakistan), &quot;uz-UZ&quot; (Uzbek: Uzbekistan), &quot;vi&quot; (Vietnamese), &quot;zh-CN&quot; (Chinese: China), &quot;zh-HK&quot; (Chinese: Hong Kong SAR China), &quot;zh-TW&quot; (Chinese: Taiwan), &quot;zu&quot; (Zulu)"
+        category="Correctness:Messages"
+        priority="8"
+        summary="Incomplete translation"
+        explanation="If an application has more than one locale, then all the strings declared in one language should also be translated in all other languages.
+
+If the string should *not* be translated, you can add the attribute `translatable=&quot;false&quot;` on the `&lt;string>` element, or you can define all your non-translatable strings in a resource file called `donottranslate.xml`. Or, you can ignore the issue with a `tools:ignore=&quot;MissingTranslation&quot;` attribute.
+
+By default this detector allows regions of a language to just provide a subset of the strings and fall back to the standard language strings. You can require all regions to provide a full translation by setting the environment variable `ANDROID_LINT_COMPLETE_REGIONS`.
+
+You can tell lint (and other tools) which language is the default language in your `res/values/` folder by specifying `tools:locale=&quot;languageCode&quot;` for the root `&lt;resources>` element in your resource file. (The `tools` prefix refers to the namespace declaration `http://schemas.android.com/tools`.)"
+        errorLine1="    &lt;string name=&quot;time_separator&quot;>:&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="adt">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\strings.xml"
+            line="62"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        severity="Fatal"
+        message="&quot;`radial_numbers_typeface`&quot; is not translated in &quot;af&quot; (Afrikaans), &quot;am&quot; (Amharic), &quot;ar&quot; (Arabic), &quot;bg&quot; (Bulgarian), &quot;bn-BD&quot; (Bengali: Bangladesh), &quot;ca&quot; (Catalan), &quot;cs&quot; (Czech), &quot;da&quot; (Danish), &quot;de&quot; (German), &quot;el&quot; (Greek), &quot;es&quot; (Spanish), &quot;es-US&quot; (Spanish: United States), &quot;et-EE&quot; (Estonian: Estonia), &quot;eu-ES&quot; (Basque: Spain), &quot;fa&quot; (Persian), &quot;fi&quot; (Finnish), &quot;fr&quot; (French), &quot;fr-CA&quot; (French: Canada), &quot;gl-ES&quot; (Galician: Spain), &quot;hi&quot; (Hindi), &quot;hr&quot; (Croatian), &quot;hu&quot; (Hungarian), &quot;hy-AM&quot; (Armenian: Armenia), &quot;in&quot; (Indonesian), &quot;is-IS&quot; (Icelandic: Iceland), &quot;it&quot; (Italian), &quot;iw&quot; (Hebrew), &quot;ja&quot; (Japanese), &quot;ka-GE&quot; (Georgian: Georgia), &quot;kk-KZ&quot; (Kazakh: Kazakhstan), &quot;km-KH&quot; (Khmer: Cambodia), &quot;kn-IN&quot; (Kannada: India), &quot;ko&quot; (Korean), &quot;ky-KG&quot; (Kyrgyz: Kyrgyzstan), &quot;lo-LA&quot; (Lao: Laos), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;mk-MK&quot; (Macedonian: Macedonia), &quot;ml-IN&quot; (Malayalam: India), &quot;mn-MN&quot; (Mongolian: Mongolia), &quot;mr-IN&quot; (Marathi: India), &quot;ms-MY&quot; (Malay: Malaysia), &quot;my-MM&quot; (Burmese: Myanmar (Burma)), &quot;nb&quot; (Norwegian Bokmål), &quot;ne-NP&quot; (Nepali: Nepal), &quot;nl&quot; (Dutch), &quot;pl&quot; (Polish), &quot;pt&quot; (Portuguese), &quot;pt-PT&quot; (Portuguese: Portugal), &quot;ro&quot; (Romanian), &quot;ru&quot; (Russian), &quot;si-LK&quot; (Sinhala: Sri Lanka), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sr&quot; (Serbian), &quot;sv&quot; (Swedish), &quot;sw&quot; (Swahili), &quot;ta-IN&quot; (Tamil: India), &quot;te-IN&quot; (Telugu: India), &quot;th&quot; (Thai), &quot;tl&quot; (Tagalog), &quot;tr&quot; (Turkish), &quot;uk&quot; (Ukrainian), &quot;ur-PK&quot; (Urdu: Pakistan), &quot;uz-UZ&quot; (Uzbek: Uzbekistan), &quot;vi&quot; (Vietnamese), &quot;zh-CN&quot; (Chinese: China), &quot;zh-HK&quot; (Chinese: Hong Kong SAR China), &quot;zh-TW&quot; (Chinese: Taiwan), &quot;zu&quot; (Zulu)"
+        category="Correctness:Messages"
+        priority="8"
+        summary="Incomplete translation"
+        explanation="If an application has more than one locale, then all the strings declared in one language should also be translated in all other languages.
+
+If the string should *not* be translated, you can add the attribute `translatable=&quot;false&quot;` on the `&lt;string>` element, or you can define all your non-translatable strings in a resource file called `donottranslate.xml`. Or, you can ignore the issue with a `tools:ignore=&quot;MissingTranslation&quot;` attribute.
+
+By default this detector allows regions of a language to just provide a subset of the strings and fall back to the standard language strings. You can require all regions to provide a full translation by setting the environment variable `ANDROID_LINT_COMPLETE_REGIONS`.
+
+You can tell lint (and other tools) which language is the default language in your `res/values/` folder by specifying `tools:locale=&quot;languageCode&quot;` for the root `&lt;resources>` element in your resource file. (The `tools` prefix refers to the namespace declaration `http://schemas.android.com/tools`.)"
+        errorLine1="    &lt;string name=&quot;radial_numbers_typeface&quot;>sans-serif&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="adt">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\strings.xml"
+            line="65"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        severity="Fatal"
+        message="&quot;`sans_serif`&quot; is not translated in &quot;af&quot; (Afrikaans), &quot;am&quot; (Amharic), &quot;ar&quot; (Arabic), &quot;bg&quot; (Bulgarian), &quot;bn-BD&quot; (Bengali: Bangladesh), &quot;ca&quot; (Catalan), &quot;cs&quot; (Czech), &quot;da&quot; (Danish), &quot;de&quot; (German), &quot;el&quot; (Greek), &quot;es&quot; (Spanish), &quot;es-US&quot; (Spanish: United States), &quot;et-EE&quot; (Estonian: Estonia), &quot;eu-ES&quot; (Basque: Spain), &quot;fa&quot; (Persian), &quot;fi&quot; (Finnish), &quot;fr&quot; (French), &quot;fr-CA&quot; (French: Canada), &quot;gl-ES&quot; (Galician: Spain), &quot;hi&quot; (Hindi), &quot;hr&quot; (Croatian), &quot;hu&quot; (Hungarian), &quot;hy-AM&quot; (Armenian: Armenia), &quot;in&quot; (Indonesian), &quot;is-IS&quot; (Icelandic: Iceland), &quot;it&quot; (Italian), &quot;iw&quot; (Hebrew), &quot;ja&quot; (Japanese), &quot;ka-GE&quot; (Georgian: Georgia), &quot;kk-KZ&quot; (Kazakh: Kazakhstan), &quot;km-KH&quot; (Khmer: Cambodia), &quot;kn-IN&quot; (Kannada: India), &quot;ko&quot; (Korean), &quot;ky-KG&quot; (Kyrgyz: Kyrgyzstan), &quot;lo-LA&quot; (Lao: Laos), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;mk-MK&quot; (Macedonian: Macedonia), &quot;ml-IN&quot; (Malayalam: India), &quot;mn-MN&quot; (Mongolian: Mongolia), &quot;mr-IN&quot; (Marathi: India), &quot;ms-MY&quot; (Malay: Malaysia), &quot;my-MM&quot; (Burmese: Myanmar (Burma)), &quot;nb&quot; (Norwegian Bokmål), &quot;ne-NP&quot; (Nepali: Nepal), &quot;nl&quot; (Dutch), &quot;pl&quot; (Polish), &quot;pt&quot; (Portuguese), &quot;pt-PT&quot; (Portuguese: Portugal), &quot;ro&quot; (Romanian), &quot;ru&quot; (Russian), &quot;si-LK&quot; (Sinhala: Sri Lanka), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sr&quot; (Serbian), &quot;sv&quot; (Swedish), &quot;sw&quot; (Swahili), &quot;ta-IN&quot; (Tamil: India), &quot;te-IN&quot; (Telugu: India), &quot;th&quot; (Thai), &quot;tl&quot; (Tagalog), &quot;tr&quot; (Turkish), &quot;uk&quot; (Ukrainian), &quot;ur-PK&quot; (Urdu: Pakistan), &quot;uz-UZ&quot; (Uzbek: Uzbekistan), &quot;vi&quot; (Vietnamese), &quot;zh-CN&quot; (Chinese: China), &quot;zh-HK&quot; (Chinese: Hong Kong SAR China), &quot;zh-TW&quot; (Chinese: Taiwan), &quot;zu&quot; (Zulu)"
+        category="Correctness:Messages"
+        priority="8"
+        summary="Incomplete translation"
+        explanation="If an application has more than one locale, then all the strings declared in one language should also be translated in all other languages.
+
+If the string should *not* be translated, you can add the attribute `translatable=&quot;false&quot;` on the `&lt;string>` element, or you can define all your non-translatable strings in a resource file called `donottranslate.xml`. Or, you can ignore the issue with a `tools:ignore=&quot;MissingTranslation&quot;` attribute.
+
+By default this detector allows regions of a language to just provide a subset of the strings and fall back to the standard language strings. You can require all regions to provide a full translation by setting the environment variable `ANDROID_LINT_COMPLETE_REGIONS`.
+
+You can tell lint (and other tools) which language is the default language in your `res/values/` folder by specifying `tools:locale=&quot;languageCode&quot;` for the root `&lt;resources>` element in your resource file. (The `tools` prefix refers to the namespace declaration `http://schemas.android.com/tools`.)"
+        errorLine1="    &lt;string name=&quot;sans_serif&quot;>sans-serif&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~"
+        quickfix="adt">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\strings.xml"
+            line="67"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        severity="Fatal"
+        message="&quot;`day_of_week_label_typeface`&quot; is not translated in &quot;af&quot; (Afrikaans), &quot;am&quot; (Amharic), &quot;ar&quot; (Arabic), &quot;bg&quot; (Bulgarian), &quot;bn-BD&quot; (Bengali: Bangladesh), &quot;ca&quot; (Catalan), &quot;cs&quot; (Czech), &quot;da&quot; (Danish), &quot;de&quot; (German), &quot;el&quot; (Greek), &quot;es&quot; (Spanish), &quot;es-US&quot; (Spanish: United States), &quot;et-EE&quot; (Estonian: Estonia), &quot;eu-ES&quot; (Basque: Spain), &quot;fa&quot; (Persian), &quot;fi&quot; (Finnish), &quot;fr&quot; (French), &quot;fr-CA&quot; (French: Canada), &quot;gl-ES&quot; (Galician: Spain), &quot;hi&quot; (Hindi), &quot;hr&quot; (Croatian), &quot;hu&quot; (Hungarian), &quot;hy-AM&quot; (Armenian: Armenia), &quot;in&quot; (Indonesian), &quot;is-IS&quot; (Icelandic: Iceland), &quot;it&quot; (Italian), &quot;iw&quot; (Hebrew), &quot;ja&quot; (Japanese), &quot;ka-GE&quot; (Georgian: Georgia), &quot;kk-KZ&quot; (Kazakh: Kazakhstan), &quot;km-KH&quot; (Khmer: Cambodia), &quot;kn-IN&quot; (Kannada: India), &quot;ko&quot; (Korean), &quot;ky-KG&quot; (Kyrgyz: Kyrgyzstan), &quot;lo-LA&quot; (Lao: Laos), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;mk-MK&quot; (Macedonian: Macedonia), &quot;ml-IN&quot; (Malayalam: India), &quot;mn-MN&quot; (Mongolian: Mongolia), &quot;mr-IN&quot; (Marathi: India), &quot;ms-MY&quot; (Malay: Malaysia), &quot;my-MM&quot; (Burmese: Myanmar (Burma)), &quot;nb&quot; (Norwegian Bokmål), &quot;ne-NP&quot; (Nepali: Nepal), &quot;nl&quot; (Dutch), &quot;pl&quot; (Polish), &quot;pt&quot; (Portuguese), &quot;pt-PT&quot; (Portuguese: Portugal), &quot;ro&quot; (Romanian), &quot;ru&quot; (Russian), &quot;si-LK&quot; (Sinhala: Sri Lanka), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sr&quot; (Serbian), &quot;sv&quot; (Swedish), &quot;sw&quot; (Swahili), &quot;ta-IN&quot; (Tamil: India), &quot;te-IN&quot; (Telugu: India), &quot;th&quot; (Thai), &quot;tl&quot; (Tagalog), &quot;tr&quot; (Turkish), &quot;uk&quot; (Ukrainian), &quot;ur-PK&quot; (Urdu: Pakistan), &quot;uz-UZ&quot; (Uzbek: Uzbekistan), &quot;vi&quot; (Vietnamese), &quot;zh-CN&quot; (Chinese: China), &quot;zh-HK&quot; (Chinese: Hong Kong SAR China), &quot;zh-TW&quot; (Chinese: Taiwan), &quot;zu&quot; (Zulu)"
+        category="Correctness:Messages"
+        priority="8"
+        summary="Incomplete translation"
+        explanation="If an application has more than one locale, then all the strings declared in one language should also be translated in all other languages.
+
+If the string should *not* be translated, you can add the attribute `translatable=&quot;false&quot;` on the `&lt;string>` element, or you can define all your non-translatable strings in a resource file called `donottranslate.xml`. Or, you can ignore the issue with a `tools:ignore=&quot;MissingTranslation&quot;` attribute.
+
+By default this detector allows regions of a language to just provide a subset of the strings and fall back to the standard language strings. You can require all regions to provide a full translation by setting the environment variable `ANDROID_LINT_COMPLETE_REGIONS`.
+
+You can tell lint (and other tools) which language is the default language in your `res/values/` folder by specifying `tools:locale=&quot;languageCode&quot;` for the root `&lt;resources>` element in your resource file. (The `tools` prefix refers to the namespace declaration `http://schemas.android.com/tools`.)"
+        errorLine1="    &lt;string name=&quot;day_of_week_label_typeface&quot;>sans-serif&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="adt">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\strings.xml"
+            line="70"
+            column="13"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-v16\strings.xml"
+            line="19"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        severity="Warning"
+        message="Inconsistent number of arguments in formatting string `deleted_key`; found both 0 and 1"
+        category="Correctness:Messages"
+        priority="5"
+        summary="Formatting argument types incomplete or inconsistent"
+        explanation="When a formatted string takes arguments, it usually needs to reference the same arguments in all translations (or all arguments if there are no translations.
+
+There are cases where this is not the case, so this issue is a warning rather than an error by default. However, this usually happens when a language is not translated or updated correctly."
+        errorLine1="    &lt;string name=&quot;deleted_key&quot;>&lt;xliff:g id=&quot;key&quot; example=&quot;4&quot;>%1$s&lt;/xliff:g> deleted&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\strings.xml"
+            line="57"
+            column="5"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-fr\strings.xml"
+            line="30"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        severity="Warning"
+        message="Possible overdraw: Root element paints background `@color/date_picker_view_animator` with a theme that also paints a background (inferred theme is `@android:style/Theme.Holo`)"
+        category="Performance"
+        priority="3"
+        summary="Overdraw: Painting regions more than once"
+        explanation="If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called &quot;overdraw&quot;.
+
+NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it&apos;s currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.
+
+If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.
+
+Of course it&apos;s possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.
+"
+        errorLine1="    android:background=&quot;@color/date_picker_view_animator&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout-sw600dp\date_picker_dialog.xml"
+            line="20"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        severity="Warning"
+        message="Possible overdraw: Root element paints background `@color/calendar_header` with a theme that also paints a background (inferred theme is `@android:style/Theme.Holo`)"
+        category="Performance"
+        priority="3"
+        summary="Overdraw: Painting regions more than once"
+        explanation="If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called &quot;overdraw&quot;.
+
+NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it&apos;s currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.
+
+If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.
+
+Of course it&apos;s possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.
+"
+        errorLine1="    android:background=&quot;@color/calendar_header&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_header_view.xml"
+            line="21"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        severity="Warning"
+        message="Possible overdraw: Root element paints background `@android:color/white` with a theme that also paints a background (inferred theme is `@android:style/Theme.Holo`)"
+        category="Performance"
+        priority="3"
+        summary="Overdraw: Painting regions more than once"
+        explanation="If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called &quot;overdraw&quot;.
+
+NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it&apos;s currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.
+
+If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.
+
+Of course it&apos;s possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.
+"
+        errorLine1="    android:background=&quot;@android:color/white&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_selected_date.xml"
+            line="23"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        severity="Warning"
+        message="Possible overdraw: Root element paints background `@color/date_picker_view_animator` with a theme that also paints a background (inferred theme is `@android:style/Theme.Holo`)"
+        category="Performance"
+        priority="3"
+        summary="Overdraw: Painting regions more than once"
+        explanation="If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called &quot;overdraw&quot;.
+
+NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it&apos;s currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.
+
+If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.
+
+Of course it&apos;s possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.
+"
+        errorLine1="     android:background=&quot;@color/date_picker_view_animator&quot; />"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\date_picker_view_animator.xml"
+            line="22"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        severity="Warning"
+        message="Possible overdraw: Root element paints background `@android:color/white` with a theme that also paints a background (inferred theme is `@android:style/Theme.Holo`)"
+        category="Performance"
+        priority="3"
+        summary="Overdraw: Painting regions more than once"
+        explanation="If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called &quot;overdraw&quot;.
+
+NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it&apos;s currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.
+
+If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.
+
+Of course it&apos;s possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.
+"
+        errorLine1="      android:background=&quot;@android:color/white&quot; >"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="22"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.transparent_light_black` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;transparent_light_black&quot;>#2f000000&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\colors.xml"
+            line="27"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.transparent_light_green` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;transparent_light_green&quot;>#339fd500&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\colors.xml"
+            line="28"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.calendar_selected_date_text` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;calendar_selected_date_text&quot;>#ffd1d2d4&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\colors.xml"
+            line="40"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.done_disabled_dark` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;done_disabled_dark&quot;>#bfbfbf&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\colors.xml"
+            line="50"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.time_label_right_padding` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;time_label_right_padding&quot;>16sp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-sw600dp-land\dimens.xml"
+            line="24"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.month_list_item_padding` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;month_list_item_padding&quot;>24dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-sw600dp\dimens.xml"
+            line="28"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.month_list_item_size` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;month_list_item_size&quot;>24sp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-sw600dp\dimens.xml"
+            line="37"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.footer_height` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;footer_height&quot;>48dip&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\dimens.xml"
+            line="39"
+            column="12"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-sw600dp\dimens.xml"
+            line="48"
+            column="12"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-sw600dp-land\dimens.xml"
+            line="30"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.done_button_height` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;done_button_height&quot;>42dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\dimens.xml"
+            line="48"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.style.done_button_light` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;style name=&quot;done_button_light&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-v16\styles.xml"
+            line="23"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.style.day_of_week_label_condensed` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;style name=&quot;day_of_week_label_condensed&quot; />"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values\styles.xml"
+            line="31"
+            column="12"/>
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\values-v16\styles.xml"
+            line="27"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="ViewConstructor"
+        severity="Warning"
+        message="Custom view `YearPickerView` is missing constructor used by tools: `(Context)` or `(Context,AttributeSet)` or `(Context,AttributeSet,int)`"
+        category="Usability"
+        priority="3"
+        summary="Missing View constructors for XML inflation"
+        explanation="Some layout tools (such as the Android layout editor for Studio &amp; Eclipse) needs to find a constructor with one of the following signatures:
+* `View(Context context)`
+* `View(Context context, AttributeSet attrs)`
+* `View(Context context, AttributeSet attrs, int defStyle)`
+
+If your custom view needs to perform initialization which does not apply when used in a layout editor, you can surround the given code with a check to see if `View#isInEditMode()` is false, since that method will return `false` at runtime but true within a user interface editor."
+        errorLine1="public class YearPickerView extends ListView implements OnItemClickListener, OnDateChangedListener {"
+        errorLine2="             ~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\date\YearPickerView.java"
+            line="40"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        severity="Warning"
+        message="`com/android/datetimepicker/time/RadialPickerLayout#onTouch` should call `View#performClick` when a click is detected"
+        category="Accessibility"
+        priority="6"
+        summary="Accessibility in Custom Views"
+        explanation="If a `View` that overrides `onTouchEvent` or uses an `OnTouchListener` does not also implement `performClick` and call it when clicks are detected, the `View` may not handle accessibility actions properly. Logic handling the click actions should ideally be placed in `View#performClick` as some accessibility services invoke `performClick` when a click action should occur."
+        errorLine1="    public boolean onTouch(View v, MotionEvent event) {"
+        errorLine2="                   ~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\src\com\android\datetimepicker\time\RadialPickerLayout.java"
+            line="592"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_toStartOf=&quot;@+id/separator&quot;` to better support right-to-left layouts"
+        category="Internationalization:Bidirectional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="            android:layout_toLeftOf=&quot;@+id/separator&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="37"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_alignEnd=&quot;@+id/hour_space&quot;` to better support right-to-left layouts"
+        category="Internationalization:Bidirectional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="            android:layout_alignRight=&quot;@+id/hour_space&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="45"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/hour_space&quot;` to better support right-to-left layouts"
+        category="Internationalization:Bidirectional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="            android:layout_alignLeft=&quot;@+id/hour_space&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="46"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_alignEnd=&quot;@+id/center_view&quot;` to better support right-to-left layouts"
+        category="Internationalization:Bidirectional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="            android:layout_alignRight=&quot;@+id/center_view&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="68"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/separator&quot;` to better support right-to-left layouts"
+        category="Internationalization:Bidirectional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="            android:layout_toRightOf=&quot;@+id/separator&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="78"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_alignEnd=&quot;@+id/minutes_space&quot;` to better support right-to-left layouts"
+        category="Internationalization:Bidirectional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="            android:layout_alignRight=&quot;@+id/minutes_space&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="86"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/minutes_space&quot;` to better support right-to-left layouts"
+        category="Internationalization:Bidirectional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="            android:layout_alignLeft=&quot;@+id/minutes_space&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="87"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/ampm_label&quot;` to better support right-to-left layouts"
+        category="Internationalization:Bidirectional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="            android:layout_alignLeft=&quot;@+id/ampm_label&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="106"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_alignEnd=&quot;@+id/ampm_label&quot;` to better support right-to-left layouts"
+        category="Internationalization:Bidirectional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="            android:layout_alignRight=&quot;@+id/ampm_label&quot; />"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="107"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/minutes_space&quot;` to better support right-to-left layouts"
+        category="Internationalization:Bidirectional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="            android:layout_toRightOf=&quot;@+id/minutes_space&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\abiguime\AndroidStudioProjects\YunMeet\datetimepicker\res\layout\time_header_label.xml"
+            line="115"
+            column="13"/>
+    </issue>
+
+</issues>

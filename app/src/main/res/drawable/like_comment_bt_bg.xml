@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners
+        android:topLeftRadius="@dimen/bt_corner_radius"
+        android:topRightRadius="@dimen/bt_corner_radius"
+        android:bottomLeftRadius="@dimen/bt_corner_radius"
+        android:bottomRightRadius="@dimen/bt_corner_radius"/>
+
+    <stroke
+        android:width="1dp"
+        android:color="@color/special_gray_lk_comment" />
+
+    <solid
+        android:color="@color/special_gray_lk_comment" />
+
+</shape>

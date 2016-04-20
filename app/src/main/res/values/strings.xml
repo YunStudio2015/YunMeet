@@ -13,7 +13,9 @@
 
     <string-array name="default_categories">
         <item>推荐</item>
-        <item>约会</item>
+        <item>关注</item>
+        <item>热门</item>
+        <!-- <item>约会</item>
         <item>聚餐</item>
         <item>多人</item>
         <item>运动</item>
@@ -23,7 +25,23 @@
         <item>聊天</item>
         <item>招聘</item>
         <item>散步</item>
-        <item>结婚</item>
+        <item>结婚</item>-->
+    </string-array>
+    <string-array name="default_categories_idz">
+        <item>re</item>
+        <item>fo</item>
+        <item>ho</item>
+    </string-array>
+
+    <string-array name="default_activity_categories_names">
+        <item>话题</item>
+        <item>活动</item>
+        <item>个人</item>
+    </string-array>
+
+    <string-array name="default_chat_topics_names">
+        <item>关注</item>
+        <item>广场</item>
     </string-array>
 
     <string name="male_symbol">♂</string>
@@ -33,5 +51,127 @@
     <string name="title_activity_testing_show">TestingShowActivity</string>
     <string name="caonima">草泥马</string>
     <string name="refresh">刷新</string>
+
+    <!--group of sign up and log in-->
+    <string name="YUNMEET">YUNMEET</string>
+    <string name="phone_number">手机号</string>
+    <string name="password">密码</string>
+    <string name="verification_code">请输入验证码</string>
+    <string name="send_verification_code">验证</string>
+    <string name="to_login"><u>已有Yunmeet账号？现在登录！</u></string>
+    <string name="to_signup"><u>没有Yunmeet账号？现在注册</u></string>
+    <string name="forgot_password"><u>忘记密码</u></string>
+    <string name="using_social_account">使用社交账号登录</string>
+    <string name="signup">注 册</string>
+    <string name="login">登 录</string>
+
+    <string name="wrong_phone_number">请正确输入11位电话号码</string>
+    <string name="wrong_password">密码由6到20位数字下划线或英语字母组成</string>
+    <string name="wrong_verification_code">请正确输入收到的短信中的验证码</string>
+    <string name="send_code_again">重新发送</string>
+    <string name="next_step">下一步</string>
+    <string name="reset_password">重置密码</string>
+    <string name="verify">验证</string>
+    <string name="verify_hint">请输入验证码</string>
+    <string name="phone_number_hint">请输入手机号码</string>
+    <string name="set_nick_name">设置昵称及性别</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="set_nick">请输入你的昵称</string>
+    <string name="nick_name_tip">昵称应该大于0个字符并且小于20个字符</string>
+    <string name="set_face">设置头像</string>
+    <string name="finish">完成</string>
+    <string name="using_qq_face">使用QQ头像</string>
+    <string name="take_photo">拍一张照片</string>
+    <string name="select_from_album">从手机相册上传一张</string>
+    <string name="right_arrow"><![CDATA[>]]></string>
+    <string name="password_limits">_0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ</string>
+
+    <string name="wrong_process">过程中出错了</string>
+    <string name="cancle">取消</string>
+    <string name="no_head_face_selected">你还没有选择图片</string>
+    <string name="uploading">正在上传，请稍候…</string>
+    <string name="logging">正在登录，请稍候…</string>
+    <string name="login_success">登录成功</string>
+    <string name="authorize_success">授权成功</string>
+    <string name="authorize_cancle">你取消了授权</string>
+    <string name="loading">正在加载…</string>
+    <string name="tip">提示</string>
+    <string name="second">秒</string>
+    <!--end group of sign up and log in-->
+
+    <string name="new_topic">编织遇见话题</string>
+    <string name="share">分享</string>
+    <string name="edit_topic">#编织话题#</string>
+    <string name="edit_topic_hint">编织你的遇见分享给觅友吧…</string>
+    <string name="addpic_newtopic">添加图</string>
+    <string name="setsecret">设为私密</string>
+    <string name="title_activity_browse_selected_pictures">BrowseSelectedPicturesActivity</string>
+    <string name="title_activity_cropping">CroppingActivity</string>
+    <string name="please_wait">稍微等一下...</string>
+    <string name="title_activity_hall">HallActivity</string>
+    <string name="title_activity_person_info">PersonInfoActivity</string>
+
+    <string name="upload_success">上传成功</string>
+    <string name="upload_failure">上传失败</string>
+
+    <string name="friends">好友</string>
+    <string name="group">群组</string>
+    <string name="btn_more_text">···</string>
+    <string name="plus_focus">+ 关注</string>
+    <string name="fans">粉丝</string>
+    <string name="focus">关注</string>
+    <string name="radiobutton_bottom_menu_4">我的</string>
+    <string name="radiobutton_bottom_menu_3">好友</string>
+    <string name="radiobutton_bottom_menu_2">信息</string>
+    <string name="radiobutton_bottom_menu_1">跑友圈</string>
+
+
+    <string name="sample">全球最大的中文搜索引擎、致力于让网民更便捷地获取信息，找到所求。百度超过千亿的中文网页数据库，可以瞬间找到相关的搜索结果。</string>
+    <string name="rightbutton_title">活动</string>
+    <string name="leftbutton_title">话题</string>
+    <string name="canbenull">发布内容不能为空</string>
+    <string name="title_activity_launch">编辑遇见活动</string>
+    <string name="title_lang">主题</string>
+    <string name="type_lang">类型</string>
+    <string name="partener_lang">对象</string>
+    <string name="address_lang">地点</string>
+    <string name="pay_type_lang">费用</string>
+    <string name="launch_actiity_desc_ed">描述一下活动主题，活动内容越详细越有吸引力哟~</string>
+    <string name="pictures_lang">图片</string>
+    <string name="hint_enter_activity_title">请填写活动标题</string>
+    <string name="network_failure">网络异常</string>
+    <string name="data_failure">数据格式异常</string>
+    <string name="launch">发布活动</string>
+    <string name="time_lang">时间</string>
+    <string name="title_empty_failure">标题不能为空</string>
+    <string name="place_empty_failure">地点不能为空</string>
+    <string name="description_empty_failure">描述不能为空</string>
+    <string name="test_description">描述没什么含义，就那样干干就好了。。。</string>
+    <string name="test_place">地方值要说是我寝室就好了</string>
+    <string name="test_title">标题还是算了吧</string>
+    <string name="meeting_people">人约</string>
+    <string name="commentcount">评论</string>
+    <string name="myspace">我的</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">天</string>
+    <string name="hour">小时</string>
+    <string name="minute">分钟</string>
+    <string name="before">前</string>
+    <string name="test_username">小寒</string>
+    <string name="topic">话题。。。请告诉我你这个话题是什么？ 一起来讨论吧。。。 呵呵</string>
+    <string name="retry">重试</string>
+    <string name="tvlike">   65 Likes</string>
+    <string name="tvcoms">   12 Comments</string>
+    <string name="loading_">加载中...</string>
+    <string name="i_invite">我请客</string>
+    <string name="look_for_invite">求请客</string>
+    <string name="invite_aa">AA制</string>
+    <string name="hot_act">热门活动</string>
+    <string name="recommend_act">推荐活动</string>
+    <string name="new_act">城市活动</string>
+    <string name="title_activity_activity_category_actitivy">ActivityCategoryActitivy</string>
+
 
 </resources>

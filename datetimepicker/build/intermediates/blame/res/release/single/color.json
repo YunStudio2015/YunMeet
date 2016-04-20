@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\color\\date_picker_selector.xml",
+        "source": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\res\\color\\date_picker_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\color\\date_picker_year_selector.xml",
+        "source": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\res\\color\\date_picker_year_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\color\\done_text_color.xml",
+        "source": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\res\\color\\done_text_color.xml"
+    },
+    {
+        "merged": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\color\\done_text_color_dark.xml",
+        "source": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\res\\color\\done_text_color_dark.xml"
+    }
+]

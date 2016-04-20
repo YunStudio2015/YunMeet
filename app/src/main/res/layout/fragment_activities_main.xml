@@ -1,0 +1,112 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/page_background"
+    android:scrollbars="none"
+    tools:context="yunstudio2015.android.yunmeet.fragments.ActivitiesMainFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp">
+        <include layout="@layout/huodong_top_menu"
+            />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/home_title_text_size"
+            android:text="@string/hot_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"/>
+        <HorizontalScrollView
+            android:scrollbars="none"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/lny_hot"
+                android:orientation="horizontal"
+                android:background="@color/transparent"
+                android:layout_width="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_height="200dp" />
+        </HorizontalScrollView>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/home_title_text_size"
+            android:text="@string/recommend_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"/>
+        <HorizontalScrollView
+            android:scrollbars="none"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/lny_recommended"
+                android:orientation="horizontal"
+                android:background="@color/transparent"
+                android:layout_width="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_height="200dp" />
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/home_title_text_size"
+            android:text="@string/new_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"/>
+        <HorizontalScrollView
+            android:scrollbars="none"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/lny_new"
+                android:orientation="horizontal"
+                android:background="@color/transparent"
+                android:layout_width="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_height="200dp" />
+        </HorizontalScrollView>
+
+    </LinearLayout>
+    <!--    <HorizontalScrollView
+            android:scrollbars="none"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/lny_sc"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_height="wrap_content" />
+        </HorizontalScrollView>
+
+        <FrameLayout
+            android:id="@+id/fl_activitites_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />-->
+
+
+
+</ScrollView>

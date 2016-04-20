@@ -6,12 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
-import yunstudio2015.android.yunmeet.utilz.ImageLoadOptions;
 
 public class RestingActivity extends AppCompatActivity {
 
@@ -26,8 +23,7 @@ public class RestingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resting);
         ButterKnife.bind(this);
-        ImageLoader.getInstance().displayImage(ulr, ivv, ImageLoadOptions.getDisplayImageOptions(this));
-
+//        ImageLoader.getInstance().displayImage(ulr, ivv, ImageLoadOptions.getDisplayImageOptions(this));
         // add a button in the bottom that will get a date.
     }
 

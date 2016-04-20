@@ -3,17 +3,17 @@ package yunstudio2015.android.yunmeet.app;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+import android.os.Environment;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.MemoryCategory;
+import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
+import com.bumptech.glide.load.engine.cache.LruResourceCache;
 
-import java.io.File;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
 /**
  * Created by Ultima on 2015/10/27.
@@ -24,7 +24,7 @@ public class MyApplication extends Application {
 
     // app constants
     public static final boolean debug = true;
-    public static String appname = "yunmeet";
+    public static String appname = "yunmeetgeek";
 
     // teach something to others doesn't take it from you.
     // but not practising what you already know, clearly
@@ -46,8 +46,10 @@ public class MyApplication extends Application {
         requestQueue = Volley.newRequestQueue(this);
         mInstance = this;
         // init image loader.
-        initUIL (getApplicationContext());
-    }
+    /*    initUIL (getApplicationContext());
+    */}
+
+
 
 
     public MyApplication getInstance () {
@@ -55,7 +57,7 @@ public class MyApplication extends Application {
     }
 
 
-    private void initUIL(Context context) {
+ /*   private void initUIL(Context context) {
 
         File cacheDir = StorageUtils.getCacheDirectory(context);
         ImageLoaderConfiguration  config = new ImageLoaderConfiguration.Builder(context)
@@ -71,7 +73,7 @@ public class MyApplication extends Application {
                 .build();
         // init the config
         ImageLoader.getInstance().init(config);
-    }
+    }*/
 
     @Override
     public void onLowMemory() {

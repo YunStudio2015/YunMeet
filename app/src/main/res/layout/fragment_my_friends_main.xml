@@ -1,0 +1,11 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/my_friends_main_container"
+    tools:context="yunstudio2015.android.yunmeet.fragments.MyFriendsMainFragment">
+
+    <!--用作容器，在MyFriendsMainFragment中，
+    用于盛放friends和group分别对应的fragment-->
+
+</FrameLayout>

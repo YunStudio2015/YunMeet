@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="10dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <yunstudio2015.android.yunmeet.customviewz.CircleImageView
+            android:id="@+id/iv_launcher_pic"
+            android:src="@drawable/ic_fiy"
+            android:layout_marginLeft="10dp"
+            android:layout_width="@dimen/ct_user_ppic_dim"
+            android:layout_height="@dimen/ct_user_ppic_dim"
+            />
+
+        <LinearLayout
+            android:layout_toRightOf="@id/iv_launcher_pic"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp">
+
+            <TextView
+                android:textColor="@color/btn_background"
+                android:layout_gravity="top"
+                android:text="@string/test_username"
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="@dimen/txt_username_size"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="@string/topic"
+                android:id="@+id/tv_topic"
+                android:background="@color/light_gray"
+                android:padding="5dp"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/topic_desc_txtsize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!--picture division-->
+    <com.adhamenaya.androidmosaiclayout.views.MosaicLayout
+        android:id="@+id/mosaic_layout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content"/>
+    <!--   end of picture division-->
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_publish_time"
+            android:text="2小时前"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="@color/inner_grayerzz"
+            />
+
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/topic_like_comment_btstyle"
+                android:text="@string/tvlike"
+                android:id="@+id/tv_like"
+                android:drawableLeft="@drawable/like_heart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_comment"
+                style="@style/topic_like_comment_btstyle"
+                android:text="@string/tvcoms"
+                android:layout_width="wrap_content"
+                android:drawableLeft="@drawable/ic_like_comment"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/lny_comments"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

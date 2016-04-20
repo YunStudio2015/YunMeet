@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="yunstudio2015.android.yunmeet.activityz.LaunchActivityActivity"
+    android:background="@color/transparent"
+    tools:showIn="@layout/activity_launch">
+
+    <ScrollView
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/bottom_launch_button_height">
+
+            <!-- first part -->
+            <LinearLayout
+                android:layout_marginTop="@dimen/heavy_separation_line_height"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@color/transparent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_marginBottom="@dimen/light_separation_line_height"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="@dimen/launch_activity_item_height">
+
+                    <TextView
+                        android:id="@+id/tv_act_title"
+                        style="@style/launch_activity_basic_stylesheet_left"
+                        android:text="@string/title_lang"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                    <EditText
+                        android:id="@+id/ed_act_title"
+                        android:layout_toRightOf="@id/tv_act_title"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:hint="@string/hint_enter_activity_title"
+                        android:text="@string/test_title"
+                        android:background="@null"
+                        style="@style/launch_activity_basic_stylesheet_left"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginBottom="@dimen/light_separation_line_height"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="@dimen/launch_activity_item_height">
+
+                    <TextView
+                        android:id="@+id/tv_act_type"
+                        style="@style/launch_activity_basic_stylesheet_left"
+                        android:text="@string/type_lang"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/tv_act_type"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/rel_radiobutton_1_1"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:id="@+id/sp_radiobutton_1_1"
+                                style="@style/launch_activity_basic_stylesheet_left"
+                                android:text="约会"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                />
+                          <!--  <ImageView
+                                android:id="@+id/iv_radiobutton_1_1"
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/act_radiobutton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />-->
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                           <!-- <TextView
+                                android:id="@+id/tv_radiobutton_1_2"
+                                android:text="4人"
+                                style="@style/launch_activity_basic_stylesheet_left"
+                                android:textColor="@color/gray"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>-->
+                            <com.vi.swipenumberpicker.SwipeNumberPicker
+                                android:id="@+id/snp_radiobutton_1_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:snp_numberColor="@android:color/white"
+                                app:snp_arrowColor="@android:color/white"
+                                android:textColor="@color/gray"
+                                app:snp_backgroundColor="@color/colorAccent"
+                                app:snp_max="1000"
+                                app:snp_min="50"
+                                app:snp_value="95"/>
+                        <!--    <ImageView
+                                android:id="@+id/iv_radiobutton_1_2"
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/act_radiobutton"
+                                android:layout_width="wrap_content"
+                                android:visibility="visible"
+                                android:layout_gravity="center_vertical"
+                                android:layout_height="wrap_content" />-->
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_radiobutton_1_3"
+                                android:text="推荐"
+                                style="@style/launch_activity_basic_stylesheet_left"
+                                android:textColor="@color/gray"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <android.support.v7.widget.SwitchCompat
+                                android:id="@+id/switch_radiobutton_1_3"
+                                android:layout_marginLeft="10dp"
+                                android:checked="false"
+                                android:layout_width="wrap_content"
+                                android:visibility="visible"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="@dimen/launch_activity_item_height">
+
+                    <TextView
+                        android:id="@+id/tv_partner_def"
+                        style="@style/launch_activity_basic_stylesheet_left"
+                        android:text="@string/partener_lang"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                    <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/tv_partner_def"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_radiobutton_2_1"
+                                style="@style/launch_activity_basic_stylesheet_left"
+                                android:text="女"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                />
+                            <ImageView
+                                android:id="@+id/iv_radiobutton_2_1"
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/act_radiobutton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_radiobutton_2_2"
+                                android:text="男"
+                                style="@style/launch_activity_basic_stylesheet_left"
+                                android:textColor="@color/gray"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <ImageView
+                                android:id="@+id/iv_radiobutton_2_2"
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/act_radiobutton"
+                                android:layout_width="wrap_content"
+                                android:visibility="invisible"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_radiobutton_2_3"
+                                android:text="不限"
+                                style="@style/launch_activity_basic_stylesheet_left"
+                                android:textColor="@color/gray"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <ImageView
+                                android:id="@+id/iv_radiobutton_2_3"
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/act_radiobutton"
+                                android:layout_width="wrap_content"
+                                android:visibility="invisible"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <!-- second part -->
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/heavy_separation_line_height"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@color/transparent"
+                android:layout_height="wrap_content">
+
+
+
+                <RelativeLayout
+                    android:layout_marginBottom="@dimen/light_separation_line_height"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="@dimen/launch_activity_item_height">
+
+                    <TextView
+                        android:id="@+id/tv_pay_type_type"
+                        style="@style/launch_activity_basic_stylesheet_left"
+                        android:text="@string/pay_type_lang"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/tv_pay_type_type"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_radiobutton_3_1"
+                                style="@style/launch_activity_basic_stylesheet_left"
+                                android:text="@string/i_invite"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                />
+                            <ImageView
+                                android:id="@+id/iv_radiobutton_3_1"
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/act_radiobutton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_radiobutton_3_2"
+                                android:text="@string/look_for_invite"
+                                style="@style/launch_activity_basic_stylesheet_left"
+                                android:textColor="@color/gray"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <ImageView
+                                android:id="@+id/iv_radiobutton_3_2"
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/act_radiobutton"
+                                android:layout_width="wrap_content"
+                                android:visibility="invisible"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_radiobutton_3_3"
+                                android:text="@string/invite_aa"
+                                style="@style/launch_activity_basic_stylesheet_left"
+                                android:textColor="@color/gray"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <ImageView
+                                android:id="@+id/iv_radiobutton_3_3"
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/act_radiobutton"
+                                android:layout_width="wrap_content"
+                                android:visibility="invisible"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginBottom="@dimen/light_separation_line_height"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="@dimen/launch_activity_item_height">
+
+                    <TextView
+                        android:id="@+id/tv_time_title"
+                        style="@style/launch_activity_basic_stylesheet_left"
+                        android:text="@string/time_lang"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:layout_toRightOf="@id/tv_time_title"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginRight="20dp"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:id="@+id/tv_date"
+                            style="@style/launch_activity_basic_stylesheet_left"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:text="1994年4444"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/tv_time"
+                            android:layout_toRightOf="@id/tv_time"
+                            android:layout_marginLeft="10dp"
+                            style="@style/launch_activity_basic_stylesheet_left"
+                            android:textColor="@color/blue"
+                            android:text="19:40 PM"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_marginBottom="@dimen/light_separation_line_height"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="@dimen/launch_activity_item_height">
+
+                    <TextView
+                        android:id="@+id/tv_taxes_title"
+                        style="@style/launch_activity_basic_stylesheet_left"
+                        android:text="@string/address_lang"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                    <EditText
+                        android:id="@+id/ed_place_title"
+                        android:layout_toRightOf="@id/tv_taxes_title"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:hint="请填写活动地点"
+                        android:text="@string/test_place"
+                        style="@style/launch_activity_basic_stylesheet_left"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <!-- third part -->
+            <LinearLayout
+                android:layout_marginTop="@dimen/heavy_separation_line_height"
+                android:layout_marginBottom="@dimen/heavy_separation_line_height"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@color/transparent"
+                android:layout_height="wrap_content">
+
+
+                <EditText
+                    android:id="@+id/ed_description"
+                    android:background="@color/white"
+                    android:layout_marginBottom="@dimen/light_separation_line_height"
+                    android:hint="@string/launch_actiity_desc_ed"
+                    style="@style/launch_activity_basic_stylesheet_right"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:minLines="5"
+                    android:text="@string/test_description"
+                    android:gravity="left|top"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <RelativeLayout
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:id="@+id/rel_img_container"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_alignParentTop="true"
+                        android:id="@+id/tv_pic_title"
+                        style="@style/launch_activity_basic_stylesheet_left"
+                        android:text="@string/pictures_lang"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <RelativeLayout
+                        android:clickable="true"
+                        android:id="@+id/rellll"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_toRightOf="@id/tv_pic_title"
+                        android:background="@color/page_background"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+                        <ImageView
+                            android:id="@+id/iv_rellll"
+                            android:src="@drawable/ic_activity_add_img"
+                            android:layout_centerInParent="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_below="@id/rellll"
+                        android:id="@+id/recycler_launch_activity_img"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:background="@color/page_background"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_launch_button_height">
+
+        <Button
+            android:layout_centerInParent="true"
+            android:id="@+id/btn_finish_launch"
+            android:layout_alignParentBottom="true"
+            android:text="@string/launch"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/green_button_background"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
