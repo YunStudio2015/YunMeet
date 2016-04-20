@@ -1,6 +1,7 @@
 package yunstudio2015.android.yunmeet.activityz;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
@@ -9,6 +10,7 @@ import android.support.annotation.ColorRes;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -34,12 +36,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.crosswall.photo.pick.PickConfig;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.fragments.PersonalInfoActivityFragment;
 import yunstudio2015.android.yunmeet.fragments.PersonalInfoTopicFragment;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
-import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -65,6 +65,8 @@ public class PersonInfoActivity extends AppCompatActivity{
 
     private RequestQueue queue;
 
+    private String id = null;
+
     PersonalInfoActivityFragment fragmentActivity = new PersonalInfoActivityFragment();
     PersonalInfoTopicFragment fragmentTopic = new PersonalInfoTopicFragment();
 
@@ -79,13 +81,16 @@ public class PersonInfoActivity extends AppCompatActivity{
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
+
         this.setSupportActionBar(toolbar);
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
 
         initMyTopic();
 
         Map<String,String> map = new HashMap<String,String>();
-        map.put("token", UtilsFunctions.getToken(PersonInfoActivity.this));
+        map.put("token",id );
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS_COUNT, new JSONObject(map), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -116,7 +121,7 @@ public class PersonInfoActivity extends AppCompatActivity{
         queue.add(req);
 
         Map<String,String> map1 = new HashMap<String,String>();
-        map1.put("id",UtilsFunctions.getID(this));
+        map1.put("id",id);
         map1.put("token", UtilsFunctions.getToken(PersonInfoActivity.this));
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_INFO, new JSONObject(map1), new Response.Listener<JSONObject>() {
             @Override

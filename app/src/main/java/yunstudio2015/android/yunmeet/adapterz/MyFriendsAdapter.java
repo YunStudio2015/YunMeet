@@ -2,11 +2,11 @@ package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +24,7 @@ public class MyFriendsAdapter extends RecyclerView.Adapter<MyFriendsAdapter.MyFr
     private final List<SimpleFriendItemEntity> friends;
     private final Context context;
     private final LayoutInflater inflater;
+    private OnFriendItemClickListener mListener;
 
     public MyFriendsAdapter(Context context,List<SimpleFriendItemEntity> friends){
         this.context = context;
@@ -33,7 +34,7 @@ public class MyFriendsAdapter extends RecyclerView.Adapter<MyFriendsAdapter.MyFr
 
     @Override
     public MyFriendsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyFriendsViewHolder(inflater.inflate(R.layout.friends_item,parent,false));
+        return new MyFriendsViewHolder(inflater.inflate(R.layout.friends_item,parent,false),context,mListener);
     }
 
     @Override
@@ -53,19 +54,39 @@ public class MyFriendsAdapter extends RecyclerView.Adapter<MyFriendsAdapter.MyFr
         return friends.size();
     }
 
-    public static class MyFriendsViewHolder extends RecyclerView.ViewHolder{
+    public static class MyFriendsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private ImageView ivFace;
         private TextView tvFriendsName;
         private TextView tvFriendsIntroduction;
+        private LinearLayout itemLayout;
+        private OnFriendItemClickListener listener;
 
-        public MyFriendsViewHolder(View itemView) {
+        public MyFriendsViewHolder(View itemView,Context context,OnFriendItemClickListener listener) {
             super(itemView);
 
             ivFace = (ImageView) itemView.findViewById(R.id.iv_friend_face);
             tvFriendsName = (TextView) itemView.findViewById(R.id.tv_friend_name);
             tvFriendsIntroduction = (TextView) itemView.findViewById(R.id.tv_friend_introduction);
+            itemLayout = (LinearLayout) itemView.findViewById(R.id.friend_item);
 
+            this.listener = listener;
+            itemLayout.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            if (listener != null){
+                listener.onItemClick(v,getLayoutPosition());
+            }
+        }
+    }
+
+    public void setOnItemListener(OnFriendItemClickListener listener){
+        this.mListener = listener;
+    }
+
+    public interface OnFriendItemClickListener {
+        void onItemClick(View view,int position);
     }
 }

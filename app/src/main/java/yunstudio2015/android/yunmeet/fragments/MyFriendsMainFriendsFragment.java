@@ -1,10 +1,12 @@
 package yunstudio2015.android.yunmeet.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.activityz.PersonInfoActivity;
 import yunstudio2015.android.yunmeet.adapterz.MyFriendsAdapter;
 import yunstudio2015.android.yunmeet.entityz.SimpleFriendItemEntity;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
@@ -38,6 +41,7 @@ import yunstudio2015.android.yunmeet.utilz.YunApi;
 public class MyFriendsMainFriendsFragment extends Fragment {
 
     private RecyclerView rvFriends;
+    private MyFriendsAdapter adapter;
 
     private List<SimpleFriendItemEntity> friends = new ArrayList<SimpleFriendItemEntity>();
 
@@ -57,6 +61,8 @@ public class MyFriendsMainFriendsFragment extends Fragment {
 
         rvFriends = (RecyclerView) view.findViewById(R.id.friends_list);
 
+        adapter = new MyFriendsAdapter(getActivity(), friends);
+
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(getActivity()));
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS, new JSONObject(map), new Response.Listener<JSONObject>() {
@@ -67,7 +73,7 @@ public class MyFriendsMainFriendsFragment extends Fragment {
                         if (friends.size() != 0){
                             friends.clear();
                         }
-                        JSONArray list = response.getJSONArray("data");
+                        final JSONArray list = response.getJSONArray("data");
                         for (int i = 0; i < list.length(); i++) {
                             SimpleFriendItemEntity friend = new SimpleFriendItemEntity(
                                     list.getJSONObject(i).getString("id"),
@@ -78,7 +84,18 @@ public class MyFriendsMainFriendsFragment extends Fragment {
                             friends.add(friend);
                         }
                         rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        rvFriends.setAdapter(new MyFriendsAdapter(getActivity(), friends));
+                        rvFriends.setAdapter(adapter);
+
+                        adapter.setOnItemListener(new MyFriendsAdapter.OnFriendItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                Intent intent = new Intent(getActivity(), PersonInfoActivity.class);
+                                intent.putExtra("id",friends.get(position).getID());
+                                Log.d("id",friends.get(position).getID());
+                                startActivity(intent);
+                            }
+                        });
+
                     } else {
                         Toast.makeText(getActivity(), response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
