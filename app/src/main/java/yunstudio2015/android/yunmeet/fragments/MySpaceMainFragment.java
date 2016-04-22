@@ -86,9 +86,10 @@ public class MySpaceMainFragment extends Fragment {
 
         initViews(viewMySpace);
 
+        // 网络请求加载用户关注的好友和粉丝的数量
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(getActivity()));
-        /*JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS_COUNT, new JSONObject(map), new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS_COUNT, new JSONObject(map), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -115,7 +116,7 @@ public class MySpaceMainFragment extends Fragment {
             }
         };
 
-        queue.add(req);*/
+        queue.add(req);
 
         Map<String,String> map1 = new HashMap<String,String>();
         map1.put("id",UtilsFunctions.getID(getActivity()));
@@ -162,6 +163,7 @@ public class MySpaceMainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), PersonInfoActivity.class);
+                i.putExtra("id",UtilsFunctions.getID(getActivity()));
                 startActivity(i);
             }
         });
