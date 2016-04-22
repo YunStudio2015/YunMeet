@@ -1,7 +1,9 @@
 package yunstudio2015.android.yunmeet.fragments;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,9 +25,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.adapterz.ChatTopicRecyclerviewAdapter;
+import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.SuperSwipeRefreshLayout;
+import yunstudio2015.android.yunmeet.customviewz.SuperSwipeRefreshLayout2;
 import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
 import yunstudio2015.android.yunmeet.interfacez.OnLoadFinishCallBack;
+import yunstudio2015.android.yunmeet.interfacez.TriggerLoadMore;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
@@ -42,7 +47,7 @@ public class ChatTopicsItemFragment extends Fragment {
     private android.content.Context context;
     private ChatTopicRecyclerviewAdapter adapter;
     private boolean islocalLoaded = false;
-    private List<Object> globalData;
+    private List<ChatTopicEntity> globalData;
     private int pageCount = 2;
 
     public ChatTopicsItemFragment() {
@@ -70,6 +75,7 @@ public class ChatTopicsItemFragment extends Fragment {
 
     /* recycler adapter */
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,6 +92,7 @@ public class ChatTopicsItemFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
+        swp.setDistanceToTriggerSync(0);
         // load data from local store
         loadFromLocal (new OnLoadFinishCallBack() {
             @Override
@@ -122,11 +129,18 @@ public class ChatTopicsItemFragment extends Fragment {
             public void onPullEnable(boolean enable) {
             }
         });
+        swp.setLoadMore(false);
+        swp.setOnPushLoadMoreListener(null);
+
         swp.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
             @Override
             public void onLoadMore() {
+
+                // get the lastest view, and set the loader visible
+
                 // 加載更多的數據
                 swp.setLoadMore(true);
+                L.d("loading more");
                 loadOlderData(new OnLoadFinishCallBack() {
                     @Override
                     public void loadDone() {
@@ -148,7 +162,7 @@ public class ChatTopicsItemFragment extends Fragment {
             public void onPushEnable(boolean enable) {
             }
         });
-        swp.setFooterView(LayoutInflater.from(getActivity()).inflate(R.layout.list_loader_layout, null));
+//        swp.setFooterView(LayoutInflater.from(getActivity()).inflate(R.layout.list_loader_layout, null));
         return rootview;
     }
 
@@ -162,18 +176,20 @@ public class ChatTopicsItemFragment extends Fragment {
             ChatTopicEntity lastestItem = (ChatTopicEntity) globalData.get(globalData.size() - 1);
             // load the next 20 from the localdatabase, if possible ok, else, load what we have,
             // if we dont have enough, load from the
-            paramz+="min="+lastestItem.topic_id;
+            paramz+="max="+lastestItem.id+"&";
         }
         paramz += "num="+pageCount
-                +"token=" + UtilsFunctions.getToken(context);
+                +"&token=" + UtilsFunctions.getToken(context);
         // get the id of the older one.
+        L.d(YunApi.URL_GET_ALL_TOPIC_LIST+paramz);
+        final String finalParamz = paramz;
         VolleyRequest.GetStringRequest(context, YunApi.URL_GET_ALL_TOPIC_LIST,
                 paramz
                 , new VolleyOnResultListener() {
 
                     @Override
                     public void onSuccess(String response) {
-//                        L.d(response);
+                        L.d("xxx", YunApi.URL_GET_ALL_TOPIC_LIST+"?"+ finalParamz);
                         Gson gson = new Gson();
                         try {
                             JsonElement resp = gson.fromJson(response, JsonElement.class);
@@ -305,7 +321,12 @@ public class ChatTopicsItemFragment extends Fragment {
         i_showLoadingIc();
         if (globalData == null) {
             globalData = new ArrayList<>();
-            adapter = new ChatTopicRecyclerviewAdapter(d);
+            adapter = new ChatTopicRecyclerviewAdapter(d, new TriggerLoadMore() {
+                @Override
+                public void loadMore() {
+
+                }
+            });
             recyclerview_chattopic.setAdapter(adapter);
             recyclerview_chattopic.setVisibility(View.VISIBLE);
             adapter.notifyDataSetChanged();
@@ -342,7 +363,26 @@ public class ChatTopicsItemFragment extends Fragment {
         i_showLoadingIc();
         if (globalData == null) {
             globalData = new ArrayList<>();
-            adapter = new ChatTopicRecyclerviewAdapter(d);
+            adapter = new ChatTopicRecyclerviewAdapter(d, new TriggerLoadMore() {
+                @Override
+                public void loadMore() {
+                    mT("更新中");
+                    swp.setLoadMore(true);
+                    L.d("loading more");
+                    loadOlderData(new OnLoadFinishCallBack() {
+                        @Override
+                        public void loadDone() {
+                            swp.setLoadMore(false);
+                        }
+
+                        @Override
+                        public void loadfailed(String msg) {
+                            swp.setLoadMore(false);
+                      adapter.noMoreItems();
+                        }
+                    });
+                }
+            });
             recyclerview_chattopic.setAdapter(adapter);
             recyclerview_chattopic.setVisibility(View.VISIBLE);
             adapter.notifyDataSetChanged();
@@ -352,6 +392,7 @@ public class ChatTopicsItemFragment extends Fragment {
                     ) {
                 adapter.addEntry(entity);
             }
+            globalData = adapter.getData();
             adapter.notifyItemRangeInserted(adapter.getItemCount()-data.length, data.length);
         }
 //        recyclerview_chattopic.addItemDecoration(new ChatTopicRecyclerviewAdapter.DividerItemDecoration(context, LinearLayoutManager.VERTICAL),1);

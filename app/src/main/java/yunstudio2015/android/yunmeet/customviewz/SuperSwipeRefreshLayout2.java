@@ -52,7 +52,7 @@ import android.widget.ScrollView;
  * 开发人员可以根据下拉过程中distance的值做一系列动画。 <br>
  */
 @SuppressLint("ClickableViewAccessibility")
-public class SuperSwipeRefreshLayout extends ViewGroup {
+public class SuperSwipeRefreshLayout2 extends ViewGroup {
     private static final String LOG_TAG = "CustomeSwipeRefreshLayout";
     private static final int HEADER_VIEW_HEIGHT = 50;// HeaderView height (dp)
 
@@ -220,12 +220,12 @@ public class SuperSwipeRefreshLayout extends ViewGroup {
         mFooterViewContainer.addView(child, layoutParams);
     }
 
-    public SuperSwipeRefreshLayout(Context context) {
+    public SuperSwipeRefreshLayout2(Context context) {
         this(context, null);
     }
 
     @SuppressWarnings("deprecation")
-    public SuperSwipeRefreshLayout(Context context, AttributeSet attrs) {
+    public SuperSwipeRefreshLayout2(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         /**
@@ -490,7 +490,7 @@ public class SuperSwipeRefreshLayout extends ViewGroup {
         int footViewHeight = mFooterViewContainer.getMeasuredHeight();
         mFooterViewContainer.layout((width / 2 - footViewWidth / 2), height
                 - pushDistance, (width / 2 + footViewWidth / 2), height
-                + footViewHeight  - pushDistance);
+                + footViewHeight - pushDistance);
     }
 
     @Override

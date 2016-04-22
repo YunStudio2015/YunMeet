@@ -78,8 +78,8 @@
             android:background="@color/transparent"
             android:minHeight="20dp"
             android:layout_marginRight="20dp"
-           />
-      <android.support.v7.widget.RecyclerView
+            />
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/grid_recycler_view"
             android:layout_toRightOf="@id/iv_launcher_pic"
             android:layout_below="@id/lny_txtz"
@@ -136,6 +136,31 @@
 
     </RelativeLayout>
 
+
+    <RelativeLayout
+        android:id="@+id/pro"
+        android:visibility="gone"
+        android:background="@color/transparent"
+        android:layout_width="match_parent"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:layout_marginTop="10dp"
+            android:id="@+id/prog"
+            android:layout_centerHorizontal="true"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+        <TextView
+            android:layout_below="@+id/prog"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="正在更新"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/lny_comments"

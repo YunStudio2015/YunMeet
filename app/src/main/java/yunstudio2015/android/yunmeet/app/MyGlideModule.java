@@ -9,6 +9,8 @@ import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
 import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.module.GlideModule;
 
+import java.io.File;
+
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
 /**
@@ -21,6 +23,9 @@ public class MyGlideModule implements GlideModule {
         // Apply options to the builder here.
         builder = new GlideBuilder(context);
         String  cacheDirectoryName = UtilsFunctions.getAppImageCachePath(context);
+        File file = new File(cacheDirectoryName);
+        if (!file.exists())
+            file.mkdirs();
         builder.setDiskCache(
                 new InternalCacheDiskCacheFactory(context, cacheDirectoryName,  10 * 1020 * 1024));
         builder.setMemoryCache(new LruResourceCache(10 * 1024 * 1024));

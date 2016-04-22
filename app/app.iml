@@ -124,7 +124,7 @@
     <orderEntry type="library" exported="" name="scissors-1.0.3" level="project" />
     <orderEntry type="library" exported="" name="systembartint-1.0.4" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.12" level="project" />
-    <orderEntry type="library" exported="" name="glide-3.6.1" level="project" />
+    <orderEntry type="library" exported="" name="glide-3.7.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.2.1" level="project" />
     <orderEntry type="library" exported="" name="animated-vector-drawable-23.2.1" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-23.2.1" level="project" />
@@ -135,6 +135,5 @@
     <orderEntry type="module" module-name="datetimepicker" exported="" />
     <orderEntry type="module" module-name="emojicon" exported="" />
     <orderEntry type="module" module-name="SwipeNumberPicker" exported="" />
-    <orderEntry type="library" exported="" name="android-android-23" level="project" />
   </component>
 </module>

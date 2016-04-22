@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -24,10 +25,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.app.AppConstants;
-import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.GridLayoutManAger;
 import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
 import yunstudio2015.android.yunmeet.fragments.ChatTopicsMainFragment;
+import yunstudio2015.android.yunmeet.interfacez.TriggerLoadMore;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
 /**
@@ -36,6 +37,7 @@ import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopicRecyclerviewAdapter.ViewHolder> {
 
 
+    private final TriggerLoadMore lm;
     List<ChatTopicEntity> data = null;
 
     // view types
@@ -72,10 +74,12 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
     private LayoutInflater inf;
     private Context ctx  = null;
     private Gson gson;
+    private RelativeLayout previousShowing;
 
-    public ChatTopicRecyclerviewAdapter(List<ChatTopicEntity> data) {
+    public ChatTopicRecyclerviewAdapter(List<ChatTopicEntity> data, TriggerLoadMore lm) {
 
         this.data = data;
+        this.lm = lm;
         gson = new Gson();
     }
 
@@ -98,7 +102,6 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chattopic_list_item, parent, false);
         return (new ChatTopicViewHolder(view));
@@ -136,9 +139,10 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
             holder.grid_recycler_view.setVisibility(View.GONE);
             if (entity.image != null && entity.image.length==1) {
 
-                L.d("setting one img for position "+position);
+
                 Glide.with(((ChatTopicViewHolder) hld).iv_launcher.getContext())
                         .load(entity.image[0])
+                        .fitCenter()
                         .error(me.crosswall.photo.pick.R.drawable.default_error)
                         .into(holder.iv_unique);
                 holder.iv_unique.setVisibility(View.VISIBLE);
@@ -156,6 +160,19 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         // set the others
         holder.tv_username.setText(entity.nickname);
         holder.tv_topic.setText(entity.content);
+
+        //
+        if (position == data.size()-1) {
+            if (previousShowing != null)
+                previousShowing.setVisibility(View.GONE);
+            // 通过listener跟fragment说我们要增加数据的。。。
+            if (lm !=null)
+                lm.loadMore();
+            holder.rel.setVisibility(View.VISIBLE);
+            previousShowing = holder.rel;
+        }
+        else
+            holder.rel.setVisibility(View.GONE);
     }
 
     private int getRandomInf(int length) {
@@ -187,6 +204,17 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         if (data == null)
             data = new ArrayList<>();
         data.add(entity);
+        if (previousShowing != null)
+            previousShowing.setVisibility(View.GONE);
+    }
+
+    public List<ChatTopicEntity> getData() {
+        return data;
+    }
+
+    public void noMoreItems() {
+        if (previousShowing != null)
+            previousShowing.setVisibility(View.GONE);
     }
 
     private class LoaderLayoutHolder extends ViewHolder {
@@ -224,6 +252,9 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
 
         @Bind(R.id.lny_comments)
         LinearLayout lny_comments;
+
+        @Bind(R.id.pro)
+        RelativeLayout rel;
 
         public String[] tmpd = null;
 

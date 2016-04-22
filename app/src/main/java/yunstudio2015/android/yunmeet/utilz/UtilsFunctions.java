@@ -6,6 +6,8 @@ import android.os.Environment;
 
 import java.io.UnsupportedEncodingException;
 
+import yunstudio2015.android.yunmeet.commonLogs.L;
+
 /**
  * Created by Ulrich on 3/1/2016.
  */
@@ -71,9 +73,11 @@ public class UtilsFunctions {
 
 
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().getAbsolutePath();
+            L.i("external storage mounted "+Environment.getExternalStorageDirectory().getAbsolutePath());
+            return Environment.getExternalStorageDirectory().getAbsolutePath()+"/yunmeet_image_cache";
         } else {
-            return Environment.getDownloadCacheDirectory().getAbsolutePath();
+            L.e("external NOT storage mounted");
+            return Environment.getDownloadCacheDirectory().getAbsolutePath()+"/yunmeet_image_cache";
         }
     }
 
