@@ -56,13 +56,13 @@
     </RelativeLayout>
 
     <!--picture division-->
-    <com.adhamenaya.androidmosaiclayout.views.MosaicLayout
+    <!--<com.adhamenaya.androidmosaiclayout.views.MosaicLayout
         android:id="@+id/mosaic_layout"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:background="@color/white"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"/>-->
     <!--   end of picture division-->
 
 
