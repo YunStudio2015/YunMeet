@@ -90,7 +90,7 @@ public class PersonInfoActivity extends AppCompatActivity{
         initMyTopic();
 
         Map<String,String> map = new HashMap<String,String>();
-        map.put("token",id );
+        map.put("token",UtilsFunctions.getToken(PersonInfoActivity.this) );
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS_COUNT, new JSONObject(map), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -121,8 +121,8 @@ public class PersonInfoActivity extends AppCompatActivity{
         queue.add(req);
 
         Map<String,String> map1 = new HashMap<String,String>();
-        map1.put("id",id);
         map1.put("token", UtilsFunctions.getToken(PersonInfoActivity.this));
+        map1.put("id",id);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_INFO, new JSONObject(map1), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
