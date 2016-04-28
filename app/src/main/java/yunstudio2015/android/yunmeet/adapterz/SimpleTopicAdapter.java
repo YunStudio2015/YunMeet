@@ -2,6 +2,7 @@ package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class SimpleTopicAdapter extends RecyclerView.Adapter<SimpleTopicAdapter.
         holder.tvPubtime.setText(item.getPubtime());
         holder.tvContent.setText(item.getContent());
         Glide.with(context).load(item.getLogoUrl()).centerCrop().into(holder.ivLogo);
+        Log.d("imgt",item.getLogoUrl());
 
         setAnimation(holder.layoutItem,position);
     }

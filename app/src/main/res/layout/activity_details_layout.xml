@@ -283,7 +283,7 @@
                     android:textSize="12sp"
                     android:layout_alignParentLeft="true"
                     android:id="@+id/tv_viewed_count"
-                    android:text="阅读 555"
+                    android:text="阅读 0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -291,7 +291,7 @@
                     android:textSize="12sp"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/tv_takepart_count"
-                    android:text="参加人数 41"
+                    android:text="参加人数 0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -299,7 +299,7 @@
                     android:textSize="@dimen/activity_details_tv_fontsize"
                     android:layout_alignParentRight="true"
                     android:id="@+id/tv_comment_count"
-                    android:text="评论 75"
+                    android:text="评论 0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

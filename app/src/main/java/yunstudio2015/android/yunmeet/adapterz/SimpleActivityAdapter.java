@@ -2,6 +2,7 @@ package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAd
         s = s.replace("\\","");
         s = s.replace("\"","");
         Glide.with(context).load(s).centerCrop().into(holder.ivImage);
+        Log.d("img",s);
 
         setAnimation(holder.layoutItem,position);
     }

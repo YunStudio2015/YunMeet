@@ -74,6 +74,8 @@ public static final String IP = "http://43.243.109.77/";
 
     //获取单个用户的发布的所有活动
     public static final String URL_GET_ACTIVITY_LIST = URL + "Atys/getList";
+
+    public static final String URL_GET_BRIEF_ACTIVITY_LIST = URL + "Atys/getBriefList";
     //获取用户的粉丝和关注的人的数量
     public static final String URL_GET_FOCUS_COUNT = URL + "User/getFocusCount";
     //获取单个用户的个人信息

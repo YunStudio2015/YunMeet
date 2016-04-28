@@ -67,7 +67,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("activityID");
-        String IMG = intent.getStringExtra("activityIMG");
+        final String IMG = intent.getStringExtra("activityIMG");
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivActivity.getLayoutParams();
         params.width = getScreenWidth(ActivityDetailsActivity.this);
@@ -88,6 +88,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
                         tvActivityTitle.setText(array.getJSONObject(0).getString("theme"));
                         circleIvOwner.setBackgroundColor(Color.TRANSPARENT);
                         Glide.with(ActivityDetailsActivity.this).load(parseUrl(array.getJSONObject(0).getString("face"))).into(circleIvOwner);
+                        Log.d("imgurl",parseUrl(IMG));
                         tvActLauncherName.setText(array.getJSONObject(0).getString("nickname"));
                         if (array.getJSONObject(0).getString("sex").equals("0")){
                             tvActSexIc.setText(getString(R.string.male_symbol));

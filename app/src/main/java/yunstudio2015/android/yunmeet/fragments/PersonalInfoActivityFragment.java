@@ -33,9 +33,7 @@ import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.activityz.ActivityDetailsActivity;
 import yunstudio2015.android.yunmeet.adapterz.SimpleActivityAdapter;
 import yunstudio2015.android.yunmeet.entityz.SimpleActivityItem;
-import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
-import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -51,6 +49,13 @@ public class PersonalInfoActivityFragment extends Fragment {
     private SimpleActivityAdapter adapter;
 
     private RequestQueue queue;
+
+    // 用于初始化的用户的id
+    private String id;
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +79,8 @@ public class PersonalInfoActivityFragment extends Fragment {
 
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(getActivity()));
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_ACTIVITY_LIST, new JSONObject(map), new Response.Listener<JSONObject>() {
+        map.put("id",id);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_BRIEF_ACTIVITY_LIST, new JSONObject(map), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
