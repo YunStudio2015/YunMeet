@@ -91,7 +91,6 @@ public class MyFriendsMainFriendsFragment extends Fragment {
                             public void onItemClick(View view, int position) {
                                 Intent intent = new Intent(getActivity(), PersonInfoActivity.class);
                                 intent.putExtra("id",friends.get(position).getID());
-                                Log.d("id",friends.get(position).getID());
                                 startActivity(intent);
                             }
                         });

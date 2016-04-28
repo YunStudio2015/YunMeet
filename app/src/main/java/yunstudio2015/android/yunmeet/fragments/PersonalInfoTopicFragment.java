@@ -11,11 +11,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.datetimepicker.Utils;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.activityz.TopicDetailsActivity;
@@ -23,6 +34,7 @@ import yunstudio2015.android.yunmeet.adapterz.SimpleActivityAdapter;
 import yunstudio2015.android.yunmeet.adapterz.SimpleTopicAdapter;
 import yunstudio2015.android.yunmeet.entityz.SimpleTopicItem;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
@@ -38,9 +50,18 @@ public class PersonalInfoTopicFragment extends Fragment {
 
     private SimpleTopicAdapter adapter;
 
+    private RequestQueue queue;
+
+    private String id;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        queue = Volley.newRequestQueue(getActivity().getApplicationContext());
     }
 
     @Override
@@ -53,13 +74,15 @@ public class PersonalInfoTopicFragment extends Fragment {
 
         adapter = new SimpleTopicAdapter(getActivity(),list);
 
-        VolleyRequest.GetStringRequest(getActivity(), YunApi.URL_GET_USER_TOPIC_LIST, "token=ffW0R10FJB8V8Cok6S3plWGpZkx7uIgx", new VolleyOnResultListener() {
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("token", UtilsFunctions.getToken(getActivity()));
+        map.put("id",id);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_USER_TOPIC_LIST, new JSONObject(map), new Response.Listener<JSONObject>() {
             @Override
-            public void onSuccess(String response) {
+            public void onResponse(JSONObject response) {
                 try {
-                    JSONObject object = new JSONObject(response);
-                    if (object.getString("error").equals("0")) {
-                        JSONArray array = object.getJSONArray("data");
+                    if (response.getString("error").equals("0")){
+                        JSONArray array = response.getJSONArray("data");
                         for (int i = 0; i < array.length(); i++) {
                             SimpleTopicItem item = new SimpleTopicItem(
                                     array.getJSONObject(i).getString("image"),
@@ -83,20 +106,20 @@ public class PersonalInfoTopicFragment extends Fragment {
                     } else {
                         recyclerViewTopics.setVisibility(View.GONE);
                         tvTip.setVisibility(View.VISIBLE);
-                        Toast.makeText(getActivity(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
-
-                } catch (Exception e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
-
+        }, new Response.ErrorListener() {
             @Override
-            public void onFailure(String error) {
-                Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(),error.toString(),Toast.LENGTH_SHORT).show();
             }
         });
+
+        queue.add(request);
 
         return viewTopic;
     }

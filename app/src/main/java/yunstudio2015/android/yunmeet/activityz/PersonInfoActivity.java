@@ -10,7 +10,6 @@ import android.support.annotation.ColorRes;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -267,6 +266,7 @@ public class PersonInfoActivity extends AppCompatActivity{
 
     private void initMyTopic(){
 
+        fragmentTopic.setId(id);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (fragmentTopic.isAdded()){
             transaction.hide(fragmentActivity).show(fragmentTopic);
@@ -280,6 +280,7 @@ public class PersonInfoActivity extends AppCompatActivity{
 
     private void initMyActivity(){
 
+        fragmentActivity.setId(id);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (fragmentActivity.isAdded()){
             transaction.hide(fragmentTopic).show(fragmentActivity);
