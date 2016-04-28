@@ -5,7 +5,9 @@ package yunstudio2015.android.yunmeet.utilz;
  */
 public class YunApi {
 
-    public static final String IP = "http://www.yunstudio-ym.cn/";
+
+//    public static final String IP = "http://www.yunstudio-ym.cn/";
+public static final String IP = "http://43.243.109.77/";
 
 
     // 获取活动所有的类型
