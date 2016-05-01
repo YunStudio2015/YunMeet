@@ -17,20 +17,31 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
+import com.google.gson.Gson;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.app.AppConstants;
+import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.fragments.ActivitiesFragment;
+import yunstudio2015.android.yunmeet.fragments.ShowPicturesFragment;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 
-public class ActivityCategoryActitivy extends FragmentActivity implements ActivitiesFragment.OnFragmentInteractionListener{
+public class ActivityCategoryActitivy extends FragmentActivity implements
+        ActivitiesFragment.OnFragmentInteractionListener,
+ShowPicturesFragment.OnFragmentInteractionListener{
 
 
     @Bind(R.id.frame)
     FrameLayout frame;
 
     public final static String BASE = "base_api";
+    private ShowPicturesFragment showpictureFragment;
+    private static final String FRG_SHOWPICTURE = "FRG_SHOWPICTURE";
+    private Gson gson;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +62,67 @@ public class ActivityCategoryActitivy extends FragmentActivity implements Activi
     }
 
     @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        if (showpictureFragment != null && showpictureFragment.isVisible()) {
+            // hide it
+            hideShowPictureFragment();
+        } else {
+          finish();
+        }
+    }
+
+    private void hideShowPictureFragment() {
+
+        if (showpictureFragment != null) {
+//            mT ("hide n null");
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+//            trans.hide(showpictureFragment);
+            trans.remove(showpictureFragment);
+            showpictureFragment = null;
+            trans.commit();
+        }
+    }
+
+    @Override
     public void onFragmentInteraction(Uri uri, @Nullable String[] themelinks) {
 
+
+        showpictureFragment  = (ShowPicturesFragment) getSupportFragmentManager().findFragmentByTag(FRG_SHOWPICTURE);
+
+        /* so it is an image, then,   @Bind(R.id.toolbar)
+    Toolbar toolbar at we should do is show it... then try to show the bigger picture */
+
+        if (uri.getScheme().equals(AppConstants.scheme_photo)) {
+            /* show the small picture and load for the bigger */
+        }
+        if (uri.getScheme().equals(AppConstants.scheme_ui)) {
+
+            if (gson == null) {
+                gson = new Gson();
+            }
+            String imgz = null;
+            try {
+                imgz = gson.fromJson(UtilsFunctions.decodedPath(uri.getPath()), String.class);
+            } catch (Exception e) {
+                L.e("isnt showing object");
+            }
+            //
+            if (imgz != null) {
+//                mT ("clicked on != null");
+//                showpictureFragment.updateData(imgz, themelinks);
+                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+                if (showpictureFragment == null) {
+//                    mT ("create n  show");
+                    showpictureFragment = ShowPicturesFragment.newInstance(imgz, themelinks);
+                    trans.add(R.id.frame_picture_shower, showpictureFragment, FRG_SHOWPICTURE);
+                }
+                if (showpictureFragment.isVisible()) {
+                    hideShowPictureFragment();
+                }
+                trans.commit();
+            }
+        }
     }
 
     public static void setTranslucentStatusColor(Activity activity, @ColorRes int color) {
@@ -77,4 +147,8 @@ public class ActivityCategoryActitivy extends FragmentActivity implements Activi
         win.setAttributes(winParams);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {onFragmentInteraction(uri,null);
+
+    }
 }

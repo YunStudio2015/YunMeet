@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -76,14 +77,13 @@ public class ZoomImageFragment extends Fragment {
 
     public void update(String s) {
         if (imageView != null) {
-            mT("updating the view");
-            Glide.with(getActivity())
-                    .load(s)
-                    .error(me.crosswall.photo.pick.R.drawable.default_error)
-                    .into(imageView);
+//            mT("updating the view");
+            s = s.replace("t_256", "");
+            s = s.replace("t_800", "");
+            ImageLoader.getInstance().displayImage(s, imageView);
             mAttacher.update();
         }else {
-            mT("fragment imageview is null");
+//            mT("fragment imageview is null");
         }
     }
 

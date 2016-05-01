@@ -45,7 +45,6 @@ import yunstudio2015.android.yunmeet.fragments.ActivitiesFragment;
 import yunstudio2015.android.yunmeet.fragments.ActivitiesMainFragment;
 import yunstudio2015.android.yunmeet.fragments.ChatMainFragment;
 import yunstudio2015.android.yunmeet.fragments.ChatTopicsItemFragment;
-import yunstudio2015.android.yunmeet.fragments.ChatTopicsMainFragment;
 import yunstudio2015.android.yunmeet.fragments.DiscoverMainFragment;
 import yunstudio2015.android.yunmeet.fragments.MyFriendsMainFragment;
 import yunstudio2015.android.yunmeet.fragments.MySpaceMainFragment;
@@ -60,7 +59,6 @@ public class HallActivity extends AppCompatActivity implements
         ActivitiesFragment.OnFragmentInteractionListener,
         MyFriendsMainFragment.OnFragmentInteractionListener,
         MySpaceMainFragment.OnFragmentInteractionListener,
-        ChatTopicsMainFragment.OnFragmentInteractionListener,
         ChatTopicsItemFragment.OnFragmentInteractionListener,
         ShowPicturesFragment.OnFragmentInteractionListener{
 
@@ -98,6 +96,8 @@ public class HallActivity extends AppCompatActivity implements
     RelativeLayout rel_myfriend_fragmentbar;
 
     private ShowPicturesFragment showpictureFragment;
+
+
     private Gson gson;
 
     @Override
@@ -372,6 +372,8 @@ public class HallActivity extends AppCompatActivity implements
 
     @Override
     public void onFragmentInteraction(Uri uri, @Nullable String[] themelinks) {
+
+     mT("dopskfoasjfoiasnd");
 
         showpictureFragment = (ShowPicturesFragment) getSupportFragmentManager().findFragmentByTag(FRG_SHOWPICTURE);
 

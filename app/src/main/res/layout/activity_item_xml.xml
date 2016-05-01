@@ -25,13 +25,11 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
+                    android:layout_alignParentRight="true"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                    <ImageView
-                        android:src="@drawable/ic_comment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+
                     <TextView
                         android:id="@+id/tv_activity_title"
                         android:text="@string/letseat"
@@ -41,11 +39,20 @@
                         android:textSize="16sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/ic_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
                 <ImageButton
-                    android:layout_alignParentRight="true"
+                    android:id="@+id/bt_back"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:layout_alignParentLeft="true"
                     android:layout_marginRight="10dp"
-                    android:src="@android:drawable/ic_menu_delete"
+                    android:src="@drawable/ic_arrow_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
@@ -77,7 +84,7 @@
                                  -->
                         <ImageView
                             android:id="@+id/iv_activity_bg"
-                            android:src="@drawable/ic_activity_bg"
+                            android:src="@null"
                             android:layout_width="match_parent"
                             android:adjustViewBounds="true"
                             android:layout_height="wrap_content"

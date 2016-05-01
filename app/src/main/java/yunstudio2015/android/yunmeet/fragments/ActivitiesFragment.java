@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,6 +16,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -27,6 +29,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +42,7 @@ import yunstudio2015.android.yunmeet.adapterz.YunActivitiesListAdapter;
 import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.entityz.ActivityDownloadEntity;
+import yunstudio2015.android.yunmeet.entityz.Imagee;
 import yunstudio2015.android.yunmeet.entityz.UploadActivityEntity;
 import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
@@ -460,7 +464,7 @@ public class ActivitiesFragment extends Fragment {
             // setting background
             if (item.image != null && item.image.length > 0)
                 Glide.with(context)
-                        .load(item.image[0])
+                        .load(item.image[0].url)
                         .centerCrop()
                         .placeholder(placeholder)
 //                    .thumbnail(0.3f)
@@ -495,16 +499,27 @@ public class ActivitiesFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    // zooming
-                    Uri uri = Uri.parse(AppConstants.scheme_ui+"://"+AppConstants.authority+"/"+
-                            UtilsFunctions.encodedPath(gson.toJson(item.image[0])));
-                    if (mListener != null)
-                        mListener.onFragmentInteraction(uri, item.image);
-                    else {
-//                        Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
-                    }
+                    if (item.image !=null) {
+                        // zooming
+                        Uri uri = Uri.parse(AppConstants.scheme_ui + "://" + AppConstants.authority + "/" +
+                                UtilsFunctions.encodedPath(gson.toJson(item.image[0].url)));
+                        if (mListener != null)
+                            mListener.onFragmentInteraction(uri, UtilsFunctions.getImagesLink(item.image));
+                        else {
+                            Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
+                        }
+                    } else
+                        mS(context.getResources().getString(R.string.no_correct_picture));
                 }
             });
+
+            holder.bt_back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity().finish();
+                }
+            });
+
 
         }
 
@@ -518,6 +533,9 @@ public class ActivitiesFragment extends Fragment {
 
             @Bind(R.id.iv_activity_owner)
             public ImageView iv_activity_owner;
+
+            @Bind(R.id.bt_back)
+            public ImageButton bt_back;
 
             @Bind(R.id.iv_activity_bg)
             public ImageView iv_activity_bg;
@@ -582,6 +600,11 @@ public class ActivitiesFragment extends Fragment {
                 iv_activity_bg.setLayoutParams(params);
             }
         }
+    }
+
+    private void mS(String string) {
+
+        Snackbar.make(getView(), string, Snackbar.LENGTH_SHORT).show();
     }
 
     private class ItemDecorator extends RecyclerViewPager.ItemDecoration {

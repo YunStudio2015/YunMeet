@@ -5,8 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import yunstudio2015.android.yunmeet.commonLogs.L;
+import yunstudio2015.android.yunmeet.entityz.Imagee;
 
 /**
  * Created by Ulrich on 3/1/2016.
@@ -19,6 +22,17 @@ public class UtilsFunctions {
         int dips=(int) ((pixel * scale) + 0.5f);
         return dips;
     }
+
+
+    public static String[] getImagesLink(Imagee[] image) {
+
+        String[] tmp = new String[image.length];
+        for (int i = 0; i < image.length; i++) {
+            tmp[i] = image[i].url;
+        }
+        return tmp;
+    }
+
 
     public static String encodedPath (String path)
     {

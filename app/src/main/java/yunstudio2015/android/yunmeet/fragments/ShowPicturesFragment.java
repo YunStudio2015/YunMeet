@@ -110,6 +110,10 @@ public class ShowPicturesFragment extends Fragment {
         vp_img_container.setAdapter(adapter);
         updateData(currentimage, imz);
         inflateBottomIcContainer(LayoutInflater.from(getActivity()));
+        if (imz != null && imz.length > 1){
+            lny_ic_container.setVisibility(View.VISIBLE);
+        }else
+            lny_ic_container.setVisibility(View.INVISIBLE);
     }
 
     private void inflateBottomIcContainer(LayoutInflater inf) {

@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.fragments.ActivitiesMainFragment;
-import yunstudio2015.android.yunmeet.fragments.ChatTopicsMainFragment;
+import yunstudio2015.android.yunmeet.fragments.ChatTopicsItemFragment;
 import yunstudio2015.android.yunmeet.fragments.MySpaceMainFragment;
 
 /**
@@ -23,7 +23,7 @@ public class MainVpAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
 
        if (position == 0)
-            return ChatTopicsMainFragment.getInstance();
+            return ChatTopicsItemFragment.newInstance(0);
         else if (position == 1)
             return ActivitiesMainFragment.getInstance();
         else

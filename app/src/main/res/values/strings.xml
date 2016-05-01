@@ -172,6 +172,9 @@
     <string name="recommend_act">推荐活动</string>
     <string name="new_act">城市活动</string>
     <string name="title_activity_activity_category_actitivy">ActivityCategoryActitivy</string>
+    <string name="pull_to_refresh_tap_label">下拉更新</string>
+    <string name="no_correct_picture">没有合法图片</string>
+    <string name="nomore_item">没有更久内容了</string>
 
 
 </resources>

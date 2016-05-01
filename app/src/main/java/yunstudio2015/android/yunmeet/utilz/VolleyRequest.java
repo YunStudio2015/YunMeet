@@ -33,7 +33,7 @@ public class VolleyRequest {
 
     public static void GetStringRequest (Context context, String url, String params, final VolleyOnResultListener callback) {
         if(NetWorkUtil.isNetworkConnected(context)){
-            StringRequest  jsonObjectRequest = new StringRequest (Method.GET, url+"?"+params,
+            StringRequest  jsonObjectRequest = new StringRequest (Method.GET, url+(params!=""?"?":"")+params,
                     new Response.Listener<String>() {
 
                         @Override

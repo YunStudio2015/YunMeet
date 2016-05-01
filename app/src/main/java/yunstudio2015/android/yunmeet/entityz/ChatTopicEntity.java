@@ -7,7 +7,7 @@ public class ChatTopicEntity {
 
 
 
-    public String[] image;
+    public Imagee[] image;
     public String  id, nickname, face, content  , user_id, comment_num, transfer, for_num, pubtime;
     public At_id[] at_id;
     public Topic_id topic_id;

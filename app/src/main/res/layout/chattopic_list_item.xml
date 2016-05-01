@@ -67,33 +67,33 @@
              android:layout_height="200dp"
              android:orientation="horizontal"
              android:layout_marginRight="20dp"/>-->
-        <ImageView
-            android:id="@+id/iv_unique"
+        <RelativeLayout
+            android:id="@+id/lny_picture_content"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
             android:layout_toRightOf="@id/iv_launcher_pic"
             android:layout_below="@id/lny_txtz"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
+            android:minHeight="0dp"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_unique"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
             android:background="@color/transparent"
             android:minHeight="20dp"
             android:layout_marginRight="20dp"
             />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/grid_recycler_view"
-            android:layout_toRightOf="@id/iv_launcher_pic"
-            android:layout_below="@id/lny_txtz"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:background="@color/white"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginRight="20dp"/>
+        </RelativeLayout>
         <!--   end of picture division-->
     </RelativeLayout>
-
-
 
 
     <RelativeLayout

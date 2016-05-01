@@ -51,7 +51,8 @@ public class ActivityDownloadEntity {
     public String user_id, isrec, pepnum, theme, detail, time, pubtime, cost, place,
             view, status, commentnum, passnum, category_id, category, nickname, face, sex, isvip, school_id,
             credit, background;
-    public String[] comments, image, apply;
+    public String[] comments, apply;
+    public Imagee[] image;
 
     @Override
     public String toString() {
@@ -79,12 +80,12 @@ public class ActivityDownloadEntity {
                 ", credit='" + credit + '\'' +
                 ", background='" + background + '\'' +
                 ", comments=" + Arrays.toString(comments) +
-                ", image=" + Arrays.toString(image) +
                 ", apply=" + Arrays.toString(apply) +
+                ", image=" + Arrays.toString(image) +
                 '}';
     }
 
-        /*
+     /*
         *
 function ago( $datetime )
 {

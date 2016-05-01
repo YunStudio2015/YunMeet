@@ -187,7 +187,7 @@ public class ActivitiesMainFragment extends Fragment {
                     .into(vh.iv_user);
             if (item.image != null && item.image.length >0)
                 Glide.with(context)
-                        .load(item.image[0])
+                        .load(item.image[0].url)
                         .centerCrop()
                         .placeholder(placeholder)
                         .error(me.crosswall.photo.pick.R.drawable.default_error)

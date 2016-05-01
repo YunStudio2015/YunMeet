@@ -97,36 +97,4 @@
             android:text="@string/radiobutton_bottom_menu_4"
             android:drawableTop="@drawable/ic_bottom_4_bg"/>
     </RadioGroup>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:background="@color/transparent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:id="@+id/rel_popup_menu"
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </RelativeLayout>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab1"
-            android:visibility="visible"
-            android:layout_width="@dimen/flt_launch_button"
-            android:layout_height="@dimen/flt_launch_button"
-            android:clickable="true"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            app:backgroundTint="@color/btn_background"
-            android:src="@drawable/ic_action_add"
-            />
-
-    </RelativeLayout>
-
-    <FrameLayout
-        android:id="@+id/frame_picture_shower"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-
 </FrameLayout>
