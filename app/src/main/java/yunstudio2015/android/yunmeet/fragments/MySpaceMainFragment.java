@@ -31,6 +31,7 @@ import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.activityz.PersonInfoActivity;
+import yunstudio2015.android.yunmeet.activityz.SettingsActivity;
 import yunstudio2015.android.yunmeet.customviewz.CircleImageView;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
@@ -185,7 +186,8 @@ public class MySpaceMainFragment extends Fragment {
         LLSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"设置",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), SettingsActivity.class);
+                startActivity(intent);
             }
         });
 

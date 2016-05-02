@@ -83,6 +83,20 @@ public class UtilsFunctions {
 
     }
 
+    public static void setToken(Context context,String token){
+        SharedPreferences sp = context.getSharedPreferences("UserData",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("token",token);
+        editor.apply();
+    }
+
+    public static void setID(Context context,String id){
+        SharedPreferences sp = context.getSharedPreferences("UserData",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("id",id);
+        editor.apply();
+    }
+
     public static String getAppImageCachePath(Context context) {
 
 

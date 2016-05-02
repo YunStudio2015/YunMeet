@@ -2,7 +2,6 @@ package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -47,13 +49,11 @@ public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAd
         SimpleActivityItem item = list.get(position);
         holder.tvDetail.setText(item.getDetail());
         holder.tvTheme.setText(item.getTheme());
-        String s = item.getImage();
-        s = s.replace("[","");
-        s = s.replace("]","");
-        s = s.replace("\\","");
-        s = s.replace("\"","");
-        Glide.with(context).load(s).centerCrop().into(holder.ivImage);
-        Log.d("img",s);
+        try {
+            Glide.with(context).load(new JSONObject(item.getImage()).getString("url")).error(R.drawable.error_img).centerCrop().into(holder.ivImage);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         setAnimation(holder.layoutItem,position);
     }

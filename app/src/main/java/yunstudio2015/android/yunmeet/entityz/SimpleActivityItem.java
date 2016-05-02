@@ -1,6 +1,5 @@
 package yunstudio2015.android.yunmeet.entityz;
 
-import android.graphics.Bitmap;
 
 /**
  * Created by lizhaotailang on 2016/3/3.

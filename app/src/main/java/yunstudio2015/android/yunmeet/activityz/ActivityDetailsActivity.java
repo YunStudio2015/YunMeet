@@ -6,9 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -67,14 +65,11 @@ public class ActivityDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("activityID");
-        final String IMG = intent.getStringExtra("activityIMG");
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivActivity.getLayoutParams();
         params.width = getScreenWidth(ActivityDetailsActivity.this);
         params.height = getScreenWidth(ActivityDetailsActivity.this);
         ivActivity.setLayoutParams(params);
-
-        Glide.with(ActivityDetailsActivity.this).load(parseUrl(IMG)).centerCrop().into(ivActivity);
 
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(ActivityDetailsActivity.this));
@@ -85,33 +80,43 @@ public class ActivityDetailsActivity extends AppCompatActivity {
                 try {
                     if (response.getString("error").equals("0")){
                         JSONArray array = response.getJSONArray("data");
-                        tvActivityTitle.setText(array.getJSONObject(0).getString("theme"));
+
+                        JSONObject object = array.getJSONObject(0);
+                        tvActivityTitle.setText(object.getString("theme"));
                         circleIvOwner.setBackgroundColor(Color.TRANSPARENT);
-                        Glide.with(ActivityDetailsActivity.this).load(parseUrl(array.getJSONObject(0).getString("face"))).into(circleIvOwner);
-                        Log.d("imgurl",parseUrl(IMG));
-                        tvActLauncherName.setText(array.getJSONObject(0).getString("nickname"));
-                        if (array.getJSONObject(0).getString("sex").equals("0")){
+                        JSONObject o = new JSONObject(object.getJSONArray("image").getString(0));
+                        // 加载大图
+                        Glide.with(ActivityDetailsActivity.this).load(o.getString("url")).error(R.drawable.error_img).centerCrop().into(ivActivity);
+                        // 加载发布者头像
+                        Glide.with(ActivityDetailsActivity.this).load(array.getJSONObject(0).getString("face")).into(circleIvOwner);
+
+                        tvActLauncherName.setText(object.getString("nickname"));
+                        if (object.getString("sex").equals("0")){
                             tvActSexIc.setText(getString(R.string.male_symbol));
                         } else {
                             tvActSexIc.setText(getString(R.string.female_symbol));
                         }
-                        tvActLaunchTime.setText(array.getJSONObject(0).getString("pubtime"));
-                        tvActPeopleCount.setText(array.getJSONObject(0).getString("passnum"));
 
-                        if (array.getJSONObject(0).getString("cost").equals("0")){
+                        tvActLaunchTime.setText(object.getString("pubtime"));
+                        tvActPeopleCount.setText(object.getString("passnum"));
+
+                        if (object.getString("cost").equals("0")){
                             tvActPaymode.setText(getString(R.string.i_invite));
-                        } else if (array.getJSONObject(0).getString("cost").equals("1")){
+                        } else if (object.getString("cost").equals("1")){
                             tvActPaymode.setText(getString(R.string.look_for_invite));
                         } else {
                             tvActPaymode.setText(getString(R.string.invite_aa));
                         }
 
-                        tvActDateTime.setText(array.getJSONObject(0).getString("time"));
-                        tvActivityPlace.setText(array.getJSONObject(0).getString("place"));
-                        tvActivityDescription.setText(array.getJSONObject(0).getString("detail"));
-                        tvViewedCount.setText(array.getJSONObject(0).getString("view"));
-                        tvTakepartCount.setText(array.getJSONObject(0).getString("passnum"));
-                        tvCommentCount.setText(array.getJSONObject(0).getString("comment"));
+                        tvActDateTime.setText(object.getString("time"));
+                        tvActivityPlace.setText(object.getString("place"));
+                        tvActivityDescription.setText(object.getString("detail"));
+                        tvViewedCount.setText(object.getString("view"));
+                        if ( !object.isNull("passnum"))
+                            tvTakepartCount.setText(object.getString("passnum"));
+
+                        if ( !object.isNull("comment"))
+                            tvCommentCount.setText(array.getJSONObject(0).getString("comment"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -144,15 +149,6 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         tvViewedCount = (TextView) findViewById(R.id.tv_viewed_count);
         tvTakepartCount = (TextView) findViewById(R.id.tv_takepart_count);
         tvCommentCount = (TextView) findViewById(R.id.tv_comment_count);
-    }
-
-    private String parseUrl(String IMG){
-        IMG = IMG.replace("[","");
-        IMG = IMG.replace("]","");
-        IMG = IMG.replace("\\","");
-        IMG = IMG.replace("\"","");
-
-        return IMG;
     }
 
     private int getScreenWidth(Context context){
