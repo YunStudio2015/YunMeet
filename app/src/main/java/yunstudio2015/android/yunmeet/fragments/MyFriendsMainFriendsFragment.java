@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -42,6 +43,7 @@ public class MyFriendsMainFriendsFragment extends Fragment {
 
     private RecyclerView rvFriends;
     private MyFriendsAdapter adapter;
+    private TextView tvNoFriends;
 
     private List<SimpleFriendItemEntity> friends = new ArrayList<SimpleFriendItemEntity>();
 
@@ -60,6 +62,7 @@ public class MyFriendsMainFriendsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_friends_friends,container,false);
 
         rvFriends = (RecyclerView) view.findViewById(R.id.friends_list);
+        tvNoFriends = (TextView) view.findViewById(R.id.tv_no_friends);
 
         adapter = new MyFriendsAdapter(getActivity(), friends);
 
@@ -70,6 +73,7 @@ public class MyFriendsMainFriendsFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
                     if (response.getString("error").equals("0")){
+
                         if (friends.size() != 0){
                             friends.clear();
                         }
@@ -83,17 +87,24 @@ public class MyFriendsMainFriendsFragment extends Fragment {
                             );
                             friends.add(friend);
                         }
-                        rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        rvFriends.setAdapter(adapter);
 
-                        adapter.setOnItemListener(new MyFriendsAdapter.OnFriendItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                Intent intent = new Intent(getActivity(), PersonInfoActivity.class);
-                                intent.putExtra("id",friends.get(position).getID());
-                                startActivity(intent);
-                            }
-                        });
+                        if (friends.isEmpty()){
+                            tvNoFriends.setVisibility(View.VISIBLE);
+                        } else {
+                            tvNoFriends.setVisibility(View.GONE);
+                            rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            rvFriends.setAdapter(adapter);
+
+                            adapter.setOnItemListener(new MyFriendsAdapter.OnFriendItemClickListener() {
+                                @Override
+                                public void onItemClick(View view, int position) {
+                                    Intent intent = new Intent(getActivity(), PersonInfoActivity.class);
+                                    intent.putExtra("id",friends.get(position).getID());
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+
 
                     } else {
                         Toast.makeText(getActivity(), response.getString("message"), Toast.LENGTH_SHORT).show();

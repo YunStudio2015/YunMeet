@@ -6,6 +6,13 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tv_no_friends"
+        android:text="没有好友"
+        android:gravity="center"/>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
