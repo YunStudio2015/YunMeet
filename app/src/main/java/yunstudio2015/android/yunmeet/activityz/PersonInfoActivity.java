@@ -69,6 +69,8 @@ public class PersonInfoActivity extends AppCompatActivity{
     PersonalInfoActivityFragment fragmentActivity = new PersonalInfoActivityFragment();
     PersonalInfoTopicFragment fragmentTopic = new PersonalInfoTopicFragment();
 
+    private int position = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +88,7 @@ public class PersonInfoActivity extends AppCompatActivity{
         this.setSupportActionBar(toolbar);
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
 
-        initMyTopic();
+        changeFragment(0);
 
         Map<String,String> map = new HashMap<String,String>();
         map.put("token",UtilsFunctions.getToken(PersonInfoActivity.this) );
@@ -186,8 +188,9 @@ public class PersonInfoActivity extends AppCompatActivity{
                 btnActivity.setBackgroundColor(Color.WHITE);
                 btnActivity.setTextColor(getResources().getColor(R.color.btn_background));
 
-                initMyTopic();
+                changeFragment(0);
 
+                position = 1;
             }
         });
 
@@ -201,22 +204,51 @@ public class PersonInfoActivity extends AppCompatActivity{
                 btnTopic.setBackgroundColor(Color.WHITE);
                 btnTopic.setTextColor(getResources().getColor(R.color.btn_background));
 
-                initMyActivity();
+                changeFragment(1);
 
+                position = 0;
             }
         });
 
-        btnAddFocus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
+        if (id.equals(UtilsFunctions.getID(PersonInfoActivity.this))){
+            btnAddFocus.setVisibility(View.GONE);
+        } else {
+            btnAddFocus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
 
         layoutChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(PersonInfoActivity.this,"chat",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ivFace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PersonInfoActivity.this,SetFaceActivity.class);
+                startActivity(i);
+            }
+        });
+
+        ivBg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 背景图片的设置 @TODO
+            }
+        });
+
+        tvName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PersonInfoActivity.this,SetNickNameActivity.class);
+                startActivity(i);
             }
         });
 
@@ -264,35 +296,19 @@ public class PersonInfoActivity extends AppCompatActivity{
         win.setAttributes(winParams);
     }
 
-    private void initMyTopic(){
 
-        fragmentTopic.setId(id);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (fragmentTopic.isAdded()){
-            transaction.hide(fragmentActivity).show(fragmentTopic);
+    private void changeFragment(int position){
+        if (position == 0){
+            fragmentTopic.setId(id);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.person_framelayout,fragmentTopic)
+                    .commit();
         } else {
-            transaction.add(R.id.person_framelayout,fragmentTopic);
+            fragmentActivity.setId(id);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.person_framelayout,fragmentActivity)
+                    .commit();
         }
-
-        transaction.commit();
-
-    }
-
-    private void initMyActivity(){
-
-        fragmentActivity.setId(id);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (fragmentActivity.isAdded()){
-            transaction.hide(fragmentTopic).show(fragmentActivity);
-        } else {
-            if (fragmentTopic.isAdded()){
-                transaction.hide(fragmentTopic);
-            }
-            transaction.add(R.id.person_framelayout, fragmentActivity);
-        }
-
-        transaction.commit();
-
     }
 
 }

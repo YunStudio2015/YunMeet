@@ -3,15 +3,11 @@ package yunstudio2015.android.yunmeet.activityz;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,19 +44,8 @@ public class SetNickNameActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
     private ProgressDialog progressDialog;
-    private static int FINISH = 1;
 
     private RequestQueue queue;
-
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == FINISH){
-                if (progressDialog.isShowing())
-                    progressDialog.dismiss();
-            }
-        }
-    };
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +110,8 @@ public class SetNickNameActivity extends AppCompatActivity {
                     map.put("token", sharedPreferences.getString("token", null));
                     map.put("nickname", name);
 
+                    final Map<String, String> map_sex = new HashMap<String, String>();
+
                     JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_SET_NICK_NAME, new JSONObject(map), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -133,56 +120,8 @@ public class SetNickNameActivity extends AppCompatActivity {
                                 if (response.getString("error").equals("0")){
 
                                     //向服务器发起设置性别的请求
-                                    Map<String, String> map_sex = new HashMap<String, String>();
                                     map_sex.put("token", sharedPreferences.getString("token", null));
-                                    Log.d("nick_token", sharedPreferences.getString("token", "空"));
                                     map_sex.put("sex", String.valueOf(selected));
-                                    Log.d("nick_sex", String.valueOf(selected));
-
-                                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, YunApi.URL_SET_SEX, new JSONObject(map_sex), new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-
-                                            Message message = Message.obtain();
-                                            message.what = FINISH;
-                                            handler.sendMessage(message);
-
-                                            try {
-
-                                                if (response.getString("error").equals("0")){
-                                                    Intent intent = new Intent(SetNickNameActivity.this, SetFaceActivity.class);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                                    startActivity(intent);
-
-                                                    finish();
-                                                }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                                Toast.makeText(SetNickNameActivity.this, R.string.wrong_process,Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-
-                                            Message message = Message.obtain();
-                                            message.what = FINISH;
-                                            handler.sendMessage(message);
-
-                                            Toast.makeText(SetNickNameActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    {
-                                        @Override
-                                        public Map<String, String> getHeaders() throws AuthFailureError {
-                                            HashMap<String,String> headers = new HashMap<String, String>();
-                                            headers.put("Accept","appliction/json");
-                                            headers.put("Content-Type","appliction/json,charset=UTF-8");
-                                            return headers;
-                                        }
-                                    };
-
-                                    queue.add(jsonObjectRequest);
 
                                 }
                             } catch (JSONException e) {
@@ -194,14 +133,52 @@ public class SetNickNameActivity extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Message message = Message.obtain();
-                            message.what = FINISH;
-                            handler.sendMessage(message);
+
                             Toast.makeText(SetNickNameActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                         }
                     });
 
                     queue.add(request);
+
+                    if ( !map_sex.isEmpty()){
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, YunApi.URL_SET_SEX, new JSONObject(map_sex), new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                                try {
+
+                                    if (response.getString("error").equals("0")){
+                                        Intent intent = new Intent(SetNickNameActivity.this, SetFaceActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                        startActivity(intent);
+
+                                        finish();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(SetNickNameActivity.this, R.string.wrong_process,Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                                Toast.makeText(SetNickNameActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        {
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                HashMap<String,String> headers = new HashMap<String, String>();
+                                headers.put("Accept","appliction/json");
+                                headers.put("Content-Type","appliction/json,charset=UTF-8");
+                                return headers;
+                            }
+                        };
+
+                        queue.add(jsonObjectRequest);
+                    }
+
 
                 }
             }

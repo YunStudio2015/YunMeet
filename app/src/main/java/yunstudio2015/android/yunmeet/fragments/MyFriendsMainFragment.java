@@ -50,9 +50,7 @@ public class MyFriendsMainFragment extends Fragment {
         initViews(rootView);
 
         // 初始化界面为好友界面
-        getActivity().getSupportFragmentManager()
-                .beginTransaction().replace(R.id.my_friends_main_container,friendsFragment)
-                .commit();
+        changeToFragment(0);
 
         ivFriend.setOnClickListener(new View.OnClickListener() {
             @Override
