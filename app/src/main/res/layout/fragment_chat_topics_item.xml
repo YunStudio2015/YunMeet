@@ -15,9 +15,10 @@
         android:layout_height="match_parent"
         app:refreshEnabled="true"
         app:loadMoreEnabled="true"
+        android:visibility="gone"
         app:loadMoreFooterLayout="@layout/layout_irecyclerview_load_more_footer"
         app:refreshHeaderLayout="@layout/layout_irecyclerview_refresh_header"
-   />
+        />
 
     <LinearLayout
         android:visibility="gone"
@@ -44,5 +45,24 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+
+    <RelativeLayout
+
+        android:id="@+id/lny_refresh"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
 </FrameLayout>
 

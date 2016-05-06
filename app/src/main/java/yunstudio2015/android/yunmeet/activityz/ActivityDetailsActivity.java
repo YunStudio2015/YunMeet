@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,7 +28,9 @@ import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.customviewz.CircleImageView;
+import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
+import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -74,10 +77,13 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(ActivityDetailsActivity.this));
         map.put("id",id);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_ACTIVITY, new JSONObject(map), new Response.Listener<JSONObject>() {
+        mT("activity mess is "+id);
+
+        VolleyRequest.PostStringRequest(this, YunApi.URL_GET_ACTIVITY, map, new VolleyOnResultListener() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onSuccess(String resp) {
                 try {
+                    JSONObject response = new JSONObject(resp);
                     if (response.getString("error").equals("0")){
                         JSONArray array = response.getJSONArray("data");
 
@@ -122,14 +128,14 @@ public class ActivityDetailsActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onFailure(String error) {
 
             }
         });
 
-        queue.add(request);
+
     }
 
     private void initViews() {
@@ -155,6 +161,10 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels;
+    }
+
+    public void mT(String mess) {
+        Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
     }
 
 }

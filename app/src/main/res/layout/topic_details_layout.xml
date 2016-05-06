@@ -33,7 +33,7 @@
             <TextView
                 android:textColor="@color/btn_background"
                 android:layout_gravity="top"
-                android:text="@string/test_username"
+                android:text=""
                 android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
 
             <TextView
                 android:layout_marginTop="10dp"
-                android:text="@string/topic"
+                android:text=""
                 android:id="@+id/tv_topic"
                 android:background="@color/light_gray"
                 android:padding="5dp"

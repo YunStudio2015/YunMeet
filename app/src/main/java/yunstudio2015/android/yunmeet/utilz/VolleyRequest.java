@@ -68,36 +68,20 @@ public class VolleyRequest {
     public static void PostStringRequest (Context context, String url, final Map<String, String> param, final VolleyOnResultListener callback) {
 
         //if(NetWorkUtil.isNetworkConnected(context)){
-        StringRequest  jsonObjectRequest = new StringRequest(Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        if (callback != null)
-                            callback.onSuccess(response);
-                    }
-                },new Response.ErrorListener(){
-
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Method.POST, url, new JSONObject(param), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                if (callback != null)
+                    callback.onSuccess(response.toString());
+            }
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (callback != null)
                     callback.onFailure(error.toString());
             }
-        }){
+        });
 
-          @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                // TODO Auto-generated method stub
-                return param;
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "application/json");
-                headers.put("Content-Type", "application/json; charset=UTF-8");
-                return headers;
-            }
-        };
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
                 MY_SOCKET_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,

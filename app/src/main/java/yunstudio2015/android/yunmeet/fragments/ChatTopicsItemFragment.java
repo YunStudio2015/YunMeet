@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -57,8 +58,7 @@ public class ChatTopicsItemFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Bind(R.id.lny_error_message)
-    LinearLayout lny_error_message;
+
 
     @Bind(R.id.superswp)
     IRecyclerView swp;
@@ -74,6 +74,16 @@ public class ChatTopicsItemFragment extends Fragment {
     }
 
     LoadMoreFooterView footerview;
+
+    @Bind(R.id.lny_refresh)
+    ViewGroup  lny_refreshing;
+
+    @Bind(R.id.lny_error_message)
+    ViewGroup lny_error_message;
+
+    @Bind(R.id.bt_action)
+    Button bt_action;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,14 +105,20 @@ public class ChatTopicsItemFragment extends Fragment {
                 refreshContent(new OnLoadFinishCallBack() {
                     @Override
                     public void loadDone() {
-                        mT("更新成功");
+//                        mT("更新成功");
                         swp.setRefreshing(false);
+                        lny_error_message.setVisibility(View.GONE);
+                        lny_refreshing.setVisibility(View.GONE);
+                        swp.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void loadfailed(String msg) {
-                        mT("更新失败");
+                        mT(context.getResources().getString(R.string.network_failure));
                         swp.setRefreshing(false);
+                        lny_error_message.setVisibility(View.VISIBLE);
+                        lny_refreshing.setVisibility(View.GONE);
+                        swp.setVisibility(View.GONE);
                     }
                 });
             }
@@ -127,6 +143,13 @@ public class ChatTopicsItemFragment extends Fragment {
             }
         });
 
+        bt_action.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                swp.setRefreshing(true);
+            }
+        });
+
         swp.setRefreshing(true);
         return rootview;
     }
@@ -135,14 +158,14 @@ public class ChatTopicsItemFragment extends Fragment {
     private void loadMoreContent (final OnLoadFinishCallBack callback) {
 
         // need the id of the older one.
-        int max = 0;
+        int min = 100;
         for (int i = 0; i < globalData.size(); i++) {
-            if (max <= Integer.valueOf(globalData.get(i).id))
-                max = Integer.valueOf(globalData.get(i).id);
+            if (min > Integer.valueOf(globalData.get(i).id))
+                min = Integer.valueOf(globalData.get(i).id);
         }
 
         String paramz = "";
-        paramz+="max="+max+"&"+"num="+pageCount
+        paramz+="min="+min+"&"+"num="+pageCount
                 +"&token=" + UtilsFunctions.getToken(context);
         // get the id of the older one.
         L.d(YunApi.URL_GET_ALL_TOPIC_LIST+paramz);
@@ -208,6 +231,7 @@ public class ChatTopicsItemFragment extends Fragment {
 
     private void addMoreContentRefresh(ChatTopicEntity[] data) {
 
+        List<ChatTopicEntity> tmpd = new ArrayList<>();
         if (data.length < pageCount) {
             // items finish
             nomoreData();
@@ -217,17 +241,16 @@ public class ChatTopicsItemFragment extends Fragment {
         // apply refresh
         for (ChatTopicEntity item: data) {
             globalData.add(item);
+            tmpd.add(item);
         }
-        adapter = new ChatTopicRecyclerviewAdapter(globalData, new TriggerLoadMore() {
-            @Override
-            public void loadMore() {
-            }
-        });
-        swp.setLayoutManager(new LinearLayoutManager(getContext()));
-        swp.setIAdapter(adapter);
+
+
+        adapter.append(tmpd);
         swp.setVisibility(View.VISIBLE);
-        adapter.notifyDataSetChanged();
+//        adapter.notifyDataSetChanged();
         L.d("xxx", "view set with "+globalData.size()+" items");
+
+
     }
 
 
@@ -241,15 +264,11 @@ public class ChatTopicsItemFragment extends Fragment {
 
         // 请求服务器获取最新的说说id
         if (globalData != null && globalData.size()>0) {
-            mT("older id == "+((ChatTopicEntity) globalData.get(globalData.size()-1)).id);
+//            mT("older id == "+((ChatTopicEntity) globalData.get(globalData.size()-1)).id);
         } else {
             // 基本还没数据
         }
         String paramz = "";
-        if (globalData!=null && globalData.size() > 0) {
-            ChatTopicEntity lastestItem = (ChatTopicEntity) globalData.get(globalData.size() - 1);
-            paramz+="max="+lastestItem.id+"&";
-        }
         paramz += "num="+pageCount
                 +"&token=" + UtilsFunctions.getToken(context);
         // get the id of the older one.

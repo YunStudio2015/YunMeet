@@ -93,8 +93,9 @@ public class MyApplication extends Application {
 
         DisplayImageOptions options = new DisplayImageOptions.Builder()
 //                .se(R.drawable.qq_mini)
-                .showImageOnFail(me.crosswall.photo.pick.R.drawable.default_error)
+                .showImageOnFail(R.drawable.error_img)
                 .cacheOnDisk(true)
+                .showImageOnLoading(R.drawable.wait_for_load)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .build();
         return options;

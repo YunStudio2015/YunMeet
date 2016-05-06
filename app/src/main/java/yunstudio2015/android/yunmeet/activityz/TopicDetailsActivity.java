@@ -3,7 +3,9 @@ package yunstudio2015.android.yunmeet.activityz;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -12,6 +14,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,8 +25,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.CircleImageView;
+import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
+import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
+import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -37,7 +45,7 @@ public class TopicDetailsActivity extends AppCompatActivity {
     private TextView tvLike;
     private TextView tvComment;
 
-    private RequestQueue queue;
+    private Gson gson;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,42 +55,64 @@ public class TopicDetailsActivity extends AppCompatActivity {
         initViews();
 
         Intent i = getIntent();
-        String topicID = i.getStringExtra("topicID");
+        ChatTopicEntity chattopic = (ChatTopicEntity) i.getSerializableExtra("topic");
 
-        queue = Volley.newRequestQueue(getApplicationContext());
+        updateView(chattopic);
+//        Map<String,String> map = new HashMap<String,String>();
+//        map.put("token", UtilsFunctions.getToken(TopicDetailsActivity.this));
+//        map.put("topic_id ",topicID);
+/*
+        String params = "";
+        params+="token="+UtilsFunctions.getToken(this);
+        params+="&topic_id"+topicID;
 
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("token", UtilsFunctions.getToken(TopicDetailsActivity.this));
-        map.put("topic_id ",topicID);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_TOPIC, new JSONObject(map), new Response.Listener<JSONObject>() {
+        VolleyRequest.GetStringRequest(this, YunApi.URL_GET_TOPIC, params, new VolleyOnResultListener() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onSuccess(String resp) {
+                if(gson == null)
+                    gson = new Gson();
                 try {
-                    if (response.getString("error").equals("0")){
-                        JSONArray array = response.getJSONArray("data");
-                        tvTopic.setText(array.getJSONObject(0).getString("content"));
-                        tvUserName.setText(array.getJSONObject(0).getString("nickname"));
-                        tvTime.setText(array.getJSONObject(0).getString("pubtime"));
-                        String s = array.getJSONObject(0).getString("for_num") + "赞";
-                        tvLike.setText(s);
-                        s = array.getJSONObject(0).getString("comment_num") + "评论";
-                        tvComment.setText(s);
-
-                        Glide.with(TopicDetailsActivity.this).load(array.getJSONObject(0).getString("face")).centerCrop().into(circleImageView);
-                    }
-                } catch (JSONException e) {
+                    L.d(resp);
+                    resp = resp.replace("t_800", "t_256");
+                    JsonElement response = gson.fromJson(resp, JsonElement.class);
+                    ChatTopicEntity[] data = gson.fromJson(response.getAsJsonObject().get("data").getAsJsonArray(),
+                            ChatTopicEntity[].class);
+                    updateView(data[0]);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onFailure(String error) {
 
             }
-        });
+        });*/
+    }
 
-        queue.add(request);
+    // inflate the view
+    private void updateView(ChatTopicEntity chatTopicEntity) {
 
+        // get in this activity with all the informations necessary
+
+        //
+
+        tvTopic.setText(chatTopicEntity.content);
+        tvUserName.setText(chatTopicEntity.nickname);
+        tvTime.setText(chatTopicEntity.pubtime);
+        String s = chatTopicEntity.for_num + "赞";
+        tvLike.setText(s);
+        s = chatTopicEntity.comment_num + "评论";
+        tvComment.setText(s);
+        Glide.with(TopicDetailsActivity.this)
+                .load(chatTopicEntity.face)
+                .centerCrop()
+                .into(circleImageView);
+    }
+
+
+    public void mT(String mess) {
+        Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
     }
 
     private void initViews() {

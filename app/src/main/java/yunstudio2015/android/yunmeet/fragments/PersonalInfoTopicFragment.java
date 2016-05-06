@@ -17,6 +17,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,8 +33,13 @@ import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.activityz.TopicDetailsActivity;
 import yunstudio2015.android.yunmeet.adapterz.SimpleActivityAdapter;
 import yunstudio2015.android.yunmeet.adapterz.SimpleTopicAdapter;
+import yunstudio2015.android.yunmeet.commonLogs.L;
+import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
+import yunstudio2015.android.yunmeet.entityz.LiteChatTopicEntity;
 import yunstudio2015.android.yunmeet.entityz.SimpleTopicItem;
+import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
+import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -43,13 +50,12 @@ public class PersonalInfoTopicFragment extends Fragment {
     private TextView tvTip;
     private RecyclerView recyclerViewTopics;
 
-    private List<SimpleTopicItem> list = new ArrayList<SimpleTopicItem>();
+    private LiteChatTopicEntity[] list;
 
     private SimpleTopicAdapter adapter;
 
-    private RequestQueue queue;
-
     private String id;
+    private LiteChatTopicEntity[] data;
 
     public void setId(String id) {
         this.id = id;
@@ -58,7 +64,6 @@ public class PersonalInfoTopicFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        queue = Volley.newRequestQueue(getActivity().getApplicationContext());
     }
 
     @Override
@@ -69,56 +74,72 @@ public class PersonalInfoTopicFragment extends Fragment {
         recyclerViewTopics = (RecyclerView) viewTopic.findViewById(R.id.recyclerview_simple_topics);
         recyclerViewTopics.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new SimpleTopicAdapter(getActivity(),list);
+        list = new LiteChatTopicEntity[]{};
 
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(getActivity()));
         map.put("id",id);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_USER_TOPIC_LIST, new JSONObject(map), new Response.Listener<JSONObject>() {
+        loadData(map); // 获取数据
+        return viewTopic;
+    }
+
+    private void loadData(Map<String, String> map) {
+        VolleyRequest.PostStringRequest(getActivity(), YunApi.URL_GET_USER_TOPIC_LIST, map, new VolleyOnResultListener() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onSuccess(String resp) {
+                Gson gson = new Gson();
+                JsonElement response = null;
+                L.d(resp);
                 try {
-                    if (response.getString("error").equals("0")){
-                        JSONArray array = response.getJSONArray("data");
-                        for (int i = 0; i < array.length(); i++) {
-                            SimpleTopicItem item = new SimpleTopicItem(
-                                    array.getJSONObject(i).getString("image"),
-                                    array.getJSONObject(i).getString("id"),
-                                    array.getJSONObject(i).getString("content"),
-                                    array.getJSONObject(i).getString("pubtime"));
-                            list.add(item);
-                        }
+                    resp = resp.replace("t_800", "t_256");
+                    response = gson.fromJson(resp, JsonElement.class);
+                    if (response.getAsJsonObject().get("error").getAsInt() == 0) {
 
+                        data = gson.fromJson(response.getAsJsonObject().get("data").getAsJsonArray(),
+                                LiteChatTopicEntity[].class);
                         tvTip.setVisibility(View.GONE);
-                        recyclerViewTopics.setAdapter(adapter);
-                        adapter.setOnClickListener(new SimpleActivityAdapter.OnRecyclerViewItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                Intent intent = new Intent(getActivity(), TopicDetailsActivity.class);
-                                intent.putExtra("topicID",list.get(position).getId());
-                                startActivity(intent);
-                            }
-                        });
-
+                        updateView (data);
                     } else {
                         recyclerViewTopics.setVisibility(View.GONE);
                         tvTip.setVisibility(View.VISIBLE);
-                        Toast.makeText(getActivity(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                        mT(response.getAsJsonObject().get("message").getAsString());
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
+                    recyclerViewTopics.setVisibility(View.GONE);
+                    tvTip.setVisibility(View.VISIBLE);
+                    mT(response.getAsJsonObject().get("message").getAsString());
                 }
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(),error.toString(),Toast.LENGTH_SHORT).show();
+            public void onFailure(String error) {
+                Toast.makeText(getActivity(), "异常 : "+error.toString(),Toast.LENGTH_SHORT).show();
             }
         });
-
-        queue.add(request);
-
-        return viewTopic;
     }
+
+    private void updateView(final LiteChatTopicEntity[] data) {
+        if (adapter == null) {
+            adapter = new SimpleTopicAdapter(getActivity(), data);
+            recyclerViewTopics.setAdapter(adapter);
+        }   else
+            adapter.append(data);
+        adapter.setOnClickListener(new SimpleActivityAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(getActivity(), TopicDetailsActivity.class);
+                intent.putExtra("topic", data[position]);
+                startActivity(intent);
+            }
+        });
+        mT("updating ui for personal info topic fragment");
+    }
+
+    public void mT (String mess) {
+
+        Toast.makeText(getActivity(), mess, Toast.LENGTH_SHORT).show();
+    }
+
 
 }

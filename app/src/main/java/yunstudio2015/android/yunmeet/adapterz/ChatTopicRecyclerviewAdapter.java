@@ -65,6 +65,18 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
     }
 
 
+    public void append(List<ChatTopicEntity> images) {
+        int positionStart = data.size();
+        int itemCount = images.size();
+        data.addAll(images);
+        if (positionStart > 0 && itemCount > 0) {
+            notifyItemRangeInserted(positionStart, itemCount);
+        } else {
+            notifyDataSetChanged();
+        }
+    }
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
