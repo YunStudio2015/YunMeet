@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -248,6 +247,7 @@ public class PersonInfoActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(PersonInfoActivity.this,SetNickNameActivity.class);
+                i.putExtra("crop_face",false);
                 startActivity(i);
             }
         });

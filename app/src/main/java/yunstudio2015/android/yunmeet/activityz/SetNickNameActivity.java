@@ -1,8 +1,6 @@
 package yunstudio2015.android.yunmeet.activityz;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 public class SetNickNameActivity extends AppCompatActivity {
@@ -41,13 +41,12 @@ public class SetNickNameActivity extends AppCompatActivity {
     private int selected = 0;//默认为选中男
     private String name = null;
 
-    private SharedPreferences sharedPreferences;
-
-    private ProgressDialog progressDialog;
+    private LoadingDialog dialog;
 
     private RequestQueue queue;
 
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_nick_name);
 
@@ -57,11 +56,7 @@ public class SetNickNameActivity extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
-        sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle(getString(R.string.tip));
-        progressDialog.setMessage(getString(R.string.uploading));
+        dialog = new LoadingDialog(SetNickNameActivity.this);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,31 +98,16 @@ public class SetNickNameActivity extends AppCompatActivity {
                     tvNameTip.setText(" ");
 
                     //显示dialog
-                    progressDialog.show();
+                    dialog.show();
 
                     //请求服务器设置昵称，如果请求失败，则不再请求设置性别
                     Map<String,String> map = new HashMap<String, String>();
-                    map.put("token", sharedPreferences.getString("token", null));
+                    map.put("token", UtilsFunctions.getToken(SetNickNameActivity.this));
                     map.put("nickname", name);
-
-                    final Map<String, String> map_sex = new HashMap<String, String>();
 
                     JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_SET_NICK_NAME, new JSONObject(map), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-
-                            try {
-                                if (response.getString("error").equals("0")){
-
-                                    //向服务器发起设置性别的请求
-                                    map_sex.put("token", sharedPreferences.getString("token", null));
-                                    map_sex.put("sex", String.valueOf(selected));
-
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(SetNickNameActivity.this,R.string.wrong_process,Toast.LENGTH_SHORT).show();
-                            }
 
                         }
                     }, new Response.ErrorListener() {
@@ -140,45 +120,68 @@ public class SetNickNameActivity extends AppCompatActivity {
 
                     queue.add(request);
 
-                    if ( !map_sex.isEmpty()){
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, YunApi.URL_SET_SEX, new JSONObject(map_sex), new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
+                    //向服务器发起设置性别的请求
+                    Map<String, String> map_sex = new HashMap<String, String>();
+                    map_sex.put("token",UtilsFunctions.getToken(SetNickNameActivity.this));
+                    map_sex.put("sex", String.valueOf(selected));
 
-                                try {
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, YunApi.URL_SET_SEX, new JSONObject(map_sex), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
 
-                                    if (response.getString("error").equals("0")){
+                            dialog.dismiss();
+
+                            try {
+
+                                if (response.getString("error").equals("0")){
+
+                                    Intent i = getIntent();
+
+                                    /**
+                                     * 是否要启动设置头像，参数 crop_face 代表是否从个人主页进入这个activity
+                                     * false即从个人主页进入，不需要启动设置头像
+                                     * true 只在首次登录时需要启动
+                                     */
+                                    if ( !i.getBooleanExtra("crop_face",false)){
+
+                                        finish();
+
+                                    } else {
+
                                         Intent intent = new Intent(SetNickNameActivity.this, SetFaceActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                         startActivity(intent);
 
                                         finish();
                                     }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                    Toast.makeText(SetNickNameActivity.this, R.string.wrong_process,Toast.LENGTH_SHORT).show();
+
                                 }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(SetNickNameActivity.this, R.string.wrong_process,Toast.LENGTH_SHORT).show();
                             }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
 
-                                Toast.makeText(SetNickNameActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        {
-                            @Override
-                            public Map<String, String> getHeaders() throws AuthFailureError {
-                                HashMap<String,String> headers = new HashMap<String, String>();
-                                headers.put("Accept","appliction/json");
-                                headers.put("Content-Type","appliction/json,charset=UTF-8");
-                                return headers;
-                            }
-                        };
+                            dialog.cancel();
+                            dialog.dismiss();
 
-                        queue.add(jsonObjectRequest);
-                    }
+                            Toast.makeText(SetNickNameActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    {
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            HashMap<String,String> headers = new HashMap<String, String>();
+                            headers.put("Accept","application/json");
+                            headers.put("Content-Type","application/json,charset=UTF-8");
+                            return headers;
+                        }
+                    };
 
+                    queue.add(jsonObjectRequest);
 
                 }
             }
@@ -212,8 +215,8 @@ public class SetNickNameActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
 
-        if (progressDialog.isShowing())
-            progressDialog.dismiss();
+        if (dialog.isShowing())
+            dialog.dismiss();
         super.onDestroy();
     }
 }

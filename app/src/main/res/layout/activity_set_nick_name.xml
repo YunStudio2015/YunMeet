@@ -41,6 +41,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_width="45dp"
                 android:layout_height="30dp"
+                android:layout_marginRight="16dp"
                 android:id="@+id/btn_next_step"
                 android:background="@color/btn_background"
                 android:text="@string/next_step"
