@@ -26,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
                 UtilsFunctions.setID(SettingsActivity.this,null);
                 UtilsFunctions.setToken(SettingsActivity.this,"-1");
 
+                // @TODO 向服务器发送请求，注销token
                 Intent i = new Intent(SettingsActivity.this,LoginActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);

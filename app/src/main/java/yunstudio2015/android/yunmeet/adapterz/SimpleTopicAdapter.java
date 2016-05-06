@@ -22,7 +22,7 @@ import java.util.List;
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
-import yunstudio2015.android.yunmeet.entityz.LiteChatTopicEntity;
+import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
 import yunstudio2015.android.yunmeet.entityz.SimpleTopicItem;
 
 /**
@@ -32,16 +32,16 @@ public class SimpleTopicAdapter extends RecyclerView.Adapter<SimpleTopicAdapter.
 
     private final LayoutInflater inflater;
     private final Context context;
-    private   List<LiteChatTopicEntity> data;
+    private   List<ChatTopicEntity> data;
 
     private SimpleActivityAdapter.OnRecyclerViewItemClickListener mListener;
 
-    public SimpleTopicAdapter(Context context,LiteChatTopicEntity[]  list){
+    public SimpleTopicAdapter(Context context,ChatTopicEntity[]  list){
 
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         data = new ArrayList<>();
-        for (LiteChatTopicEntity dt:  list) {
+        for (ChatTopicEntity dt:  list) {
             data.add(dt);
         }
     }
@@ -56,13 +56,13 @@ public class SimpleTopicAdapter extends RecyclerView.Adapter<SimpleTopicAdapter.
 
     @Override
     public void onBindViewHolder(SimpleTopicViewHolder holder, int position) {
-        LiteChatTopicEntity item = data.get(position);
+        ChatTopicEntity item = data.get(position);
         holder.tvPubtime.setText(item.pubtime);
         holder.tvContent.setText(item.content);
 //        L.d("img is "+item.getLogoUrl());
-        if (item.image != null) {
+        if (item.image != null && item.image.length >0) {
             try {
-                Glide.with(context).load(item.image.url).error(R.drawable.error_img).centerCrop().into(holder.ivLogo);
+                Glide.with(context).load(item.image[0].url).error(R.drawable.error_img).centerCrop().into(holder.ivLogo);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -82,10 +82,10 @@ public class SimpleTopicAdapter extends RecyclerView.Adapter<SimpleTopicAdapter.
         this.mListener = listener;
     }
 
-    public void append(LiteChatTopicEntity[] dd) {
+    public void append(ChatTopicEntity[] dd) {
         if (data == null)
             data = new ArrayList<>();
-        for (LiteChatTopicEntity dt:
+        for (ChatTopicEntity dt:
                 dd) {
             data.add(dt);
         }

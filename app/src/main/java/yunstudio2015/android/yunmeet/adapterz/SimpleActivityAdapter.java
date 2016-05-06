@@ -2,6 +2,7 @@ package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,12 +51,17 @@ public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAd
         holder.tvDetail.setText(item.getDetail());
         holder.tvTheme.setText(item.getTheme());
         try {
-            Glide.with(context).load(new JSONObject(item.getImage()).getString("url")).error(R.drawable.error_img).centerCrop().into(holder.ivImage);
+            if (item.getImage() != null){
+                Glide.with(context).load(new JSONObject(item.getImage()).getString("url")).error(R.drawable.error_img).centerCrop().into(holder.ivImage);
+            } else {
+                holder.ivImage.setImageResource(R.drawable.error_img);
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        setAnimation(holder.layoutItem,position);
+        //setAnimation(holder.layoutItem,position);
     }
 
     @Override

@@ -17,6 +17,7 @@
         android:layout_height="match_parent"
         android:id="@+id/recyclerview_simple_topics"
         android:layout_marginBottom="@dimen/person_info_chat_button_size"
+        android:clipToPadding="false"
         >
     </android.support.v7.widget.RecyclerView>
 

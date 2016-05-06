@@ -50,12 +50,12 @@ public class PersonalInfoTopicFragment extends Fragment {
     private TextView tvTip;
     private RecyclerView recyclerViewTopics;
 
-    private LiteChatTopicEntity[] list;
+    private ChatTopicEntity[] list;
 
     private SimpleTopicAdapter adapter;
 
     private String id;
-    private LiteChatTopicEntity[] data;
+    private ChatTopicEntity[] data;
 
     public void setId(String id) {
         this.id = id;
@@ -74,17 +74,18 @@ public class PersonalInfoTopicFragment extends Fragment {
         recyclerViewTopics = (RecyclerView) viewTopic.findViewById(R.id.recyclerview_simple_topics);
         recyclerViewTopics.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        list = new LiteChatTopicEntity[]{};
+        list = new ChatTopicEntity[]{};
 
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(getActivity()));
-        map.put("id",id);
+//        map.put("id",id);
+        map.put("num", ""+1000);
         loadData(map); // 获取数据
         return viewTopic;
     }
 
     private void loadData(Map<String, String> map) {
-        VolleyRequest.PostStringRequest(getActivity(), YunApi.URL_GET_USER_TOPIC_LIST, map, new VolleyOnResultListener() {
+        VolleyRequest.PostStringRequest(getActivity(), YunApi.URL_GET_ALL_TOPIC_LIST, map, new VolleyOnResultListener() {
             @Override
             public void onSuccess(String resp) {
                 Gson gson = new Gson();
@@ -96,7 +97,7 @@ public class PersonalInfoTopicFragment extends Fragment {
                     if (response.getAsJsonObject().get("error").getAsInt() == 0) {
 
                         data = gson.fromJson(response.getAsJsonObject().get("data").getAsJsonArray(),
-                                LiteChatTopicEntity[].class);
+                                ChatTopicEntity[].class);
                         tvTip.setVisibility(View.GONE);
                         updateView (data);
                     } else {
@@ -108,18 +109,18 @@ public class PersonalInfoTopicFragment extends Fragment {
                     e.printStackTrace();
                     recyclerViewTopics.setVisibility(View.GONE);
                     tvTip.setVisibility(View.VISIBLE);
-                    mT(response.getAsJsonObject().get("message").getAsString());
+                    mT("异常");
                 }
             }
 
             @Override
             public void onFailure(String error) {
-                Toast.makeText(getActivity(), "异常 : "+error.toString(),Toast.LENGTH_SHORT).show();
+                mT("异常");
             }
         });
     }
 
-    private void updateView(final LiteChatTopicEntity[] data) {
+    private void updateView(final ChatTopicEntity[] data) {
         if (adapter == null) {
             adapter = new SimpleTopicAdapter(getActivity(), data);
             recyclerViewTopics.setAdapter(adapter);
