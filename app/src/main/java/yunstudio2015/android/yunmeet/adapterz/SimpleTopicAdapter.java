@@ -57,7 +57,7 @@ public class SimpleTopicAdapter extends RecyclerView.Adapter<SimpleTopicAdapter.
             e.printStackTrace();
         }
 
-        setAnimation(holder.layoutItem,position);
+        //setAnimation(holder.layoutItem,position);
     }
 
 

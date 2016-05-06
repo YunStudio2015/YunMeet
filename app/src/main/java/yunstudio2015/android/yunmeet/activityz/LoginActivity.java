@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.datetimepicker.Utils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -44,6 +45,7 @@ import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
 import yunstudio2015.android.yunmeet.utilz.User;
 import yunstudio2015.android.yunmeet.utilz.UsersAPI;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.WeiboAccessKeeper;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
@@ -561,12 +563,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 Toast.makeText(LoginActivity.this,data.getString("token"),Toast.LENGTH_SHORT).show();
 
-                L.d(data.getString("token"));
-                L.d(data.getString("id"));
                 //保存token到sharedpreferences中
-                editor.putString("token",data.getString("token"));
-                editor.putString("id",data.getString("id"));
-                editor.apply();
+                UtilsFunctions.setToken(LoginActivity.this,data.getString("token"));
+                UtilsFunctions.setID(LoginActivity.this,data.getString("id"));
 
                 Intent i = new Intent(LoginActivity.this,HallActivity.class);
                 startActivity(i);

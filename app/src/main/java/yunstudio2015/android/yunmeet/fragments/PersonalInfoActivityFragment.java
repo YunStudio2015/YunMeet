@@ -75,6 +75,10 @@ public class PersonalInfoActivityFragment extends Fragment {
         recyclerViewActivities = (RecyclerView) viewActivity.findViewById(R.id.recyclerview_simple_activities);
         recyclerViewActivities.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        if ( !list.isEmpty()){
+            list.clear();
+        }
+
         adapter = new SimpleActivityAdapter(getContext(),list);
 
         Map<String,String> map = new HashMap<String,String>();

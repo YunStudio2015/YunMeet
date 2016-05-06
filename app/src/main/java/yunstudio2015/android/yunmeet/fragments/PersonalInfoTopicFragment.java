@@ -69,6 +69,9 @@ public class PersonalInfoTopicFragment extends Fragment {
         recyclerViewTopics = (RecyclerView) viewTopic.findViewById(R.id.recyclerview_simple_topics);
         recyclerViewTopics.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        if (!list.isEmpty()){
+            list.clear();
+        }
         adapter = new SimpleTopicAdapter(getActivity(),list);
 
         Map<String,String> map = new HashMap<String,String>();

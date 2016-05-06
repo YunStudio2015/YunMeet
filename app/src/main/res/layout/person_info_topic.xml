@@ -16,7 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:id="@+id/recyclerview_simple_topics"
-        >
+        android:clipToPadding="false">
+
     </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

@@ -135,25 +135,16 @@ public class SetNickNameActivity extends AppCompatActivity {
 
                                 if (response.getString("error").equals("0")){
 
-                                    Intent i = getIntent();
-
                                     /**
                                      * 是否要启动设置头像，参数 crop_face 代表是否从个人主页进入这个activity
                                      * false即从个人主页进入，不需要启动设置头像
                                      * true 只在首次登录时需要启动
                                      */
-                                    if ( !i.getBooleanExtra("crop_face",false)){
+                                    Intent intent = new Intent(SetNickNameActivity.this, SetFaceActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                    startActivity(intent);
 
-                                        finish();
-
-                                    } else {
-
-                                        Intent intent = new Intent(SetNickNameActivity.this, SetFaceActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                        startActivity(intent);
-
-                                        finish();
-                                    }
+                                    finish();
 
                                 }
                             } catch (JSONException e) {

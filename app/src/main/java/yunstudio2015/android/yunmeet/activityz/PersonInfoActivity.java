@@ -59,7 +59,6 @@ public class PersonInfoActivity extends AppCompatActivity{
     //都是toolbar上的控件
     private ImageView ivBack;
     private TextView tvTitle;
-    private Button btnNextStep;
 
     private RequestQueue queue;
 
@@ -169,13 +168,6 @@ public class PersonInfoActivity extends AppCompatActivity{
             }
         });
 
-        btnNextStep.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(PersonInfoActivity.this,"next",Toast.LENGTH_SHORT).show();
-            }
-        });
-
         btnTopic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -270,7 +262,7 @@ public class PersonInfoActivity extends AppCompatActivity{
 
         ivBack = (ImageView) findViewById(R.id.iv_back);
         tvTitle = (TextView) findViewById(R.id.toolbar_txt);
-        btnNextStep = (Button) findViewById(R.id.btn_next_step);
+
 
     }
 

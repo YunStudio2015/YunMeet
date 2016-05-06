@@ -52,6 +52,7 @@ import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.customviewz.LoadingDialog;
 import yunstudio2015.android.yunmeet.utilz.User;
 import yunstudio2015.android.yunmeet.utilz.UsersAPI;
+import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 import yunstudio2015.android.yunmeet.utilz.WeiboAccessKeeper;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
@@ -97,9 +98,6 @@ public class SignupActivity extends AppCompatActivity {
     /** 注意：SsoHandler 仅当 SDK 支持 SSO 时有效 */
     private SsoHandler ssoHandler;
 
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
-
     private RequestQueue queue;
 
     /**
@@ -117,10 +115,6 @@ public class SignupActivity extends AppCompatActivity {
         initViews();
 
         queue = Volley.newRequestQueue(getApplicationContext());
-
-        //初始化sharedPreferences
-        sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-        editor = sharedPreferences.edit();
 
         initTencentData();
         initWeiboData();
@@ -290,8 +284,9 @@ public class SignupActivity extends AppCompatActivity {
                                                     JSONObject token = new JSONObject(response.getString("data"));
 
                                                     //保存到sharedpreferences中
-                                                    editor.putString("token", token.getString("token"));
-                                                    editor.apply();
+                                                    // @TODO 希望能够在调用注册接口是返回ID
+                                                    UtilsFunctions.setToken(SignupActivity.this,token.getString("token"));
+
                                                     Toast.makeText(SignupActivity.this, token.getString("token"), Toast.LENGTH_SHORT).show();
 
                                                     Intent intent = new Intent(SignupActivity.this, SetNickNameActivity.class);
@@ -764,13 +759,13 @@ public class SignupActivity extends AppCompatActivity {
                 Toast.makeText(SignupActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
 
                 //解析原jsonobject中嵌套的jsonobject
-                JSONObject token = new JSONObject(response.getString("data"));
+                JSONObject res = new JSONObject(response.getString("data"));
 
-                Toast.makeText(SignupActivity.this,token.getString("token"),Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignupActivity.this,res.getString("token"),Toast.LENGTH_SHORT).show();
 
                 //保存token到sharedpreferences中
-                editor.putString("token",token.toString());
-                editor.apply();
+                UtilsFunctions.setToken(SignupActivity.this,res.getString("token"));
+                UtilsFunctions.setID(SignupActivity.this,res.getString("id"));
 
                 Intent i = new Intent(SignupActivity.this,HallActivity.class);
                 startActivity(i);
