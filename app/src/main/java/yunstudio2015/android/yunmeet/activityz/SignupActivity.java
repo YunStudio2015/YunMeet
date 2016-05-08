@@ -1,13 +1,8 @@
 package yunstudio2015.android.yunmeet.activityz;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -284,8 +278,8 @@ public class SignupActivity extends AppCompatActivity {
                                                     JSONObject token = new JSONObject(response.getString("data"));
 
                                                     //保存到sharedpreferences中
-                                                    // @TODO 希望能够在调用注册接口是返回ID
                                                     UtilsFunctions.setToken(SignupActivity.this,token.getString("token"));
+                                                    UtilsFunctions.setID(SignupActivity.this,token.getString("id"));
 
                                                     Toast.makeText(SignupActivity.this, token.getString("token"), Toast.LENGTH_SHORT).show();
 
@@ -758,7 +752,7 @@ public class SignupActivity extends AppCompatActivity {
                 //这里写activity的跳转
                 Toast.makeText(SignupActivity.this,R.string.login_success,Toast.LENGTH_SHORT).show();
 
-                //解析原jsonobject中嵌套的jsonobject
+                //解析原json object中嵌套的json object
                 JSONObject res = new JSONObject(response.getString("data"));
 
                 Toast.makeText(SignupActivity.this,res.getString("token"),Toast.LENGTH_SHORT).show();
