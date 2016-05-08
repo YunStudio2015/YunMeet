@@ -16,9 +16,13 @@ import com.bumptech.glide.Glide;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.commonLogs.L;
+import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
+import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
 import yunstudio2015.android.yunmeet.entityz.SimpleTopicItem;
 
 /**
@@ -28,17 +32,21 @@ public class SimpleTopicAdapter extends RecyclerView.Adapter<SimpleTopicAdapter.
 
     private final LayoutInflater inflater;
     private final Context context;
-    private final List<SimpleTopicItem> data;
+    private   List<ChatTopicEntity> data;
 
     private SimpleActivityAdapter.OnRecyclerViewItemClickListener mListener;
 
-    public SimpleTopicAdapter(Context context,List<SimpleTopicItem> list){
+    public SimpleTopicAdapter(Context context,ChatTopicEntity[]  list){
 
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-        this.data = list;
-
+        data = new ArrayList<>();
+        for (ChatTopicEntity dt:  list) {
+            data.add(dt);
+        }
     }
+
+
     @Override
     public SimpleTopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.simple_topic_item,parent,false);
@@ -48,16 +56,20 @@ public class SimpleTopicAdapter extends RecyclerView.Adapter<SimpleTopicAdapter.
 
     @Override
     public void onBindViewHolder(SimpleTopicViewHolder holder, int position) {
-        SimpleTopicItem item = data.get(position);
-        holder.tvPubtime.setText(item.getPubtime());
-        holder.tvContent.setText(item.getContent());
-        try {
-            Glide.with(context).load(new JSONObject(item.getLogoUrl()).getString("url")).error(R.drawable.error_img).centerCrop().into(holder.ivLogo);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        ChatTopicEntity item = data.get(position);
+        holder.tvPubtime.setText(item.pubtime);
+        holder.tvContent.setText(item.content);
+//        L.d("img is "+item.getLogoUrl());
+        if (item.image != null && item.image.length >0) {
+            try {
+                Glide.with(context).load(item.image[0].url).error(R.drawable.error_img).centerCrop().into(holder.ivLogo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            holder.ivLogo.setVisibility(View.GONE);
         }
-
-        //setAnimation(holder.layoutItem,position);
+        setAnimation(holder.layoutItem,position);
     }
 
 
@@ -68,6 +80,16 @@ public class SimpleTopicAdapter extends RecyclerView.Adapter<SimpleTopicAdapter.
 
     public void setOnClickListener(SimpleActivityAdapter.OnRecyclerViewItemClickListener listener){
         this.mListener = listener;
+    }
+
+    public void append(ChatTopicEntity[] dd) {
+        if (data == null)
+            data = new ArrayList<>();
+        for (ChatTopicEntity dt:
+                dd) {
+            data.add(dt);
+        }
+        notifyDataSetChanged();
     }
 
     public static class SimpleTopicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

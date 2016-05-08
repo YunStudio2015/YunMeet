@@ -125,6 +125,8 @@
                         </LinearLayout>
 
                         <LinearLayout
+                        android:layout_below="@+id/lny_namesex"
+                            android:layout_marginTop="5dp"
                             android:paddingBottom="10dp"
                             android:layout_alignBaseline="@+id/lny_namesex"
                             android:gravity="center_vertical"

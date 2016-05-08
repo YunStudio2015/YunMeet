@@ -7,6 +7,11 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -33,17 +38,20 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.fragments.PersonalInfoActivityFragment;
 import yunstudio2015.android.yunmeet.fragments.PersonalInfoTopicFragment;
+import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
+import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
  * Created by lizhaotailang on 2016/2/26.
  */
-public class PersonInfoActivity extends AppCompatActivity{
+public class PersonInfoActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private Button btnTopic;
@@ -60,12 +68,13 @@ public class PersonInfoActivity extends AppCompatActivity{
     private ImageView ivBack;
     private TextView tvTitle;
 
-    private RequestQueue queue;
 
     private String id = null;
 
-    PersonalInfoActivityFragment fragmentActivity = new PersonalInfoActivityFragment();
-    PersonalInfoTopicFragment fragmentTopic = new PersonalInfoTopicFragment();
+   /* PersonalInfoActivityFragment fragmentActivity;
+    PersonalInfoTopicFragment fragmentTopic;*/
+
+    Map<String, Fragment> frg_store;
 
     private int position = 0;
 
@@ -78,7 +87,8 @@ public class PersonInfoActivity extends AppCompatActivity{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initViews();
 
-        queue = Volley.newRequestQueue(getApplicationContext());
+        if (frg_store == null)
+            frg_store = new HashMap<>();
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -86,81 +96,12 @@ public class PersonInfoActivity extends AppCompatActivity{
         this.setSupportActionBar(toolbar);
         this.setTranslucentStatusColor(this, R.color.actionbar_color);
 
-        changeFragment(0);
+        changeFragment(position);
 
         Map<String,String> map = new HashMap<String,String>();
         map.put("token",UtilsFunctions.getToken(PersonInfoActivity.this) );
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_FOCUS_COUNT, new JSONObject(map), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    if (response.getString("error").equals("0")){
-                        tvFansAmount.setText(response.getJSONObject("data").getString("focused"));
-                        tvFocusAmount.setText(response.getJSONObject("data").getString("focus"));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "application/json");
-                headers.put("Content-Type", "application/json; charset=UTF-8");
-                return headers;
-            }
-        };
-
-        queue.add(req);
-
-        Map<String,String> map1 = new HashMap<String,String>();
-        map1.put("token", UtilsFunctions.getToken(PersonInfoActivity.this));
-        map1.put("id",id);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_INFO, new JSONObject(map1), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    if (response.getString("error").equals("0")){
-                        tvName.setText(response.getJSONObject("data").getString("nickname"));
-                        tvTitle.setText(response.getJSONObject("data").getString("nickname"));
-                        Glide.with(PersonInfoActivity.this).load(response.getJSONObject("data").getString("face")).into(ivFace);
-                        if (response.getJSONObject("data").getString("sex").equals("0")){
-                            tvSex.setText(getString(R.string.male_symbol));
-                        } else {
-                            tvSex.setText(getString(R.string.female_symbol));
-                        }
-                        Glide.with(PersonInfoActivity.this).load(response.getJSONObject("data").getString("background")).into(ivBg);
-
-                    } else {
-                        Toast.makeText(PersonInfoActivity.this,response.getString("message"),Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(PersonInfoActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "application/json");
-                headers.put("Content-Type", "application/json; charset=UTF-8");
-                return headers;
-            }
-        };
-
-        queue.add(request);
-
+        retrieveDataRequest ();
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,7 +141,6 @@ public class PersonInfoActivity extends AppCompatActivity{
                 position = 0;
             }
         });
-
 
         if (id.equals(UtilsFunctions.getID(PersonInfoActivity.this))){
             btnAddFocus.setVisibility(View.GONE);
@@ -243,7 +183,67 @@ public class PersonInfoActivity extends AppCompatActivity{
                 startActivity(i);
             }
         });
+    }
 
+    private void retrieveDataRequest() {
+
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("token",UtilsFunctions.getToken(PersonInfoActivity.this) );
+
+//         获取用户的粉丝和关注的人的数量
+        VolleyRequest.PostStringRequest(this, YunApi.URL_GET_FOCUS_COUNT, map, new VolleyOnResultListener(){
+
+            @Override
+            public void onSuccess(String resp) {
+                try {
+                    JSONObject response = new JSONObject(resp);
+                    if (response.getString("error").equals("0")){
+                        tvFansAmount.setText(response.getJSONObject("data").getString("focused"));
+                        tvFocusAmount.setText(response.getJSONObject("data").getString("focus"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                Toast.makeText(PersonInfoActivity.this, error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        Map<String,String> map1 = new HashMap<String,String>();
+        map1.put("token", UtilsFunctions.getToken(PersonInfoActivity.this));
+        map1.put("id",id);
+        VolleyRequest.PostStringRequest(this, YunApi.URL_GET_INFO, map1, new VolleyOnResultListener() {
+            @Override
+            public void onSuccess(String resp) {
+                try {
+                    JSONObject response = new JSONObject(resp);
+                    if (response.getString("error").equals("0")){
+                        tvName.setText(response.getJSONObject("data").getString("nickname"));
+                        tvTitle.setText(response.getJSONObject("data").getString("nickname"));
+                        Glide.with(PersonInfoActivity.this).load(response.getJSONObject("data").getString("face")).into(ivFace);
+                        if (response.getJSONObject("data").getString("sex").equals("0")){
+                            tvSex.setText(getString(R.string.male_symbol));
+                        } else {
+                            tvSex.setText(getString(R.string.female_symbol));
+                        }
+                        Glide.with(PersonInfoActivity.this).load(response.getJSONObject("data").getString("background")).into(ivBg);
+                    } else {
+                        Toast.makeText(PersonInfoActivity.this,response.getString("message"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                Toast.makeText(PersonInfoActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initViews() {
@@ -266,8 +266,45 @@ public class PersonInfoActivity extends AppCompatActivity{
 
     }
 
+
+
+    private void changeFragment(int position){
+
+        FragmentManager trans = getSupportFragmentManager();
+
+        // hide all the available fragments
+        if (frg_store!= null)
+                for (String key:
+                        frg_store.keySet()) {
+                   trans.beginTransaction().hide(frg_store.get(key)).commit();
+                }
+        // 初始化界面底部fragment
+        switch (position) {
+            case 0:
+                if (frg_store.get(""+position) == null) {
+                    frg_store.put(""+position, new PersonalInfoTopicFragment());// 话题
+                    // add
+                   trans.beginTransaction().add(R.id.person_framelayout, frg_store.get(""+position)).commit();;
+                } else {
+                    // show
+                   trans.beginTransaction().show(frg_store.get(""+position)).commit();;
+                }
+                break;
+            case 1:
+                if (frg_store.get(""+position) == null) {
+                    frg_store.put(""+position, new PersonalInfoActivityFragment());// 话题
+                    // add
+                   trans.beginTransaction().add(R.id.person_framelayout, frg_store.get(""+position)).commit();;
+                } else {
+                    // show
+                   trans.beginTransaction().show(frg_store.get(""+position)).commit();
+                }
+                break;
+        }
+    }
+
     public static void setTranslucentStatusColor(Activity activity, @ColorRes int color) {
-        if (Build.VERSION.SDK_INT  != Build.VERSION_CODES.KITKAT)
+        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.KITKAT)
             return;
         setTranslucentStatus(activity, true);
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
@@ -286,21 +323,6 @@ public class PersonInfoActivity extends AppCompatActivity{
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
-    }
-
-
-    private void changeFragment(int position){
-        if (position == 0){
-            fragmentTopic.setId(id);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.person_framelayout,fragmentTopic)
-                    .commit();
-        } else {
-            fragmentActivity.setId(id);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.person_framelayout,fragmentActivity)
-                    .commit();
-        }
     }
 
 }

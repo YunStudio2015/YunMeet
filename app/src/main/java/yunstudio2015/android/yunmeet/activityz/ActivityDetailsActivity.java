@@ -1,14 +1,20 @@
 package yunstudio2015.android.yunmeet.activityz;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +34,9 @@ import java.util.Map;
 
 import yunstudio2015.android.yunmeet.R;
 import yunstudio2015.android.yunmeet.customviewz.CircleImageView;
+import yunstudio2015.android.yunmeet.interfacez.VolleyOnResultListener;
 import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
+import yunstudio2015.android.yunmeet.utilz.VolleyRequest;
 import yunstudio2015.android.yunmeet.utilz.YunApi;
 
 /**
@@ -62,6 +71,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(getApplicationContext());
 
         initViews();
+        this.setTranslucentStatusColor(this, R.color.actionbar_color);
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("activityID");
@@ -74,10 +84,13 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(ActivityDetailsActivity.this));
         map.put("id",id);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, YunApi.URL_GET_ACTIVITY, new JSONObject(map), new Response.Listener<JSONObject>() {
+        mT("activity mess is "+id);
+
+        VolleyRequest.PostStringRequest(this, YunApi.URL_GET_ACTIVITY, map, new VolleyOnResultListener() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onSuccess(String resp) {
                 try {
+                    JSONObject response = new JSONObject(resp);
                     if (response.getString("error").equals("0")){
                         JSONArray array = response.getJSONArray("data");
 
@@ -122,14 +135,14 @@ public class ActivityDetailsActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onFailure(String error) {
 
             }
         });
 
-        queue.add(request);
+
     }
 
     private void initViews() {
@@ -155,6 +168,32 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels;
+    }
+
+    public static void setTranslucentStatusColor(Activity activity, @ColorRes int color) {
+        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.KITKAT)
+            return;
+        setTranslucentStatus(activity, true);
+        SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setNavigationBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(color);
+    }
+
+    private static void setTranslucentStatus(Activity activity, boolean on) {
+        Window win = activity.getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+    }
+
+    public void mT(String mess) {
+        Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
     }
 
 }

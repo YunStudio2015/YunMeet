@@ -239,7 +239,7 @@
     <LinearLayout
         android:id="@+id/person_info_chat"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/person_info_chat_button_size"
         android:background="@color/btn_background"
         android:layout_alignParentBottom="true"
         android:gravity="center">

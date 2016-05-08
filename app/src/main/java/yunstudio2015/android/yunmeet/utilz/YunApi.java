@@ -87,5 +87,4 @@ public class YunApi {
 
     public static String URL_GET_ACTIVITY = URL + "Atys/getInfo";
 
-    public static String URL_GET_TOPIC = URL + "Topic/getList";
 }

@@ -172,6 +172,15 @@ public class ActivitiesFragment extends Fragment {
 
 
     private void buildUi(final ActivityDownloadEntity[] data) {
+
+
+        // if data is null
+        if (data == null || data.length == 0) {
+            tv_error_message.setVisibility(View.VISIBLE);
+            progressbar.setVisibility(View.GONE);
+            recyclerViewPager.setVisibility(View.GONE);
+            return;
+        }
         // set adapter to the viewpager
         tv_error_message.setVisibility(View.GONE);
         progressbar.setVisibility(View.GONE);
@@ -525,6 +534,8 @@ public class ActivitiesFragment extends Fragment {
 
         @Override
         public int getItemCount() {
+            if (data == null)
+                return 0;
             return data.length;
         }
 

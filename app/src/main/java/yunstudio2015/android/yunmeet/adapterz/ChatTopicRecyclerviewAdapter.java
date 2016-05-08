@@ -37,7 +37,7 @@ import yunstudio2015.android.yunmeet.utilz.UtilsFunctions;
 /**
  * Created by Ulrich on 3/18/2016.
  */
-public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopicRecyclerviewAdapter.ViewHolder> {
+public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopicRecyclerviewAdapter.ChatTopicViewHolder> {
 
 
     private final TriggerLoadMore lm;
@@ -46,10 +46,10 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
     // view types
     private final int TYPE_LOADER = 111, TYPE_ITEM = 222;
     private Drawable placeholder = null;
-    private LayoutInflater inf;
+    private static LayoutInflater inf;
     private Context ctx  = null;
-    private Gson gson;
-    private int rowCount = 3;
+    private static Gson gson;
+    public static int rowCount = 3;
 
     public ChatTopicRecyclerviewAdapter(List<ChatTopicEntity> data, TriggerLoadMore lm) {
 
@@ -65,8 +65,20 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
     }
 
 
+    public void append(List<ChatTopicEntity> images) {
+        int positionStart = data.size();
+        int itemCount = images.size();
+        data.addAll(images);
+        if (positionStart > 0 && itemCount > 0) {
+            notifyItemRangeInserted(positionStart, itemCount);
+        } else {
+            notifyDataSetChanged();
+        }
+    }
+
+
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChatTopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chattopic_list_item, parent, false);
         return (new ChatTopicViewHolder(view));
@@ -75,7 +87,7 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
 
 
     @Override
-    public void onBindViewHolder(ViewHolder hld, final int position) {
+    public void onBindViewHolder(ChatTopicViewHolder hld, final int position) {
 
         final ChatTopicEntity entity = data.get(position);
         ChatTopicViewHolder holder = (ChatTopicViewHolder) hld;
@@ -160,23 +172,11 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         return data;
     }
 
-    private class LoaderLayoutHolder extends ViewHolder {
 
-        public LoaderLayoutHolder(View view) {
-            super(view);
-        }
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        public ViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    public class ChatTopicViewHolder extends  ViewHolder {
+    public   static class ChatTopicViewHolder extends  RecyclerView.ViewHolder {
 
         @Bind(R.id.lny_model)
-        LinearLayout lny_model;
+        public LinearLayout lny_model;
 
         @Bind(R.id.iv_launcher_pic)
         public ImageView iv_launcher;
@@ -188,13 +188,13 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         public  EmojiconTextView tv_topic;
 
         @Bind(R.id.iv_unique)
-        ImageView iv_unique;
+        public ImageView iv_unique;
 
         @Bind(R.id.grid_recycler_view)
         public RecyclerView grid_recycler_view;
 
         @Bind(R.id.lny_comments)
-        LinearLayout lny_comments;
+        public LinearLayout lny_comments;
 
 
 
@@ -221,7 +221,7 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
     }
 
 
-    public class GridInnerAdapter extends RecyclerView.Adapter {
+    public static class GridInnerAdapter extends RecyclerView.Adapter {
 
         private String[] imgd = null;
 
@@ -242,7 +242,7 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
                 public void onGlobalLayout() {
 
 //                  int w = ctx.getResources().getDisplayMetrics().widthPixels/5;
-                  int w =  ((InnerViewHolder) holder).iv.getWidth();
+                    int w =  ((InnerViewHolder) holder).iv.getWidth();
                     ((InnerViewHolder) holder).iv.setMaxHeight(w);
 //                    ((InnerViewHolder) holder).iv.setMaxWidth(w);
 
@@ -260,7 +260,7 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
                 public void onClick(View v) {
                     Uri uri = Uri.parse(AppConstants.scheme_ui + "://" + AppConstants.authority + "/" +
                             UtilsFunctions.encodedPath(gson.toJson(imgd[position])));
-                    ((ChatTopicsItemFragment.OnFragmentInteractionListener) ctx).onFragmentInteraction(uri, imgd);
+                    ((ChatTopicsItemFragment.OnFragmentInteractionListener) ((InnerViewHolder) holder).iv.getContext()).onFragmentInteraction(uri, imgd);
                 }
             });
         }
@@ -282,7 +282,7 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         }
     }
 
-    public class GridItemDecoration extends RecyclerView.ItemDecoration {
+    public static class GridItemDecoration extends RecyclerView.ItemDecoration {
 
         private final int space;
 
