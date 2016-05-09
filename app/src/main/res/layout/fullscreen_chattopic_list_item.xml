@@ -1,171 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="15dp"
+
     android:id="@+id/lny_model"
-    android:paddingBottom="15dp">
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <yunstudio2015.android.yunmeet.customviewz.CircleImageView
-            android:id="@+id/iv_launcher_pic"
-            android:src="@null"
-            android:layout_marginLeft="10dp"
-            android:layout_width="@dimen/ct_user_ppic_dim"
-            android:layout_height="@dimen/ct_user_ppic_dim"
-            />
-
-        <LinearLayout
-            android:layout_toRightOf="@id/iv_launcher_pic"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical"
-            android:background="@color/transparent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/lny_txtz"
-            android:layout_marginRight="5dp">
-
-            <com.rockerhieu.emojicon.EmojiconTextView
-                android:editable="false"
-                android:textColor="@color/btn_background"
-                android:layout_gravity="top"
-                android:text="@string/test_username"
-                android:id="@+id/tv_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="@dimen/txt_username_size"/>
-
-            <com.rockerhieu.emojicon.EmojiconTextView
-                android:layout_marginTop="10dp"
-                android:text=""
-                android:editable="false"
-                android:id="@+id/tv_topic"
-                android:clickable="true"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/clickable_text_bg"
-                android:textColor="@color/dark_gray"
-                android:textSize="@dimen/topic_desc_txtsize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-        <!--picture division-->
-        <!-- <GridLayout
-             android:id="@+id/grid_layout"
-             android:layout_toRightOf="@id/iv_launcher_pic"
-             android:layout_below="@id/lny_txtz"
-             android:layout_marginLeft="10dp"
-             android:layout_marginTop="5dp"
-             android:layout_width="match_parent"
-             android:background="@color/white"
-             android:layout_height="200dp"
-             android:orientation="horizontal"
-             android:layout_marginRight="20dp"/>-->
-        <RelativeLayout
-            android:id="@+id/lny_picture_content"
-            android:layout_width="wrap_content"
-            android:layout_toRightOf="@id/iv_launcher_pic"
-            android:layout_below="@id/lny_txtz"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:minHeight="0dp"
-            android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/iv_unique"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:background="@color/transparent"
-            android:minHeight="20dp"
-            android:layout_marginRight="20dp"
-            />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/grid_recycler_view"
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginRight="20dp"/>
-        </RelativeLayout>
-        <!--   end of picture division-->
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="2小时前"
-            android:layout_alignParentLeft="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:textColor="@color/inner_grayerzz"
-            />
-
-        <LinearLayout
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                style="@style/topic_like_comment_btstyle"
-                android:text="@string/tvlike"
-                android:drawableLeft="@drawable/like_heart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"/>
-
-            <TextView
-                style="@style/topic_like_comment_btstyle"
-                android:text="@string/tvcoms"
-                android:layout_width="wrap_content"
-                android:drawableLeft="@drawable/ic_like_comment"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/pro"
-        android:visibility="gone"
-        android:background="@color/transparent"
-        android:layout_width="match_parent"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_height="wrap_content">
-
-        <ProgressBar
-            android:layout_marginTop="10dp"
-            android:id="@+id/prog"
-            android:layout_centerHorizontal="true"
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
-        <TextView
-            android:layout_below="@+id/prog"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="正在更新"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </RelativeLayout>
+    >
 
     <LinearLayout
-        android:id="@+id/lny_comments"
-        android:orientation="vertical"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</LinearLayout>
+            <yunstudio2015.android.yunmeet.customviewz.CircleImageView
+                android:id="@+id/iv_launcher_pic"
+                android:src="@null"
+                android:layout_marginLeft="10dp"
+                android:layout_width="@dimen/ct_user_ppic_dim"
+                android:layout_height="@dimen/ct_user_ppic_dim"
+                />
+
+            <LinearLayout
+                android:layout_toRightOf="@id/iv_launcher_pic"
+                android:layout_alignParentTop="true"
+                android:orientation="vertical"
+                android:background="@color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/lny_txtz"
+                android:layout_marginRight="5dp">
+
+                <com.rockerhieu.emojicon.EmojiconTextView
+                    android:editable="false"
+                    android:textColor="@color/btn_background"
+                    android:layout_gravity="top"
+                    android:text="@string/test_username"
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/txt_username_size"/>
+
+                <com.rockerhieu.emojicon.EmojiconTextView
+                    android:layout_marginTop="10dp"
+                    android:text=""
+                    android:editable="false"
+                    android:id="@+id/tv_topic"
+                    android:clickable="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/clickable_text_bg"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/topic_desc_txtsize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <!--picture division-->
+            <!-- <GridLayout
+                 android:id="@+id/grid_layout"
+                 android:layout_toRightOf="@id/iv_launcher_pic"
+                 android:layout_below="@id/lny_txtz"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginTop="5dp"
+                 android:layout_width="match_parent"
+                 android:background="@color/white"
+                 android:layout_height="200dp"
+                 android:orientation="horizontal"
+                 android:layout_marginRight="20dp"/>-->
+            <RelativeLayout
+                android:id="@+id/lny_picture_content"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@id/iv_launcher_pic"
+                android:layout_below="@id/lny_txtz"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:minHeight="0dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_unique"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:background="@color/transparent"
+                    android:minHeight="20dp"
+                    android:layout_marginRight="20dp"
+                    />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/grid_recycler_view"
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="20dp"/>
+            </RelativeLayout>
+            <!--   end of picture division-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="2小时前"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="@color/inner_grayerzz"
+                />
+
+            <LinearLayout
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/topic_like_comment_btstyle"
+                    android:text="@string/tvlike"
+                    android:drawableLeft="@drawable/like_heart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"/>
+
+                <TextView
+                    style="@style/topic_like_comment_btstyle"
+                    android:text="@string/tvcoms"
+                    android:layout_width="wrap_content"
+                    android:drawableLeft="@drawable/ic_like_comment"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/pro"
+            android:visibility="gone"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:layout_marginTop="10dp"
+                android:id="@+id/prog"
+                android:layout_centerHorizontal="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:layout_below="@+id/prog"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="正在更新"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/lny_comments"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_picture_shower"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</FrameLayout>

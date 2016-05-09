@@ -50,21 +50,23 @@ public class PersonalInfoActivityFragment extends Fragment {
 
     private SimpleActivityAdapter adapter;
 
-    private RequestQueue queue;
 
     // 用于初始化的用户的id
     private String id;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+private static final String USERID = "userid";
 
-        queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+    public static Fragment getInstance (String user_id) {
 
+        Fragment frg = new PersonalInfoActivityFragment();
+        Bundle args = new Bundle();
+        args.putString(USERID, user_id);
+        frg.setArguments(args);
+        return frg;
     }
 
     @Nullable
@@ -79,9 +81,12 @@ public class PersonalInfoActivityFragment extends Fragment {
 
         adapter = new SimpleActivityAdapter(getContext(), list);
 
+        //
+        id = getArguments().getString(USERID);
+
         Map<String,String> map = new HashMap<>();
         map.put("token", UtilsFunctions.getToken(getActivity()));
-        map.put("id",id);
+        map.put("user_id",""+id);
 
         VolleyRequest.PostStringRequest(getContext(), YunApi.URL_GET_BRIEF_ACTIVITY_LIST, map, new VolleyOnResultListener() {
             @Override

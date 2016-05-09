@@ -76,8 +76,8 @@ public class DiscoverMainFragment extends Fragment {
         });
 
         // 不允许拖动animation
-        viewPager.setSwipeLocked(true);
-        viewPager.setScrollDurationFactor(0);
+//        viewPager.setSwipeLocked(true);
+//        viewPager.setScrollDurationFactor(0);
 
         // <:OPLL{:{P}
         viewPager.setCurrentItem(1);

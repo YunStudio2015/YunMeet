@@ -48,7 +48,8 @@ public class ZoomImageFragment extends Fragment {
             @Override
             public void onViewTap(View view, float x, float y) {
                 Uri uri = Uri.parse(AppConstants.scheme_ui+"://"+AppConstants.authority+"/"+toGson(imgurl));
-                ((ActivitiesFragment.OnFragmentInteractionListener)getActivity()).onFragmentInteraction(uri, null);
+
+                ((ShowPicturesFragment.OnFragmentInteractionListener)getActivity()).onFragmentInteraction(uri);
             }
         });
     }

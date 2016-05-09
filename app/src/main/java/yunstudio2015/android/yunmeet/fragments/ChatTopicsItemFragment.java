@@ -146,10 +146,12 @@ public class ChatTopicsItemFragment extends Fragment {
         bt_action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                swp.setVisibility(View.GONE);
+                lny_error_message.setVisibility(View.GONE);
+                lny_refreshing.setVisibility(View.VISIBLE);
                 swp.setRefreshing(true);
             }
         });
-
         swp.setRefreshing(true);
         return rootview;
     }

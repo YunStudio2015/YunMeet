@@ -47,6 +47,7 @@ import yunstudio2015.android.yunmeet.utilz.YunApi;
  */
 public class PersonalInfoTopicFragment extends Fragment {
 
+    private static final String USERID = "userid";
     private TextView tvTip;
     private RecyclerView recyclerViewTopics;
 
@@ -57,8 +58,17 @@ public class PersonalInfoTopicFragment extends Fragment {
     private String id;
     private ChatTopicEntity[] data;
 
-    public void setId(String id) {
-        this.id = id;
+//    public void setId(String id) {
+//        this.id = id;
+//    }
+
+    public static Fragment getInstance (String user_id) {
+
+        Fragment frg = new PersonalInfoTopicFragment();
+        Bundle args = new Bundle();
+        args.putString(USERID, user_id);
+        frg.setArguments(args);
+        return frg;
     }
 
     @Override
@@ -76,10 +86,14 @@ public class PersonalInfoTopicFragment extends Fragment {
 
         list = new ChatTopicEntity[]{};
 
+        //
+        id = getArguments().getString(USERID);
+
         Map<String,String> map = new HashMap<String,String>();
         map.put("token", UtilsFunctions.getToken(getActivity()));
 //        map.put("id",id);
         map.put("num", ""+1000);
+        map.put("user_id", ""+id);
         loadData(map); // 获取数据
         return viewTopic;
     }

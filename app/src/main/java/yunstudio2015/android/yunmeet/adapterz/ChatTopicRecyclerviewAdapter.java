@@ -91,7 +91,7 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
 
         final ChatTopicEntity entity = data.get(position);
         ChatTopicViewHolder holder = (ChatTopicViewHolder) hld;
-        holder.lny_model.setActivated(true);
+//        holder.lny_model.setActivated(true);
         if (holder.tmpd == null)
             holder.tmpd = entity.image;
         if (inf == null)
@@ -175,8 +175,8 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
 
     public   static class ChatTopicViewHolder extends  RecyclerView.ViewHolder {
 
-        @Bind(R.id.lny_model)
-        public LinearLayout lny_model;
+      /*  @Bind(R.id.lny_model)
+        public LinearLayout lny_model;*/
 
         @Bind(R.id.iv_launcher_pic)
         public ImageView iv_launcher;

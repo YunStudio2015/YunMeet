@@ -282,7 +282,7 @@ public class PersonInfoActivity extends AppCompatActivity {
         switch (position) {
             case 0:
                 if (frg_store.get(""+position) == null) {
-                    frg_store.put(""+position, new PersonalInfoTopicFragment());// 话题
+                    frg_store.put(""+position, PersonalInfoTopicFragment.getInstance(id));// 话题
                     // add
                    trans.beginTransaction().add(R.id.person_framelayout, frg_store.get(""+position)).commit();;
                 } else {
@@ -292,7 +292,7 @@ public class PersonInfoActivity extends AppCompatActivity {
                 break;
             case 1:
                 if (frg_store.get(""+position) == null) {
-                    frg_store.put(""+position, new PersonalInfoActivityFragment());// 话题
+                    frg_store.put(""+position, PersonalInfoActivityFragment.getInstance(id));// 话题
                     // add
                    trans.beginTransaction().add(R.id.person_framelayout, frg_store.get(""+position)).commit();;
                 } else {

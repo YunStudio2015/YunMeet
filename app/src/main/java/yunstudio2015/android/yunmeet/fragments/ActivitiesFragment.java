@@ -111,20 +111,20 @@ public class ActivitiesFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String base_api = getArguments().getString("base", BASE_ACTIVITIES_API);
+        String mbaseapi = getArguments().getString("base", BASE_ACTIVITIES_API);
         // id of the categorie, and it will help retrieve activities.
         /* */
-        loadData(base_api);
+        loadData(mbaseapi);
         if (mListener == null)
             mListener = (OnFragmentInteractionListener) getActivity();
     }
 
-    private void loadData(String base_api) {
+    private void loadData(final String mbaseapi) {
         VolleyRequest.GetStringRequest(context, YunApi.URL_GET_ACTIVITY_LIST, "token=" + UtilsFunctions.getToken(context) +
-                "&id=" + base_api, new VolleyOnResultListener() {
+                "&id=" + mbaseapi, new VolleyOnResultListener() {
             @Override
             public void onSuccess(String response) {
-//                mT(response);
+                mT(mbaseapi);
                 Gson gson = new Gson();
                 L.d(response);
                 try {

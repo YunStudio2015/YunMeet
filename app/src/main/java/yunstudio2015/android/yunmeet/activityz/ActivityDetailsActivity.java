@@ -44,7 +44,6 @@ import yunstudio2015.android.yunmeet.utilz.YunApi;
  */
 public class ActivityDetailsActivity extends AppCompatActivity {
 
-    private RequestQueue queue;
 
     private ImageView ivActivity;
     private TextView tvActivityTitle;
@@ -67,8 +66,6 @@ public class ActivityDetailsActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_layout);
-
-        queue = Volley.newRequestQueue(getApplicationContext());
 
         initViews();
         this.setTranslucentStatusColor(this, R.color.actionbar_color);

@@ -64,7 +64,8 @@ public class TopicDetailsActivity extends AppCompatActivity implements
             // hide it
             hideShowPictureFragment();
         } else {
-            moveTaskToBack(true);
+//            moveTaskToBack(true);
+            super.onBackPressed();
         }
     }
 
@@ -127,7 +128,7 @@ public class TopicDetailsActivity extends AppCompatActivity implements
     private void bindView(final ChatTopicViewHolder holder, final ChatTopicEntity entity) {
 
         LayoutInflater inf = getLayoutInflater();
-        holder.lny_model.setActivated(true);
+//        holder.lny_model.setActivated(true);
         if (holder.tmpd == null)
             holder.tmpd = entity.image;
         if (inf == null)
@@ -148,7 +149,7 @@ public class TopicDetailsActivity extends AppCompatActivity implements
 
                 ImageLoader.getInstance().displayImage(entity.image[0].url.replace("t_256", "t_800"), holder.iv_unique);
                 holder.iv_unique.setVisibility(View.VISIBLE);
-             /*   holder.iv_unique.setOnClickListener(new View.OnClickListener() {
+               holder.iv_unique.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -156,7 +157,7 @@ public class TopicDetailsActivity extends AppCompatActivity implements
                                 UtilsFunctions.encodedPath(gson.toJson(entity.image[0].url.replace("t_256", "t_800"))));
                         ((ChatTopicsItemFragment.OnFragmentInteractionListener) holder.iv_unique.getContext()).onFragmentInteraction(uri, null);
                     }
-                });*/
+                });
             } else { // 当某个说说没有图片时
                 holder.iv_unique.setVisibility(View.GONE);
             }
