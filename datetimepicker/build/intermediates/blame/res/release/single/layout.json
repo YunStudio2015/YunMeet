@@ -16,12 +16,12 @@
         "source": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\res\\layout\\date_picker_done_button.xml"
     },
     {
-        "merged": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_view_animator.xml",
-        "source": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\res\\layout\\date_picker_view_animator.xml"
-    },
-    {
         "merged": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_selected_date.xml",
         "source": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\res\\layout\\date_picker_selected_date.xml"
+    },
+    {
+        "merged": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_view_animator.xml",
+        "source": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\res\\layout\\date_picker_view_animator.xml"
     },
     {
         "merged": "C:\\Users\\abiguime\\AndroidStudioProjects\\YunMeet\\datetimepicker\\build\\intermediates\\res\\merged\\release\\layout\\time_picker_dialog.xml",
