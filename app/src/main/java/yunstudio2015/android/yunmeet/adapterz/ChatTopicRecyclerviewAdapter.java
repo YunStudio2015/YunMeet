@@ -4,19 +4,24 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rockerhieu.emojicon.EmojiconTextView;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -132,9 +137,58 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         // set the others
         holder.tv_username.setText(entity.nickname);
         holder.tv_topic.setText(entity.content);
-
+        if (position%2==0){
+            inflateCom(holder.webview);
+            holder.webview.setVisibility(View.VISIBLE);
+        } else {
+            holder.webview.setVisibility(View.GONE);
+        }
     }
 
+    private void inflateCom(WebView webview) {
+
+        String js = "<script type=\"text/javascript\">\n" +
+                "    function showAndroidToast(toast) {\n" +
+                "        Android.showToast(toast);\n" +
+                "    }\n" +
+                "</script>";
+
+        String summary = "<html><head>\n" +
+                "<meta charset=\"UTF-8\"/></head>"+js+"<body>";
+        for (int i = 0; i < 4; i++) {
+            summary += "" +
+                    "<p><span style=\"color:#03797D;\" " +
+                    "onClick=\"showAndroidToast('Hello Android!')\""+
+                    ">Ulrich: </span>我喜欢你写的东西、" +
+                    "你要不要给我你的手机号码？到时候有时间约一下呗！</p>";
+        }
+        summary+="</body></html>";
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.addJavascriptInterface(new WebAppInterface(webview.getContext()), "Android");
+        webview.loadData(summary, "text/html; charset=UTF-8", null);
+    }
+
+    class WebAppInterface {
+        Context mContext;
+
+        /** Instantiate the interface and set the context */
+        WebAppInterface(Context c) {
+            mContext = c;
+        }
+
+        public void comment(String to_id) {
+
+            // get the string or the user name from localdb
+
+            // comment.
+        }
+
+        /** Show a toast from the web page */
+        @JavascriptInterface
+        public void showToast(String toast) {
+            Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private int getRandomInf(int length) {
 
@@ -196,14 +250,15 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         @Bind(R.id.lny_comments)
         public LinearLayout lny_comments;
 
-
+        @Bind(R.id.webview)
+        WebView webview;
 
         @Bind(R.id.lny_picture_content)
         RelativeLayout lny_picture_content;
 
         public Imagee[] tmpd = null;
 
-        public ChatTopicViewHolder(View itemView) {
+        public ChatTopicViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             grid_recycler_view.addItemDecoration(new GridItemDecoration(3));
@@ -211,12 +266,12 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
             lny_picture_content.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
-
+                }
+            });
                  /*   RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) lny_picture_content.getLayoutParams();
                     layoutParams.height = ctx.getResources().getDisplayMetrics().heightPixels/3;
                     lny_picture_content.setLayoutParams(layoutParams);*/
-                }
-            });
+
         }
     }
 

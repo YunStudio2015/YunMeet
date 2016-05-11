@@ -93,6 +93,8 @@ public class ChatTopicsItemFragment extends Fragment {
         context = rootview.getContext();
         int type = getArguments().getInt(param, 0);
         ButterKnife.bind(this, rootview);
+
+
         // get the data according to the ...
         swp.setRefreshEnabled(true);
         footerview = (LoadMoreFooterView) swp.getLoadMoreFooterView();
@@ -109,7 +111,12 @@ public class ChatTopicsItemFragment extends Fragment {
                         swp.setRefreshing(false);
                         lny_error_message.setVisibility(View.GONE);
                         lny_refreshing.setVisibility(View.GONE);
-                        swp.setVisibility(View.VISIBLE);
+                        swp.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                swp.setVisibility(View.VISIBLE);
+                            }
+                        }, 2000);
                     }
 
                     @Override

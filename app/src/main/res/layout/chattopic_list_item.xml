@@ -76,21 +76,21 @@
             android:layout_marginTop="5dp"
             android:minHeight="0dp"
             android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/iv_unique"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:background="@color/transparent"
-            android:minHeight="20dp"
-            android:layout_marginRight="20dp"
-            />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/grid_recycler_view"
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginRight="20dp"/>
+            <ImageView
+                android:id="@+id/iv_unique"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:background="@color/transparent"
+                android:minHeight="20dp"
+                android:layout_marginRight="20dp"
+                />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/grid_recycler_view"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginRight="20dp"/>
         </RelativeLayout>
         <!--   end of picture division-->
     </RelativeLayout>
@@ -166,6 +166,15 @@
         android:id="@+id/lny_comments"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:background="@drawable/lny_bg"
+        android:layout_height="match_parent">
+        <WebView
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:id="@+id/webview"
+            android:background="@drawable/lny_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </LinearLayout>
