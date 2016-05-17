@@ -62,5 +62,6 @@
     <dimen name="home_title_text_size">18sp</dimen>
     <dimen name="flt_launch_button">50dp</dimen>
     <dimen name="person_info_chat_button_size">50dp</dimen>
+    <dimen name="chattopic_unique_image_height">250dp</dimen>
 
 </resources>

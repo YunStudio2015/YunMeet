@@ -122,7 +122,6 @@ public class DiscoverMainFragment extends Fragment {
                 return getResources().getColor(R.color.btn_background);
             }
         });
-
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(viewPager);
     }

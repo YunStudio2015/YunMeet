@@ -64,9 +64,6 @@ public class ChatTopicEntity implements Serializable {
         ...
     ]*/
 
-    public class Comment {
-        public String id, user_id, content, pubtime, topic_id;
-    }
 
     public class Topic_id {
         public String id, user_id, image, content, comment_num, transfer, for_num, pubtime, topic_id, at_id, nickname, face;

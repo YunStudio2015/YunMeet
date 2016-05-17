@@ -2,11 +2,18 @@ package yunstudio2015.android.yunmeet.utilz;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Environment;
+import android.util.DisplayMetrics;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import yunstudio2015.android.yunmeet.commonLogs.L;
@@ -17,11 +24,20 @@ import yunstudio2015.android.yunmeet.entityz.Imagee;
  */
 public class UtilsFunctions {
 
-    public static int convertPxtoDip(int pixel, Context context){
 
-        float scale = context.getResources().getDisplayMetrics().density;
-        int dips=(int) ((pixel * scale) + 0.5f);
-        return dips;
+    public static final long fromStringToMillisecond (String text) {
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        Date date = null;
+        try {
+            date = format.parse(text);
+            return date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
@@ -78,12 +94,18 @@ public class UtilsFunctions {
         return decodedPath;
     }
 
-    public static int convertDiptoPx(int dips, Context context){
-
-        float scale = context.getResources().getDisplayMetrics().density;
-        int pixel= (int)((dips - 0.5f) / scale);
-        return pixel;
+    public static float convertPixelsToDp(float px){
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        float dp = px / (metrics.densityDpi / 160f);
+        return Math.round(dp);
     }
+
+    public static float convertDpToPixel(float dp){
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        float px = dp * (metrics.densityDpi / 160f);
+        return Math.round(px);
+    }
+
 
     public static String getToken(Context ctx) {
 

@@ -34,7 +34,7 @@
                 android:editable="false"
                 android:textColor="@color/btn_background"
                 android:layout_gravity="top"
-                android:text="@string/test_username"
+                android:text=""
                 android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,15 +75,18 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:minHeight="0dp"
+            android:background="@color/transparent"
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/iv_unique"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
-                android:background="@color/transparent"
                 android:minHeight="20dp"
+                android:src="@null"
                 android:layout_marginRight="20dp"
+                android:background="@color/transparent"
                 />
+            <!--  android:background="@color/transparent"-->
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/grid_recycler_view"
                 android:layout_width="match_parent"
@@ -103,6 +106,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_time_before"
             android:text="2小时前"
             android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
@@ -119,6 +123,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_like"
                 style="@style/topic_like_comment_btstyle"
                 android:text="@string/tvlike"
                 android:drawableLeft="@drawable/like_heart"
@@ -127,6 +132,7 @@
                 android:layout_marginRight="10dp"/>
 
             <TextView
+                android:id="@+id/tv_comments"
                 style="@style/topic_like_comment_btstyle"
                 android:text="@string/tvcoms"
                 android:layout_width="wrap_content"
@@ -175,6 +181,13 @@
             android:background="@drawable/lny_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+        <EditText
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/commentbg_drawable"
+            android:hint="@string/comments_hint"
+        />
     </LinearLayout>
 
 </LinearLayout>

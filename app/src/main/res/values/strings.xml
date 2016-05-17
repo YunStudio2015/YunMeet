@@ -162,8 +162,8 @@
     <string name="test_username">小寒</string>
     <string name="topic">话题。。。请告诉我你这个话题是什么？ 一起来讨论吧。。。 呵呵</string>
     <string name="retry">重试</string>
-    <string name="tvlike">   65 Likes</string>
-    <string name="tvcoms">   12 Comments</string>
+    <string name="tvlike">赞</string>
+    <string name="tvcoms">评论</string>
     <string name="loading_">加载中...</string>
     <string name="i_invite">我请客</string>
     <string name="look_for_invite">求请客</string>
@@ -175,6 +175,11 @@
     <string name="pull_to_refresh_tap_label">下拉更新</string>
     <string name="no_correct_picture">没有合法图片</string>
     <string name="nomore_item">没有更久内容了</string>
+    <string name="before_second">几秒钟前</string>
+    <string name="before_minute">分钟前</string>
+    <string name="before_hours">小时前</string>
+    <string name="before_days">天前</string>
+    <string name="comments_hint">评论</string>
 
 
 </resources>

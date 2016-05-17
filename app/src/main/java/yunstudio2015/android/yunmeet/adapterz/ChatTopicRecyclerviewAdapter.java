@@ -15,16 +15,23 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.rockerhieu.emojicon.EmojiconTextView;
+
+import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,6 +41,7 @@ import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.GridLayoutManAger;
 import yunstudio2015.android.yunmeet.customviewz.SquareImageView;
 import yunstudio2015.android.yunmeet.entityz.ChatTopicEntity;
+import yunstudio2015.android.yunmeet.entityz.Comment;
 import yunstudio2015.android.yunmeet.entityz.Imagee;
 import yunstudio2015.android.yunmeet.fragments.ChatTopicsItemFragment;
 import yunstudio2015.android.yunmeet.interfacez.TriggerLoadMore;
@@ -95,7 +103,7 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
     public void onBindViewHolder(ChatTopicViewHolder hld, final int position) {
 
         final ChatTopicEntity entity = data.get(position);
-        ChatTopicViewHolder holder = (ChatTopicViewHolder) hld;
+        final ChatTopicViewHolder holder = (ChatTopicViewHolder) hld;
 //        holder.lny_model.setActivated(true);
         if (holder.tmpd == null)
             holder.tmpd = entity.image;
@@ -115,8 +123,22 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
 
             holder.grid_recycler_view.setVisibility(View.GONE);
             if (entity.image != null && entity.image.length==1) {
+                final int height = (int) UtilsFunctions.convertPixelsToDp(ctx.getResources().getDimension(R.dimen.chattopic_unique_image_height));;
+                final int width = (entity.image[0].width*height/entity.image[0].height);
 
-                ImageLoader.getInstance().displayImage(entity.image[0].url.replace("t_256", "t_800"), holder.iv_unique);
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) holder.iv_unique.getLayoutParams();
+                layoutParams.height = height;
+                layoutParams.width = (int) (width* (height> width ? 1.5 : 2.5));
+             /*   if (entity.image[0].width <= entity.image[0].height +100 ||
+                        entity.image[0].width>=entity.image[0].height-100)
+                    layoutParams.width = width;*/
+                holder.iv_unique.setLayoutParams(layoutParams);
+                ImageLoader.getInstance().displayImage(entity.image[0].url.replace("t_800", "t_256"),
+                        holder.iv_unique);
+            /*    ImageLoader.getInstance().displayImage("drawable://"+R.drawable.ic_activity_bg,
+                        holder.iv_unique, new ImageSize(width, height));*/
+                // set the height to
+
                 holder.iv_unique.setVisibility(View.VISIBLE);
                 holder.iv_unique.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -125,6 +147,9 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
                         Uri uri = Uri.parse(AppConstants.scheme_ui + "://" + AppConstants.authority + "/" +
                                 UtilsFunctions.encodedPath(gson.toJson(entity.image[0].url.replace("t_256", "t_800"))));
                         ((ChatTopicsItemFragment.OnFragmentInteractionListener) ctx).onFragmentInteraction(uri, null);
+//                        L.d("xxx", "unique pic size w - h => "+holder.iv_unique.getWidth()+ " - "+holder.iv_unique.getHeight());
+//              L.d("xxx", "dp to pixel "+UtilsFunctions.convertDiptoPx(200, ctx));
+                        // Toast.makeText(ctx, "clicked", Toast.LENGTH_SHORT).show();
                     }
                 });
             } else { // 当某个说说没有图片时
@@ -137,15 +162,33 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         // set the others
         holder.tv_username.setText(entity.nickname);
         holder.tv_topic.setText(entity.content);
-        if (position%2==0){
-            inflateCom(holder.webview);
+        if (entity.comment!= null && entity.comment.length > 0){
+            inflateCom(holder.webview, entity.comment);
             holder.webview.setVisibility(View.VISIBLE);
+            holder.tv_comments.setText(entity.comment.length+ctx.getResources().getString(R.string.tvcoms));
         } else {
             holder.webview.setVisibility(View.GONE);
+            holder.tv_comments.setText(ctx.getResources().getString(R.string.tvcoms));
         }
+        long diff = System.currentTimeMillis() - UtilsFunctions.fromStringToMillisecond(entity.pubtime);
+        if (TimeUnit.MILLISECONDS.toMinutes(diff) < 1) {
+            holder.tv_time_before.setText(/*TimeUnit.MILLISECONDS.toSeconds(diff
+            )*/ctx.getResources().getString(R.string.before_second));
+        } else if (TimeUnit.MILLISECONDS.toMinutes(diff) < 60) {
+            holder.tv_time_before.setText(TimeUnit.MILLISECONDS.toMinutes(diff
+            )+ctx.getResources().getString(R.string.before_minute));
+        } else if (TimeUnit.MILLISECONDS.toHours(diff) < 24) {
+            holder.tv_time_before.setText(TimeUnit.MILLISECONDS.toHours(diff
+            )+ctx.getResources().getString(R.string.before_hours));
+        } else {
+            holder.tv_time_before.setText(TimeUnit.MILLISECONDS.toDays(diff
+            )+ctx.getResources().getString(R.string.before_days));
+        }
+        // comments
+
     }
 
-    private void inflateCom(WebView webview) {
+    private void inflateCom(WebView webview,  Comment[] comment) {
 
         String js = "<script type=\"text/javascript\">\n" +
                 "    function showAndroidToast(toast) {\n" +
@@ -155,14 +198,16 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
 
         String summary = "<html><head>\n" +
                 "<meta charset=\"UTF-8\"/></head>"+js+"<body>";
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < comment.length; i++) {
             summary += "" +
                     "<p><span style=\"color:#03797D;\" " +
                     "onClick=\"showAndroidToast('Hello Android!')\""+
-                    ">Ulrich: </span>我喜欢你写的东西、" +
+                    ">"+comment[i].user_from+": </span>我喜欢你写的东西、" +
                     "你要不要给我你的手机号码？到时候有时间约一下呗！</p>";
         }
         summary+="</body></html>";
+
+
         webview.getSettings().setJavaScriptEnabled(true);
         webview.addJavascriptInterface(new WebAppInterface(webview.getContext()), "Android");
         webview.loadData(summary, "text/html; charset=UTF-8", null);
@@ -238,8 +283,17 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
         @Bind(R.id.tv_username)
         public EmojiconTextView tv_username;
 
+        @Bind(R.id.tv_time_before)
+        public TextView tv_time_before;
+
         @Bind(R.id.tv_topic)
         public  EmojiconTextView tv_topic;
+
+        @Bind(R.id.tv_like)
+        public TextView tv_like;
+
+        @Bind(R.id.tv_comments)
+        public TextView tv_comments;
 
         @Bind(R.id.iv_unique)
         public ImageView iv_unique;
@@ -352,7 +406,7 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
             outRect.right = space;
             outRect.bottom = space;*/
 
-            L.d("xxx", "parent position "+parent.getChildLayoutPosition(view));
+//            L.d("xxx", "parent position "+parent.getChildLayoutPosition(view));
             if (parent.getChildLayoutPosition(view) / rowCount != 0) {
                 outRect.top = space;
             }

@@ -182,7 +182,6 @@ public class ChatTopicsItemFragment extends Fragment {
         VolleyRequest.GetStringRequest(context, YunApi.URL_GET_ALL_TOPIC_LIST,
                 paramz
                 , new VolleyOnResultListener() {
-
                     @Override
                     public void onSuccess(String response) {
                         L.d("xxx", YunApi.URL_GET_ALL_TOPIC_LIST+"?"+ finalParamz);
@@ -351,7 +350,6 @@ public class ChatTopicsItemFragment extends Fragment {
         swp.setIAdapter(adapter);
         swp.setVisibility(View.VISIBLE);
         adapter.notifyDataSetChanged();
-        L.d("xxx", "view set with "+globalData.size()+" items");
     }
 
 

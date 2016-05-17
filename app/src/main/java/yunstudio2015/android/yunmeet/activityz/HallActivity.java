@@ -2,6 +2,7 @@ package yunstudio2015.android.yunmeet.activityz;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -285,7 +287,21 @@ public class HallActivity extends AppCompatActivity implements
                 });
             }
         });
-//        instantiateShowPictureFragment();
+
+  /// tab
+        tabs.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+//                if (position == 0)
+//                    radiogroup_bottom_menu.setVisibility(View.GONE);
+//                else
+//                    radiogroup_bottom_menu.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+
     }
 
     private int getScreenWidth() {
@@ -293,6 +309,18 @@ public class HallActivity extends AppCompatActivity implements
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         return metrics.widthPixels;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private int getScreenHeight() {
