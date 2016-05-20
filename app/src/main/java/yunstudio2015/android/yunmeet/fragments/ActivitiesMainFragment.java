@@ -89,10 +89,10 @@ public class ActivitiesMainFragment extends Fragment {
     @Bind(R.id.lny_new)
     LinearLayout lny_new;
 
-    @Bind({R.id.lny_1,R.id.lny_2,R.id.lny_3,R.id.lny_4,R.id.lny_5,R.id.lny_6,R.id.lny_7,R.id.lny_8,R.id.lny_9,R.id.lny_10})
+    @Bind({R.id.lny_1,R.id.lny_2,R.id.lny_3,R.id.lny_4,R.id.lny_5,R.id.lny_6,R.id.lny_7,R.id.lny_8,})
     List<LinearLayout> lny_z;
 
-    String[] cat = new String[]{"re", "1", "2", "3", "4", "ho", "5", "6","1", "2"};
+    String[] cat = new String[]{"re","ho", "1", "2", "3", "4", "5", "6"};
 
 
     @Override
@@ -106,7 +106,7 @@ public class ActivitiesMainFragment extends Fragment {
         inflateRecommendedActivities();
         inflateHotActivities();
         inflateNewActivities();
-        for (int i = 0; i < lny_z.size(); i++) {
+        for (int i = 0; i < cat.length; i++) {
             lny_z.get(i).setTag(cat[i]);
             lny_z.get(i).setOnClickListener(new MoveToActivityzOnClickListener());
         }
@@ -296,7 +296,7 @@ public class ActivitiesMainFragment extends Fragment {
                 tag = "re";
             }
             Intent intent = new Intent(getActivity(), ActivityCategoryActitivy.class);
-            intent.putExtra(ActivityCategoryActitivy.BASE, "tag");
+            intent.putExtra(ActivityCategoryActitivy.BASE, tag);
             startActivity(intent);
         }
     }

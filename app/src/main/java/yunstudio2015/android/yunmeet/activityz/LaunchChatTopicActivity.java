@@ -149,6 +149,10 @@ public class LaunchChatTopicActivity extends AppCompatActivity implements Emojic
     @OnClick(R.id.btn_finish_launch)
     public void launchChatTopic () {
 
+        if (adapter.getData().size() == 1) {
+            mT("不能只上传一张图");
+        }
+
         if (ed_text_zone != null && !"".equals(ed_text_zone.getText().toString().trim())) {
 
             String content = ed_text_zone.getText().toString();

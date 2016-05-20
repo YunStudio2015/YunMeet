@@ -24,13 +24,13 @@
             android:background="@drawable/lny_bg"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/publish_icon_car"
+                android:src="@drawable/ic_1_23"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                android:text="热门"
+                android:text="推荐"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -44,13 +44,13 @@
             android:background="@drawable/lny_bg"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/publish_icon_house"
+                android:src="@drawable/ic_1_21"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                android:text="聚餐"
+                android:text="热门"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -65,13 +65,13 @@
             android:background="@drawable/lny_bg"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/publish_icon_jianli"
+                android:src="@drawable/ic_1_02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                android:text="多人"
+                android:text="学习"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -86,7 +86,7 @@
             android:background="@drawable/lny_bg"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/publish_icon_jiaoyu"
+                android:src="@drawable/ic_1_04"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
@@ -98,25 +98,7 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:id="@+id/lny_5"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:background="@drawable/lny_bg"
-            android:orientation="vertical">
-            <ImageView
-                android:src="@drawable/publish_icon_car"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center_horizontal"
-                android:text="学习"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+
 
     </LinearLayout>
 
@@ -130,6 +112,28 @@
         android:weightSum="4"
         android:layout_height="wrap_content">
 
+
+        <LinearLayout
+            android:id="@+id/lny_5"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:background="@drawable/lny_bg"
+            android:orientation="vertical">
+            <ImageView
+                android:src="@drawable/ic_1_06"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:text="聚聚"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
         <LinearLayout
             android:id="@+id/lny_6"
             android:layout_height="wrap_content"
@@ -139,13 +143,13 @@
             android:background="@drawable/lny_bg"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/publish_icon_sale"
+                android:src="@drawable/ic_1_08"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                android:text="做饭"
+                android:text="求助"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -159,13 +163,13 @@
             android:background="@drawable/lny_bg"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/publish_icon_job"
+                android:src="@drawable/ic_1_17"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                android:text="旅游"
+                android:text="官方"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -179,58 +183,16 @@
             android:background="@drawable/lny_bg"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/publish_icon_pets"
+                android:src="@drawable/ic_1_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                android:text="聊天"
+                android:text="集结"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/lny_9"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:background="@drawable/lny_bg"
-            android:orientation="vertical">
-            <ImageView
-                android:src="@drawable/publish_icon_piaowu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center_horizontal"
-                android:text="招聘"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lny_10"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:background="@drawable/lny_bg"
-            android:orientation="vertical">
-            <ImageView
-                android:src="@drawable/publish_icon_car"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center_horizontal"
-                android:text="散步"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
 
     </LinearLayout>
 </LinearLayout>

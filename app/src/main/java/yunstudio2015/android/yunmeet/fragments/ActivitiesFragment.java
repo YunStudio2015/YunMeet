@@ -120,12 +120,15 @@ public class ActivitiesFragment extends Fragment {
     }
 
     private void loadData(final String mbaseapi) {
-        VolleyRequest.GetStringRequest(context, YunApi.URL_GET_ACTIVITY_LIST, "token=" + UtilsFunctions.getToken(context) +
-                "&id=" + mbaseapi, new VolleyOnResultListener() {
+
+        final String link = YunApi.URL_GET_ACTIVITY_LIST+"?token=" + UtilsFunctions.getToken(context) +
+                "&id=" + mbaseapi;
+        VolleyRequest.GetStringRequest(context, link, "" , new VolleyOnResultListener() {
             @Override
             public void onSuccess(String response) {
-                mT(mbaseapi);
+
                 Gson gson = new Gson();
+                L.d(link);
                 L.d(response);
                 try {
                     JsonElement resp = gson.fromJson(response, JsonElement.class);

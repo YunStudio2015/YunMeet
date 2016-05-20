@@ -1,6 +1,7 @@
 package yunstudio2015.android.yunmeet.adapterz;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -36,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import yunstudio2015.android.yunmeet.R;
+import yunstudio2015.android.yunmeet.activityz.PersonInfoActivity;
 import yunstudio2015.android.yunmeet.app.AppConstants;
 import yunstudio2015.android.yunmeet.commonLogs.L;
 import yunstudio2015.android.yunmeet.customviewz.GridLayoutManAger;
@@ -156,6 +158,10 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
                 holder.iv_unique.setVisibility(View.GONE);
             }
         }
+
+        holder.iv_launcher.setOnClickListener(new OnUserPagerListener(entity.user_id));
+        holder.tv_username.setOnClickListener(new OnUserPagerListener(entity.user_id));
+
         ImageLoader.getInstance().displayImage(entity.face, holder.iv_launcher);
 
         holder.iv_launcher.setImageResource(R.drawable.rowitem_bg);
@@ -185,8 +191,24 @@ public class ChatTopicRecyclerviewAdapter extends RecyclerView.Adapter<ChatTopic
             )+ctx.getResources().getString(R.string.before_days));
         }
         // comments
-
     }
+
+    class OnUserPagerListener implements View.OnClickListener  {
+
+        private final String id;
+
+        public OnUserPagerListener(String id) {
+            this.id = id;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(ctx, PersonInfoActivity.class);
+            i.putExtra("id",this.id);
+            ctx.startActivity(i);
+        }
+    };
+
 
     private void inflateCom(WebView webview,  Comment[] comment) {
 

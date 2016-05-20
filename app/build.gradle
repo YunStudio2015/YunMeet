@@ -1,10 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        yunmeet {
+            keyAlias 'yunmeet2015'
+            keyPassword 'phpdodxkill3'
+            storeFile file('C:/Users/abiguime/Desktop/key.store')
+            storePassword 'phpdodxkill3'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
-
     defaultConfig {
         applicationId "yunstudio2015.android.yunmeet"
         minSdkVersion 14
@@ -17,25 +23,26 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            debuggable false
+            minifyEnabled true
+        }
     }
-
     lintOptions {
         abortOnError false
     }
-
-
 }
 
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile project(":pickphotos")
-    compile project(":pulltorefresh")
-    compile project(":emojicon")
-    compile project(":datetimepicker")
-    compile project(":SwipeNumberPicker")
-    compile project(":RecyclerViewpager")
+    compile project(':pickphotos')
+    compile project(':pulltorefresh')
+    compile project(':emojicon')
+    compile project(':datetimepicker')
+    compile project(':SwipeNumberPicker')
+    compile project(':RecyclerViewpager')
     // actionbar tinting
     // photocropper
     // photo viewer that supports zoom

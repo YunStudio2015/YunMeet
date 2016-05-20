@@ -205,70 +205,14 @@ public class LaunchActivityActivity extends AppCompatActivity implements View.On
             }
         });
 
-      /*  categoriez_spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                findViewById(R.id.iv_radiobutton_1_1).setVisibility(View.INVISIBLE);
-            }
-        });
-*/
-        i_showProgressDialog();
-        /* set spinner adapter */
-        VolleyRequest.GetStringRequest(this, YunApi.CATEGORYZ, "", new VolleyOnResultListener() {
+        spinner_adapter = new ArrayAdapter<String>(LaunchActivityActivity.this,
+                android.R.layout.simple_spinner_item, getCategoriesList());
 
-            @Override
-            public void onSuccess(String response) {
-                L.i(response);
-                try {
-                    Gson gson = new Gson();
-                    JsonElement resp = gson.fromJson(response, JsonElement.class);
-                    int error = resp.getAsJsonObject().get("error").getAsInt();
-                    if (error == 0) {
-                        final ActivityCategoryEntity[] activityCategoryEntities = gson.fromJson(resp.getAsJsonObject().get("data"), ActivityCategoryEntity[].class);
-                        // 获取成功
-
-
-                        spinner_adapter = new ArrayAdapter<String>(LaunchActivityActivity.this,
-                                android.R.layout.simple_spinner_item, getStringListFrom(activityCategoryEntities));
-
-                        categoriez_spinner.setAdapter(spinner_adapter);
-                        spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoriez_spinner.setAdapter(spinner_adapter);
+        spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //                        spin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //                        ArrayAdapter<String> adapter = new ArrayAdapter<String>()
-                        categoriez_spinner.setSelection(0);
-                        i_dismissProgressDialog();
-
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    i_dismissProgressDialog();
-                    i_showErrorDialog(getResources().getString(R.string.data_failure));
-//                    LaunchActivityActivity.this.mSnack(getResources().getString(R.string.network_failure));
-                    recyclerView.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            // 网络异常
-                            finish();
-                        }
-                    }, 2000);
-                }
-            }
-
-            @Override
-            public void onFailure(String error) {
-                L.e(error);
-                i_dismissProgressDialog();
-                i_showErrorDialog(getResources().getString(R.string.network_failure));
-//                LaunchActivityActivity.this.mSnack(getResources().getString(R.string.network_failure));
-                recyclerView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 网络异常
-                        finish();
-                    }
-                }, 2000);
-            }
-        });
+        categoriez_spinner.setSelection(0);
 
         bt_launch_activity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -365,6 +309,11 @@ public class LaunchActivityActivity extends AppCompatActivity implements View.On
         swipeNumberPicker.setValue(2, true);
     }
 
+    private String[] getCategoriesList() {
+
+        String[] res = new String[]{"学习","运动","聚聚","求助","官方","集结",};
+        return res;
+    }
 
 
     private void update() {
